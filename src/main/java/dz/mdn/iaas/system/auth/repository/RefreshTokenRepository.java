@@ -11,7 +11,7 @@
  *
  **/
 
-package dz.mdn.raas.system.auth.repository;
+package dz.mdn.iaas.system.auth.repository;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -21,8 +21,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import dz.mdn.raas.system.auth.model.RefreshToken;
-import dz.mdn.raas.system.security.model.User;
+import dz.mdn.iaas.system.auth.model.RefreshToken;
+import dz.mdn.iaas.system.security.model.User;
 
 /**
  * RefreshTokenRepository

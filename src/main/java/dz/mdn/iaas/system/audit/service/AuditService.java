@@ -22,8 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import dz.mdn.iaas.system.audit.dto.AuditLogDTO;
 import dz.mdn.iaas.system.audit.model.AuditLog;
 import dz.mdn.iaas.system.audit.model.AuditLog.AuditAction;
@@ -31,6 +29,7 @@ import dz.mdn.iaas.system.audit.model.AuditLog.AuditStatus;
 import dz.mdn.iaas.system.audit.repository.AuditLogRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Service for managing audit logs

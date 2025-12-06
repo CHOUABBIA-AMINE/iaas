@@ -5,94 +5,94 @@
     "description": "A description for 'app.file.upload-dir'"
   },
   {
-    "name": "raas.audit.enabled",
+    "name": "iaas.audit.enabled",
     "type": "java.lang.String",
-    "description": "A description for 'raas.audit.enabled'"
+    "description": "A description for 'iaas.audit.enabled'"
   },
   {
-    "name": "raas.audit.async",
+    "name": "iaas.audit.async",
     "type": "java.lang.String",
-    "description": "A description for 'raas.audit.async'"
+    "description": "A description for 'iaas.audit.async'"
   },
   {
-    "name": "raas.audit.retention-days",
+    "name": "iaas.audit.retention-days",
     "type": "java.lang.String",
-    "description": "A description for 'raas.audit.retention-days'"
+    "description": "A description for 'iaas.audit.retention-days'"
   },
   {
-    "name": "raas.security.jwt.secret",
+    "name": "iaas.security.jwt.secret",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.jwt.secret'"
+    "description": "A description for 'iaas.security.jwt.secret'"
   },
   {
-    "name": "raas.security.jwt.expiration",
+    "name": "iaas.security.jwt.expiration",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.jwt.expiration'"
+    "description": "A description for 'iaas.security.jwt.expiration'"
   },
   {
-    "name": "raas.security.jwt.refresh-expiration",
+    "name": "iaas.security.jwt.refresh-expiration",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.jwt.refresh-expiration'"
+    "description": "A description for 'iaas.security.jwt.refresh-expiration'"
   },
   {
-    "name": "raas.security.jwt.issuer",
+    "name": "iaas.security.jwt.issuer",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.jwt.issuer'"
+    "description": "A description for 'iaas.security.jwt.issuer'"
   },
   {
-    "name": "raas.security.jwt.audience",
+    "name": "iaas.security.jwt.audience",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.jwt.audience'"
+    "description": "A description for 'iaas.security.jwt.audience'"
   },
   {
-    "name": "raas.security.cors.allowed-origins",
+    "name": "iaas.security.cors.allowed-origins",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.cors.allowed-origins'"
+    "description": "A description for 'iaas.security.cors.allowed-origins'"
   },
   {
-    "name": "raas.security.cors.allow-credentials",
+    "name": "iaas.security.cors.allow-credentials",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.cors.allow-credentials'"
+    "description": "A description for 'iaas.security.cors.allow-credentials'"
   },
   {
-    "name": "raas.security.cors.max-age",
+    "name": "iaas.security.cors.max-age",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.cors.max-age'"
+    "description": "A description for 'iaas.security.cors.max-age'"
   },
   {
-    "name": "raas.security.authentication.max-failed-attempts",
+    "name": "iaas.security.authentication.max-failed-attempts",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.authentication.max-failed-attempts'"
+    "description": "A description for 'iaas.security.authentication.max-failed-attempts'"
   },
   {
-    "name": "raas.security.authentication.lock-duration",
+    "name": "iaas.security.authentication.lock-duration",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.authentication.lock-duration'"
+    "description": "A description for 'iaas.security.authentication.lock-duration'"
   },
   {
-    "name": "raas.security.authentication.enable-brute-force-protection",
+    "name": "iaas.security.authentication.enable-brute-force-protection",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.authentication.enable-brute-force-protection'"
+    "description": "A description for 'iaas.security.authentication.enable-brute-force-protection'"
   },
   {
-    "name": "raas.security.authentication.password-expiration-days",
+    "name": "iaas.security.authentication.password-expiration-days",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.authentication.password-expiration-days'"
+    "description": "A description for 'iaas.security.authentication.password-expiration-days'"
   },
   {
-    "name": "raas.security.authorization.enable-object-level-security",
+    "name": "iaas.security.authorization.enable-object-level-security",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.authorization.enable-object-level-security'"
+    "description": "A description for 'iaas.security.authorization.enable-object-level-security'"
   },
   {
-    "name": "raas.security.authorization.enable-audit-logging",
+    "name": "iaas.security.authorization.enable-audit-logging",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.authorization.enable-audit-logging'"
+    "description": "A description for 'iaas.security.authorization.enable-audit-logging'"
   },
   {
-    "name": "raas.security.authorization.default-role",
+    "name": "iaas.security.authorization.default-role",
     "type": "java.lang.String",
-    "description": "A description for 'raas.security.authorization.default-role'"
+    "description": "A description for 'iaas.security.authorization.default-role'"
   },
   {
     "name": "spring.security.require-ssl",
@@ -143,5 +143,25 @@
     "name": "jwt.refresh.expiration",
     "type": "java.lang.String",
     "description": "A description for 'jwt.refresh.expiration'"
+  },
+  {
+    "name": "iaas.audit.enabled",
+    "type": "java.lang.String",
+    "description": "A description for 'iaas.audit.enabled'"
+  },
+  {
+    "name": "iaas.audit.async",
+    "type": "java.lang.String",
+    "description": "A description for 'iaas.audit.async'"
+  },
+  {
+    "name": "iaas.audit.retention-days",
+    "type": "java.lang.String",
+    "description": "A description for 'iaas.audit.retention-days'"
+  },
+  {
+    "name": "iaas.security.jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'iaas.security.jwt.secret'"
   }
 ]}

@@ -1,4 +1,4 @@
-package dz.mdn.raas.system.security.repository;
+package dz.mdn.iaas.system.security.repository;
 
 import java.util.Optional;
 
@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
-import dz.mdn.raas.system.security.model.User;
+import dz.mdn.iaas.system.security.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

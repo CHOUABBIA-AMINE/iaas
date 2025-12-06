@@ -11,11 +11,11 @@
  *
  **/
 
-package dz.mdn.raas.system.auth.model;
+package dz.mdn.iaas.system.auth.model;
 
 import java.time.Instant;
 
-import dz.mdn.raas.system.security.model.User;
+import dz.mdn.iaas.system.security.model.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

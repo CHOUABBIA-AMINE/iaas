@@ -4,6 +4,7 @@
  *
  *	@Name		: AuditLogDTO
  *	@CreatedOn	: 10-27-2025
+ *	@UpdatedOn	: 12-06-2025 (Fixed Jackson ObjectMapper issue)
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -14,10 +15,13 @@
 package dz.mdn.iaas.system.audit.dto;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dz.mdn.iaas.system.audit.model.AuditLog;
 import dz.mdn.iaas.system.audit.model.AuditLog.AuditAction;
@@ -34,6 +38,8 @@ import lombok.NoArgsConstructor;
  * AuditLog Data Transfer Object
  * Maps exactly to AuditLog model fields: F_00=id through F_20=metadata
  * Provides comprehensive audit information for business operations tracking
+ * 
+ * FIXED: ObjectMapper is now a static final instance (thread-safe and reusable)
  */
 @Data
 @Builder
@@ -41,6 +47,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuditLogDTO {
+
+    /**
+     * Shared ObjectMapper instance for JSON parsing
+     * Thread-safe and reusable - avoids creating new instances for each parsing operation
+     */
+    private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
     private Long id; // F_00
 
@@ -101,26 +113,26 @@ public class AuditLogDTO {
 
     // Additional computed fields for enhanced functionality
     @SuppressWarnings("unused")
-	private String formattedTimestamp;
+    private String formattedTimestamp;
     @SuppressWarnings("unused")
-	private String formattedDuration;
+    private String formattedDuration;
     @SuppressWarnings("unused")
-	private String actionDescription;
+    private String actionDescription;
     @SuppressWarnings("unused")
-	private String statusDescription;
+    private String statusDescription;
     @SuppressWarnings("unused")
-	private Boolean isSuccess;
+    private Boolean isSuccess;
     @SuppressWarnings("unused")
-	private Boolean isCriticalOperation;
+    private Boolean isCriticalOperation;
     @SuppressWarnings("unused")
-	private String riskLevel;
+    private String riskLevel;
 
     /**
      * Create DTO from entity
      */
     public static AuditLogDTO fromEntity(AuditLog auditLog) {
         if (auditLog == null) return null;
-        
+
         AuditLogDTO.AuditLogDTOBuilder builder = AuditLogDTO.builder()
                 .id(auditLog.getId())
                 .entityName(auditLog.getEntityName())
@@ -145,7 +157,7 @@ public class AuditLogDTO {
                 .metadata(auditLog.getMetadata());
 
         AuditLogDTO dto = builder.build();
-        
+
         // Set computed fields
         dto.setFormattedTimestamp(dto.getFormattedTimestamp());
         dto.setFormattedDuration(dto.getFormattedDuration());
@@ -163,7 +175,7 @@ public class AuditLogDTO {
      */
     public static AuditLogDTO fromEntityMinimal(AuditLog auditLog) {
         if (auditLog == null) return null;
-        
+
         return AuditLogDTO.builder()
                 .id(auditLog.getId())
                 .entityName(auditLog.getEntityName())
@@ -183,7 +195,7 @@ public class AuditLogDTO {
      */
     public AuditLog toEntity() {
         AuditLog auditLog = new AuditLog();
-        
+
         auditLog.setId(this.id);
         auditLog.setEntityName(this.entityName);
         auditLog.setEntityId(this.entityId);
@@ -205,7 +217,7 @@ public class AuditLogDTO {
         auditLog.setBusinessProcess(this.businessProcess);
         auditLog.setParentAuditId(this.parentAuditId);
         auditLog.setMetadata(this.metadata);
-        
+
         return auditLog;
     }
 
@@ -222,7 +234,7 @@ public class AuditLogDTO {
      */
     public String getFormattedDuration() {
         if (duration == null) return "N/A";
-        
+
         if (duration < 1000) {
             return duration + "ms";
         } else if (duration < 60000) {
@@ -239,7 +251,7 @@ public class AuditLogDTO {
      */
     public String getActionDescription() {
         if (action == null) return "Unknown";
-        
+
         return switch (action) {
             case CREATE -> "Created";
             case UPDATE -> "Updated";
@@ -259,7 +271,7 @@ public class AuditLogDTO {
      */
     public String getStatusDescription() {
         if (status == null) return "Unknown";
-        
+
         return switch (status) {
             case SUCCESS -> "Successful";
             case FAILED -> "Failed";
@@ -279,7 +291,7 @@ public class AuditLogDTO {
      */
     public Boolean getIsCriticalOperation() {
         if (action == null) return false;
-        
+
         return action == AuditAction.DELETE || 
                action == AuditAction.APPROVE || 
                action == AuditAction.REJECT ||
@@ -291,26 +303,26 @@ public class AuditLogDTO {
      */
     public String getRiskLevel() {
         if (action == null || status == null) return "UNKNOWN";
-        
+
         // High risk operations
         if (action == AuditAction.DELETE || 
             (action == AuditAction.UPDATE && isCriticalEntity()) ||
             action == AuditAction.APPROVE) {
             return "HIGH";
         }
-        
+
         // Medium risk operations
         if (action == AuditAction.CREATE || 
             action == AuditAction.UPDATE ||
             action == AuditAction.SUBMIT) {
             return "MEDIUM";
         }
-        
+
         // Low risk operations
         if (action == AuditAction.READ) {
             return "LOW";
         }
-        
+
         return "MEDIUM";
     }
 
@@ -319,7 +331,7 @@ public class AuditLogDTO {
      */
     private boolean isCriticalEntity() {
         if (entityName == null) return false;
-        
+
         String entity = entityName.toLowerCase();
         return entity.contains("contract") || 
                entity.contains("consultation") || 
@@ -333,7 +345,7 @@ public class AuditLogDTO {
      */
     public String getOperationSummary() {
         StringBuilder summary = new StringBuilder();
-        
+
         summary.append(getActionDescription());
         if (entityName != null) {
             summary.append(" ").append(entityName.toLowerCase());
@@ -341,7 +353,7 @@ public class AuditLogDTO {
         if (entityId != null) {
             summary.append(" (ID: ").append(entityId).append(")");
         }
-        
+
         return summary.toString();
     }
 
@@ -350,12 +362,12 @@ public class AuditLogDTO {
      */
     public String getUserDisplay() {
         if (username == null) return "Anonymous";
-        
+
         StringBuilder display = new StringBuilder(username);
         if (ipAddress != null && !ipAddress.isEmpty()) {
             display.append(" (").append(ipAddress).append(")");
         }
-        
+
         return display.toString();
     }
 
@@ -364,18 +376,18 @@ public class AuditLogDTO {
      */
     public String getModuleProcessDisplay() {
         StringBuilder display = new StringBuilder();
-        
+
         if (module != null && !module.isEmpty()) {
             display.append(module);
         }
-        
+
         if (businessProcess != null && !businessProcess.isEmpty()) {
             if (display.length() > 0) {
                 display.append(" / ");
             }
             display.append(businessProcess);
         }
-        
+
         return display.length() > 0 ? display.toString() : "N/A";
     }
 
@@ -398,7 +410,7 @@ public class AuditLogDTO {
      */
     public String getPerformanceCategory() {
         if (duration == null) return "UNKNOWN";
-        
+
         if (duration < 100) return "FAST";
         if (duration < 1000) return "NORMAL";
         if (duration < 5000) return "SLOW";
@@ -410,9 +422,9 @@ public class AuditLogDTO {
      */
     public String getTimeSince() {
         if (timestamp == null) return "Unknown";
-        
+
         long diff = System.currentTimeMillis() - timestamp.getTime();
-        
+
         if (diff < 60000) { // Less than 1 minute
             return "Just now";
         } else if (diff < 3600000) { // Less than 1 hour
@@ -456,20 +468,23 @@ public class AuditLogDTO {
     }
 
     /**
-     * Helper method to parse JSON strings
+     * Helper method to parse JSON strings using shared ObjectMapper
+     * 
+     * FIXED: Uses static final ObjectMapper instead of creating new instances
+     * This is more efficient and thread-safe
      */
-    @SuppressWarnings("unchecked")
     private Map<String, Object> parseJsonString(String jsonString) {
         if (jsonString == null || jsonString.isEmpty()) {
-            return new java.util.HashMap<>();
+            return new HashMap<>();
         }
-        
+
         try {
-            com.fasterxml.jackson.databind.ObjectMapper mapper = 
-                new com.fasterxml.jackson.databind.ObjectMapper();
-            return mapper.readValue(jsonString, Map.class);
+            // Use shared ObjectMapper instance with TypeReference for proper generic type handling
+            return JSON_MAPPER.readValue(jsonString, new TypeReference<Map<String, Object>>() {});
         } catch (Exception e) {
-            return new java.util.HashMap<>();
+            // Log the exception in production (using logger)
+            // For now, return empty map
+            return new HashMap<>();
         }
     }
 
@@ -523,7 +538,7 @@ public class AuditLogDTO {
      */
     public String getActionIcon() {
         if (action == null) return "question-circle";
-        
+
         return switch (action) {
             case CREATE -> "plus-circle";
             case UPDATE -> "edit";
@@ -543,7 +558,7 @@ public class AuditLogDTO {
      */
     public String getFullDisplay() {
         StringBuilder display = new StringBuilder();
-        
+
         display.append(getActionDescription());
         if (entityName != null) {
             display.append(" ").append(entityName);
@@ -558,7 +573,7 @@ public class AuditLogDTO {
             display.append(" at ").append(getFormattedTimestamp());
         }
         display.append(" - ").append(getStatusDescription());
-        
+
         return display.toString();
     }
 

@@ -11,7 +11,7 @@
  *
  **/
 
-package dz.mdn.raas.system.auth.dto;
+package dz.mdn.iaas.system.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
