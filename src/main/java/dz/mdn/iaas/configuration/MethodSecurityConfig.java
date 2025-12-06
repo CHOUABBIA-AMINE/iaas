@@ -25,7 +25,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
  * Configuration for method-level security with custom expressions.
  * Enables @PreAuthorize, @PostAuthorize, @Secured annotations.
  * 
- * @author RAAS Security Team
+ * @author IAAS Security Team
  * @version 1.0
  */
 @Configuration

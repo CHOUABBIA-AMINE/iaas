@@ -16,6 +16,7 @@ package dz.mdn.iaas.system.security.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,21 +43,25 @@ public class RoleController {
     private final RoleService roleService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
     public ResponseEntity<List<RoleDTO>> getAllRoles() {
         return ResponseEntity.ok(roleService.findAll());
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
     public ResponseEntity<RoleDTO> getRoleById(@PathVariable Long id) {
         return ResponseEntity.ok(roleService.findById(id));
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
     public ResponseEntity<RoleDTO> createRole(@Valid @RequestBody RoleDTO dto) {
         return ResponseEntity.ok(roleService.create(dto));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
     public ResponseEntity<RoleDTO> updateRole(
             @PathVariable Long id,
             @Valid @RequestBody RoleDTO dto) {
@@ -64,12 +69,14 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
     public ResponseEntity<Void> deleteRole(@PathVariable Long id) {
         roleService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{roleId}/permissions/{permissionId}")
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
     public ResponseEntity<RoleDTO> assignPermission(
             @PathVariable Long roleId,
             @PathVariable Long permissionId) {

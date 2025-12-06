@@ -64,7 +64,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(IaasException.class)
     public ResponseEntity<ErrorResponse> handleRaasException(IaasException ex, WebRequest request) {
-        log.error("RAAS Exception occurred: {}", ex.getMessage(), ex);
+        log.error("IAAS Exception occurred: {}", ex.getMessage(), ex);
 
         ErrorResponse errorResponse = new ErrorResponse(
             ex.getErrorCode(),

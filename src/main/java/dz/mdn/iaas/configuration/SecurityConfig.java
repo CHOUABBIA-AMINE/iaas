@@ -43,7 +43,7 @@ import lombok.RequiredArgsConstructor;
  * Modern Spring Security 6+ configuration.
  * Uses Spring Boot auto-configuration for authentication provider.
  * 
- * @author RAAS Security Team
+ * @author IAAS Security Team
  * @version 3.0 (Spring Boot 3.x / Spring Security 6+ compatible)
  */
 @Configuration
@@ -103,7 +103,7 @@ public class SecurityConfig {
             // Configure authorization rules
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints
-                .requestMatchers("/raas/api/auth/**").permitAll()
+                .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/actuator/health", "/actuator/info").permitAll()
 
                 // Protected endpoints
