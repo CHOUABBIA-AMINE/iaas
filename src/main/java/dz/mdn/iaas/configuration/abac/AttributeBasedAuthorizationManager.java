@@ -4,6 +4,7 @@
  *
  *	@Name		: AttributeBasedAuthorizationManager
  *	@CreatedOn	: 11-18-2025
+ *	@UpdatedOn	: 12-06-2025 (Fixed for Spring Security 6.x - Spring Boot 4.0)
  *
  *	@Type		: Class
  *	@Layer		: abac
@@ -27,11 +28,16 @@ import java.util.function.Supplier;
 /**
  * AttributeBasedAuthorizationManager
  * 
- * Modern implementation using Spring Security 6+ AuthorizationManager
+ * Spring Security 6.x compatible implementation using AuthorizationManager
  * Replaces deprecated AccessDecisionVoter approach.
  * 
- * @author RAAS Security Team
- * @version 2.0 (Spring Security 6+ compatible)
+ * FIXED for Spring Boot 4.0:
+ * - Method name changed from check() to authorize()
+ * - Return type changed from AuthorizationDecision to AuthorizationDecision (same but different signature)
+ * - Follows Spring Security 6.x AuthorizationManager contract
+ * 
+ * @author IAAS Security Team
+ * @version 3.0 (Spring Security 6.x compatible - Spring Boot 4.0)
  */
 @Component
 public class AttributeBasedAuthorizationManager 
@@ -43,9 +49,18 @@ public class AttributeBasedAuthorizationManager
         this.attributeEvaluator = attributeEvaluator;
     }
 
+    /**
+     * Make an authorization decision based on attributes.
+     * 
+     * CRITICAL: Method name MUST be "authorize" not "check" in Spring Security 6.x
+     * 
+     * @param authentication Supplier providing the Authentication
+     * @param context The RequestAuthorizationContext containing HTTP request info
+     * @return AuthorizationDecision - granted (true) or denied (false)
+     */
     @Override
-    public AuthorizationDecision check(
-            Supplier<Authentication> authentication,
+    public AuthorizationDecision authorize(
+            Supplier<? extends Authentication> authentication,
             RequestAuthorizationContext context) {
 
         Authentication auth = authentication.get();

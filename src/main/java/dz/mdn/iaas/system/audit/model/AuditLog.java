@@ -23,8 +23,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -67,7 +65,6 @@ public class AuditLog {
     private String username; // User who performed the action
 
     @Column(name = "F_05", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
     @Column(name = "F_06", nullable = true, length = 45)

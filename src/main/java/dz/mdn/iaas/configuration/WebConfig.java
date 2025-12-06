@@ -4,7 +4,7 @@
  *
  *	@Name		: WebConfig
  *	@CreatedOn	: 06-26-2025
- *	@UpdatedOn	: 12-06-2025 (Updated for Spring Boot 4.0 - No Deprecated APIs)
+ *	@UpdatedOn	: 12-06-2025 (Spring Boot 4.0 - Properties Only)
  *
  *	@Type		: Class
  *	@Layer		: Configuration
@@ -15,34 +15,27 @@
 package dz.mdn.iaas.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 /**
  * Web Configuration Class - Spring Boot 4.0 Compatible
  * 
- * Configures REST API settings, CORS, and Jackson serialization.
+ * CLEAN APPROACH - No Jackson configuration in Java code
+ * All Jackson settings are in application.properties
  * 
- * UPDATED for Spring Boot 4.0:
- * - Removed @EnableWebMvc (preserves Spring Boot auto-configuration)
- * - Uses Jackson2ObjectMapperBuilderCustomizer (recommended pattern)
- * - No deprecated methods used
- * - Property-based CORS configuration
- * - JavaTimeModule auto-registered by Spring Boot
+ * This is the RECOMMENDED approach for Spring Boot 4.0:
+ * - No deprecated APIs
+ * - Simple and maintainable
+ * - Spring Boot handles all Jackson configuration
+ * - JavaTimeModule auto-registered
  * 
  * Features:
  * - CORS configuration from application.properties
- * - JSON serialization with ISO-8601 dates
  * - Static resource handling
+ * - Zero Jackson code (all in properties)
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -61,7 +54,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * Configure CORS settings for API endpoints
-     * Reads configuration from application.properties for environment flexibility
+     * Reads configuration from application.properties
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -92,61 +85,15 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:f:/files/");
     }
 
-    /**
-     * Customize Jackson ObjectMapper using the recommended Spring Boot 4.0 approach
-     * 
-     * This uses Jackson2ObjectMapperBuilderCustomizer which is the official
-     * Spring Boot way to customize the auto-configured ObjectMapper.
-     * 
-     * Benefits:
-     * - Works with Spring Boot auto-configuration
-     * - No deprecated methods
-     * - JavaTimeModule is auto-registered by Spring Boot
-     * - Configuration can be ordered with @Order if needed
-     */
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
-        return builder -> {
-            // Serialize dates as ISO-8601 strings, not timestamps
-            builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-            // Pretty print JSON in responses (optional - can disable in production)
-            builder.featuresToEnable(SerializationFeature.INDENT_OUTPUT);
-
-            // Don't fail on unknown properties during deserialization
-            builder.featuresToDisable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-            // Exclude null values from JSON output
-            builder.serializationInclusion(JsonInclude.Include.NON_NULL);
-        };
-    }
-
-    /**
-     * ALTERNATIVE: If you need direct ObjectMapper customization
-     * 
-     * Uncomment this method if Jackson2ObjectMapperBuilderCustomizer doesn't
-     * provide enough control. This gives you the builder instance directly.
-     * 
-     * Note: This approach is still supported in Spring Boot 4.0
-     */
     /*
-    @Bean
-    public Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder() {
-        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
-
-        // Disable timestamp serialization for dates
-        builder.featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-
-        // Enable pretty printing
-        builder.featuresToEnable(SerializationFeature.INDENT_OUTPUT);
-
-        // Don't fail on unknown properties
-        builder.featuresToDisable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-        // Exclude null values
-        builder.serializationInclusion(JsonInclude.Include.NON_NULL);
-
-        return builder;
-    }
-    */
+     * NO JACKSON CONFIGURATION HERE!
+     * 
+     * All Jackson settings are configured in application.properties:
+     * - spring.jackson.serialization.write-dates-as-timestamps=false
+     * - spring.jackson.default-property-inclusion=non_null
+     * - etc.
+     * 
+     * This approach avoids ALL deprecated Jackson APIs and is
+     * the recommended way for Spring Boot 4.0
+     */
 }
