@@ -103,6 +103,7 @@ public class SecurityConfig {
             // Configure authorization rules
             .authorizeHttpRequests(auth -> auth
                 // Public endpoints
+            	.requestMatchers("/auth/logout").authenticated()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/actuator/health", "/actuator/info").permitAll()
 

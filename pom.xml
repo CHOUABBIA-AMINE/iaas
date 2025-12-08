@@ -11,7 +11,7 @@
 	<groupId>dz.mdn</groupId>
 	<artifactId>iaas</artifactId>
 	<version>0.0.1</version>
-	<name>raas</name>
+	<name>iaas</name>
 	<description>Infrastructure As A Service</description>
 	<url/>
 	<licenses>
