@@ -30,7 +30,7 @@ import dz.mdn.iaas.business.amendment.model.Amendment;
  * Based on field names:
  * F_00=id, F_01=internalId, F_02=reference, F_03=designationAr, F_04=designationEn, F_05=designationFr,
  * F_06=amount, F_07=transferableAmount, F_08=startDate, F_09=approvalDate, F_10=notifyDate, F_11=observation,
- * F_12=contract, F_13=amendmentType, F_14=realizationStatus, F_15=amendmentStep, F_16=approvalStatus, F_17=currency
+ * F_12=contract, F_13=amendmentType, F_14=procurementStatus, F_15=amendmentStep, F_16=approvalStatus, F_17=currency
  */
 @Repository
 public interface AmendmentRepository extends JpaRepository<Amendment, Long> {
@@ -67,9 +67,9 @@ public interface AmendmentRepository extends JpaRepository<Amendment, Long> {
     @Query("SELECT a FROM Amendment a WHERE a.amendmentType.id = :typeId")
     Page<Amendment> findByAmendmentType(@Param("typeId") Long typeId, Pageable pageable);
 
-    /** Find Amendments by Realization Status (F_14) */
-    @Query("SELECT a FROM Amendment a WHERE a.realizationStatus.id = :statusId")
-    Page<Amendment> findByRealizationStatus(@Param("statusId") Long statusId, Pageable pageable);
+    /** Find Amendments by Procurement Status (F_14) */
+    @Query("SELECT a FROM Amendment a WHERE a.procurementStatus.id = :statusId")
+    Page<Amendment> findByProcurementStatus(@Param("statusId") Long statusId, Pageable pageable);
 
     /** Find Amendments by Approval Status (F_16) */
     @Query("SELECT a FROM Amendment a WHERE a.approvalStatus.id = :approvalStatusId")
@@ -116,11 +116,11 @@ public interface AmendmentRepository extends JpaRepository<Amendment, Long> {
     Page<Amendment> findApprovedAmendments(Pageable pageable);
 
     /** Find active Amendments */
-    @Query("SELECT a FROM Amendment a WHERE LOWER(a.realizationStatus.designationFr) LIKE '%en cours%'")
+    @Query("SELECT a FROM Amendment a WHERE LOWER(a.procurementStatus.designationFr) LIKE '%en cours%'")
     Page<Amendment> findActiveAmendments(Pageable pageable);
 
     /** Find completed Amendments */
-    @Query("SELECT a FROM Amendment a WHERE LOWER(a.realizationStatus.designationFr) LIKE '%achevé%'")
+    @Query("SELECT a FROM Amendment a WHERE LOWER(a.procurementStatus.designationFr) LIKE '%achevé%'")
     Page<Amendment> findCompletedAmendments(Pageable pageable);
 
     /** Count total Amendments */

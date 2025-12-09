@@ -31,8 +31,8 @@ import lombok.Setter;
 		 									 	@UniqueConstraint(name = "T_02_01_01_UK_03", columnNames = { "F_03" }), 
 		 									 	@UniqueConstraint(name = "T_02_01_01_UK_04", columnNames = { "F_04" }), 
 		 									 	@UniqueConstraint(name = "T_02_01_01_UK_05", columnNames = { "F_05" }), 
-		 									 	@UniqueConstraint(name = "T_02_01_01_UK_05", columnNames = { "F_06" }), 
-		 									 	@UniqueConstraint(name = "T_02_01_01_UK_05", columnNames = { "F_07" })})
+		 									 	@UniqueConstraint(name = "T_02_01_01_UK_06", columnNames = { "F_06" }), 
+		 									 	@UniqueConstraint(name = "T_02_01_01_UK_07", columnNames = { "F_07" })})
 public class Currency {
 	
 	@Id

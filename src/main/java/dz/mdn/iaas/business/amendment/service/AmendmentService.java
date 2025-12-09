@@ -28,7 +28,7 @@ import dz.mdn.iaas.business.amendment.repository.AmendmentPhaseRepository;
 import dz.mdn.iaas.business.contract.repository.ContractRepository;
 import dz.mdn.iaas.business.core.repository.ApprovalStatusRepository;
 import dz.mdn.iaas.business.core.repository.CurrencyRepository;
-import dz.mdn.iaas.business.core.repository.RealizationStatusRepository;
+import dz.mdn.iaas.business.core.repository.ProcurementStatusRepository;
 import dz.mdn.iaas.common.communication.repository.MailRepository;
 import dz.mdn.iaas.common.document.repository.DocumentRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +45,7 @@ public class AmendmentService {
 	// Foreign key repositories
 	private final ContractRepository contractRepository;
 	private final AmendmentTypeRepository amendmentTypeRepository;
-	private final RealizationStatusRepository realizationStatusRepository;
+	private final ProcurementStatusRepository procurementStatusRepository;
 	private final AmendmentPhaseRepository amendmentPhaseRepository;
 	private final ApprovalStatusRepository approvalStatusRepository;
 	private final CurrencyRepository currencyRepository;
@@ -154,8 +154,8 @@ public class AmendmentService {
 		entity.setAmendmentType(amendmentTypeRepository.findById(dto.getAmendmentTypeId())
 				.orElseThrow(() -> new RuntimeException("AmendmentType not found")));
 
-		entity.setRealizationStatus(realizationStatusRepository.findById(dto.getRealizationStatusId())
-				.orElseThrow(() -> new RuntimeException("RealizationStatus not found")));
+		entity.setProcurementStatus(procurementStatusRepository.findById(dto.getProcurementStatusId())
+				.orElseThrow(() -> new RuntimeException("ProcurementStatus not found")));
 
 		entity.setAmendmentStep(amendmentPhaseRepository.findById(dto.getAmendmentStepId())
 				.orElseThrow(() -> new RuntimeException("AmendmentStep not found")));
@@ -193,8 +193,8 @@ public class AmendmentService {
 		if (dto.getAmendmentTypeId() == null) {
 			throw new RuntimeException("Amendment Type is required for " + operation);
 		}
-		if (dto.getRealizationStatusId() == null) {
-			throw new RuntimeException("Realization Status is required for " + operation);
+		if (dto.getProcurementStatusId() == null) {
+			throw new RuntimeException("Procurement Status is required for " + operation);
 		}
 		if (dto.getAmendmentStepId() == null) {
 			throw new RuntimeException("Amendment Step is required for " + operation);

@@ -28,7 +28,7 @@ import dz.mdn.iaas.business.contract.repository.ContractStepRepository;
 import dz.mdn.iaas.business.contract.repository.ContractTypeRepository;
 import dz.mdn.iaas.business.core.repository.ApprovalStatusRepository;
 import dz.mdn.iaas.business.core.repository.CurrencyRepository;
-import dz.mdn.iaas.business.core.repository.RealizationStatusRepository;
+import dz.mdn.iaas.business.core.repository.ProcurementStatusRepository;
 import dz.mdn.iaas.business.plan.repository.PlannedItemRepository;
 import dz.mdn.iaas.business.provider.repository.ProviderRepository;
 import dz.mdn.iaas.common.communication.repository.MailRepository;
@@ -47,7 +47,7 @@ public class ContractService {
 	// Foreign key repositories
 	private final ContractTypeRepository contractTypeRepository;
 	private final ProviderRepository providerRepository;
-	private final RealizationStatusRepository realizationStatusRepository;
+	private final ProcurementStatusRepository procurementStatusRepository;
 	private final ContractStepRepository contractStepRepository;
 	private final ApprovalStatusRepository approvalStatusRepository;
 	private final CurrencyRepository currencyRepository;
@@ -163,8 +163,8 @@ public class ContractService {
 		entity.setProvider(providerRepository.findById(dto.getProviderId())
 				.orElseThrow(() -> new RuntimeException("Provider not found")));
 
-		entity.setRealizationStatus(realizationStatusRepository.findById(dto.getRealizationStatusId())
-				.orElseThrow(() -> new RuntimeException("RealizationStatus not found")));
+		entity.setProcurementStatus(procurementStatusRepository.findById(dto.getProcurementStatusId())
+				.orElseThrow(() -> new RuntimeException("ProcurementStatus not found")));
 
 		entity.setContractStep(contractStepRepository.findById(dto.getContractStepId())
 				.orElseThrow(() -> new RuntimeException("ContractStep not found")));

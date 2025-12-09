@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: RealizationStatusController
+ *	@Name		: ProcurementStatusController
  *	@CreatedOn	: 10-16-2025
  *
  *	@Type		: Class
@@ -13,8 +13,8 @@
 
 package dz.mdn.iaas.business.core.controller;
 
-import dz.mdn.iaas.business.core.service.RealizationStatusService;
-import dz.mdn.iaas.business.core.dto.RealizationStatusDTO;
+import dz.mdn.iaas.business.core.service.ProcurementStatusService;
+import dz.mdn.iaas.business.core.dto.ProcurementStatusDTO;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,84 +29,84 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * RealizationStatus REST Controller
- * Handles realization status operations: create, get metadata, delete, get all
- * Based on exact RealizationStatus model: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
+ * ProcurementStatus REST Controller
+ * Handles procurement status operations: create, get metadata, delete, get all
+ * Based on exact ProcurementStatus model: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
  * F_03 (designationFr) has unique constraint and is required
  * F_01 (designationAr) and F_02 (designationEn) are optional
  */
 @RestController
-@RequestMapping("/realizationStatus")
+@RequestMapping("/procurementStatus")
 @RequiredArgsConstructor
 @Slf4j
-public class RealizationStatusController {
+public class ProcurementStatusController {
 
-    private final RealizationStatusService realizationStatusService;
+    private final ProcurementStatusService procurementStatusService;
 
     // ========== POST ONE REALIZATION STATUS ==========
 
     /**
-     * Create new realization status
-     * Creates realization status with multilingual designations and project lifecycle management
+     * Create new procurement status
+     * Creates procurement status with multilingual designations and project lifecycle management
      */
     @PostMapping
-    public ResponseEntity<RealizationStatusDTO> createRealizationStatus(@Valid @RequestBody RealizationStatusDTO realizationStatusDTO) {
-        log.info("Creating realization status with French designation: {} and designations: AR={}, EN={}", 
-                realizationStatusDTO.getDesignationFr(), realizationStatusDTO.getDesignationAr(), 
-                realizationStatusDTO.getDesignationEn());
+    public ResponseEntity<ProcurementStatusDTO> createProcurementStatus(@Valid @RequestBody ProcurementStatusDTO procurementStatusDTO) {
+        log.info("Creating procurement status with French designation: {} and designations: AR={}, EN={}", 
+                procurementStatusDTO.getDesignationFr(), procurementStatusDTO.getDesignationAr(), 
+                procurementStatusDTO.getDesignationEn());
         
-        RealizationStatusDTO createdRealizationStatus = realizationStatusService.createRealizationStatus(realizationStatusDTO);
+        ProcurementStatusDTO createdProcurementStatus = procurementStatusService.createProcurementStatus(procurementStatusDTO);
         
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdRealizationStatus);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdProcurementStatus);
     }
 
     // ========== GET METADATA ==========
 
     /**
-     * Get realization status metadata by ID
-     * Returns realization status information with project lifecycle classification and multilingual support
+     * Get procurement status metadata by ID
+     * Returns procurement status information with project lifecycle classification and multilingual support
      */
     @GetMapping("/{id}")
-    public ResponseEntity<RealizationStatusDTO> getRealizationStatusMetadata(@PathVariable Long id) {
-        log.debug("Getting metadata for realization status ID: {}", id);
+    public ResponseEntity<ProcurementStatusDTO> getProcurementStatusMetadata(@PathVariable Long id) {
+        log.debug("Getting metadata for procurement status ID: {}", id);
         
-        RealizationStatusDTO realizationStatusMetadata = realizationStatusService.getRealizationStatusById(id);
+        ProcurementStatusDTO procurementStatusMetadata = procurementStatusService.getProcurementStatusById(id);
         
-        return ResponseEntity.ok(realizationStatusMetadata);
+        return ResponseEntity.ok(procurementStatusMetadata);
     }
 
     /**
-     * Get realization status by French designation (unique field F_03)
+     * Get procurement status by French designation (unique field F_03)
      */
     @GetMapping("/designation-fr/{designationFr}")
-    public ResponseEntity<RealizationStatusDTO> getRealizationStatusByDesignationFr(@PathVariable String designationFr) {
-        log.debug("Getting realization status by French designation: {}", designationFr);
+    public ResponseEntity<ProcurementStatusDTO> getProcurementStatusByDesignationFr(@PathVariable String designationFr) {
+        log.debug("Getting procurement status by French designation: {}", designationFr);
         
-        return realizationStatusService.findByDesignationFr(designationFr)
+        return procurementStatusService.findByDesignationFr(designationFr)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     /**
-     * Get realization status by Arabic designation (F_01)
+     * Get procurement status by Arabic designation (F_01)
      */
     @GetMapping("/designation-ar/{designationAr}")
-    public ResponseEntity<RealizationStatusDTO> getRealizationStatusByDesignationAr(@PathVariable String designationAr) {
-        log.debug("Getting realization status by Arabic designation: {}", designationAr);
+    public ResponseEntity<ProcurementStatusDTO> getProcurementStatusByDesignationAr(@PathVariable String designationAr) {
+        log.debug("Getting procurement status by Arabic designation: {}", designationAr);
         
-        return realizationStatusService.findByDesignationAr(designationAr)
+        return procurementStatusService.findByDesignationAr(designationAr)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     /**
-     * Get realization status by English designation (F_02)
+     * Get procurement status by English designation (F_02)
      */
     @GetMapping("/designation-en/{designationEn}")
-    public ResponseEntity<RealizationStatusDTO> getRealizationStatusByDesignationEn(@PathVariable String designationEn) {
-        log.debug("Getting realization status by English designation: {}", designationEn);
+    public ResponseEntity<ProcurementStatusDTO> getProcurementStatusByDesignationEn(@PathVariable String designationEn) {
+        log.debug("Getting procurement status by English designation: {}", designationEn);
         
-        return realizationStatusService.findByDesignationEn(designationEn)
+        return procurementStatusService.findByDesignationEn(designationEn)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -114,14 +114,14 @@ public class RealizationStatusController {
     // ========== DELETE ONE ==========
 
     /**
-     * Delete realization status by ID
-     * Removes realization status from the system
+     * Delete procurement status by ID
+     * Removes procurement status from the system
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRealizationStatus(@PathVariable Long id) {
-        log.info("Deleting realization status with ID: {}", id);
+    public ResponseEntity<Void> deleteProcurementStatus(@PathVariable Long id) {
+        log.info("Deleting procurement status with ID: {}", id);
         
-        realizationStatusService.deleteRealizationStatus(id);
+        procurementStatusService.deleteProcurementStatus(id);
         
         return ResponseEntity.noContent().build();
     }
@@ -129,17 +129,17 @@ public class RealizationStatusController {
     // ========== GET ALL ==========
 
     /**
-     * Get all realization statuses with pagination
-     * Returns list of all realization statuses ordered by French designation
+     * Get all procurement statuses with pagination
+     * Returns list of all procurement statuses ordered by French designation
      */
     @GetMapping
-    public ResponseEntity<Page<RealizationStatusDTO>> getAllRealizationStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getAllProcurementStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(defaultValue = "designationFr") String sortBy,
             @RequestParam(defaultValue = "asc") String sortDir) {
         
-        log.debug("Getting all realization statuses - page: {}, size: {}, sortBy: {}, sortDir: {}", 
+        log.debug("Getting all procurement statuses - page: {}, size: {}, sortBy: {}, sortDir: {}", 
                   page, size, sortBy, sortDir);
         
         Sort.Direction direction = "desc".equalsIgnoreCase(sortDir) ? 
@@ -147,196 +147,196 @@ public class RealizationStatusController {
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
         
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getAllRealizationStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getAllProcurementStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     // ========== SEARCH ENDPOINTS ==========
 
     /**
-     * Search realization statuses by designation (all languages)
+     * Search procurement statuses by designation (all languages)
      */
     @GetMapping("/search")
-    public ResponseEntity<Page<RealizationStatusDTO>> searchRealizationStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> searchProcurementStatuses(
             @RequestParam String query,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(defaultValue = "designationFr") String sortBy,
             @RequestParam(defaultValue = "asc") String sortDir) {
         
-        log.debug("Searching realization statuses with query: {}", query);
+        log.debug("Searching procurement statuses with query: {}", query);
         
         Sort.Direction direction = "desc".equalsIgnoreCase(sortDir) ? 
                 Sort.Direction.DESC : Sort.Direction.ASC;
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
         
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.searchRealizationStatuses(query, pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.searchProcurementStatuses(query, pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     // ========== STATUS CATEGORY ENDPOINTS ==========
 
     /**
-     * Get multilingual realization statuses
+     * Get multilingual procurement statuses
      */
     @GetMapping("/multilingual")
-    public ResponseEntity<Page<RealizationStatusDTO>> getMultilingualRealizationStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getMultilingualProcurementStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
-        log.debug("Getting multilingual realization statuses");
+        log.debug("Getting multilingual procurement statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getMultilingualRealizationStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getMultilingualProcurementStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get planning statuses
      */
     @GetMapping("/planning")
-    public ResponseEntity<Page<RealizationStatusDTO>> getPlanningStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getPlanningStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting planning statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getPlanningStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getPlanningStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get in-progress statuses
      */
     @GetMapping("/in-progress")
-    public ResponseEntity<Page<RealizationStatusDTO>> getInProgressStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getInProgressStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting in-progress statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getInProgressStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getInProgressStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get completed statuses
      */
     @GetMapping("/completed")
-    public ResponseEntity<Page<RealizationStatusDTO>> getCompletedStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getCompletedStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting completed statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getCompletedStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getCompletedStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get suspended statuses
      */
     @GetMapping("/suspended")
-    public ResponseEntity<Page<RealizationStatusDTO>> getSuspendedStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getSuspendedStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting suspended statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getSuspendedStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getSuspendedStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get cancelled statuses
      */
     @GetMapping("/cancelled")
-    public ResponseEntity<Page<RealizationStatusDTO>> getCancelledStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getCancelledStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting cancelled statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getCancelledStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getCancelledStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get review statuses
      */
     @GetMapping("/review")
-    public ResponseEntity<Page<RealizationStatusDTO>> getReviewStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getReviewStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting review statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getReviewStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getReviewStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get approved statuses
      */
     @GetMapping("/approved")
-    public ResponseEntity<Page<RealizationStatusDTO>> getApprovedStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getApprovedStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting approved statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getApprovedStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getApprovedStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get rejected statuses
      */
     @GetMapping("/rejected")
-    public ResponseEntity<Page<RealizationStatusDTO>> getRejectedStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getRejectedStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting rejected statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getRejectedStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getRejectedStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get on-hold statuses
      */
     @GetMapping("/on-hold")
-    public ResponseEntity<Page<RealizationStatusDTO>> getOnHoldStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getOnHoldStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting on-hold statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getOnHoldStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getOnHoldStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     // ========== STATUS LIFECYCLE ENDPOINTS ==========
@@ -345,48 +345,48 @@ public class RealizationStatusController {
      * Get active statuses
      */
     @GetMapping("/active")
-    public ResponseEntity<Page<RealizationStatusDTO>> getActiveStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getActiveStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting active statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getActiveStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getActiveStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get final statuses
      */
     @GetMapping("/final")
-    public ResponseEntity<Page<RealizationStatusDTO>> getFinalStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getFinalStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting final statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getFinalStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getFinalStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get transitional statuses
      */
     @GetMapping("/transitional")
-    public ResponseEntity<Page<RealizationStatusDTO>> getTransitionalStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getTransitionalStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting transitional statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getTransitionalStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getTransitionalStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     // ========== PROJECT PHASE ENDPOINTS ==========
@@ -395,105 +395,105 @@ public class RealizationStatusController {
      * Get initiation phase statuses
      */
     @GetMapping("/phase/initiation")
-    public ResponseEntity<Page<RealizationStatusDTO>> getInitiationPhaseStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getInitiationPhaseStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting initiation phase statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getInitiationPhaseStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getInitiationPhaseStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get execution phase statuses
      */
     @GetMapping("/phase/execution")
-    public ResponseEntity<Page<RealizationStatusDTO>> getExecutionPhaseStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getExecutionPhaseStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting execution phase statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getExecutionPhaseStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getExecutionPhaseStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get monitoring phase statuses
      */
     @GetMapping("/phase/monitoring")
-    public ResponseEntity<Page<RealizationStatusDTO>> getMonitoringPhaseStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getMonitoringPhaseStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting monitoring phase statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getMonitoringPhaseStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getMonitoringPhaseStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     /**
      * Get closure phase statuses
      */
     @GetMapping("/phase/closure")
-    public ResponseEntity<Page<RealizationStatusDTO>> getClosurePhaseStatuses(
+    public ResponseEntity<Page<ProcurementStatusDTO>> getClosurePhaseStatuses(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         
         log.debug("Getting closure phase statuses");
         
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "designationFr"));
-        Page<RealizationStatusDTO> realizationStatuses = realizationStatusService.getClosurePhaseStatuses(pageable);
+        Page<ProcurementStatusDTO> procurementStatuses = procurementStatusService.getClosurePhaseStatuses(pageable);
         
-        return ResponseEntity.ok(realizationStatuses);
+        return ResponseEntity.ok(procurementStatuses);
     }
 
     // ========== UPDATE ENDPOINTS ==========
 
     /**
-     * Update realization status metadata
+     * Update procurement status metadata
      */
     @PutMapping("/{id}")
-    public ResponseEntity<RealizationStatusDTO> updateRealizationStatus(
+    public ResponseEntity<ProcurementStatusDTO> updateProcurementStatus(
             @PathVariable Long id,
-            @Valid @RequestBody RealizationStatusDTO realizationStatusDTO) {
+            @Valid @RequestBody ProcurementStatusDTO procurementStatusDTO) {
         
-        log.info("Updating realization status with ID: {}", id);
+        log.info("Updating procurement status with ID: {}", id);
         
-        RealizationStatusDTO updatedRealizationStatus = realizationStatusService.updateRealizationStatus(id, realizationStatusDTO);
+        ProcurementStatusDTO updatedProcurementStatus = procurementStatusService.updateProcurementStatus(id, procurementStatusDTO);
         
-        return ResponseEntity.ok(updatedRealizationStatus);
+        return ResponseEntity.ok(updatedProcurementStatus);
     }
 
     // ========== VALIDATION ENDPOINTS ==========
 
     /**
-     * Check if realization status exists
+     * Check if procurement status exists
      */
     @GetMapping("/{id}/exists")
-    public ResponseEntity<Boolean> checkRealizationStatusExists(@PathVariable Long id) {
-        log.debug("Checking existence of realization status ID: {}", id);
+    public ResponseEntity<Boolean> checkProcurementStatusExists(@PathVariable Long id) {
+        log.debug("Checking existence of procurement status ID: {}", id);
         
-        boolean exists = realizationStatusService.existsById(id);
+        boolean exists = procurementStatusService.existsById(id);
         
         return ResponseEntity.ok(exists);
     }
 
     /**
-     * Check if realization status exists by French designation
+     * Check if procurement status exists by French designation
      */
     @GetMapping("/exists/designation-fr/{designationFr}")
-    public ResponseEntity<Boolean> checkRealizationStatusExistsByDesignationFr(@PathVariable String designationFr) {
+    public ResponseEntity<Boolean> checkProcurementStatusExistsByDesignationFr(@PathVariable String designationFr) {
         log.debug("Checking existence by French designation: {}", designationFr);
         
-        boolean exists = realizationStatusService.existsByDesignationFr(designationFr);
+        boolean exists = procurementStatusService.existsByDesignationFr(designationFr);
         
         return ResponseEntity.ok(exists);
     }
@@ -501,13 +501,13 @@ public class RealizationStatusController {
     // ========== STATISTICS ENDPOINTS ==========
 
     /**
-     * Get total count of realization statuses
+     * Get total count of procurement statuses
      */
     @GetMapping("/count")
-    public ResponseEntity<Long> getRealizationStatusesCount() {
-        log.debug("Getting total count of realization statuses");
+    public ResponseEntity<Long> getProcurementStatusesCount() {
+        log.debug("Getting total count of procurement statuses");
         
-        Long count = realizationStatusService.getTotalCount();
+        Long count = procurementStatusService.getTotalCount();
         
         return ResponseEntity.ok(count);
     }
@@ -519,7 +519,7 @@ public class RealizationStatusController {
     public ResponseEntity<Long> getPlanningStatusesCount() {
         log.debug("Getting count of planning statuses");
         
-        Long count = realizationStatusService.getPlanningCount();
+        Long count = procurementStatusService.getPlanningCount();
         
         return ResponseEntity.ok(count);
     }
@@ -531,7 +531,7 @@ public class RealizationStatusController {
     public ResponseEntity<Long> getInProgressStatusesCount() {
         log.debug("Getting count of in-progress statuses");
         
-        Long count = realizationStatusService.getInProgressCount();
+        Long count = procurementStatusService.getInProgressCount();
         
         return ResponseEntity.ok(count);
     }
@@ -543,7 +543,7 @@ public class RealizationStatusController {
     public ResponseEntity<Long> getCompletedStatusesCount() {
         log.debug("Getting count of completed statuses");
         
-        Long count = realizationStatusService.getCompletedCount();
+        Long count = procurementStatusService.getCompletedCount();
         
         return ResponseEntity.ok(count);
     }
@@ -555,7 +555,7 @@ public class RealizationStatusController {
     public ResponseEntity<Long> getSuspendedStatusesCount() {
         log.debug("Getting count of suspended statuses");
         
-        Long count = realizationStatusService.getSuspendedCount();
+        Long count = procurementStatusService.getSuspendedCount();
         
         return ResponseEntity.ok(count);
     }
@@ -567,51 +567,51 @@ public class RealizationStatusController {
     public ResponseEntity<Long> getCancelledStatusesCount() {
         log.debug("Getting count of cancelled statuses");
         
-        Long count = realizationStatusService.getCancelledCount();
+        Long count = procurementStatusService.getCancelledCount();
         
         return ResponseEntity.ok(count);
     }
 
     /**
-     * Get realization status info with comprehensive details
+     * Get procurement status info with comprehensive details
      */
     @GetMapping("/{id}/info")
-    public ResponseEntity<RealizationStatusInfoResponse> getRealizationStatusInfo(@PathVariable Long id) {
-        log.debug("Getting comprehensive info for realization status ID: {}", id);
+    public ResponseEntity<ProcurementStatusInfoResponse> getProcurementStatusInfo(@PathVariable Long id) {
+        log.debug("Getting comprehensive info for procurement status ID: {}", id);
         
         try {
-            return realizationStatusService.findOne(id)
-                    .map(realizationStatusDTO -> {
-                        RealizationStatusInfoResponse response = RealizationStatusInfoResponse.builder()
-                                .realizationStatusMetadata(realizationStatusDTO)
-                                .hasArabicDesignation(realizationStatusDTO.getDesignationAr() != null && !realizationStatusDTO.getDesignationAr().trim().isEmpty())
-                                .hasEnglishDesignation(realizationStatusDTO.getDesignationEn() != null && !realizationStatusDTO.getDesignationEn().trim().isEmpty())
-                                .hasFrenchDesignation(realizationStatusDTO.getDesignationFr() != null && !realizationStatusDTO.getDesignationFr().trim().isEmpty())
-                                .isMultilingual(realizationStatusDTO.isMultilingual())
-                                .isActive(realizationStatusDTO.isActive())
-                                .isFinal(realizationStatusDTO.isFinal())
-                                .isCompleted(realizationStatusDTO.isCompleted())
-                                .isSuspended(realizationStatusDTO.isSuspended())
-                                .isInProgress(realizationStatusDTO.isInProgress())
-                                .allowsTransition(realizationStatusDTO.allowsTransition())
-                                .requiresDocumentation(realizationStatusDTO.requiresDocumentation())
-                                .isValid(realizationStatusDTO.isValid())
-                                .defaultDesignation(realizationStatusDTO.getDefaultDesignation())
-                                .displayText(realizationStatusDTO.getDisplayText())
-                                .statusCategory(realizationStatusDTO.getStatusCategory())
-                                .projectPhase(realizationStatusDTO.getProjectPhase())
-                                .statusPriority(realizationStatusDTO.getStatusPriority())
-                                .statusColor(realizationStatusDTO.getStatusColor())
-                                .typicalDuration(realizationStatusDTO.getTypicalDuration())
-                                .milestoneType(realizationStatusDTO.getMilestoneType())
-                                .progressPercentage(realizationStatusDTO.getProgressPercentage())
-                                .notificationLevel(realizationStatusDTO.getNotificationLevel())
-                                .nextPossibleStatuses(realizationStatusDTO.getNextPossibleStatuses())
-                                .shortDisplay(realizationStatusDTO.getShortDisplay())
-                                .fullDisplay(realizationStatusDTO.getFullDisplay())
-                                .displayWithCategory(realizationStatusDTO.getDisplayWithCategory())
-                                .availableLanguages(realizationStatusDTO.getAvailableLanguages())
-                                .comparisonKey(realizationStatusDTO.getComparisonKey())
+            return procurementStatusService.findOne(id)
+                    .map(procurementStatusDTO -> {
+                        ProcurementStatusInfoResponse response = ProcurementStatusInfoResponse.builder()
+                                .procurementStatusMetadata(procurementStatusDTO)
+                                .hasArabicDesignation(procurementStatusDTO.getDesignationAr() != null && !procurementStatusDTO.getDesignationAr().trim().isEmpty())
+                                .hasEnglishDesignation(procurementStatusDTO.getDesignationEn() != null && !procurementStatusDTO.getDesignationEn().trim().isEmpty())
+                                .hasFrenchDesignation(procurementStatusDTO.getDesignationFr() != null && !procurementStatusDTO.getDesignationFr().trim().isEmpty())
+                                .isMultilingual(procurementStatusDTO.isMultilingual())
+                                .isActive(procurementStatusDTO.isActive())
+                                .isFinal(procurementStatusDTO.isFinal())
+                                .isCompleted(procurementStatusDTO.isCompleted())
+                                .isSuspended(procurementStatusDTO.isSuspended())
+                                .isInProgress(procurementStatusDTO.isInProgress())
+                                .allowsTransition(procurementStatusDTO.allowsTransition())
+                                .requiresDocumentation(procurementStatusDTO.requiresDocumentation())
+                                .isValid(procurementStatusDTO.isValid())
+                                .defaultDesignation(procurementStatusDTO.getDefaultDesignation())
+                                .displayText(procurementStatusDTO.getDisplayText())
+                                .statusCategory(procurementStatusDTO.getStatusCategory())
+                                .projectPhase(procurementStatusDTO.getProjectPhase())
+                                .statusPriority(procurementStatusDTO.getStatusPriority())
+                                .statusColor(procurementStatusDTO.getStatusColor())
+                                .typicalDuration(procurementStatusDTO.getTypicalDuration())
+                                .milestoneType(procurementStatusDTO.getMilestoneType())
+                                .progressPercentage(procurementStatusDTO.getProgressPercentage())
+                                .notificationLevel(procurementStatusDTO.getNotificationLevel())
+                                .nextPossibleStatuses(procurementStatusDTO.getNextPossibleStatuses())
+                                .shortDisplay(procurementStatusDTO.getShortDisplay())
+                                .fullDisplay(procurementStatusDTO.getFullDisplay())
+                                .displayWithCategory(procurementStatusDTO.getDisplayWithCategory())
+                                .availableLanguages(procurementStatusDTO.getAvailableLanguages())
+                                .comparisonKey(procurementStatusDTO.getComparisonKey())
                                 .build();
                         
                         return ResponseEntity.ok(response);
@@ -619,7 +619,7 @@ public class RealizationStatusController {
                     .orElse(ResponseEntity.notFound().build());
                     
         } catch (Exception e) {
-            log.error("Error getting realization status info for ID: {}", id, e);
+            log.error("Error getting procurement status info for ID: {}", id, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -630,8 +630,8 @@ public class RealizationStatusController {
     @lombok.Builder
     @lombok.NoArgsConstructor
     @lombok.AllArgsConstructor
-    public static class RealizationStatusInfoResponse {
-        private RealizationStatusDTO realizationStatusMetadata;
+    public static class ProcurementStatusInfoResponse {
+        private ProcurementStatusDTO procurementStatusMetadata;
         private Boolean hasArabicDesignation;
         private Boolean hasEnglishDesignation;
         private Boolean hasFrenchDesignation;

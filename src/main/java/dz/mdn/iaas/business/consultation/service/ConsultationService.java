@@ -37,9 +37,9 @@ import dz.mdn.iaas.business.core.model.ProcurementDirector;
 import dz.mdn.iaas.business.core.model.ProcurementNature;
 import dz.mdn.iaas.business.core.model.ProcurementStatus;
 import dz.mdn.iaas.business.core.repository.ApprovalStatusRepository;
-import dz.mdn.iaas.business.core.repository.RealizationDirectorRepository;
-import dz.mdn.iaas.business.core.repository.RealizationNatureRepository;
-import dz.mdn.iaas.business.core.repository.RealizationStatusRepository;
+import dz.mdn.iaas.business.core.repository.ProcurementDirectorRepository;
+import dz.mdn.iaas.business.core.repository.ProcurementNatureRepository;
+import dz.mdn.iaas.business.core.repository.ProcurementStatusRepository;
 import dz.mdn.iaas.business.plan.model.BudgetType;
 import dz.mdn.iaas.business.plan.repository.BudgetTypeRepository;
 import lombok.RequiredArgsConstructor;
@@ -60,11 +60,11 @@ public class ConsultationService {
 
    private final ConsultationRepository consultationRepository;
    private final AwardMethodRepository awardMethodRepository;
-   private final RealizationNatureRepository realizationNatureRepository;
+   private final ProcurementNatureRepository procurementNatureRepository;
    private final BudgetTypeRepository budgetTypeRepository;
-   private final RealizationStatusRepository realizationStatusRepository;
+   private final ProcurementStatusRepository procurementStatusRepository;
    private final ApprovalStatusRepository approvalStatusRepository;
-   private final RealizationDirectorRepository realizationDirectorRepository;
+   private final ProcurementDirectorRepository procurementDirectorRepository;
    private final ConsultationStepRepository consultationStepRepository;
 
    // ========== CREATE OPERATIONS ==========
@@ -85,11 +85,11 @@ public class ConsultationService {
        
        // Validate and get all foreign key entities
        AwardMethod awardMethod = validateAndGetAwardMethod(consultationDTO.getAwardMethodId());
-       ProcurementNature realizationNature = validateAndGetRealizationNature(consultationDTO.getRealizationNatureId());
+       ProcurementNature procurementNature = validateAndGetProcurementNature(consultationDTO.getProcurementNatureId());
        BudgetType budgetType = validateAndGetBudgetType(consultationDTO.getBudgetTypeId());
-       ProcurementStatus realizationStatus = validateAndGetRealizationStatus(consultationDTO.getRealizationStatusId());
+       ProcurementStatus procurementStatus = validateAndGetProcurementStatus(consultationDTO.getProcurementStatusId());
        ApprovalStatus approvalStatus = validateAndGetApprovalStatus(consultationDTO.getApprovalStatusId());
-       ProcurementDirector realizationDirector = validateAndGetRealizationDirector(consultationDTO.getRealizationDirectorId());
+       ProcurementDirector procurementDirector = validateAndGetProcurementDirector(consultationDTO.getProcurementDirectorId());
        ConsultationStep consultationStep = validateAndGetConsultationStep(consultationDTO.getConsultationStepId());
 
        // Create entity with exact field mapping
@@ -111,11 +111,11 @@ public class ConsultationService {
        
        // Set all required foreign key relationships
        consultation.setAwardMethod(awardMethod); // F_15 - required
-       consultation.setRealizationNature(realizationNature); // F_16 - required
+       consultation.setProcurementNature(procurementNature); // F_16 - required
        consultation.setBudgetType(budgetType); // F_17 - required
-       consultation.setRealizationStatus(realizationStatus); // F_18 - required
+       consultation.setProcurementStatus(procurementStatus); // F_18 - required
        consultation.setApprovalStatus(approvalStatus); // F_19 - required
-       consultation.setRealizationDirector(realizationDirector); // F_20 - required
+       consultation.setProcurementDirector(procurementDirector); // F_20 - required
        consultation.setConsultationStep(consultationStep); // F_21 - required
 
        // Generate additional metadata if needed
@@ -228,12 +228,12 @@ public class ConsultationService {
    // ========== FILTER OPERATIONS ==========
 
    /**
-    * Get consultations by realization status
+    * Get consultations by procurement status
     */
    @Transactional(readOnly = true)
    public Page<ConsultationDTO> getConsultationsByStatus(Long statusId, Pageable pageable) {
-       log.debug("Getting consultations by realization status ID: {}", statusId);
-       Page<Consultation> consultations = consultationRepository.findByRealizationStatusId(statusId, pageable);
+       log.debug("Getting consultations by procurement status ID: {}", statusId);
+       Page<Consultation> consultations = consultationRepository.findByProcurementStatusId(statusId, pageable);
        return consultations.map(this::mapToDTO);
    }
 
@@ -342,11 +342,11 @@ public class ConsultationService {
        
        // Validate and get foreign key entities if they are being changed
        AwardMethod awardMethod = null;
-       ProcurementNature realizationNature = null;
+       ProcurementNature procurementNature = null;
        BudgetType budgetType = null;
-       ProcurementStatus realizationStatus = null;
+       ProcurementStatus procurementStatus = null;
        ApprovalStatus approvalStatus = null;
-       ProcurementDirector realizationDirector = null;
+       ProcurementDirector procurementDirector = null;
        ConsultationStep consultationStep = null;
 
        if (consultationDTO.getAwardMethodId() != null && 
@@ -354,9 +354,9 @@ public class ConsultationService {
            awardMethod = validateAndGetAwardMethod(consultationDTO.getAwardMethodId());
        }
        
-       if (consultationDTO.getRealizationNatureId() != null && 
-           !consultationDTO.getRealizationNatureId().equals(existingConsultation.getRealizationNature().getId())) {
-           realizationNature = validateAndGetRealizationNature(consultationDTO.getRealizationNatureId());
+       if (consultationDTO.getProcurementNatureId() != null && 
+           !consultationDTO.getProcurementNatureId().equals(existingConsultation.getProcurementNature().getId())) {
+           procurementNature = validateAndGetProcurementNature(consultationDTO.getProcurementNatureId());
        }
        
        if (consultationDTO.getBudgetTypeId() != null && 
@@ -364,9 +364,9 @@ public class ConsultationService {
            budgetType = validateAndGetBudgetType(consultationDTO.getBudgetTypeId());
        }
        
-       if (consultationDTO.getRealizationStatusId() != null && 
-           !consultationDTO.getRealizationStatusId().equals(existingConsultation.getRealizationStatus().getId())) {
-           realizationStatus = validateAndGetRealizationStatus(consultationDTO.getRealizationStatusId());
+       if (consultationDTO.getProcurementStatusId() != null && 
+           !consultationDTO.getProcurementStatusId().equals(existingConsultation.getProcurementStatus().getId())) {
+           procurementStatus = validateAndGetProcurementStatus(consultationDTO.getProcurementStatusId());
        }
        
        if (consultationDTO.getApprovalStatusId() != null && 
@@ -374,9 +374,9 @@ public class ConsultationService {
            approvalStatus = validateAndGetApprovalStatus(consultationDTO.getApprovalStatusId());
        }
        
-       if (consultationDTO.getRealizationDirectorId() != null && 
-           !consultationDTO.getRealizationDirectorId().equals(existingConsultation.getRealizationDirector().getId())) {
-           realizationDirector = validateAndGetRealizationDirector(consultationDTO.getRealizationDirectorId());
+       if (consultationDTO.getProcurementDirectorId() != null && 
+           !consultationDTO.getProcurementDirectorId().equals(existingConsultation.getProcurementDirector().getId())) {
+           procurementDirector = validateAndGetProcurementDirector(consultationDTO.getProcurementDirectorId());
        }
        
        if (consultationDTO.getConsultationStepId() != null && 
@@ -404,20 +404,20 @@ public class ConsultationService {
        if (awardMethod != null) {
            existingConsultation.setAwardMethod(awardMethod); // F_15
        }
-       if (realizationNature != null) {
-           existingConsultation.setRealizationNature(realizationNature); // F_16
+       if (procurementNature != null) {
+           existingConsultation.setProcurementNature(procurementNature); // F_16
        }
        if (budgetType != null) {
            existingConsultation.setBudgetType(budgetType); // F_17
        }
-       if (realizationStatus != null) {
-           existingConsultation.setRealizationStatus(realizationStatus); // F_18
+       if (procurementStatus != null) {
+           existingConsultation.setProcurementStatus(procurementStatus); // F_18
        }
        if (approvalStatus != null) {
            existingConsultation.setApprovalStatus(approvalStatus); // F_19
        }
-       if (realizationDirector != null) {
-           existingConsultation.setRealizationDirector(realizationDirector); // F_20
+       if (procurementDirector != null) {
+           existingConsultation.setProcurementDirector(procurementDirector); // F_20
        }
        if (consultationStep != null) {
            existingConsultation.setConsultationStep(consultationStep); // F_21
@@ -521,25 +521,25 @@ public class ConsultationService {
            dto.setAwardMethodId(consultation.getAwardMethod().getId());
            dto.setAwardMethodDesignation(consultation.getAwardMethod().getDesignationFr());
        }
-       if (consultation.getRealizationNature() != null) {
-           dto.setRealizationNatureId(consultation.getRealizationNature().getId());
-           dto.setRealizationNatureDesignation(consultation.getRealizationNature().getDesignationFr());
+       if (consultation.getProcurementNature() != null) {
+           dto.setProcurementNatureId(consultation.getProcurementNature().getId());
+           dto.setProcurementNatureDesignation(consultation.getProcurementNature().getDesignationFr());
        }
        if (consultation.getBudgetType() != null) {
            dto.setBudgetTypeId(consultation.getBudgetType().getId());
            dto.setBudgetTypeDesignation(consultation.getBudgetType().getDesignationFr());
        }
-       if (consultation.getRealizationStatus() != null) {
-           dto.setRealizationStatusId(consultation.getRealizationStatus().getId());
-           dto.setRealizationStatusDesignation(consultation.getRealizationStatus().getDesignationFr());
+       if (consultation.getProcurementStatus() != null) {
+           dto.setProcurementStatusId(consultation.getProcurementStatus().getId());
+           dto.setProcurementStatusDesignation(consultation.getProcurementStatus().getDesignationFr());
        }
        if (consultation.getApprovalStatus() != null) {
            dto.setApprovalStatusId(consultation.getApprovalStatus().getId());
            dto.setApprovalStatusDesignation(consultation.getApprovalStatus().getDesignationFr());
        }
-       if (consultation.getRealizationDirector() != null) {
-           dto.setRealizationDirectorId(consultation.getRealizationDirector().getId());
-           dto.setRealizationDirectorDesignation(consultation.getRealizationDirector().getDesignationFr());
+       if (consultation.getProcurementDirector() != null) {
+           dto.setProcurementDirectorId(consultation.getProcurementDirector().getId());
+           dto.setProcurementDirectorDesignation(consultation.getProcurementDirector().getDesignationFr());
        }
        if (consultation.getConsultationStep() != null) {
            dto.setConsultationStepId(consultation.getConsultationStep().getId());
@@ -590,20 +590,20 @@ public class ConsultationService {
        if (consultationDTO.getAwardMethodId() == null) {
            throw new RuntimeException("Award method is required for " + operation);
        }
-       if (consultationDTO.getRealizationNatureId() == null) {
-           throw new RuntimeException("Realization nature is required for " + operation);
+       if (consultationDTO.getProcurementNatureId() == null) {
+           throw new RuntimeException("Procurement nature is required for " + operation);
        }
        if (consultationDTO.getBudgetTypeId() == null) {
            throw new RuntimeException("Budget type is required for " + operation);
        }
-       if (consultationDTO.getRealizationStatusId() == null) {
-           throw new RuntimeException("Realization status is required for " + operation);
+       if (consultationDTO.getProcurementStatusId() == null) {
+           throw new RuntimeException("Procurement status is required for " + operation);
        }
        if (consultationDTO.getApprovalStatusId() == null) {
            throw new RuntimeException("Approval status is required for " + operation);
        }
-       if (consultationDTO.getRealizationDirectorId() == null) {
-           throw new RuntimeException("Realization director is required for " + operation);
+       if (consultationDTO.getProcurementDirectorId() == null) {
+           throw new RuntimeException("Procurement director is required for " + operation);
        }
        if (consultationDTO.getConsultationStepId() == null) {
            throw new RuntimeException("Consultation step is required for " + operation);
@@ -637,9 +637,9 @@ public class ConsultationService {
                .orElseThrow(() -> new RuntimeException("AwardMethod not found with ID: " + awardMethodId));
    }
 
-   private ProcurementNature validateAndGetRealizationNature(Long realizationNatureId) {
-       return realizationNatureRepository.findById(realizationNatureId)
-               .orElseThrow(() -> new RuntimeException("RealizationNature not found with ID: " + realizationNatureId));
+   private ProcurementNature validateAndGetProcurementNature(Long procurementNatureId) {
+       return procurementNatureRepository.findById(procurementNatureId)
+               .orElseThrow(() -> new RuntimeException("ProcurementNature not found with ID: " + procurementNatureId));
    }
 
    private BudgetType validateAndGetBudgetType(Long budgetTypeId) {
@@ -647,9 +647,9 @@ public class ConsultationService {
                .orElseThrow(() -> new RuntimeException("BudgetType not found with ID: " + budgetTypeId));
    }
 
-   private ProcurementStatus validateAndGetRealizationStatus(Long realizationStatusId) {
-       return realizationStatusRepository.findById(realizationStatusId)
-               .orElseThrow(() -> new RuntimeException("RealizationStatus not found with ID: " + realizationStatusId));
+   private ProcurementStatus validateAndGetProcurementStatus(Long procurementStatusId) {
+       return procurementStatusRepository.findById(procurementStatusId)
+               .orElseThrow(() -> new RuntimeException("ProcurementStatus not found with ID: " + procurementStatusId));
    }
 
    private ApprovalStatus validateAndGetApprovalStatus(Long approvalStatusId) {
@@ -657,9 +657,9 @@ public class ConsultationService {
                .orElseThrow(() -> new RuntimeException("ApprovalStatus not found with ID: " + approvalStatusId));
    }
 
-   private ProcurementDirector validateAndGetRealizationDirector(Long realizationDirectorId) {
-       return realizationDirectorRepository.findById(realizationDirectorId)
-               .orElseThrow(() -> new RuntimeException("RealizationDirector not found with ID: " + realizationDirectorId));
+   private ProcurementDirector validateAndGetProcurementDirector(Long procurementDirectorId) {
+       return procurementDirectorRepository.findById(procurementDirectorId)
+               .orElseThrow(() -> new RuntimeException("ProcurementDirector not found with ID: " + procurementDirectorId));
    }
 
    private ConsultationStep validateAndGetConsultationStep(Long consultationStepId) {

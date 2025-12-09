@@ -115,7 +115,7 @@ public class Contract {
 
 	@ManyToOne
     @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_02_05_04_FK_03"), nullable=false)
-    private ProcurementStatus realizationStatus;
+    private ProcurementStatus procurementStatus;
 	
 	@ManyToOne
     @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_02_05_04_FK_04"), nullable=false)

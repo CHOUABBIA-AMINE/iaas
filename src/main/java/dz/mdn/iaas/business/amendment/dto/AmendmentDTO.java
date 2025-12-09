@@ -22,7 +22,7 @@ import dz.mdn.iaas.business.amendment.model.Amendment;
 import dz.mdn.iaas.business.contract.dto.ContractDTO;
 import dz.mdn.iaas.business.core.dto.ApprovalStatusDTO;
 import dz.mdn.iaas.business.core.dto.CurrencyDTO;
-import dz.mdn.iaas.business.core.dto.RealizationStatusDTO;
+import dz.mdn.iaas.business.core.dto.ProcurementStatusDTO;
 import dz.mdn.iaas.common.communication.dto.MailDTO;
 import dz.mdn.iaas.common.document.dto.DocumentDTO;
 import jakarta.validation.constraints.DecimalMin;
@@ -83,8 +83,8 @@ public class AmendmentDTO {
     @NotNull(message = "Amendment type is required")
     private Long amendmentTypeId; // F_13
 
-    @NotNull(message = "Realization status is required")
-    private Long realizationStatusId; // F_14
+    @NotNull(message = "Procurement status is required")
+    private Long procurementStatusId; // F_14
 
     @NotNull(message = "Amendment phase is required")
     private Long amendmentStepId; // F_15
@@ -100,7 +100,7 @@ public class AmendmentDTO {
     // Related DTOs for extended mapping
     private ContractDTO contract;
     private AmendmentTypeDTO amendmentType;
-    private RealizationStatusDTO realizationStatus;
+    private ProcurementStatusDTO procurementStatus;
     private AmendmentPhaseDTO amendmentStep;
     private ApprovalStatusDTO approvalStatus;
     private CurrencyDTO currency;
@@ -131,7 +131,7 @@ public class AmendmentDTO {
         // Foreign keys
         if (amendment.getContract() != null) builder.contractId(amendment.getContract().getId());
         if (amendment.getAmendmentType() != null) builder.amendmentTypeId(amendment.getAmendmentType().getId());
-        if (amendment.getRealizationStatus() != null) builder.realizationStatusId(amendment.getRealizationStatus().getId());
+        if (amendment.getProcurementStatus() != null) builder.procurementStatusId(amendment.getProcurementStatus().getId());
         if (amendment.getAmendmentStep() != null) builder.amendmentStepId(amendment.getAmendmentStep().getId());
         if (amendment.getApprovalStatus() != null) builder.approvalStatusId(amendment.getApprovalStatus().getId());
         if (amendment.getCurrency() != null) builder.currencyId(amendment.getCurrency().getId());
@@ -154,8 +154,8 @@ public class AmendmentDTO {
             dto.setContract(ContractDTO.fromEntity(amendment.getContract()));
         if (amendment.getAmendmentType() != null)
             dto.setAmendmentType(AmendmentTypeDTO.fromEntity(amendment.getAmendmentType()));
-        if (amendment.getRealizationStatus() != null)
-            dto.setRealizationStatus(RealizationStatusDTO.fromEntity(amendment.getRealizationStatus()));
+        if (amendment.getProcurementStatus() != null)
+            dto.setProcurementStatus(ProcurementStatusDTO.fromEntity(amendment.getProcurementStatus()));
         if (amendment.getAmendmentStep() != null)
             dto.setAmendmentStep(AmendmentPhaseDTO.fromEntity(amendment.getAmendmentStep()));
         if (amendment.getApprovalStatus() != null)
@@ -201,6 +201,6 @@ public class AmendmentDTO {
 
     public String getStatusSummary() {
         if (isApproved()) return "APPROVED";
-        return realizationStatus != null ? realizationStatus.getDesignationFr() : "PENDING";
+        return procurementStatus != null ? procurementStatus.getDesignationFr() : "PENDING";
     }
 }

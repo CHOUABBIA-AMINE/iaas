@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: RealizationStatusDTO
+ *	@Name		: ProcurementStatusDTO
  *	@CreatedOn	: 10-16-2025
  *
  *	@Type		: Class
@@ -21,8 +21,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * RealizationStatus Data Transfer Object
- * Maps exactly to RealizationStatus model fields: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
+ * ProcurementStatus Data Transfer Object
+ * Maps exactly to ProcurementStatus model fields: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
  * F_03 (designationFr) has unique constraint and is required
  * F_01 (designationAr) and F_02 (designationEn) are optional
  */
@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RealizationStatusDTO {
+public class ProcurementStatusDTO {
 
     private Long id; // F_00
 
@@ -48,14 +48,14 @@ public class RealizationStatusDTO {
     /**
      * Create DTO from entity
      */
-    public static RealizationStatusDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementStatus realizationStatus) {
-        if (realizationStatus == null) return null;
+    public static ProcurementStatusDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementStatus procurementStatus) {
+        if (procurementStatus == null) return null;
         
-        return RealizationStatusDTO.builder()
-                .id(realizationStatus.getId())
-                .designationAr(realizationStatus.getDesignationAr())
-                .designationEn(realizationStatus.getDesignationEn())
-                .designationFr(realizationStatus.getDesignationFr())
+        return ProcurementStatusDTO.builder()
+                .id(procurementStatus.getId())
+                .designationAr(procurementStatus.getDesignationAr())
+                .designationEn(procurementStatus.getDesignationEn())
+                .designationFr(procurementStatus.getDesignationFr())
                 .build();
     }
 
@@ -63,26 +63,26 @@ public class RealizationStatusDTO {
      * Convert to entity
      */
     public dz.mdn.iaas.business.core.model.ProcurementStatus toEntity() {
-        dz.mdn.iaas.business.core.model.ProcurementStatus realizationStatus = new dz.mdn.iaas.business.core.model.ProcurementStatus();
-        realizationStatus.setId(this.id);
-        realizationStatus.setDesignationAr(this.designationAr);
-        realizationStatus.setDesignationEn(this.designationEn);
-        realizationStatus.setDesignationFr(this.designationFr);
-        return realizationStatus;
+        dz.mdn.iaas.business.core.model.ProcurementStatus procurementStatus = new dz.mdn.iaas.business.core.model.ProcurementStatus();
+        procurementStatus.setId(this.id);
+        procurementStatus.setDesignationAr(this.designationAr);
+        procurementStatus.setDesignationEn(this.designationEn);
+        procurementStatus.setDesignationFr(this.designationFr);
+        return procurementStatus;
     }
 
     /**
      * Update entity from DTO
      */
-    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementStatus realizationStatus) {
+    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementStatus procurementStatus) {
         if (this.designationAr != null) {
-            realizationStatus.setDesignationAr(this.designationAr);
+            procurementStatus.setDesignationAr(this.designationAr);
         }
         if (this.designationEn != null) {
-            realizationStatus.setDesignationEn(this.designationEn);
+            procurementStatus.setDesignationEn(this.designationEn);
         }
         if (this.designationFr != null) {
-            realizationStatus.setDesignationFr(this.designationFr);
+            procurementStatus.setDesignationFr(this.designationFr);
         }
     }
 
@@ -124,7 +124,7 @@ public class RealizationStatusDTO {
     }
 
     /**
-     * Check if realization status has multiple language support
+     * Check if procurement status has multiple language support
      */
     public boolean isMultilingual() {
         int languageCount = 0;
@@ -135,7 +135,7 @@ public class RealizationStatusDTO {
     }
 
     /**
-     * Get available languages for this realization status
+     * Get available languages for this procurement status
      */
     public String[] getAvailableLanguages() {
         java.util.List<String> languages = new java.util.ArrayList<>();
@@ -154,7 +154,7 @@ public class RealizationStatusDTO {
     }
 
     /**
-     * Get realization status category based on French designation analysis
+     * Get procurement status category based on French designation analysis
      */
     public String getStatusCategory() {
         if (designationFr == null) return "UNKNOWN";
@@ -366,8 +366,8 @@ public class RealizationStatusDTO {
     /**
      * Create simplified DTO for dropdowns
      */
-    public static RealizationStatusDTO createSimple(Long id, String designationFr) {
-        return RealizationStatusDTO.builder()
+    public static ProcurementStatusDTO createSimple(Long id, String designationFr) {
+        return ProcurementStatusDTO.builder()
                 .id(id)
                 .designationFr(designationFr)
                 .build();

@@ -108,7 +108,7 @@ public class Consultation {
 	
 	@ManyToOne
     @JoinColumn(name="F_16", foreignKey=@ForeignKey(name="T_02_04_04_FK_02"), nullable=false)
-    private ProcurementNature realizationNature;
+    private ProcurementNature procurementNature;
 	
 	@ManyToOne
     @JoinColumn(name="F_17", foreignKey=@ForeignKey(name="T_02_04_04_FK_03"), nullable=false)
@@ -116,7 +116,7 @@ public class Consultation {
 	
 	@ManyToOne
     @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_02_04_04_FK_04"), nullable=false)
-    private ProcurementStatus realizationStatus;
+    private ProcurementStatus procurementStatus;
 	
 	@ManyToOne
     @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_02_04_04_FK_05"), nullable=false)
@@ -124,7 +124,7 @@ public class Consultation {
 	
 	@ManyToOne
     @JoinColumn(name="F_20", foreignKey=@ForeignKey(name="T_02_04_04_FK_06"), nullable=false)
-    private ProcurementDirector realizationDirector;
+    private ProcurementDirector procurementDirector;
 	
 	@ManyToOne
     @JoinColumn(name="F_21", foreignKey=@ForeignKey(name="T_02_04_04_FK_07"), nullable=false)

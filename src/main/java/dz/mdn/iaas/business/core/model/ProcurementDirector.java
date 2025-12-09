@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: RealizationDirector
+ *	@Name		: ProcurementDirector
  *	@CreatedOn	: 06-26-2025
  *
  *	@Type		: Class
@@ -33,7 +33,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="RealizationDirector")
+@Entity(name="ProcurementDirector")
 @Table(name="T_02_01_03", uniqueConstraints = { @UniqueConstraint(name = "T_02_01_03_UK_01", columnNames = { "F_03" })})
 public class ProcurementDirector {
 	
@@ -55,6 +55,6 @@ public class ProcurementDirector {
 
 /*
 INSERT INTO T_02_01_03 (F_00, F_01, F_02, F_03) VALUES
-(1, 'المديرية الفرعية للإنجازات', 'Sub Directorat of Realizations', 'Sous Direction Réalisations'),
+(1, 'المديرية الفرعية للإنجازات', 'Sub Directorat of Procurements', 'Sous Direction Réalisations'),
 (2, 'دائرة المؤن', 'Approvisionment Department', 'Département des Approvisionnements');
  */

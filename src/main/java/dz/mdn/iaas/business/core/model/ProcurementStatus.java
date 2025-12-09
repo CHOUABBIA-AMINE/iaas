@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: RealizationStatus
+ *	@Name		: ProcurementStatus
  *	@CreatedOn	: 06-26-2025
  *
  *	@Type		: Class
@@ -33,7 +33,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="RealizationStatus")
+@Entity(name="ProcurementStatus")
 @Table(name="T_02_01_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_01_05_UK_01", columnNames = { "F_03" })})
 public class ProcurementStatus {
 	

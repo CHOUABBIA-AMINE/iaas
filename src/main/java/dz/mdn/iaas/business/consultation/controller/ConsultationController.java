@@ -213,7 +213,7 @@ public class ConsultationController {
     // ========== FILTER ENDPOINTS ==========
 
     /**
-     * Get consultations by realization status
+     * Get consultations by procurement status
      */
     @GetMapping("/status/{statusId}")
     public ResponseEntity<Page<ConsultationDTO>> getConsultationsByStatus(
@@ -221,7 +221,7 @@ public class ConsultationController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
 
-        log.debug("Getting consultations by realization status ID: {}", statusId);
+        log.debug("Getting consultations by procurement status ID: {}", statusId);
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "startDate"));
         Page<ConsultationDTO> consultations = consultationService.getConsultationsByStatus(statusId, pageable);

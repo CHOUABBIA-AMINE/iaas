@@ -95,20 +95,20 @@ public class ConsultationDTO {
     @NotNull(message = "Award method is required")
     private Long awardMethodId; // F_15 - required foreign key
     
-    @NotNull(message = "Realization nature is required")
-    private Long realizationNatureId; // F_16 - required foreign key
+    @NotNull(message = "Procurement nature is required")
+    private Long procurementNatureId; // F_16 - required foreign key
     
     @NotNull(message = "Budget type is required")
     private Long budgetTypeId; // F_17 - required foreign key
     
-    @NotNull(message = "Realization status is required")
-    private Long realizationStatusId; // F_18 - required foreign key
+    @NotNull(message = "Procurement status is required")
+    private Long procurementStatusId; // F_18 - required foreign key
     
     @NotNull(message = "Approval status is required")
     private Long approvalStatusId; // F_19 - required foreign key
     
-    @NotNull(message = "Realization director is required")
-    private Long realizationDirectorId; // F_20 - required foreign key
+    @NotNull(message = "Procurement director is required")
+    private Long procurementDirectorId; // F_20 - required foreign key
     
     @NotNull(message = "Consultation step is required")
     private Long consultationStepId; // F_21 - required foreign key
@@ -124,11 +124,11 @@ public class ConsultationDTO {
     
     // Related entity designations for display
     private String awardMethodDesignation;
-    private String realizationNatureDesignation;
+    private String procurementNatureDesignation;
     private String budgetTypeDesignation;
-    private String realizationStatusDesignation;
+    private String procurementStatusDesignation;
     private String approvalStatusDesignation;
-    private String realizationDirectorDesignation;
+    private String procurementDirectorDesignation;
     private String consultationStepDesignation;
 
     /**
@@ -160,25 +160,25 @@ public class ConsultationDTO {
             dto.setAwardMethodId(consultation.getAwardMethod().getId());
             dto.setAwardMethodDesignation(consultation.getAwardMethod().getDesignationFr());
         }
-        if (consultation.getRealizationNature() != null) {
-            dto.setRealizationNatureId(consultation.getRealizationNature().getId());
-            dto.setRealizationNatureDesignation(consultation.getRealizationNature().getDesignationFr());
+        if (consultation.getProcurementNature() != null) {
+            dto.setProcurementNatureId(consultation.getProcurementNature().getId());
+            dto.setProcurementNatureDesignation(consultation.getProcurementNature().getDesignationFr());
         }
         if (consultation.getBudgetType() != null) {
             dto.setBudgetTypeId(consultation.getBudgetType().getId());
             dto.setBudgetTypeDesignation(consultation.getBudgetType().getDesignationFr());
         }
-        if (consultation.getRealizationStatus() != null) {
-            dto.setRealizationStatusId(consultation.getRealizationStatus().getId());
-            dto.setRealizationStatusDesignation(consultation.getRealizationStatus().getDesignationFr());
+        if (consultation.getProcurementStatus() != null) {
+            dto.setProcurementStatusId(consultation.getProcurementStatus().getId());
+            dto.setProcurementStatusDesignation(consultation.getProcurementStatus().getDesignationFr());
         }
         if (consultation.getApprovalStatus() != null) {
             dto.setApprovalStatusId(consultation.getApprovalStatus().getId());
             dto.setApprovalStatusDesignation(consultation.getApprovalStatus().getDesignationFr());
         }
-        if (consultation.getRealizationDirector() != null) {
-            dto.setRealizationDirectorId(consultation.getRealizationDirector().getId());
-            dto.setRealizationDirectorDesignation(consultation.getRealizationDirector().getDesignationFr());
+        if (consultation.getProcurementDirector() != null) {
+            dto.setProcurementDirectorId(consultation.getProcurementDirector().getId());
+            dto.setProcurementDirectorDesignation(consultation.getProcurementDirector().getDesignationFr());
         }
         if (consultation.getConsultationStep() != null) {
             dto.setConsultationStepId(consultation.getConsultationStep().getId());
@@ -251,9 +251,9 @@ public class ConsultationDTO {
         return internalId != null && !internalId.trim().isEmpty() &&
                consultationYear != null && !consultationYear.trim().isEmpty() &&
                designationFr != null && !designationFr.trim().isEmpty() &&
-               awardMethodId != null && realizationNatureId != null &&
-               budgetTypeId != null && realizationStatusId != null &&
-               approvalStatusId != null && realizationDirectorId != null &&
+               awardMethodId != null && procurementNatureId != null &&
+               budgetTypeId != null && procurementStatusId != null &&
+               approvalStatusId != null && procurementDirectorId != null &&
                consultationStepId != null;
     }
     

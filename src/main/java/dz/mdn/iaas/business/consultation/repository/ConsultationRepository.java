@@ -57,11 +57,11 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
     */
    @Query("SELECT c FROM Consultation c " +
           "LEFT JOIN FETCH c.awardMethod " +
-          "LEFT JOIN FETCH c.realizationNature " +
+          "LEFT JOIN FETCH c.procurementNature " +
           "LEFT JOIN FETCH c.budgetType " +
-          "LEFT JOIN FETCH c.realizationStatus " +
+          "LEFT JOIN FETCH c.procurementStatus " +
           "LEFT JOIN FETCH c.approvalStatus " +
-          "LEFT JOIN FETCH c.realizationDirector " +
+          "LEFT JOIN FETCH c.procurementDirector " +
           "LEFT JOIN FETCH c.consultationStep " +
           "LEFT JOIN FETCH c.documents " +
           "LEFT JOIN FETCH c.referencedMails " +
@@ -82,10 +82,10 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
    Page<Consultation> searchByDesignation(@Param("searchTerm") String searchTerm, Pageable pageable);
 
    /**
-    * Find consultations by realization status (F_18)
+    * Find consultations by procurement status (F_18)
     */
-   @Query("SELECT c FROM Consultation c WHERE c.realizationStatus.id = :statusId ORDER BY c.startDate DESC")
-   Page<Consultation> findByRealizationStatusId(@Param("statusId") Long statusId, Pageable pageable);
+   @Query("SELECT c FROM Consultation c WHERE c.procurementStatus.id = :statusId ORDER BY c.startDate DESC")
+   Page<Consultation> findByProcurementStatusId(@Param("statusId") Long statusId, Pageable pageable);
 
    /**
     * Find consultations by approval status (F_19)
@@ -192,10 +192,10 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
    Page<Consultation> findConsultationsWithBudgetOverrun(Pageable pageable);
 
    /**
-    * Find consultations by realization director (F_20)
+    * Find consultations by procurement director (F_20)
     */
-   @Query("SELECT c FROM Consultation c WHERE c.realizationDirector.id = :directorId ORDER BY c.startDate DESC")
-   Page<Consultation> findByRealizationDirectorId(@Param("directorId") Long directorId, Pageable pageable);
+   @Query("SELECT c FROM Consultation c WHERE c.procurementDirector.id = :directorId ORDER BY c.startDate DESC")
+   Page<Consultation> findByProcurementDirectorId(@Param("directorId") Long directorId, Pageable pageable);
 
    /**
     * Find consultations by budget type (F_17)
@@ -204,10 +204,10 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
    Page<Consultation> findByBudgetTypeId(@Param("budgetTypeId") Long budgetTypeId, Pageable pageable);
 
    /**
-    * Find consultations by realization nature (F_16)
+    * Find consultations by procurement nature (F_16)
     */
-   @Query("SELECT c FROM Consultation c WHERE c.realizationNature.id = :natureId ORDER BY c.startDate DESC")
-   Page<Consultation> findByRealizationNatureId(@Param("natureId") Long natureId, Pageable pageable);
+   @Query("SELECT c FROM Consultation c WHERE c.procurementNature.id = :natureId ORDER BY c.startDate DESC")
+   Page<Consultation> findByProcurementNatureId(@Param("natureId") Long natureId, Pageable pageable);
 
    /**
     * Check if consultation exists by internal ID and year (for validation)
@@ -229,7 +229,7 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
    /**
     * Count consultations by status
     */
-   @Query("SELECT c.realizationStatus.designationFr, COUNT(c) FROM Consultation c GROUP BY c.realizationStatus.designationFr ORDER BY COUNT(c) DESC")
+   @Query("SELECT c.procurementStatus.designationFr, COUNT(c) FROM Consultation c GROUP BY c.procurementStatus.designationFr ORDER BY COUNT(c) DESC")
    java.util.List<Object[]> countConsultationsByStatus();
 
    /**
@@ -344,10 +344,10 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
 	Double getAverageFinancialEfficiency();
 	
 	/**
-	 * Find top spending realization directors
+	 * Find top spending procurement directors
 	 */
-	@Query("SELECT c.realizationDirector.designationFr, COALESCE(SUM(c.allocatedAmount), 0.0) FROM Consultation c " +
-	       "GROUP BY c.realizationDirector.designationFr ORDER BY SUM(c.allocatedAmount) DESC")
+	@Query("SELECT c.procurementDirector.designationFr, COALESCE(SUM(c.allocatedAmount), 0.0) FROM Consultation c " +
+	       "GROUP BY c.procurementDirector.designationFr ORDER BY SUM(c.allocatedAmount) DESC")
 	java.util.List<Object[]> getTopSpendingDirectors();
 	
 	/**
@@ -365,11 +365,11 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
 	java.util.List<Object[]> getBudgetTypeDistribution();
 	
 	/**
-	 * Get realization nature statistics
+	 * Get procurement nature statistics
 	 */
-	@Query("SELECT c.realizationNature.designationFr, COUNT(c), COALESCE(AVG(c.allocatedAmount), 0.0) FROM Consultation c " +
-	       "GROUP BY c.realizationNature.designationFr ORDER BY COUNT(c) DESC")
-	java.util.List<Object[]> getRealizationNatureStats();
+	@Query("SELECT c.procurementNature.designationFr, COUNT(c), COALESCE(AVG(c.allocatedAmount), 0.0) FROM Consultation c " +
+	       "GROUP BY c.procurementNature.designationFr ORDER BY COUNT(c) DESC")
+	java.util.List<Object[]> getProcurementNatureStats();
 	
 	/**
 	 * Find consultations with longest duration
@@ -432,16 +432,16 @@ public interface ConsultationRepository extends JpaRepository<Consultation, Long
 	                                                            Pageable pageable);
 	
 	/**
-	 * Get performance metrics by realization director
+	 * Get performance metrics by procurement director
 	 */
-	@Query("SELECT c.realizationDirector.designationFr, " +
+	@Query("SELECT c.procurementDirector.designationFr, " +
 	       "COUNT(c) as totalConsultations, " +
 	       "COALESCE(SUM(c.allocatedAmount), 0.0) as totalAmount, " +
 	       "COALESCE(AVG(c.allocatedAmount), 0.0) as avgAmount, " +
 	       "COUNT(CASE WHEN SIZE(c.submissions) > 0 THEN 1 END) as successfulConsultations, " +
 	       "(COUNT(CASE WHEN SIZE(c.submissions) > 0 THEN 1 END) * 100.0 / COUNT(c)) as successRate " +
 	       "FROM Consultation c " +
-	       "GROUP BY c.realizationDirector.designationFr " +
+	       "GROUP BY c.procurementDirector.designationFr " +
 	       "ORDER BY totalAmount DESC")
 	java.util.List<Object[]> getPerformanceMetricsByDirector();
 }

@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: RealizationNatureDTO
+ *	@Name		: ProcurementNatureDTO
  *	@CreatedOn	: 10-16-2025
  *
  *	@Type		: Class
@@ -21,8 +21,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * RealizationNature Data Transfer Object
- * Maps exactly to RealizationNature model fields: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
+ * ProcurementNature Data Transfer Object
+ * Maps exactly to ProcurementNature model fields: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
  * F_03 (designationFr) has unique constraint and is required
  * F_01 (designationAr) and F_02 (designationEn) are optional
  */
@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RealizationNatureDTO {
+public class ProcurementNatureDTO {
 
     private Long id; // F_00
 
@@ -48,14 +48,14 @@ public class RealizationNatureDTO {
     /**
      * Create DTO from entity
      */
-    public static RealizationNatureDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementNature realizationNature) {
-        if (realizationNature == null) return null;
+    public static ProcurementNatureDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementNature procurementNature) {
+        if (procurementNature == null) return null;
         
-        return RealizationNatureDTO.builder()
-                .id(realizationNature.getId())
-                .designationAr(realizationNature.getDesignationAr())
-                .designationEn(realizationNature.getDesignationEn())
-                .designationFr(realizationNature.getDesignationFr())
+        return ProcurementNatureDTO.builder()
+                .id(procurementNature.getId())
+                .designationAr(procurementNature.getDesignationAr())
+                .designationEn(procurementNature.getDesignationEn())
+                .designationFr(procurementNature.getDesignationFr())
                 .build();
     }
 
@@ -63,26 +63,26 @@ public class RealizationNatureDTO {
      * Convert to entity
      */
     public dz.mdn.iaas.business.core.model.ProcurementNature toEntity() {
-        dz.mdn.iaas.business.core.model.ProcurementNature realizationNature = new dz.mdn.iaas.business.core.model.ProcurementNature();
-        realizationNature.setId(this.id);
-        realizationNature.setDesignationAr(this.designationAr);
-        realizationNature.setDesignationEn(this.designationEn);
-        realizationNature.setDesignationFr(this.designationFr);
-        return realizationNature;
+        dz.mdn.iaas.business.core.model.ProcurementNature procurementNature = new dz.mdn.iaas.business.core.model.ProcurementNature();
+        procurementNature.setId(this.id);
+        procurementNature.setDesignationAr(this.designationAr);
+        procurementNature.setDesignationEn(this.designationEn);
+        procurementNature.setDesignationFr(this.designationFr);
+        return procurementNature;
     }
 
     /**
      * Update entity from DTO
      */
-    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementNature realizationNature) {
+    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementNature procurementNature) {
         if (this.designationAr != null) {
-            realizationNature.setDesignationAr(this.designationAr);
+            procurementNature.setDesignationAr(this.designationAr);
         }
         if (this.designationEn != null) {
-            realizationNature.setDesignationEn(this.designationEn);
+            procurementNature.setDesignationEn(this.designationEn);
         }
         if (this.designationFr != null) {
-            realizationNature.setDesignationFr(this.designationFr);
+            procurementNature.setDesignationFr(this.designationFr);
         }
     }
 
@@ -124,7 +124,7 @@ public class RealizationNatureDTO {
     }
 
     /**
-     * Check if realization nature has multiple language support
+     * Check if procurement nature has multiple language support
      */
     public boolean isMultilingual() {
         int languageCount = 0;
@@ -135,7 +135,7 @@ public class RealizationNatureDTO {
     }
 
     /**
-     * Get available languages for this realization nature
+     * Get available languages for this procurement nature
      */
     public String[] getAvailableLanguages() {
         java.util.List<String> languages = new java.util.ArrayList<>();
@@ -154,7 +154,7 @@ public class RealizationNatureDTO {
     }
 
     /**
-     * Get realization nature category based on French designation analysis
+     * Get procurement nature category based on French designation analysis
      */
     public String getNatureCategory() {
         if (designationFr == null) return "UNKNOWN";
@@ -327,8 +327,8 @@ public class RealizationNatureDTO {
     /**
      * Create simplified DTO for dropdowns
      */
-    public static RealizationNatureDTO createSimple(Long id, String designationFr) {
-        return RealizationNatureDTO.builder()
+    public static ProcurementNatureDTO createSimple(Long id, String designationFr) {
+        return ProcurementNatureDTO.builder()
                 .id(id)
                 .designationFr(designationFr)
                 .build();

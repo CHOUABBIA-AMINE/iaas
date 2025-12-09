@@ -45968,3 +45968,1701 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2025-12-09 14:42:55 [RMI TCP Connection(27)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-12-09 14:42:55 [RMI TCP Connection(27)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-12-09 14:42:55 [RMI TCP Connection(27)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-09 19:59:53 [main] INFO  dz.mdn.iaas.IaasApi - Starting IaasApi using Java 21.0.7 with PID 18792 (C:\Developing\Workspace\Backend\iaas\target\classes started by Administrateur in C:\Developing\Workspace\Backend\iaas)
+2025-12-09 19:59:53 [main] DEBUG dz.mdn.iaas.IaasApi - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-12-09 19:59:53 [main] INFO  dz.mdn.iaas.IaasApi - No active profile set, falling back to 1 default profile: "default"
+2025-12-09 19:59:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-09 19:59:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 247 ms. Found 65 JPA repository interfaces.
+2025-12-09 19:59:55 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-09 19:59:55 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-09 19:59:55 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-09 19:59:55 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2511 ms
+2025-12-09 19:59:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-09 19:59:56 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1d5bb5c
+2025-12-09 19:59:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-09 19:59:56 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-09 19:59:56 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-09 19:59:56 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-09 19:59:56 [main] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.5.5 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2025-12-09 19:59:56 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-09 19:59:56 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/iaas_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 5.5.5
+	Default catalog/schema: iaas_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-09 19:59:58 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-09 19:59:58 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T010203_T010203 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020304_T020301 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020404_T010203 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020404_T010302 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020404_T020208 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020504_T010203 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020504_T010302 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020504_T020208 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020604_T010203 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table R_T020604_T010302 (
+        F_01 bigint not null,
+        F_02 bigint not null
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    alter table T_00_03_01 
+       modify column F_03 enum ('APPROVE','ARCHIVE','CANCEL','CREATE','DELETE','READ','REJECT','RESTORE','SUBMIT','UPDATE') not null
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    alter table T_00_03_01 
+       modify column F_13 enum ('FAILED','PARTIAL','SUCCESS') not null
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_01_01 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(20) not null,
+        F_02 varchar(20) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_01_02 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(20) not null,
+        F_02 bigint not null,
+        F_03 bigint not null,
+        F_04 bigint,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_01_03 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(20) not null,
+        F_02 varchar(200),
+        F_03 varchar(200),
+        F_04 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_01_04 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(20) not null,
+        F_02 varchar(200),
+        F_03 varchar(200),
+        F_04 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_01_05 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(20) not null,
+        F_02 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_01_06 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(20) not null,
+        F_02 bigint not null,
+        F_03 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_01_07 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(20) not null,
+        F_02 varchar(200),
+        F_03 varchar(200),
+        F_04 varchar(200) not null,
+        F_05 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_02_01 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_02_02 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_02_03 (
+        F_00 bigint not null auto_increment,
+        F_04 datetime(6),
+        F_05 datetime(6),
+        F_02 varchar(50),
+        F_01 varchar(50),
+        F_03 varchar(500),
+        F_09 bigint not null,
+        F_06 bigint not null,
+        F_07 bigint not null,
+        F_08 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_03_01 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200),
+        F_04 integer,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_03_02 (
+        F_00 bigint not null auto_increment,
+        F_02 datetime(6),
+        F_01 varchar(500),
+        F_03 bigint not null,
+        F_04 bigint,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_01 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(3) not null,
+        F_02 varchar(100),
+        F_03 varchar(100),
+        F_04 varchar(100) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_02 (
+        F_00 bigint not null auto_increment,
+        F_01 integer not null,
+        F_02 varchar(100) not null,
+        F_03 varchar(100) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_03 (
+        F_00 bigint not null auto_increment,
+        F_01 integer not null,
+        F_02 varchar(100) not null,
+        F_03 varchar(100) not null,
+        F_04 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_04 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(50),
+        F_02 varchar(50),
+        F_03 varchar(50) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_05 (
+        F_00 bigint not null auto_increment,
+        F_04 varchar(10),
+        F_05 varchar(10),
+        F_06 varchar(10) not null,
+        F_01 varchar(50),
+        F_02 varchar(50),
+        F_03 varchar(50) not null,
+        F_07 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_06 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_07 (
+        F_00 bigint not null auto_increment,
+        F_04 varchar(20),
+        F_05 varchar(20),
+        F_06 varchar(20) not null,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        F_07 bigint not null,
+        F_08 bigint,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_08 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        F_04 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_09 (
+        F_00 bigint not null auto_increment,
+        F_07 varchar(255),
+        F_05 datetime(6),
+        F_06 varchar(255),
+        F_01 varchar(100),
+        F_03 varchar(100),
+        F_02 varchar(100),
+        F_04 varchar(100),
+        F_09 bigint,
+        F_08 bigint,
+        F_10 bigint,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_01_04_10 (
+        F_00 bigint not null auto_increment,
+        F_02 datetime(6),
+        F_01 varchar(255),
+        F_05 bigint,
+        F_04 bigint not null,
+        F_03 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_01_01 (
+        F_00 bigint not null auto_increment,
+        F_05 varchar(20) not null,
+        F_06 varchar(20) not null,
+        F_07 varchar(20) not null,
+        F_01 varchar(20) not null,
+        F_02 varchar(50) not null,
+        F_03 varchar(50) not null,
+        F_04 varchar(50) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_01_02 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_01_03 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(300),
+        F_02 varchar(300),
+        F_03 varchar(300) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_01_04 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_01_05 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_01 (
+        F_00 bigint not null auto_increment,
+        F_04 varchar(20),
+        F_05 varchar(20),
+        F_06 varchar(20) not null,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_02 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_03 (
+        F_00 bigint not null auto_increment,
+        F_02 varchar(4) not null,
+        F_01 varchar(200) not null,
+        F_03 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_04 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_05 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        F_04 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_06 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        F_04 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_07 (
+        F_00 bigint not null auto_increment,
+        F_03 datetime(6),
+        F_02 varchar(500),
+        F_01 varchar(200),
+        F_04 bigint not null,
+        F_05 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_08 (
+        F_00 bigint not null auto_increment,
+        F_04 float(53),
+        F_01 varchar(200) not null,
+        F_03 float(53),
+        F_02 float(53),
+        F_08 bigint,
+        F_07 bigint not null,
+        F_06 bigint not null,
+        F_05 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_02_09 (
+        F_00 bigint not null auto_increment,
+        F_01 float(23),
+        F_02 bigint not null,
+        F_03 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_03_01 (
+        F_00 bigint not null auto_increment,
+        F_01 integer,
+        F_02 varchar(200),
+        F_03 varchar(200),
+        F_04 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_03_02 (
+        F_00 bigint not null auto_increment,
+        F_04 varchar(20),
+        F_05 varchar(20),
+        F_06 varchar(20) not null,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_03_03 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_03_04 (
+        F_00 bigint not null auto_increment,
+        F_04 varchar(20),
+        F_03 varchar(20),
+        F_05 varchar(200),
+        F_11 varchar(200),
+        F_12 varchar(50),
+        F_06 float(53),
+        F_08 datetime(6),
+        F_07 varchar(200),
+        F_02 varchar(200),
+        F_01 varchar(200),
+        F_15 varchar(200),
+        F_16 varchar(300),
+        F_14 varchar(200),
+        F_10 varchar(200),
+        F_13 varchar(50),
+        F_09 varchar(200),
+        F_17 varchar(200),
+        F_20 bigint not null,
+        F_19 bigint not null,
+        F_18 bigint,
+        F_21 bigint,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_03_05 (
+        F_00 bigint not null auto_increment,
+        F_05 varchar(100),
+        F_03 varchar(200),
+        F_04 varchar(100),
+        F_01 varchar(50) not null,
+        F_08 varchar(100),
+        F_06 varchar(50),
+        F_02 varchar(50) not null,
+        F_09 varchar(100),
+        F_07 varchar(100),
+        F_10 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_03_06 (
+        F_00 bigint not null auto_increment,
+        F_02 datetime(6),
+        F_01 datetime(6),
+        F_03 bigint not null,
+        F_04 bigint not null,
+        F_05 bigint,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_03_07 (
+        F_00 bigint not null auto_increment,
+        F_03 varchar(255),
+        F_02 datetime(6),
+        F_01 datetime(6) not null,
+        F_04 bigint not null,
+        F_05 bigint not null,
+        F_06 bigint,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_04_01 (
+        F_00 bigint not null auto_increment,
+        F_04 varchar(20),
+        F_05 varchar(20),
+        F_06 varchar(20) not null,
+        F_01 varchar(150),
+        F_02 varchar(150),
+        F_03 varchar(150) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_04_02 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_04_03 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        F_04 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_04_04 (
+        F_00 bigint not null auto_increment,
+        F_07 float(53),
+        F_11 datetime(6),
+        F_10 varchar(255),
+        F_02 varchar(4) not null,
+        F_13 datetime(6),
+        F_04 varchar(300),
+        F_05 varchar(300),
+        F_06 varchar(300) not null,
+        F_08 float(53),
+        F_01 varchar(3) not null,
+        F_14 varchar(500),
+        F_12 datetime(6),
+        F_03 varchar(20),
+        F_09 datetime(6),
+        F_19 bigint not null,
+        F_15 bigint not null,
+        F_17 bigint not null,
+        F_21 bigint not null,
+        F_20 bigint not null,
+        F_16 bigint not null,
+        F_18 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_04_05 (
+        F_00 bigint not null auto_increment,
+        F_02 float(53),
+        F_01 datetime(6),
+        F_05 bigint,
+        F_03 bigint not null,
+        F_07 bigint,
+        F_06 bigint,
+        F_04 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_05_01 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_05_02 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_05_03 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        F_04 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_05_04 (
+        F_00 bigint not null auto_increment,
+        F_07 float(53),
+        F_11 datetime(6),
+        F_10 varchar(255),
+        F_12 datetime(6),
+        F_14 integer,
+        F_02 varchar(255),
+        F_04 varchar(300),
+        F_05 varchar(300),
+        F_06 varchar(300) not null,
+        F_01 varchar(255) not null,
+        F_13 datetime(6),
+        F_15 varchar(500),
+        F_03 varchar(255),
+        F_09 datetime(6),
+        F_08 float(53),
+        F_20 bigint,
+        F_22 bigint,
+        F_19 bigint not null,
+        F_16 bigint not null,
+        F_23 bigint,
+        F_21 bigint not null,
+        F_17 bigint not null,
+        F_18 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_05_05 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(255) not null,
+        F_05 varchar(255),
+        F_03 float(53),
+        F_02 varchar(255) not null,
+        F_04 float(53),
+        F_06 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_06_01 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_06_02 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_06_03 (
+        F_00 bigint not null auto_increment,
+        F_01 varchar(200),
+        F_02 varchar(200),
+        F_03 varchar(200) not null,
+        F_04 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    create table T_02_06_04 (
+        F_00 bigint not null auto_increment,
+        F_06 float(53),
+        F_09 datetime(6),
+        F_03 varchar(300),
+        F_04 varchar(300),
+        F_05 varchar(300),
+        F_01 integer,
+        F_10 datetime(6),
+        F_11 varchar(500),
+        F_02 varchar(255),
+        F_08 datetime(6),
+        F_07 float(53),
+        F_15 bigint not null,
+        F_13 bigint not null,
+        F_16 bigint,
+        F_12 bigint not null,
+        F_17 bigint not null,
+        F_14 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-09 19:59:59 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T010203_T010203 
+       drop index R_T010203_T010203_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T010203_T010203 
+       add constraint R_T010203_T010203_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020304_T020301 
+       drop index R_T020304_T020301_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020304_T020301 
+       add constraint R_T020304_T020301_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T010203 
+       drop index R_T020404_T010203_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T010203 
+       add constraint R_T020404_T010203_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T010302 
+       drop index R_T020404_T010302_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T010302 
+       add constraint R_T020404_T010302_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T020208 
+       drop index R_T020404_T020208_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T020208 
+       add constraint R_T020404_T020208_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T010203 
+       drop index R_T020504_T010203_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T010203 
+       add constraint R_T020504_T010203_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T010302 
+       drop index R_T020504_T010302_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T010302 
+       add constraint R_T020504_T010302_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T020208 
+       drop index R_T020504_T020208_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T020208 
+       add constraint R_T020504_T020208_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020604_T010203 
+       drop index R_T020604_T010203_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020604_T010203 
+       add constraint R_T020604_T010203_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020604_T010302 
+       drop index R_T020604_T010302_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020604_T010302 
+       add constraint R_T020604_T010302_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_01 
+       drop index T_01_01_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_01 
+       add constraint T_01_01_01_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_01 
+       drop index T_01_01_01_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_01 
+       add constraint T_01_01_01_UK_02 unique (F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_01 
+       drop index T_01_01_01_UK_03
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_01 
+       add constraint T_01_01_01_UK_03 unique (F_05)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_02 
+       drop index T_01_01_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_02 
+       add constraint T_01_01_02_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_03 
+       drop index T_01_01_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_03 
+       add constraint T_01_01_03_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_03 
+       drop index T_01_01_03_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_03 
+       add constraint T_01_01_03_UK_02 unique (F_04)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_04 
+       drop index T_01_01_04_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_04 
+       add constraint T_01_01_04_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_04 
+       drop index T_01_01_04_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_04 
+       add constraint T_01_01_04_UK_02 unique (F_04)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_05 
+       drop index T_01_01_05_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_05 
+       add constraint T_01_01_05_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_06 
+       drop index T_01_01_06_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_06 
+       add constraint T_01_01_06_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_07 
+       drop index T_01_01_07_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_07 
+       add constraint T_01_01_07_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_07 
+       drop index T_01_01_07_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_07 
+       add constraint T_01_01_07_UK_02 unique (F_04)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_01 
+       drop index T_01_02_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_01 
+       add constraint T_01_02_01_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_02 
+       drop index T_01_02_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_02 
+       add constraint T_01_02_02_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_03 
+       drop index T_01_02_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_03 
+       add constraint T_01_02_03_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_03_01 
+       drop index T_01_03_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_03_01 
+       add constraint T_01_03_01_UK_01 unique (F_03, F_04)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_01 
+       drop index T_01_04_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_01 
+       add constraint T_01_04_01_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_02 
+       drop index T_01_04_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_02 
+       add constraint T_01_04_02_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_02 
+       drop index T_01_04_02_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_02 
+       add constraint T_01_04_02_UK_02 unique (F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_02 
+       drop index T_01_04_02_UK_03
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_02 
+       add constraint T_01_04_02_UK_03 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_03 
+       drop index T_01_04_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_03 
+       add constraint T_01_04_03_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_03 
+       drop index T_01_04_03_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_03 
+       add constraint T_01_04_03_UK_02 unique (F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_03 
+       drop index T_01_04_03_UK_03
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_03 
+       add constraint T_01_04_03_UK_03 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_04 
+       drop index T_01_04_04_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_04 
+       add constraint T_01_04_04_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_05 
+       drop index T_01_04_05_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_05 
+       add constraint T_01_04_05_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_06 
+       drop index T_01_04_06_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_06 
+       add constraint T_01_04_06_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_07 
+       drop index T_01_04_07_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_07 
+       add constraint T_01_04_07_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_07 
+       drop index T_01_04_07_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_07 
+       add constraint T_01_04_07_UK_02 unique (F_06)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_08 
+       drop index T_01_04_08_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_08 
+       add constraint T_01_04_08_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       drop index T_02_01_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       add constraint T_02_01_01_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       drop index T_02_01_01_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       add constraint T_02_01_01_UK_02 unique (F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       drop index T_02_01_01_UK_03
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       add constraint T_02_01_01_UK_03 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       drop index T_02_01_01_UK_04
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       add constraint T_02_01_01_UK_04 unique (F_04)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       drop index T_02_01_01_UK_05
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_01 
+       add constraint T_02_01_01_UK_05 unique (F_05, F_06, F_07)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_02 
+       drop index T_02_01_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_02 
+       add constraint T_02_01_02_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_03 
+       drop index T_02_01_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_03 
+       add constraint T_02_01_03_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_04 
+       drop index T_02_01_04_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_04 
+       add constraint T_02_01_04_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_04 
+       drop index T_02_01_04_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_04 
+       add constraint T_02_01_04_UK_02 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_05 
+       drop index T_02_01_05_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_01_05 
+       add constraint T_02_01_05_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_01 
+       drop index T_02_02_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_01 
+       add constraint T_02_02_01_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_01 
+       drop index T_02_02_01_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_01 
+       add constraint T_02_02_01_UK_02 unique (F_06)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_02 
+       drop index T_02_02_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_02 
+       add constraint T_02_02_02_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_03 
+       drop index T_02_02_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_03 
+       add constraint T_02_02_03_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_04 
+       drop index T_02_02_04_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_04 
+       add constraint T_02_02_04_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_05 
+       drop index T_02_02_05_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_05 
+       add constraint T_02_02_05_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_07 
+       drop index T_02_02_07_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_07 
+       add constraint T_02_02_07_UK_01 unique (F_03, F_04)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_01 
+       drop index T_02_03_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_01 
+       add constraint T_02_03_01_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_02 
+       drop index T_02_03_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_02 
+       add constraint T_02_03_02_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_02 
+       drop index T_02_03_02_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_02 
+       add constraint T_02_03_02_UK_02 unique (F_06)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_03 
+       drop index T_02_03_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_03 
+       add constraint T_02_03_03_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_01 
+       drop index T_02_04_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_01 
+       add constraint T_02_04_01_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_01 
+       drop index T_02_04_01_UK_02
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_01 
+       add constraint T_02_04_01_UK_02 unique (F_06)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_02 
+       drop index T_02_04_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_02 
+       add constraint T_02_04_02_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_03 
+       drop index T_02_04_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_03 
+       add constraint T_02_04_03_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       drop index T_02_04_04_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       add constraint T_02_04_04_UK_01 unique (F_01, F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_05 
+       drop index T_02_04_05_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_05 
+       add constraint T_02_04_05_UK_01 unique (F_03, F_04)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_01 
+       drop index T_02_05_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_01 
+       add constraint T_02_05_01_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_02 
+       drop index T_02_05_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_02 
+       add constraint T_02_05_02_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_03 
+       drop index T_02_05_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_03 
+       add constraint T_02_05_03_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       drop index T_02_05_04_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_UK_01 unique (F_01)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_05 
+       drop index T_02_05_05_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_05 
+       add constraint T_02_05_05_UK_01 unique (F_02, F_06)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_01 
+       drop index T_02_06_01_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_01 
+       add constraint T_02_06_01_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_02 
+       drop index T_02_06_02_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_02 
+       add constraint T_02_06_02_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_03 
+       drop index T_02_06_03_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_03 
+       add constraint T_02_06_03_UK_01 unique (F_03)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_04 
+       drop index T_02_06_04_UK_01
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_04 
+       add constraint T_02_06_04_UK_01 unique (F_02)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T010203_T010203 
+       add constraint R_T010203_T010203_FK_02 
+       foreign key (F_02) 
+       references T_01_02_03 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T010203_T010203 
+       add constraint R_T010203_T010203_FK_01 
+       foreign key (F_01) 
+       references T_01_02_03 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020304_T020301 
+       add constraint R_T020304_T020301_FK_02 
+       foreign key (F_02) 
+       references T_02_03_01 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020304_T020301 
+       add constraint R_T020304_T020301_FK_01 
+       foreign key (F_01) 
+       references T_02_03_04 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T010203 
+       add constraint R_T020404_T010203_FK_02 
+       foreign key (F_02) 
+       references T_01_02_03 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T010203 
+       add constraint R_T020404_T010203_FK_01 
+       foreign key (F_01) 
+       references T_02_04_04 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T010302 
+       add constraint R_T020404_T010302_FK_02 
+       foreign key (F_02) 
+       references T_01_03_02 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T010302 
+       add constraint R_T020404_T010302_FK_01 
+       foreign key (F_01) 
+       references T_02_04_04 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T020208 
+       add constraint R_T020404_T020208_FK_02 
+       foreign key (F_02) 
+       references T_02_02_08 (F_00)
+2025-12-09 20:00:00 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020404_T020208 
+       add constraint R_T020404_T020208_FK_01 
+       foreign key (F_01) 
+       references T_02_04_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T010203 
+       add constraint R_T020504_T010203_FK_02 
+       foreign key (F_02) 
+       references T_01_02_03 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T010203 
+       add constraint R_T020504_T010203_FK_01 
+       foreign key (F_01) 
+       references T_02_05_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T010302 
+       add constraint R_T020504_T010302_FK_02 
+       foreign key (F_02) 
+       references T_01_03_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T010302 
+       add constraint R_T020504_T010302_FK_01 
+       foreign key (F_01) 
+       references T_02_05_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T020208 
+       add constraint R_T020504_T020208_FK_02 
+       foreign key (F_02) 
+       references T_02_02_08 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020504_T020208 
+       add constraint R_T020504_T020208_FK_01 
+       foreign key (F_01) 
+       references T_02_05_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020604_T010203 
+       add constraint R_T020604_T010203_FK_02 
+       foreign key (F_02) 
+       references T_01_02_03 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020604_T010203 
+       add constraint R_T020604_T010203_FK_01 
+       foreign key (F_01) 
+       references T_02_06_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020604_T010302 
+       add constraint R_T020604_T010302_FK_02 
+       foreign key (F_02) 
+       references T_01_03_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table R_T020604_T010302 
+       add constraint R_T020604_T010302_FK_01 
+       foreign key (F_01) 
+       references T_02_06_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_02 
+       add constraint T_01_01_02_FK_01 
+       foreign key (F_02) 
+       references T_01_01_01 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_02 
+       add constraint T_01_01_02_FK_02 
+       foreign key (F_03) 
+       references T_01_01_03 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_02 
+       add constraint T_01_01_02_FK_03 
+       foreign key (F_04) 
+       references T_01_04_07 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_05 
+       add constraint T_01_01_05_FK_01 
+       foreign key (F_02) 
+       references T_01_01_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_06 
+       add constraint T_01_01_06_FK_01 
+       foreign key (F_02) 
+       references T_01_01_05 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_06 
+       add constraint T_01_01_06_FK_02 
+       foreign key (F_03) 
+       references T_01_01_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_07 
+       add constraint T_01_01_07_FK_01 
+       foreign key (F_05) 
+       references T_01_01_06 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_03 
+       add constraint T_01_02_03_FK_04 
+       foreign key (F_09) 
+       references T_00_01_01 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_03 
+       add constraint T_01_02_03_FK_01 
+       foreign key (F_06) 
+       references T_01_02_01 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_03 
+       add constraint T_01_02_03_FK_02 
+       foreign key (F_07) 
+       references T_01_02_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_02_03 
+       add constraint T_01_02_03_FK_03 
+       foreign key (F_08) 
+       references T_01_04_07 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_03_02 
+       add constraint T_01_03_02_FK_01 
+       foreign key (F_03) 
+       references T_01_03_01 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_03_02 
+       add constraint T_01_03_02_FK_02 
+       foreign key (F_04) 
+       references T_00_01_01 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_03 
+       add constraint T_01_04_03_FK_01 
+       foreign key (F_04) 
+       references T_01_04_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_05 
+       add constraint T_01_04_05_FK_01 
+       foreign key (F_07) 
+       references T_01_04_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_07 
+       add constraint T_01_04_07_FK_01 
+       foreign key (F_07) 
+       references T_01_04_06 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_07 
+       add constraint T_01_04_07_FK_02 
+       foreign key (F_08) 
+       references T_01_04_07 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_08 
+       add constraint T_01_04_08_FK_01 
+       foreign key (F_04) 
+       references T_01_04_07 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_09 
+       add constraint T_01_04_09_FK_02 
+       foreign key (F_09) 
+       references T_01_04_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_09 
+       add constraint T_01_04_09_FK_01 
+       foreign key (F_08) 
+       references T_01_04_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_09 
+       add constraint T_01_04_09_FK_03 
+       foreign key (F_10) 
+       references T_00_01_01 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_10 
+       add constraint T_01_04_10_FK_03 
+       foreign key (F_05) 
+       references T_01_04_08 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_10 
+       add constraint T_01_04_10_FK_02 
+       foreign key (F_04) 
+       references T_01_04_05 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_04_10 
+       add constraint T_01_04_10_FK_01 
+       foreign key (F_03) 
+       references T_01_04_09 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_03 
+       add constraint T_02_02_03_FK_01 
+       foreign key (F_03) 
+       references T_02_02_01 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_05 
+       add constraint T_02_02_05_FK_01 
+       foreign key (F_04) 
+       references T_02_02_04 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_06 
+       add constraint T_02_02_06_FK_01 
+       foreign key (F_04) 
+       references T_02_02_05 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_07 
+       add constraint T_02_02_07_FK_01 
+       foreign key (F_04) 
+       references T_01_03_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_07 
+       add constraint T_02_02_07_FK_02 
+       foreign key (F_05) 
+       references T_01_03_02 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_08 
+       add constraint T_02_02_08_FK_04_ 
+       foreign key (F_08) 
+       references T_02_02_07 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_08 
+       add constraint T_02_02_08_FK_03_ 
+       foreign key (F_07) 
+       references T_02_02_03 (F_00)
+2025-12-09 20:00:01 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_08 
+       add constraint T_02_02_08_FK_02_ 
+       foreign key (F_06) 
+       references T_02_02_06 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_08 
+       add constraint T_02_02_08_FK_01_ 
+       foreign key (F_05) 
+       references T_02_02_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_09 
+       add constraint T_02_02_09_FK_01 
+       foreign key (F_02) 
+       references T_02_02_08 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_02_09 
+       add constraint T_02_02_09_FK_02 
+       foreign key (F_03) 
+       references T_01_04_07 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_04 
+       add constraint T_02_03_04_FK_03 
+       foreign key (F_20) 
+       references T_01_04_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_04 
+       add constraint T_02_03_04_FK_02 
+       foreign key (F_19) 
+       references T_02_03_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_04 
+       add constraint T_02_03_04_FK_01 
+       foreign key (F_18) 
+       references T_00_01_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_04 
+       add constraint T_02_03_04_FK_04 
+       foreign key (F_21) 
+       references T_01_04_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_05 
+       add constraint T_02_03_05_FK_01 
+       foreign key (F_10) 
+       references T_02_03_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_06 
+       add constraint T_02_03_06_FK_01 
+       foreign key (F_03) 
+       references T_02_03_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_06 
+       add constraint T_02_03_06_FK_02 
+       foreign key (F_04) 
+       references T_02_03_05 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_06 
+       add constraint T_02_03_06_FK_03 
+       foreign key (F_05) 
+       references T_01_02_03 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_07 
+       add constraint T_02_03_07_FK_01 
+       foreign key (F_04) 
+       references T_02_03_03 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_07 
+       add constraint T_02_03_07_FK_02 
+       foreign key (F_05) 
+       references T_02_03_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_03_07 
+       add constraint T_02_03_07_FK_03 
+       foreign key (F_06) 
+       references T_01_02_03 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_03 
+       add constraint T_02_04_03_FK_01 
+       foreign key (F_04) 
+       references T_02_04_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       add constraint T_02_04_04_FK_05 
+       foreign key (F_19) 
+       references T_02_01_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       add constraint T_02_04_04_FK_01 
+       foreign key (F_15) 
+       references T_02_04_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       add constraint T_02_04_04_FK_03 
+       foreign key (F_17) 
+       references T_02_02_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       add constraint T_02_04_04_FK_07 
+       foreign key (F_21) 
+       references T_02_04_03 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       add constraint T_02_04_04_FK_06 
+       foreign key (F_20) 
+       references T_02_01_03 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       add constraint T_02_04_04_FK_02 
+       foreign key (F_16) 
+       references T_02_01_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_04 
+       add constraint T_02_04_04_FK_04 
+       foreign key (F_18) 
+       references T_02_01_05 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_05 
+       add constraint T_02_04_05_FK_03 
+       foreign key (F_05) 
+       references T_00_01_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_05 
+       add constraint T_02_04_05_FK_01 
+       foreign key (F_03) 
+       references T_02_04_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_05 
+       add constraint T_02_04_05_FK_05 
+       foreign key (F_07) 
+       references T_00_01_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_05 
+       add constraint T_02_04_05_FK_04 
+       foreign key (F_06) 
+       references T_00_01_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_04_05 
+       add constraint T_02_04_05_FK_02 
+       foreign key (F_04) 
+       references T_02_03_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_03 
+       add constraint T_02_05_03_FK_01 
+       foreign key (F_04) 
+       references T_02_05_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_FK_05 
+       foreign key (F_20) 
+       references T_02_01_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_FK_07 
+       foreign key (F_22) 
+       references T_02_04_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_FK_04 
+       foreign key (F_19) 
+       references T_02_05_03 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_FK_01 
+       foreign key (F_16) 
+       references T_02_05_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_FK_08 
+       foreign key (F_23) 
+       references T_02_05_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_FK_06 
+       foreign key (F_21) 
+       references T_02_01_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_FK_02 
+       foreign key (F_17) 
+       references T_02_03_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_04 
+       add constraint T_02_05_04_FK_03 
+       foreign key (F_18) 
+       references T_02_01_05 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_05_05 
+       add constraint T_02_05_05_FK_01 
+       foreign key (F_06) 
+       references T_02_05_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_03 
+       add constraint T_02_06_03_FK_01 
+       foreign key (F_04) 
+       references T_02_06_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_04 
+       add constraint T_02_06_04_FK_04 
+       foreign key (F_15) 
+       references T_02_06_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_04 
+       add constraint T_02_06_04_FK_02 
+       foreign key (F_13) 
+       references T_02_06_01 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_04 
+       add constraint T_02_06_04_FK_05 
+       foreign key (F_16) 
+       references T_02_01_02 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_04 
+       add constraint T_02_06_04_FK_01 
+       foreign key (F_12) 
+       references T_02_05_04 (F_00)
+2025-12-09 20:00:02 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_04 
+       add constraint T_02_06_04_FK_06 
+       foreign key (F_17) 
+       references T_02_01_01 (F_00)
+2025-12-09 20:00:03 [main] DEBUG org.hibernate.SQL - 
+    alter table T_02_06_04 
+       add constraint T_02_06_04_FK_03 
+       foreign key (F_14) 
+       references T_02_01_05 (F_00)
+2025-12-09 20:00:03 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-09 20:00:03 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-09 20:00:03 [main] DEBUG d.m.i.c.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-09 20:00:12 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-09 20:00:13 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-09 20:00:14 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoints beneath base path '/actuator'
+2025-12-09 20:00:14 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/iaas/api'
+2025-12-09 20:00:14 [main] INFO  dz.mdn.iaas.IaasApi - Started IaasApi in 21.538 seconds (process running for 22.454)
+2025-12-09 20:00:15 [RMI TCP Connection(4)-127.0.0.1] INFO  o.a.c.c.C.[.[localhost].[/iaas/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-09 20:00:15 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-09 20:00:15 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-12-09 20:46:55 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=41m28s894ms222µs800ns).
+2025-12-09 20:50:08 [RMI TCP Connection(15)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-12-09 20:50:08 [RMI TCP Connection(15)-127.0.0.1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-09 20:50:09 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-09 20:50:09 [RMI TCP Connection(15)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-09 20:50:09 [RMI TCP Connection(15)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-09 20:50:09 [RMI TCP Connection(15)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-09 20:50:14 [main] INFO  dz.mdn.iaas.IaasApi - Starting IaasApi using Java 21.0.7 with PID 31920 (C:\Developing\Workspace\Backend\iaas\target\classes started by Administrateur in C:\Developing\Workspace\Backend\iaas)
+2025-12-09 20:50:14 [main] DEBUG dz.mdn.iaas.IaasApi - Running with Spring Boot v4.0.0, Spring v7.0.1
+2025-12-09 20:50:14 [main] INFO  dz.mdn.iaas.IaasApi - No active profile set, falling back to 1 default profile: "default"
+2025-12-09 20:50:15 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-09 20:50:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 339 ms. Found 65 JPA repository interfaces.
+2025-12-09 20:50:17 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-09 20:50:17 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-09 20:50:17 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.14]
+2025-12-09 20:50:17 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 3397 ms
+2025-12-09 20:50:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-09 20:50:17 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@35ff072c
+2025-12-09 20:50:17 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-09 20:50:18 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-12-09 20:50:18 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 7.1.8.Final
+2025-12-09 20:50:18 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-09 20:50:18 [main] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.5.5 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2025-12-09 20:50:18 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-09 20:50:18 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/iaas_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 5.5.5
+	Default catalog/schema: iaas_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DatasourceConnectionProviderImpl
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-09 20:50:21 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-09 20:50:21 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-09 20:50:21 [main] DEBUG org.hibernate.SQL - 
+    alter table T_00_03_01 
+       modify column F_03 enum ('APPROVE','ARCHIVE','CANCEL','CREATE','DELETE','READ','REJECT','RESTORE','SUBMIT','UPDATE') not null
+2025-12-09 20:50:21 [main] DEBUG org.hibernate.SQL - 
+    alter table T_00_03_01 
+       modify column F_13 enum ('FAILED','PARTIAL','SUCCESS') not null
+2025-12-09 20:50:21 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_01 
+       drop index T_01_01_01_UK_03
+2025-12-09 20:50:22 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_01_01 
+       add constraint T_01_01_01_UK_03 unique (F_05)
+2025-12-09 20:50:22 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-09 20:50:22 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-09 20:50:23 [main] DEBUG d.m.i.c.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-09 20:50:31 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2025-12-09 20:50:32 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-09 20:50:33 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoints beneath base path '/actuator'
+2025-12-09 20:50:33 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/iaas/api'
+2025-12-09 20:50:33 [main] INFO  dz.mdn.iaas.IaasApi - Started IaasApi in 20.263 seconds (process running for 21.75)
+2025-12-09 20:50:34 [RMI TCP Connection(4)-127.0.0.1] INFO  o.a.c.c.C.[.[localhost].[/iaas/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-09 20:50:34 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-09 20:50:34 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2025-12-09 20:57:12 [RMI TCP Connection(12)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-12-09 20:57:12 [RMI TCP Connection(12)-127.0.0.1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-09 20:57:12 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-09 20:57:12 [RMI TCP Connection(12)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-09 20:57:12 [RMI TCP Connection(12)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-09 20:57:12 [RMI TCP Connection(12)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

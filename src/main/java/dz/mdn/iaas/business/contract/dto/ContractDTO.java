@@ -22,7 +22,7 @@ import dz.mdn.iaas.business.consultation.dto.ConsultationDTO;
 import dz.mdn.iaas.business.contract.model.Contract;
 import dz.mdn.iaas.business.core.dto.ApprovalStatusDTO;
 import dz.mdn.iaas.business.core.dto.CurrencyDTO;
-import dz.mdn.iaas.business.core.dto.RealizationStatusDTO;
+import dz.mdn.iaas.business.core.dto.ProcurementStatusDTO;
 import dz.mdn.iaas.business.plan.dto.PlannedItemDTO;
 import dz.mdn.iaas.business.provider.dto.ProviderDTO;
 import dz.mdn.iaas.common.communication.dto.MailDTO;
@@ -93,8 +93,8 @@ public class ContractDTO {
     @NotNull(message = "Provider is required")
     private Long providerId; // F_17
 
-    @NotNull(message = "Realization status is required")
-    private Long realizationStatusId; // F_18
+    @NotNull(message = "Procurement status is required")
+    private Long procurementStatusId; // F_18
 
     @NotNull(message = "Contract step is required")
     private Long contractStepId; // F_19
@@ -114,7 +114,7 @@ public class ContractDTO {
     // Related DTOs for display when loaded with relations
     private ContractTypeDTO contractType;
     private ProviderDTO provider;
-    private RealizationStatusDTO realizationStatus;
+    private ProcurementStatusDTO procurementStatus;
     private ContractStepDTO contractStep;
     private ApprovalStatusDTO approvalStatus;
     private CurrencyDTO currency;
@@ -153,7 +153,7 @@ public class ContractDTO {
         // Foreign keys
         if (contract.getContractType() != null) builder.contractTypeId(contract.getContractType().getId());
         if (contract.getProvider() != null) builder.providerId(contract.getProvider().getId());
-        if (contract.getRealizationStatus() != null) builder.realizationStatusId(contract.getRealizationStatus().getId());
+        if (contract.getProcurementStatus() != null) builder.procurementStatusId(contract.getProcurementStatus().getId());
         if (contract.getContractStep() != null) builder.contractStepId(contract.getContractStep().getId());
         if (contract.getApprovalStatus() != null) builder.approvalStatusId(contract.getApprovalStatus().getId());
         if (contract.getCurrency() != null) builder.currencyId(contract.getCurrency().getId());
@@ -186,8 +186,8 @@ public class ContractDTO {
             dto.setContractType(ContractTypeDTO.fromEntity(contract.getContractType()));
         if (contract.getProvider() != null)
             dto.setProvider(ProviderDTO.fromEntity(contract.getProvider()));
-        if (contract.getRealizationStatus() != null)
-            dto.setRealizationStatus(RealizationStatusDTO.fromEntity(contract.getRealizationStatus()));
+        if (contract.getProcurementStatus() != null)
+            dto.setProcurementStatus(ProcurementStatusDTO.fromEntity(contract.getProcurementStatus()));
         if (contract.getContractStep() != null)
             dto.setContractStep(ContractStepDTO.fromEntity(contract.getContractStep()));
         if (contract.getApprovalStatus() != null)
@@ -249,6 +249,6 @@ public class ContractDTO {
     public String getStatusSummary() {
         if (isExpired()) return "EXPIRED";
         if (isApproved()) return "APPROVED";
-        return realizationStatus != null ? realizationStatus.getDesignationFr() : "PENDING";
+        return procurementStatus != null ? procurementStatus.getDesignationFr() : "PENDING";
     }
 }

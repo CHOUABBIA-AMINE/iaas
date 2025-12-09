@@ -31,7 +31,7 @@ import dz.mdn.iaas.business.contract.model.Contract;
  * F_00=id, F_01=internalId, F_02=contractYear, F_03=reference, F_04=designationAr, F_05=designationEn,
  * F_06=designationFr, F_07=amount, F_08=transferableAmount, F_09=startDate, F_10=approvalReference,
  * F_11=approvalDate, F_12=contractDate, F_13=notifyDate, F_14=contractDuration, F_15=observation,
- * F_16=contractType, F_17=provider, F_18=realizationStatus, F_19=contractStep, F_20=approvalStatus,
+ * F_16=contractType, F_17=provider, F_18=procurementStatus, F_19=contractStep, F_20=approvalStatus,
  * F_21=currency, F_22=consultation, F_23=contractUp
  */
 @Repository
@@ -82,9 +82,9 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     @Query("SELECT c FROM Contract c WHERE c.approvalStatus.id = :approvalStatusId")
     Page<Contract> findByApprovalStatus(@Param("approvalStatusId") Long approvalStatusId, Pageable pageable);
 
-    /** Find contracts by realization status (F_18) */
-    @Query("SELECT c FROM Contract c WHERE c.realizationStatus.id = :realizationStatusId")
-    Page<Contract> findByRealizationStatus(@Param("realizationStatusId") Long realizationStatusId, Pageable pageable);
+    /** Find contracts by procurement status (F_18) */
+    @Query("SELECT c FROM Contract c WHERE c.procurementStatus.id = :procurementStatusId")
+    Page<Contract> findByProcurementStatus(@Param("procurementStatusId") Long procurementStatusId, Pageable pageable);
 
     /** Find contracts by currency (F_21) */
     @Query("SELECT c FROM Contract c WHERE c.currency.id = :currencyId")
@@ -106,12 +106,12 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     @Query("SELECT c FROM Contract c WHERE c.contractDate BETWEEN :startDate AND :endDate")
     Page<Contract> findBetweenDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate, Pageable pageable);
 
-    /** Find active contracts (based on realization status) */
-    @Query("SELECT c FROM Contract c WHERE LOWER(c.realizationStatus.designationFr) LIKE '%en cours%'")
+    /** Find active contracts (based on procurement status) */
+    @Query("SELECT c FROM Contract c WHERE LOWER(c.procurementStatus.designationFr) LIKE '%en cours%'")
     Page<Contract> findActiveContracts(Pageable pageable);
 
     /** Find completed contracts */
-    @Query("SELECT c FROM Contract c WHERE LOWER(c.realizationStatus.designationFr) LIKE '%achevé%'")
+    @Query("SELECT c FROM Contract c WHERE LOWER(c.procurementStatus.designationFr) LIKE '%achevé%'")
     Page<Contract> findCompletedContracts(Pageable pageable);
 
     /** Find pending approval contracts */

@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: RealizationDirectorDTO
+ *	@Name		: ProcurementDirectorDTO
  *	@CreatedOn	: 10-16-2025
  *
  *	@Type		: Class
@@ -21,8 +21,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * RealizationDirector Data Transfer Object
- * Maps exactly to RealizationDirector model fields: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
+ * ProcurementDirector Data Transfer Object
+ * Maps exactly to ProcurementDirector model fields: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
  * F_03 (designationFr) has unique constraint and is required
  * F_01 (designationAr) and F_02 (designationEn) are optional
  */
@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RealizationDirectorDTO {
+public class ProcurementDirectorDTO {
 
     private Long id; // F_00
 
@@ -48,14 +48,14 @@ public class RealizationDirectorDTO {
     /**
      * Create DTO from entity
      */
-    public static RealizationDirectorDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementDirector realizationDirector) {
-        if (realizationDirector == null) return null;
+    public static ProcurementDirectorDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementDirector procurementDirector) {
+        if (procurementDirector == null) return null;
         
-        return RealizationDirectorDTO.builder()
-                .id(realizationDirector.getId())
-                .designationAr(realizationDirector.getDesignationAr())
-                .designationEn(realizationDirector.getDesignationEn())
-                .designationFr(realizationDirector.getDesignationFr())
+        return ProcurementDirectorDTO.builder()
+                .id(procurementDirector.getId())
+                .designationAr(procurementDirector.getDesignationAr())
+                .designationEn(procurementDirector.getDesignationEn())
+                .designationFr(procurementDirector.getDesignationFr())
                 .build();
     }
 
@@ -63,26 +63,26 @@ public class RealizationDirectorDTO {
      * Convert to entity
      */
     public dz.mdn.iaas.business.core.model.ProcurementDirector toEntity() {
-        dz.mdn.iaas.business.core.model.ProcurementDirector realizationDirector = new dz.mdn.iaas.business.core.model.ProcurementDirector();
-        realizationDirector.setId(this.id);
-        realizationDirector.setDesignationAr(this.designationAr);
-        realizationDirector.setDesignationEn(this.designationEn);
-        realizationDirector.setDesignationFr(this.designationFr);
-        return realizationDirector;
+        dz.mdn.iaas.business.core.model.ProcurementDirector procurementDirector = new dz.mdn.iaas.business.core.model.ProcurementDirector();
+        procurementDirector.setId(this.id);
+        procurementDirector.setDesignationAr(this.designationAr);
+        procurementDirector.setDesignationEn(this.designationEn);
+        procurementDirector.setDesignationFr(this.designationFr);
+        return procurementDirector;
     }
 
     /**
      * Update entity from DTO
      */
-    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementDirector realizationDirector) {
+    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementDirector procurementDirector) {
         if (this.designationAr != null) {
-            realizationDirector.setDesignationAr(this.designationAr);
+            procurementDirector.setDesignationAr(this.designationAr);
         }
         if (this.designationEn != null) {
-            realizationDirector.setDesignationEn(this.designationEn);
+            procurementDirector.setDesignationEn(this.designationEn);
         }
         if (this.designationFr != null) {
-            realizationDirector.setDesignationFr(this.designationFr);
+            procurementDirector.setDesignationFr(this.designationFr);
         }
     }
 
@@ -124,7 +124,7 @@ public class RealizationDirectorDTO {
     }
 
     /**
-     * Check if realization director has multiple language support
+     * Check if procurement director has multiple language support
      */
     public boolean isMultilingual() {
         int languageCount = 0;
@@ -135,7 +135,7 @@ public class RealizationDirectorDTO {
     }
 
     /**
-     * Get available languages for this realization director
+     * Get available languages for this procurement director
      */
     public String[] getAvailableLanguages() {
         java.util.List<String> languages = new java.util.ArrayList<>();
@@ -302,8 +302,8 @@ public class RealizationDirectorDTO {
     /**
      * Create simplified DTO for dropdowns
      */
-    public static RealizationDirectorDTO createSimple(Long id, String designationFr) {
-        return RealizationDirectorDTO.builder()
+    public static ProcurementDirectorDTO createSimple(Long id, String designationFr) {
+        return ProcurementDirectorDTO.builder()
                 .id(id)
                 .designationFr(designationFr)
                 .build();

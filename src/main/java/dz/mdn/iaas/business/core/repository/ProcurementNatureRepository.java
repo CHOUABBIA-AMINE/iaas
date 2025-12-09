@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: RealizationNatureRepository
+ *	@Name		: ProcurementNatureRepository
  *	@CreatedOn	: 06-26-2025
  *
  *	@Type		: Class
@@ -24,108 +24,108 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * RealizationNature Repository with essential CRUD operations
+ * ProcurementNature Repository with essential CRUD operations
  * Based on exact field names: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
  * F_03 (designationFr) has unique constraint and is required
  * F_01 (designationAr) and F_02 (designationEn) are optional
  */
 @Repository
-public interface RealizationNatureRepository extends JpaRepository<ProcurementNature, Long> {
+public interface ProcurementNatureRepository extends JpaRepository<ProcurementNature, Long> {
 
     /**
-     * Find realization nature by French designation (F_03) - unique field
+     * Find procurement nature by French designation (F_03) - unique field
      */
-    @Query("SELECT r FROM RealizationNature r WHERE r.designationFr = :designationFr")
+    @Query("SELECT r FROM ProcurementNature r WHERE r.designationFr = :designationFr")
     Optional<ProcurementNature> findByDesignationFr(@Param("designationFr") String designationFr);
 
     /**
-     * Find realization nature by Arabic designation (F_01)
+     * Find procurement nature by Arabic designation (F_01)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE r.designationAr = :designationAr")
+    @Query("SELECT r FROM ProcurementNature r WHERE r.designationAr = :designationAr")
     Optional<ProcurementNature> findByDesignationAr(@Param("designationAr") String designationAr);
 
     /**
-     * Find realization nature by English designation (F_02)
+     * Find procurement nature by English designation (F_02)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE r.designationEn = :designationEn")
+    @Query("SELECT r FROM ProcurementNature r WHERE r.designationEn = :designationEn")
     Optional<ProcurementNature> findByDesignationEn(@Param("designationEn") String designationEn);
 
     /**
-     * Check if realization nature exists by French designation
+     * Check if procurement nature exists by French designation
      */
-    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM RealizationNature r WHERE r.designationFr = :designationFr")
+    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM ProcurementNature r WHERE r.designationFr = :designationFr")
     boolean existsByDesignationFr(@Param("designationFr") String designationFr);
 
     /**
      * Check unique constraint for updates (excluding current ID)
      */
-    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM RealizationNature r WHERE r.designationFr = :designationFr AND r.id != :id")
+    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM ProcurementNature r WHERE r.designationFr = :designationFr AND r.id != :id")
     boolean existsByDesignationFrAndIdNot(@Param("designationFr") String designationFr, @Param("id") Long id);
 
     /**
-     * Find all realization natures with pagination ordered by French designation
+     * Find all procurement natures with pagination ordered by French designation
      */
-    @Query("SELECT r FROM RealizationNature r ORDER BY r.designationFr ASC")
+    @Query("SELECT r FROM ProcurementNature r ORDER BY r.designationFr ASC")
     Page<ProcurementNature> findAllOrderByDesignationFr(Pageable pageable);
 
     /**
-     * Search realization natures by any designation field
+     * Search procurement natures by any designation field
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "r.designationAr LIKE %:search% OR " +
            "r.designationEn LIKE %:search% OR " +
            "r.designationFr LIKE %:search%")
     Page<ProcurementNature> searchByDesignation(@Param("search") String search, Pageable pageable);
 
     /**
-     * Find realization natures by French designation pattern (F_03)
+     * Find procurement natures by French designation pattern (F_03)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE r.designationFr LIKE %:pattern%")
+    @Query("SELECT r FROM ProcurementNature r WHERE r.designationFr LIKE %:pattern%")
     Page<ProcurementNature> findByDesignationFrContaining(@Param("pattern") String pattern, Pageable pageable);
 
     /**
-     * Find realization natures by Arabic designation pattern (F_01)
+     * Find procurement natures by Arabic designation pattern (F_01)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE r.designationAr LIKE %:pattern%")
+    @Query("SELECT r FROM ProcurementNature r WHERE r.designationAr LIKE %:pattern%")
     Page<ProcurementNature> findByDesignationArContaining(@Param("pattern") String pattern, Pageable pageable);
 
     /**
-     * Find realization natures by English designation pattern (F_02)
+     * Find procurement natures by English designation pattern (F_02)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE r.designationEn LIKE %:pattern%")
+    @Query("SELECT r FROM ProcurementNature r WHERE r.designationEn LIKE %:pattern%")
     Page<ProcurementNature> findByDesignationEnContaining(@Param("pattern") String pattern, Pageable pageable);
 
     /**
-     * Count total realization natures
+     * Count total procurement natures
      */
-    @Query("SELECT COUNT(r) FROM RealizationNature r")
-    Long countAllRealizationNatures();
+    @Query("SELECT COUNT(r) FROM ProcurementNature r")
+    Long countAllProcurementNatures();
 
     /**
-     * Find realization natures that have Arabic designation
+     * Find procurement natures that have Arabic designation
      */
-    @Query("SELECT r FROM RealizationNature r WHERE r.designationAr IS NOT NULL AND r.designationAr != ''")
+    @Query("SELECT r FROM ProcurementNature r WHERE r.designationAr IS NOT NULL AND r.designationAr != ''")
     Page<ProcurementNature> findWithArabicDesignation(Pageable pageable);
 
     /**
-     * Find realization natures that have English designation
+     * Find procurement natures that have English designation
      */
-    @Query("SELECT r FROM RealizationNature r WHERE r.designationEn IS NOT NULL AND r.designationEn != ''")
+    @Query("SELECT r FROM ProcurementNature r WHERE r.designationEn IS NOT NULL AND r.designationEn != ''")
     Page<ProcurementNature> findWithEnglishDesignation(Pageable pageable);
 
     /**
-     * Find multilingual realization natures (have at least 2 designations)
+     * Find multilingual procurement natures (have at least 2 designations)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "(r.designationAr IS NOT NULL AND r.designationAr != '' AND r.designationEn IS NOT NULL AND r.designationEn != '') OR " +
            "(r.designationAr IS NOT NULL AND r.designationAr != '' AND r.designationFr IS NOT NULL AND r.designationFr != '') OR " +
            "(r.designationEn IS NOT NULL AND r.designationEn != '' AND r.designationFr IS NOT NULL AND r.designationFr != '')")
-    Page<ProcurementNature> findMultilingualRealizationNatures(Pageable pageable);
+    Page<ProcurementNature> findMultilingualProcurementNatures(Pageable pageable);
 
     /**
      * Find infrastructure natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%infrastructure%' OR LOWER(r.designationFr) LIKE '%construction%' OR " +
            "LOWER(r.designationFr) LIKE '%bâtiment%' OR LOWER(r.designationFr) LIKE '%ouvrage%'")
     Page<ProcurementNature> findInfrastructureNatures(Pageable pageable);
@@ -133,7 +133,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find technology natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%technologie%' OR LOWER(r.designationFr) LIKE '%informatique%' OR " +
            "LOWER(r.designationFr) LIKE '%numérique%' OR LOWER(r.designationFr) LIKE '%digital%'")
     Page<ProcurementNature> findTechnologyNatures(Pageable pageable);
@@ -141,7 +141,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find service natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%service%' OR LOWER(r.designationFr) LIKE '%prestation%' OR " +
            "LOWER(r.designationFr) LIKE '%conseil%' OR LOWER(r.designationFr) LIKE '%consultation%'")
     Page<ProcurementNature> findServiceNatures(Pageable pageable);
@@ -149,7 +149,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find manufacturing natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%fabrication%' OR LOWER(r.designationFr) LIKE '%production%' OR " +
            "LOWER(r.designationFr) LIKE '%manufacturier%' OR LOWER(r.designationFr) LIKE '%industriel%'")
     Page<ProcurementNature> findManufacturingNatures(Pageable pageable);
@@ -157,7 +157,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find research and development natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%recherche%' OR LOWER(r.designationFr) LIKE '%développement%' OR " +
            "LOWER(r.designationFr) LIKE '%innovation%' OR LOWER(r.designationFr) LIKE '%r&d%'")
     Page<ProcurementNature> findResearchDevelopmentNatures(Pageable pageable);
@@ -165,7 +165,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find energy and utilities natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%énergie%' OR LOWER(r.designationFr) LIKE '%électrique%' OR " +
            "LOWER(r.designationFr) LIKE '%hydraulique%' OR LOWER(r.designationFr) LIKE '%utilities%'")
     Page<ProcurementNature> findEnergyUtilitiesNatures(Pageable pageable);
@@ -173,7 +173,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find environmental natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%environnement%' OR LOWER(r.designationFr) LIKE '%écologique%' OR " +
            "LOWER(r.designationFr) LIKE '%durable%' OR LOWER(r.designationFr) LIKE '%vert%'")
     Page<ProcurementNature> findEnvironmentalNatures(Pageable pageable);
@@ -181,7 +181,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find commercial natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%commercial%' OR LOWER(r.designationFr) LIKE '%affaires%' OR " +
            "LOWER(r.designationFr) LIKE '%business%' OR LOWER(r.designationFr) LIKE '%marché%'")
     Page<ProcurementNature> findCommercialNatures(Pageable pageable);
@@ -189,7 +189,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find education natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%éducation%' OR LOWER(r.designationFr) LIKE '%formation%' OR " +
            "LOWER(r.designationFr) LIKE '%enseignement%' OR LOWER(r.designationFr) LIKE '%pédagogique%'")
     Page<ProcurementNature> findEducationNatures(Pageable pageable);
@@ -197,7 +197,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find health and medical natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%santé%' OR LOWER(r.designationFr) LIKE '%médical%' OR " +
            "LOWER(r.designationFr) LIKE '%hospitalier%' OR LOWER(r.designationFr) LIKE '%thérapeutique%'")
     Page<ProcurementNature> findHealthMedicalNatures(Pageable pageable);
@@ -205,7 +205,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find transportation natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%transport%' OR LOWER(r.designationFr) LIKE '%logistique%' OR " +
            "LOWER(r.designationFr) LIKE '%mobilité%' OR LOWER(r.designationFr) LIKE '%circulation%'")
     Page<ProcurementNature> findTransportationNatures(Pageable pageable);
@@ -213,7 +213,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find agricultural natures (based on French designation patterns)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%agricole%' OR LOWER(r.designationFr) LIKE '%rural%' OR " +
            "LOWER(r.designationFr) LIKE '%agronomique%' OR LOWER(r.designationFr) LIKE '%cultivation%'")
     Page<ProcurementNature> findAgriculturalNatures(Pageable pageable);
@@ -221,7 +221,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find high complexity natures (infrastructure, technology, research)
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%infrastructure%' OR LOWER(r.designationFr) LIKE '%technologie%' OR " +
            "LOWER(r.designationFr) LIKE '%recherche%' OR LOWER(r.designationFr) LIKE '%développement%'")
     Page<ProcurementNature> findHighComplexityNatures(Pageable pageable);
@@ -229,40 +229,40 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find public interest natures
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%infrastructure%' OR LOWER(r.designationFr) LIKE '%santé%' OR " +
            "LOWER(r.designationFr) LIKE '%éducation%' OR LOWER(r.designationFr) LIKE '%transport%' OR " +
            "LOWER(r.designationFr) LIKE '%énergie%' OR LOWER(r.designationFr) LIKE '%environnement%'")
     Page<ProcurementNature> findPublicInterestNatures(Pageable pageable);
 
     /**
-     * Find realization natures ordered by designation in specific language
+     * Find procurement natures ordered by designation in specific language
      */
-    @Query("SELECT r FROM RealizationNature r ORDER BY r.designationAr ASC")
+    @Query("SELECT r FROM ProcurementNature r ORDER BY r.designationAr ASC")
     Page<ProcurementNature> findAllOrderByDesignationAr(Pageable pageable);
 
-    @Query("SELECT r FROM RealizationNature r ORDER BY r.designationEn ASC")
+    @Query("SELECT r FROM ProcurementNature r ORDER BY r.designationEn ASC")
     Page<ProcurementNature> findAllOrderByDesignationEn(Pageable pageable);
 
     /**
      * Count natures by category
      */
-    @Query("SELECT COUNT(r) FROM RealizationNature r WHERE " +
+    @Query("SELECT COUNT(r) FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%infrastructure%' OR LOWER(r.designationFr) LIKE '%construction%'")
     Long countInfrastructureNatures();
 
-    @Query("SELECT COUNT(r) FROM RealizationNature r WHERE " +
+    @Query("SELECT COUNT(r) FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%technologie%' OR LOWER(r.designationFr) LIKE '%informatique%'")
     Long countTechnologyNatures();
 
-    @Query("SELECT COUNT(r) FROM RealizationNature r WHERE " +
+    @Query("SELECT COUNT(r) FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%service%' OR LOWER(r.designationFr) LIKE '%prestation%'")
     Long countServiceNatures();
 
     /**
      * Find natures requiring environmental assessment
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%infrastructure%' OR LOWER(r.designationFr) LIKE '%énergie%' OR " +
            "LOWER(r.designationFr) LIKE '%environnement%' OR LOWER(r.designationFr) LIKE '%fabrication%' OR " +
            "LOWER(r.designationFr) LIKE '%transport%'")
@@ -271,7 +271,7 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Find natures requiring technical expertise
      */
-    @Query("SELECT r FROM RealizationNature r WHERE " +
+    @Query("SELECT r FROM ProcurementNature r WHERE " +
            "LOWER(r.designationFr) LIKE '%technologie%' OR LOWER(r.designationFr) LIKE '%recherche%' OR " +
            "LOWER(r.designationFr) LIKE '%fabrication%' OR LOWER(r.designationFr) LIKE '%énergie%' OR " +
            "LOWER(r.designationFr) LIKE '%infrastructure%'")
@@ -280,6 +280,6 @@ public interface RealizationNatureRepository extends JpaRepository<ProcurementNa
     /**
      * Search natures by category pattern
      */
-    @Query("SELECT r FROM RealizationNature r WHERE LOWER(r.designationFr) LIKE %:categoryPattern%")
+    @Query("SELECT r FROM ProcurementNature r WHERE LOWER(r.designationFr) LIKE %:categoryPattern%")
     Page<ProcurementNature> findByNatureCategory(@Param("categoryPattern") String categoryPattern, Pageable pageable);
 }
