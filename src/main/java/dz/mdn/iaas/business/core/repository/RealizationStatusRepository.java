@@ -13,7 +13,7 @@
 
 package dz.mdn.iaas.business.core.repository;
 
-import dz.mdn.iaas.business.core.model.RealizationStatus;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,25 +30,25 @@ import java.util.Optional;
  * F_01 (designationAr) and F_02 (designationEn) are optional
  */
 @Repository
-public interface RealizationStatusRepository extends JpaRepository<RealizationStatus, Long> {
+public interface RealizationStatusRepository extends JpaRepository<ProcurementStatus, Long> {
 
     /**
      * Find realization status by French designation (F_03) - unique field
      */
     @Query("SELECT r FROM RealizationStatus r WHERE r.designationFr = :designationFr")
-    Optional<RealizationStatus> findByDesignationFr(@Param("designationFr") String designationFr);
+    Optional<ProcurementStatus> findByDesignationFr(@Param("designationFr") String designationFr);
 
     /**
      * Find realization status by Arabic designation (F_01)
      */
     @Query("SELECT r FROM RealizationStatus r WHERE r.designationAr = :designationAr")
-    Optional<RealizationStatus> findByDesignationAr(@Param("designationAr") String designationAr);
+    Optional<ProcurementStatus> findByDesignationAr(@Param("designationAr") String designationAr);
 
     /**
      * Find realization status by English designation (F_02)
      */
     @Query("SELECT r FROM RealizationStatus r WHERE r.designationEn = :designationEn")
-    Optional<RealizationStatus> findByDesignationEn(@Param("designationEn") String designationEn);
+    Optional<ProcurementStatus> findByDesignationEn(@Param("designationEn") String designationEn);
 
     /**
      * Check if realization status exists by French designation
@@ -66,7 +66,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
      * Find all realization statuses with pagination ordered by French designation
      */
     @Query("SELECT r FROM RealizationStatus r ORDER BY r.designationFr ASC")
-    Page<RealizationStatus> findAllOrderByDesignationFr(Pageable pageable);
+    Page<ProcurementStatus> findAllOrderByDesignationFr(Pageable pageable);
 
     /**
      * Search realization statuses by any designation field
@@ -75,25 +75,25 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
            "r.designationAr LIKE %:search% OR " +
            "r.designationEn LIKE %:search% OR " +
            "r.designationFr LIKE %:search%")
-    Page<RealizationStatus> searchByDesignation(@Param("search") String search, Pageable pageable);
+    Page<ProcurementStatus> searchByDesignation(@Param("search") String search, Pageable pageable);
 
     /**
      * Find realization statuses by French designation pattern (F_03)
      */
     @Query("SELECT r FROM RealizationStatus r WHERE r.designationFr LIKE %:pattern%")
-    Page<RealizationStatus> findByDesignationFrContaining(@Param("pattern") String pattern, Pageable pageable);
+    Page<ProcurementStatus> findByDesignationFrContaining(@Param("pattern") String pattern, Pageable pageable);
 
     /**
      * Find realization statuses by Arabic designation pattern (F_01)
      */
     @Query("SELECT r FROM RealizationStatus r WHERE r.designationAr LIKE %:pattern%")
-    Page<RealizationStatus> findByDesignationArContaining(@Param("pattern") String pattern, Pageable pageable);
+    Page<ProcurementStatus> findByDesignationArContaining(@Param("pattern") String pattern, Pageable pageable);
 
     /**
      * Find realization statuses by English designation pattern (F_02)
      */
     @Query("SELECT r FROM RealizationStatus r WHERE r.designationEn LIKE %:pattern%")
-    Page<RealizationStatus> findByDesignationEnContaining(@Param("pattern") String pattern, Pageable pageable);
+    Page<ProcurementStatus> findByDesignationEnContaining(@Param("pattern") String pattern, Pageable pageable);
 
     /**
      * Count total realization statuses
@@ -105,13 +105,13 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
      * Find realization statuses that have Arabic designation
      */
     @Query("SELECT r FROM RealizationStatus r WHERE r.designationAr IS NOT NULL AND r.designationAr != ''")
-    Page<RealizationStatus> findWithArabicDesignation(Pageable pageable);
+    Page<ProcurementStatus> findWithArabicDesignation(Pageable pageable);
 
     /**
      * Find realization statuses that have English designation
      */
     @Query("SELECT r FROM RealizationStatus r WHERE r.designationEn IS NOT NULL AND r.designationEn != ''")
-    Page<RealizationStatus> findWithEnglishDesignation(Pageable pageable);
+    Page<ProcurementStatus> findWithEnglishDesignation(Pageable pageable);
 
     /**
      * Find multilingual realization statuses (have at least 2 designations)
@@ -120,7 +120,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
            "(r.designationAr IS NOT NULL AND r.designationAr != '' AND r.designationEn IS NOT NULL AND r.designationEn != '') OR " +
            "(r.designationAr IS NOT NULL AND r.designationAr != '' AND r.designationFr IS NOT NULL AND r.designationFr != '') OR " +
            "(r.designationEn IS NOT NULL AND r.designationEn != '' AND r.designationFr IS NOT NULL AND r.designationFr != '')")
-    Page<RealizationStatus> findMultilingualRealizationStatuses(Pageable pageable);
+    Page<ProcurementStatus> findMultilingualRealizationStatuses(Pageable pageable);
 
     /**
      * Find planning statuses (based on French designation patterns)
@@ -128,7 +128,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%initial%' OR LOWER(r.designationFr) LIKE '%planification%' OR " +
            "LOWER(r.designationFr) LIKE '%préparation%' OR LOWER(r.designationFr) LIKE '%conception%'")
-    Page<RealizationStatus> findPlanningStatuses(Pageable pageable);
+    Page<ProcurementStatus> findPlanningStatuses(Pageable pageable);
 
     /**
      * Find in-progress statuses (based on French designation patterns)
@@ -136,7 +136,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%en cours%' OR LOWER(r.designationFr) LIKE '%actif%' OR " +
            "LOWER(r.designationFr) LIKE '%exécution%' OR LOWER(r.designationFr) LIKE '%réalisation%'")
-    Page<RealizationStatus> findInProgressStatuses(Pageable pageable);
+    Page<ProcurementStatus> findInProgressStatuses(Pageable pageable);
 
     /**
      * Find completed statuses (based on French designation patterns)
@@ -144,7 +144,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%terminé%' OR LOWER(r.designationFr) LIKE '%achevé%' OR " +
            "LOWER(r.designationFr) LIKE '%complété%' OR LOWER(r.designationFr) LIKE '%finalisé%'")
-    Page<RealizationStatus> findCompletedStatuses(Pageable pageable);
+    Page<ProcurementStatus> findCompletedStatuses(Pageable pageable);
 
     /**
      * Find suspended statuses (based on French designation patterns)
@@ -152,7 +152,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%suspendu%' OR LOWER(r.designationFr) LIKE '%en pause%' OR " +
            "LOWER(r.designationFr) LIKE '%interrompu%' OR LOWER(r.designationFr) LIKE '%gelé%'")
-    Page<RealizationStatus> findSuspendedStatuses(Pageable pageable);
+    Page<ProcurementStatus> findSuspendedStatuses(Pageable pageable);
 
     /**
      * Find cancelled statuses (based on French designation patterns)
@@ -160,7 +160,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%annulé%' OR LOWER(r.designationFr) LIKE '%abandonné%' OR " +
            "LOWER(r.designationFr) LIKE '%arrêté%' OR LOWER(r.designationFr) LIKE '%supprimé%'")
-    Page<RealizationStatus> findCancelledStatuses(Pageable pageable);
+    Page<ProcurementStatus> findCancelledStatuses(Pageable pageable);
 
     /**
      * Find review statuses (based on French designation patterns)
@@ -168,7 +168,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%révision%' OR LOWER(r.designationFr) LIKE '%validation%' OR " +
            "LOWER(r.designationFr) LIKE '%vérification%' OR LOWER(r.designationFr) LIKE '%contrôle%'")
-    Page<RealizationStatus> findReviewStatuses(Pageable pageable);
+    Page<ProcurementStatus> findReviewStatuses(Pageable pageable);
 
     /**
      * Find approved statuses (based on French designation patterns)
@@ -176,7 +176,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%approuvé%' OR LOWER(r.designationFr) LIKE '%validé%' OR " +
            "LOWER(r.designationFr) LIKE '%accepté%' OR LOWER(r.designationFr) LIKE '%autorisé%'")
-    Page<RealizationStatus> findApprovedStatuses(Pageable pageable);
+    Page<ProcurementStatus> findApprovedStatuses(Pageable pageable);
 
     /**
      * Find rejected statuses (based on French designation patterns)
@@ -184,7 +184,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%rejeté%' OR LOWER(r.designationFr) LIKE '%refusé%' OR " +
            "LOWER(r.designationFr) LIKE '%non approuvé%' OR LOWER(r.designationFr) LIKE '%declined%'")
-    Page<RealizationStatus> findRejectedStatuses(Pageable pageable);
+    Page<ProcurementStatus> findRejectedStatuses(Pageable pageable);
 
     /**
      * Find on-hold statuses (based on French designation patterns)
@@ -192,7 +192,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%en attente%' OR LOWER(r.designationFr) LIKE '%standby%' OR " +
            "LOWER(r.designationFr) LIKE '%différé%' OR LOWER(r.designationFr) LIKE '%reporté%'")
-    Page<RealizationStatus> findOnHoldStatuses(Pageable pageable);
+    Page<ProcurementStatus> findOnHoldStatuses(Pageable pageable);
 
     /**
      * Find active statuses (planning, in-progress, under review, approved)
@@ -200,7 +200,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%planification%' OR LOWER(r.designationFr) LIKE '%en cours%' OR " +
            "LOWER(r.designationFr) LIKE '%révision%' OR LOWER(r.designationFr) LIKE '%approuvé%'")
-    Page<RealizationStatus> findActiveStatuses(Pageable pageable);
+    Page<ProcurementStatus> findActiveStatuses(Pageable pageable);
 
     /**
      * Find final statuses (completed, cancelled, rejected)
@@ -208,7 +208,7 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%terminé%' OR LOWER(r.designationFr) LIKE '%achevé%' OR " +
            "LOWER(r.designationFr) LIKE '%annulé%' OR LOWER(r.designationFr) LIKE '%rejeté%'")
-    Page<RealizationStatus> findFinalStatuses(Pageable pageable);
+    Page<ProcurementStatus> findFinalStatuses(Pageable pageable);
 
     /**
      * Find transitional statuses (allow further state changes)
@@ -216,16 +216,16 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
     @Query("SELECT r FROM RealizationStatus r WHERE NOT (" +
            "LOWER(r.designationFr) LIKE '%terminé%' OR LOWER(r.designationFr) LIKE '%achevé%' OR " +
            "LOWER(r.designationFr) LIKE '%annulé%' OR LOWER(r.designationFr) LIKE '%rejeté%')")
-    Page<RealizationStatus> findTransitionalStatuses(Pageable pageable);
+    Page<ProcurementStatus> findTransitionalStatuses(Pageable pageable);
 
     /**
      * Find realization statuses ordered by designation in specific language
      */
     @Query("SELECT r FROM RealizationStatus r ORDER BY r.designationAr ASC")
-    Page<RealizationStatus> findAllOrderByDesignationAr(Pageable pageable);
+    Page<ProcurementStatus> findAllOrderByDesignationAr(Pageable pageable);
 
     @Query("SELECT r FROM RealizationStatus r ORDER BY r.designationEn ASC")
-    Page<RealizationStatus> findAllOrderByDesignationEn(Pageable pageable);
+    Page<ProcurementStatus> findAllOrderByDesignationEn(Pageable pageable);
 
     /**
      * Count statuses by category
@@ -255,23 +255,23 @@ public interface RealizationStatusRepository extends JpaRepository<RealizationSt
      */
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%initial%' OR LOWER(r.designationFr) LIKE '%approuvé%'")
-    Page<RealizationStatus> findInitiationPhaseStatuses(Pageable pageable);
+    Page<ProcurementStatus> findInitiationPhaseStatuses(Pageable pageable);
 
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%en cours%' OR LOWER(r.designationFr) LIKE '%exécution%'")
-    Page<RealizationStatus> findExecutionPhaseStatuses(Pageable pageable);
+    Page<ProcurementStatus> findExecutionPhaseStatuses(Pageable pageable);
 
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%révision%' OR LOWER(r.designationFr) LIKE '%contrôle%'")
-    Page<RealizationStatus> findMonitoringPhaseStatuses(Pageable pageable);
+    Page<ProcurementStatus> findMonitoringPhaseStatuses(Pageable pageable);
 
     @Query("SELECT r FROM RealizationStatus r WHERE " +
            "LOWER(r.designationFr) LIKE '%terminé%' OR LOWER(r.designationFr) LIKE '%achevé%'")
-    Page<RealizationStatus> findClosurePhaseStatuses(Pageable pageable);
+    Page<ProcurementStatus> findClosurePhaseStatuses(Pageable pageable);
 
     /**
      * Search statuses by category pattern
      */
     @Query("SELECT r FROM RealizationStatus r WHERE LOWER(r.designationFr) LIKE %:categoryPattern%")
-    Page<RealizationStatus> findByStatusCategory(@Param("categoryPattern") String categoryPattern, Pageable pageable);
+    Page<ProcurementStatus> findByStatusCategory(@Param("categoryPattern") String categoryPattern, Pageable pageable);
 }

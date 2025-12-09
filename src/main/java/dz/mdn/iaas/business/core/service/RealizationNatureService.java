@@ -13,7 +13,7 @@
 
 package dz.mdn.iaas.business.core.service;
 
-import dz.mdn.iaas.business.core.model.RealizationNature;
+import dz.mdn.iaas.business.core.model.ProcurementNature;
 import dz.mdn.iaas.business.core.repository.RealizationNatureRepository;
 import dz.mdn.iaas.business.core.dto.RealizationNatureDTO;
 
@@ -58,12 +58,12 @@ public class RealizationNatureService {
         validateUniqueConstraints(realizationNatureDTO, null);
 
         // Create entity with exact field mapping
-        RealizationNature realizationNature = new RealizationNature();
+        ProcurementNature realizationNature = new ProcurementNature();
         realizationNature.setDesignationAr(realizationNatureDTO.getDesignationAr()); // F_01
         realizationNature.setDesignationEn(realizationNatureDTO.getDesignationEn()); // F_02
         realizationNature.setDesignationFr(realizationNatureDTO.getDesignationFr()); // F_03
 
-        RealizationNature savedRealizationNature = realizationNatureRepository.save(realizationNature);
+        ProcurementNature savedRealizationNature = realizationNatureRepository.save(realizationNature);
         log.info("Successfully created realization nature with ID: {}", savedRealizationNature.getId());
 
         return RealizationNatureDTO.fromEntity(savedRealizationNature);
@@ -78,7 +78,7 @@ public class RealizationNatureService {
     public RealizationNatureDTO getRealizationNatureById(Long id) {
         log.debug("Getting realization nature with ID: {}", id);
 
-        RealizationNature realizationNature = realizationNatureRepository.findById(id)
+        ProcurementNature realizationNature = realizationNatureRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Realization nature not found with ID: " + id));
 
         return RealizationNatureDTO.fromEntity(realizationNature);
@@ -88,7 +88,7 @@ public class RealizationNatureService {
      * Get realization nature entity by ID
      */
     @Transactional(readOnly = true)
-    public RealizationNature getRealizationNatureEntityById(Long id) {
+    public ProcurementNature getRealizationNatureEntityById(Long id) {
         return realizationNatureRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Realization nature not found with ID: " + id));
     }
@@ -133,7 +133,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getAllRealizationNatures(Pageable pageable) {
         log.debug("Getting all realization natures with pagination");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findAllOrderByDesignationFr(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findAllOrderByDesignationFr(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -159,7 +159,7 @@ public class RealizationNatureService {
             return getAllRealizationNatures(pageable);
         }
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.searchByDesignation(searchTerm.trim(), pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.searchByDesignation(searchTerm.trim(), pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -170,7 +170,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getMultilingualRealizationNatures(Pageable pageable) {
         log.debug("Getting multilingual realization natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findMultilingualRealizationNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findMultilingualRealizationNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -181,7 +181,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getInfrastructureNatures(Pageable pageable) {
         log.debug("Getting infrastructure natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findInfrastructureNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findInfrastructureNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -192,7 +192,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getTechnologyNatures(Pageable pageable) {
         log.debug("Getting technology natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findTechnologyNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findTechnologyNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -203,7 +203,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getServiceNatures(Pageable pageable) {
         log.debug("Getting service natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findServiceNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findServiceNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -214,7 +214,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getManufacturingNatures(Pageable pageable) {
         log.debug("Getting manufacturing natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findManufacturingNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findManufacturingNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -225,7 +225,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getResearchDevelopmentNatures(Pageable pageable) {
         log.debug("Getting research and development natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findResearchDevelopmentNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findResearchDevelopmentNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -236,7 +236,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getEnergyUtilitiesNatures(Pageable pageable) {
         log.debug("Getting energy and utilities natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findEnergyUtilitiesNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findEnergyUtilitiesNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -247,7 +247,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getEnvironmentalNatures(Pageable pageable) {
         log.debug("Getting environmental natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findEnvironmentalNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findEnvironmentalNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -258,7 +258,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getCommercialNatures(Pageable pageable) {
         log.debug("Getting commercial natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findCommercialNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findCommercialNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -269,7 +269,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getEducationNatures(Pageable pageable) {
         log.debug("Getting education natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findEducationNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findEducationNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -280,7 +280,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getHealthMedicalNatures(Pageable pageable) {
         log.debug("Getting health and medical natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findHealthMedicalNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findHealthMedicalNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -291,7 +291,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getTransportationNatures(Pageable pageable) {
         log.debug("Getting transportation natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findTransportationNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findTransportationNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -302,7 +302,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getAgriculturalNatures(Pageable pageable) {
         log.debug("Getting agricultural natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findAgriculturalNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findAgriculturalNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -313,7 +313,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getHighComplexityNatures(Pageable pageable) {
         log.debug("Getting high complexity natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findHighComplexityNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findHighComplexityNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -324,7 +324,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getPublicInterestNatures(Pageable pageable) {
         log.debug("Getting public interest natures");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findPublicInterestNatures(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findPublicInterestNatures(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -335,7 +335,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getNaturesRequiringEnvironmentalAssessment(Pageable pageable) {
         log.debug("Getting natures requiring environmental assessment");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findNaturesRequiringEnvironmentalAssessment(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findNaturesRequiringEnvironmentalAssessment(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -346,7 +346,7 @@ public class RealizationNatureService {
     public Page<RealizationNatureDTO> getNaturesRequiringTechnicalExpertise(Pageable pageable) {
         log.debug("Getting natures requiring technical expertise");
 
-        Page<RealizationNature> realizationNatures = realizationNatureRepository.findNaturesRequiringTechnicalExpertise(pageable);
+        Page<ProcurementNature> realizationNatures = realizationNatureRepository.findNaturesRequiringTechnicalExpertise(pageable);
         return realizationNatures.map(RealizationNatureDTO::fromEntity);
     }
 
@@ -358,7 +358,7 @@ public class RealizationNatureService {
     public RealizationNatureDTO updateRealizationNature(Long id, RealizationNatureDTO realizationNatureDTO) {
         log.info("Updating realization nature with ID: {}", id);
 
-        RealizationNature existingRealizationNature = getRealizationNatureEntityById(id);
+        ProcurementNature existingRealizationNature = getRealizationNatureEntityById(id);
 
         // Validate required fields
         validateRequiredFields(realizationNatureDTO, "update");
@@ -371,7 +371,7 @@ public class RealizationNatureService {
         existingRealizationNature.setDesignationEn(realizationNatureDTO.getDesignationEn()); // F_02
         existingRealizationNature.setDesignationFr(realizationNatureDTO.getDesignationFr()); // F_03
 
-        RealizationNature updatedRealizationNature = realizationNatureRepository.save(existingRealizationNature);
+        ProcurementNature updatedRealizationNature = realizationNatureRepository.save(existingRealizationNature);
         log.info("Successfully updated realization nature with ID: {}", id);
 
         return RealizationNatureDTO.fromEntity(updatedRealizationNature);
@@ -385,7 +385,7 @@ public class RealizationNatureService {
     public void deleteRealizationNature(Long id) {
         log.info("Deleting realization nature with ID: {}", id);
 
-        RealizationNature realizationNature = getRealizationNatureEntityById(id);
+        ProcurementNature realizationNature = getRealizationNatureEntityById(id);
         realizationNatureRepository.delete(realizationNature);
 
         log.info("Successfully deleted realization nature with ID: {}", id);

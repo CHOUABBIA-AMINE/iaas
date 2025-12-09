@@ -13,7 +13,7 @@
 
 package dz.mdn.iaas.business.core.service;
 
-import dz.mdn.iaas.business.core.model.RealizationStatus;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
 import dz.mdn.iaas.business.core.repository.RealizationStatusRepository;
 import dz.mdn.iaas.business.core.dto.RealizationStatusDTO;
 
@@ -58,12 +58,12 @@ public class RealizationStatusService {
         validateUniqueConstraints(realizationStatusDTO, null);
 
         // Create entity with exact field mapping
-        RealizationStatus realizationStatus = new RealizationStatus();
+        ProcurementStatus realizationStatus = new ProcurementStatus();
         realizationStatus.setDesignationAr(realizationStatusDTO.getDesignationAr()); // F_01
         realizationStatus.setDesignationEn(realizationStatusDTO.getDesignationEn()); // F_02
         realizationStatus.setDesignationFr(realizationStatusDTO.getDesignationFr()); // F_03
 
-        RealizationStatus savedRealizationStatus = realizationStatusRepository.save(realizationStatus);
+        ProcurementStatus savedRealizationStatus = realizationStatusRepository.save(realizationStatus);
         log.info("Successfully created realization status with ID: {}", savedRealizationStatus.getId());
 
         return RealizationStatusDTO.fromEntity(savedRealizationStatus);
@@ -78,7 +78,7 @@ public class RealizationStatusService {
     public RealizationStatusDTO getRealizationStatusById(Long id) {
         log.debug("Getting realization status with ID: {}", id);
 
-        RealizationStatus realizationStatus = realizationStatusRepository.findById(id)
+        ProcurementStatus realizationStatus = realizationStatusRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Realization status not found with ID: " + id));
 
         return RealizationStatusDTO.fromEntity(realizationStatus);
@@ -88,7 +88,7 @@ public class RealizationStatusService {
      * Get realization status entity by ID
      */
     @Transactional(readOnly = true)
-    public RealizationStatus getRealizationStatusEntityById(Long id) {
+    public ProcurementStatus getRealizationStatusEntityById(Long id) {
         return realizationStatusRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Realization status not found with ID: " + id));
     }
@@ -133,7 +133,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getAllRealizationStatuses(Pageable pageable) {
         log.debug("Getting all realization statuses with pagination");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findAllOrderByDesignationFr(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findAllOrderByDesignationFr(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -159,7 +159,7 @@ public class RealizationStatusService {
             return getAllRealizationStatuses(pageable);
         }
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.searchByDesignation(searchTerm.trim(), pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.searchByDesignation(searchTerm.trim(), pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -170,7 +170,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getMultilingualRealizationStatuses(Pageable pageable) {
         log.debug("Getting multilingual realization statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findMultilingualRealizationStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findMultilingualRealizationStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -181,7 +181,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getPlanningStatuses(Pageable pageable) {
         log.debug("Getting planning statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findPlanningStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findPlanningStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -192,7 +192,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getInProgressStatuses(Pageable pageable) {
         log.debug("Getting in-progress statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findInProgressStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findInProgressStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -203,7 +203,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getCompletedStatuses(Pageable pageable) {
         log.debug("Getting completed statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findCompletedStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findCompletedStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -214,7 +214,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getSuspendedStatuses(Pageable pageable) {
         log.debug("Getting suspended statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findSuspendedStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findSuspendedStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -225,7 +225,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getCancelledStatuses(Pageable pageable) {
         log.debug("Getting cancelled statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findCancelledStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findCancelledStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -236,7 +236,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getReviewStatuses(Pageable pageable) {
         log.debug("Getting review statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findReviewStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findReviewStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -247,7 +247,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getApprovedStatuses(Pageable pageable) {
         log.debug("Getting approved statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findApprovedStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findApprovedStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -258,7 +258,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getRejectedStatuses(Pageable pageable) {
         log.debug("Getting rejected statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findRejectedStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findRejectedStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -269,7 +269,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getOnHoldStatuses(Pageable pageable) {
         log.debug("Getting on-hold statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findOnHoldStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findOnHoldStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -280,7 +280,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getActiveStatuses(Pageable pageable) {
         log.debug("Getting active statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findActiveStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findActiveStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -291,7 +291,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getFinalStatuses(Pageable pageable) {
         log.debug("Getting final statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findFinalStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findFinalStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -302,7 +302,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getTransitionalStatuses(Pageable pageable) {
         log.debug("Getting transitional statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findTransitionalStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findTransitionalStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -313,7 +313,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getInitiationPhaseStatuses(Pageable pageable) {
         log.debug("Getting initiation phase statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findInitiationPhaseStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findInitiationPhaseStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -324,7 +324,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getExecutionPhaseStatuses(Pageable pageable) {
         log.debug("Getting execution phase statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findExecutionPhaseStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findExecutionPhaseStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -335,7 +335,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getMonitoringPhaseStatuses(Pageable pageable) {
         log.debug("Getting monitoring phase statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findMonitoringPhaseStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findMonitoringPhaseStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -346,7 +346,7 @@ public class RealizationStatusService {
     public Page<RealizationStatusDTO> getClosurePhaseStatuses(Pageable pageable) {
         log.debug("Getting closure phase statuses");
 
-        Page<RealizationStatus> realizationStatuses = realizationStatusRepository.findClosurePhaseStatuses(pageable);
+        Page<ProcurementStatus> realizationStatuses = realizationStatusRepository.findClosurePhaseStatuses(pageable);
         return realizationStatuses.map(RealizationStatusDTO::fromEntity);
     }
 
@@ -358,7 +358,7 @@ public class RealizationStatusService {
     public RealizationStatusDTO updateRealizationStatus(Long id, RealizationStatusDTO realizationStatusDTO) {
         log.info("Updating realization status with ID: {}", id);
 
-        RealizationStatus existingRealizationStatus = getRealizationStatusEntityById(id);
+        ProcurementStatus existingRealizationStatus = getRealizationStatusEntityById(id);
 
         // Validate required fields
         validateRequiredFields(realizationStatusDTO, "update");
@@ -371,7 +371,7 @@ public class RealizationStatusService {
         existingRealizationStatus.setDesignationEn(realizationStatusDTO.getDesignationEn()); // F_02
         existingRealizationStatus.setDesignationFr(realizationStatusDTO.getDesignationFr()); // F_03
 
-        RealizationStatus updatedRealizationStatus = realizationStatusRepository.save(existingRealizationStatus);
+        ProcurementStatus updatedRealizationStatus = realizationStatusRepository.save(existingRealizationStatus);
         log.info("Successfully updated realization status with ID: {}", id);
 
         return RealizationStatusDTO.fromEntity(updatedRealizationStatus);
@@ -385,7 +385,7 @@ public class RealizationStatusService {
     public void deleteRealizationStatus(Long id) {
         log.info("Deleting realization status with ID: {}", id);
 
-        RealizationStatus realizationStatus = getRealizationStatusEntityById(id);
+        ProcurementStatus realizationStatus = getRealizationStatusEntityById(id);
         realizationStatusRepository.delete(realizationStatus);
 
         log.info("Successfully deleted realization status with ID: {}", id);

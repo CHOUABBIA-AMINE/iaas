@@ -13,7 +13,7 @@
 
 package dz.mdn.iaas.business.core.service;
 
-import dz.mdn.iaas.business.core.model.RealizationDirector;
+import dz.mdn.iaas.business.core.model.ProcurementDirector;
 import dz.mdn.iaas.business.core.repository.RealizationDirectorRepository;
 import dz.mdn.iaas.business.core.dto.RealizationDirectorDTO;
 
@@ -58,12 +58,12 @@ public class RealizationDirectorService {
         validateUniqueConstraints(realizationDirectorDTO, null);
 
         // Create entity with exact field mapping
-        RealizationDirector realizationDirector = new RealizationDirector();
+        ProcurementDirector realizationDirector = new ProcurementDirector();
         realizationDirector.setDesignationAr(realizationDirectorDTO.getDesignationAr()); // F_01
         realizationDirector.setDesignationEn(realizationDirectorDTO.getDesignationEn()); // F_02
         realizationDirector.setDesignationFr(realizationDirectorDTO.getDesignationFr()); // F_03
 
-        RealizationDirector savedRealizationDirector = realizationDirectorRepository.save(realizationDirector);
+        ProcurementDirector savedRealizationDirector = realizationDirectorRepository.save(realizationDirector);
         log.info("Successfully created realization director with ID: {}", savedRealizationDirector.getId());
 
         return RealizationDirectorDTO.fromEntity(savedRealizationDirector);
@@ -78,7 +78,7 @@ public class RealizationDirectorService {
     public RealizationDirectorDTO getRealizationDirectorById(Long id) {
         log.debug("Getting realization director with ID: {}", id);
 
-        RealizationDirector realizationDirector = realizationDirectorRepository.findById(id)
+        ProcurementDirector realizationDirector = realizationDirectorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Realization director not found with ID: " + id));
 
         return RealizationDirectorDTO.fromEntity(realizationDirector);
@@ -88,7 +88,7 @@ public class RealizationDirectorService {
      * Get realization director entity by ID
      */
     @Transactional(readOnly = true)
-    public RealizationDirector getRealizationDirectorEntityById(Long id) {
+    public ProcurementDirector getRealizationDirectorEntityById(Long id) {
         return realizationDirectorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Realization director not found with ID: " + id));
     }
@@ -133,7 +133,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getAllRealizationDirectors(Pageable pageable) {
         log.debug("Getting all realization directors with pagination");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findAllOrderByDesignationFr(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findAllOrderByDesignationFr(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -159,7 +159,7 @@ public class RealizationDirectorService {
             return getAllRealizationDirectors(pageable);
         }
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.searchByDesignation(searchTerm.trim(), pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.searchByDesignation(searchTerm.trim(), pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -170,7 +170,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getMultilingualRealizationDirectors(Pageable pageable) {
         log.debug("Getting multilingual realization directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findMultilingualRealizationDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findMultilingualRealizationDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -181,7 +181,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getExecutiveDirectors(Pageable pageable) {
         log.debug("Getting executive directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findExecutiveDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findExecutiveDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -192,7 +192,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getTechnicalDirectors(Pageable pageable) {
         log.debug("Getting technical directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findTechnicalDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findTechnicalDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -203,7 +203,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getProjectDirectors(Pageable pageable) {
         log.debug("Getting project directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findProjectDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findProjectDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -214,7 +214,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getOperationsDirectors(Pageable pageable) {
         log.debug("Getting operations directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findOperationsDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findOperationsDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -225,7 +225,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getFinancialDirectors(Pageable pageable) {
         log.debug("Getting financial directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findFinancialDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findFinancialDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -236,7 +236,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getCommercialDirectors(Pageable pageable) {
         log.debug("Getting commercial directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findCommercialDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findCommercialDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -247,7 +247,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getHRDirectors(Pageable pageable) {
         log.debug("Getting HR directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findHRDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findHRDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -258,7 +258,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getQualityDirectors(Pageable pageable) {
         log.debug("Getting quality directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findQualityDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findQualityDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -269,7 +269,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getRegionalDirectors(Pageable pageable) {
         log.debug("Getting regional directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findRegionalDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findRegionalDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -280,7 +280,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getAdministrativeDirectors(Pageable pageable) {
         log.debug("Getting administrative directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findAdministrativeDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findAdministrativeDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -291,7 +291,7 @@ public class RealizationDirectorService {
     public Page<RealizationDirectorDTO> getHighAuthorityDirectors(Pageable pageable) {
         log.debug("Getting high authority directors");
 
-        Page<RealizationDirector> realizationDirectors = realizationDirectorRepository.findHighAuthorityDirectors(pageable);
+        Page<ProcurementDirector> realizationDirectors = realizationDirectorRepository.findHighAuthorityDirectors(pageable);
         return realizationDirectors.map(RealizationDirectorDTO::fromEntity);
     }
 
@@ -303,7 +303,7 @@ public class RealizationDirectorService {
     public RealizationDirectorDTO updateRealizationDirector(Long id, RealizationDirectorDTO realizationDirectorDTO) {
         log.info("Updating realization director with ID: {}", id);
 
-        RealizationDirector existingRealizationDirector = getRealizationDirectorEntityById(id);
+        ProcurementDirector existingRealizationDirector = getRealizationDirectorEntityById(id);
 
         // Validate required fields
         validateRequiredFields(realizationDirectorDTO, "update");
@@ -316,7 +316,7 @@ public class RealizationDirectorService {
         existingRealizationDirector.setDesignationEn(realizationDirectorDTO.getDesignationEn()); // F_02
         existingRealizationDirector.setDesignationFr(realizationDirectorDTO.getDesignationFr()); // F_03
 
-        RealizationDirector updatedRealizationDirector = realizationDirectorRepository.save(existingRealizationDirector);
+        ProcurementDirector updatedRealizationDirector = realizationDirectorRepository.save(existingRealizationDirector);
         log.info("Successfully updated realization director with ID: {}", id);
 
         return RealizationDirectorDTO.fromEntity(updatedRealizationDirector);
@@ -330,7 +330,7 @@ public class RealizationDirectorService {
     public void deleteRealizationDirector(Long id) {
         log.info("Deleting realization director with ID: {}", id);
 
-        RealizationDirector realizationDirector = getRealizationDirectorEntityById(id);
+        ProcurementDirector realizationDirector = getRealizationDirectorEntityById(id);
         realizationDirectorRepository.delete(realizationDirector);
 
         log.info("Successfully deleted realization director with ID: {}", id);

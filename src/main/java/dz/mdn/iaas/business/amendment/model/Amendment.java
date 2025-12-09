@@ -19,7 +19,7 @@ import java.util.List;
 import dz.mdn.iaas.business.contract.model.Contract;
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
 import dz.mdn.iaas.business.core.model.Currency;
-import dz.mdn.iaas.business.core.model.RealizationStatus;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
 import dz.mdn.iaas.common.communication.model.Mail;
 import dz.mdn.iaas.common.document.model.Document;
 import jakarta.persistence.Column;
@@ -100,7 +100,7 @@ public class Amendment {
 
 	@ManyToOne
     @JoinColumn(name="F_14", foreignKey=@ForeignKey(name="T_02_06_04_FK_03"), nullable=false)
-    private RealizationStatus realizationStatus;
+    private ProcurementStatus realizationStatus;
 	
 	@ManyToOne
     @JoinColumn(name="F_15", foreignKey=@ForeignKey(name="T_02_06_04_FK_04"), nullable=false)

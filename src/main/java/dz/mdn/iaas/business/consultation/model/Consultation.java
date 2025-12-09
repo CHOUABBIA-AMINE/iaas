@@ -17,9 +17,9 @@ import java.util.Date;
 import java.util.List;
 
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
-import dz.mdn.iaas.business.core.model.RealizationDirector;
-import dz.mdn.iaas.business.core.model.RealizationNature;
-import dz.mdn.iaas.business.core.model.RealizationStatus;
+import dz.mdn.iaas.business.core.model.ProcurementDirector;
+import dz.mdn.iaas.business.core.model.ProcurementNature;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
 import dz.mdn.iaas.business.plan.model.BudgetType;
 import dz.mdn.iaas.business.plan.model.PlannedItem;
 import dz.mdn.iaas.common.communication.model.Mail;
@@ -108,7 +108,7 @@ public class Consultation {
 	
 	@ManyToOne
     @JoinColumn(name="F_16", foreignKey=@ForeignKey(name="T_02_04_04_FK_02"), nullable=false)
-    private RealizationNature realizationNature;
+    private ProcurementNature realizationNature;
 	
 	@ManyToOne
     @JoinColumn(name="F_17", foreignKey=@ForeignKey(name="T_02_04_04_FK_03"), nullable=false)
@@ -116,7 +116,7 @@ public class Consultation {
 	
 	@ManyToOne
     @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_02_04_04_FK_04"), nullable=false)
-    private RealizationStatus realizationStatus;
+    private ProcurementStatus realizationStatus;
 	
 	@ManyToOne
     @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_02_04_04_FK_05"), nullable=false)
@@ -124,7 +124,7 @@ public class Consultation {
 	
 	@ManyToOne
     @JoinColumn(name="F_20", foreignKey=@ForeignKey(name="T_02_04_04_FK_06"), nullable=false)
-    private RealizationDirector realizationDirector;
+    private ProcurementDirector realizationDirector;
 	
 	@ManyToOne
     @JoinColumn(name="F_21", foreignKey=@ForeignKey(name="T_02_04_04_FK_07"), nullable=false)

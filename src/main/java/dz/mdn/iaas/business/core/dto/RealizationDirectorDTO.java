@@ -48,7 +48,7 @@ public class RealizationDirectorDTO {
     /**
      * Create DTO from entity
      */
-    public static RealizationDirectorDTO fromEntity(dz.mdn.iaas.business.core.model.RealizationDirector realizationDirector) {
+    public static RealizationDirectorDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementDirector realizationDirector) {
         if (realizationDirector == null) return null;
         
         return RealizationDirectorDTO.builder()
@@ -62,8 +62,8 @@ public class RealizationDirectorDTO {
     /**
      * Convert to entity
      */
-    public dz.mdn.iaas.business.core.model.RealizationDirector toEntity() {
-        dz.mdn.iaas.business.core.model.RealizationDirector realizationDirector = new dz.mdn.iaas.business.core.model.RealizationDirector();
+    public dz.mdn.iaas.business.core.model.ProcurementDirector toEntity() {
+        dz.mdn.iaas.business.core.model.ProcurementDirector realizationDirector = new dz.mdn.iaas.business.core.model.ProcurementDirector();
         realizationDirector.setId(this.id);
         realizationDirector.setDesignationAr(this.designationAr);
         realizationDirector.setDesignationEn(this.designationEn);
@@ -74,7 +74,7 @@ public class RealizationDirectorDTO {
     /**
      * Update entity from DTO
      */
-    public void updateEntity(dz.mdn.iaas.business.core.model.RealizationDirector realizationDirector) {
+    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementDirector realizationDirector) {
         if (this.designationAr != null) {
             realizationDirector.setDesignationAr(this.designationAr);
         }

@@ -48,7 +48,7 @@ public class RealizationNatureDTO {
     /**
      * Create DTO from entity
      */
-    public static RealizationNatureDTO fromEntity(dz.mdn.iaas.business.core.model.RealizationNature realizationNature) {
+    public static RealizationNatureDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementNature realizationNature) {
         if (realizationNature == null) return null;
         
         return RealizationNatureDTO.builder()
@@ -62,8 +62,8 @@ public class RealizationNatureDTO {
     /**
      * Convert to entity
      */
-    public dz.mdn.iaas.business.core.model.RealizationNature toEntity() {
-        dz.mdn.iaas.business.core.model.RealizationNature realizationNature = new dz.mdn.iaas.business.core.model.RealizationNature();
+    public dz.mdn.iaas.business.core.model.ProcurementNature toEntity() {
+        dz.mdn.iaas.business.core.model.ProcurementNature realizationNature = new dz.mdn.iaas.business.core.model.ProcurementNature();
         realizationNature.setId(this.id);
         realizationNature.setDesignationAr(this.designationAr);
         realizationNature.setDesignationEn(this.designationEn);
@@ -74,7 +74,7 @@ public class RealizationNatureDTO {
     /**
      * Update entity from DTO
      */
-    public void updateEntity(dz.mdn.iaas.business.core.model.RealizationNature realizationNature) {
+    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementNature realizationNature) {
         if (this.designationAr != null) {
             realizationNature.setDesignationAr(this.designationAr);
         }

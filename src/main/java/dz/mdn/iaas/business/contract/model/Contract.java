@@ -19,7 +19,7 @@ import java.util.List;
 import dz.mdn.iaas.business.consultation.model.Consultation;
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
 import dz.mdn.iaas.business.core.model.Currency;
-import dz.mdn.iaas.business.core.model.RealizationStatus;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
 import dz.mdn.iaas.business.plan.model.PlannedItem;
 import dz.mdn.iaas.business.provider.model.Provider;
 import dz.mdn.iaas.common.communication.model.Mail;
@@ -115,7 +115,7 @@ public class Contract {
 
 	@ManyToOne
     @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_02_05_04_FK_03"), nullable=false)
-    private RealizationStatus realizationStatus;
+    private ProcurementStatus realizationStatus;
 	
 	@ManyToOne
     @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_02_05_04_FK_04"), nullable=false)

@@ -33,9 +33,9 @@ import dz.mdn.iaas.business.consultation.repository.AwardMethodRepository;
 import dz.mdn.iaas.business.consultation.repository.ConsultationRepository;
 import dz.mdn.iaas.business.consultation.repository.ConsultationStepRepository;
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
-import dz.mdn.iaas.business.core.model.RealizationDirector;
-import dz.mdn.iaas.business.core.model.RealizationNature;
-import dz.mdn.iaas.business.core.model.RealizationStatus;
+import dz.mdn.iaas.business.core.model.ProcurementDirector;
+import dz.mdn.iaas.business.core.model.ProcurementNature;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
 import dz.mdn.iaas.business.core.repository.ApprovalStatusRepository;
 import dz.mdn.iaas.business.core.repository.RealizationDirectorRepository;
 import dz.mdn.iaas.business.core.repository.RealizationNatureRepository;
@@ -85,11 +85,11 @@ public class ConsultationService {
        
        // Validate and get all foreign key entities
        AwardMethod awardMethod = validateAndGetAwardMethod(consultationDTO.getAwardMethodId());
-       RealizationNature realizationNature = validateAndGetRealizationNature(consultationDTO.getRealizationNatureId());
+       ProcurementNature realizationNature = validateAndGetRealizationNature(consultationDTO.getRealizationNatureId());
        BudgetType budgetType = validateAndGetBudgetType(consultationDTO.getBudgetTypeId());
-       RealizationStatus realizationStatus = validateAndGetRealizationStatus(consultationDTO.getRealizationStatusId());
+       ProcurementStatus realizationStatus = validateAndGetRealizationStatus(consultationDTO.getRealizationStatusId());
        ApprovalStatus approvalStatus = validateAndGetApprovalStatus(consultationDTO.getApprovalStatusId());
-       RealizationDirector realizationDirector = validateAndGetRealizationDirector(consultationDTO.getRealizationDirectorId());
+       ProcurementDirector realizationDirector = validateAndGetRealizationDirector(consultationDTO.getRealizationDirectorId());
        ConsultationStep consultationStep = validateAndGetConsultationStep(consultationDTO.getConsultationStepId());
 
        // Create entity with exact field mapping
@@ -342,11 +342,11 @@ public class ConsultationService {
        
        // Validate and get foreign key entities if they are being changed
        AwardMethod awardMethod = null;
-       RealizationNature realizationNature = null;
+       ProcurementNature realizationNature = null;
        BudgetType budgetType = null;
-       RealizationStatus realizationStatus = null;
+       ProcurementStatus realizationStatus = null;
        ApprovalStatus approvalStatus = null;
-       RealizationDirector realizationDirector = null;
+       ProcurementDirector realizationDirector = null;
        ConsultationStep consultationStep = null;
 
        if (consultationDTO.getAwardMethodId() != null && 
@@ -637,7 +637,7 @@ public class ConsultationService {
                .orElseThrow(() -> new RuntimeException("AwardMethod not found with ID: " + awardMethodId));
    }
 
-   private RealizationNature validateAndGetRealizationNature(Long realizationNatureId) {
+   private ProcurementNature validateAndGetRealizationNature(Long realizationNatureId) {
        return realizationNatureRepository.findById(realizationNatureId)
                .orElseThrow(() -> new RuntimeException("RealizationNature not found with ID: " + realizationNatureId));
    }
@@ -647,7 +647,7 @@ public class ConsultationService {
                .orElseThrow(() -> new RuntimeException("BudgetType not found with ID: " + budgetTypeId));
    }
 
-   private RealizationStatus validateAndGetRealizationStatus(Long realizationStatusId) {
+   private ProcurementStatus validateAndGetRealizationStatus(Long realizationStatusId) {
        return realizationStatusRepository.findById(realizationStatusId)
                .orElseThrow(() -> new RuntimeException("RealizationStatus not found with ID: " + realizationStatusId));
    }
@@ -657,7 +657,7 @@ public class ConsultationService {
                .orElseThrow(() -> new RuntimeException("ApprovalStatus not found with ID: " + approvalStatusId));
    }
 
-   private RealizationDirector validateAndGetRealizationDirector(Long realizationDirectorId) {
+   private ProcurementDirector validateAndGetRealizationDirector(Long realizationDirectorId) {
        return realizationDirectorRepository.findById(realizationDirectorId)
                .orElseThrow(() -> new RuntimeException("RealizationDirector not found with ID: " + realizationDirectorId));
    }

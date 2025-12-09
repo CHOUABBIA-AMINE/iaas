@@ -48,7 +48,7 @@ public class RealizationStatusDTO {
     /**
      * Create DTO from entity
      */
-    public static RealizationStatusDTO fromEntity(dz.mdn.iaas.business.core.model.RealizationStatus realizationStatus) {
+    public static RealizationStatusDTO fromEntity(dz.mdn.iaas.business.core.model.ProcurementStatus realizationStatus) {
         if (realizationStatus == null) return null;
         
         return RealizationStatusDTO.builder()
@@ -62,8 +62,8 @@ public class RealizationStatusDTO {
     /**
      * Convert to entity
      */
-    public dz.mdn.iaas.business.core.model.RealizationStatus toEntity() {
-        dz.mdn.iaas.business.core.model.RealizationStatus realizationStatus = new dz.mdn.iaas.business.core.model.RealizationStatus();
+    public dz.mdn.iaas.business.core.model.ProcurementStatus toEntity() {
+        dz.mdn.iaas.business.core.model.ProcurementStatus realizationStatus = new dz.mdn.iaas.business.core.model.ProcurementStatus();
         realizationStatus.setId(this.id);
         realizationStatus.setDesignationAr(this.designationAr);
         realizationStatus.setDesignationEn(this.designationEn);
@@ -74,7 +74,7 @@ public class RealizationStatusDTO {
     /**
      * Update entity from DTO
      */
-    public void updateEntity(dz.mdn.iaas.business.core.model.RealizationStatus realizationStatus) {
+    public void updateEntity(dz.mdn.iaas.business.core.model.ProcurementStatus realizationStatus) {
         if (this.designationAr != null) {
             realizationStatus.setDesignationAr(this.designationAr);
         }
