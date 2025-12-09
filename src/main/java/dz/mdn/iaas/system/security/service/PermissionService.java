@@ -14,10 +14,10 @@
 package dz.mdn.iaas.system.security.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import dz.mdn.iaas.system.security.dto.PermissionDTO;
 import dz.mdn.iaas.system.security.model.Permission;
@@ -42,33 +42,43 @@ public class PermissionService {
             .orElseThrow(() -> new RuntimeException("Permission not found"));
     }
 
-    @Transactional
-    public PermissionDTO create(PermissionDTO dto) {
-        Permission permission = new Permission();
-        permission.setName(dto.getName());
-        permission.setDescription(dto.getDescription());
-        return convertToDTO(permissionRepository.save(permission));
-    }
-
-    @Transactional
-    public PermissionDTO update(Long id, PermissionDTO dto) {
-        Permission permission = permissionRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Permission not found"));
-        permission.setName(dto.getName());
-        permission.setDescription(dto.getDescription());
-        return convertToDTO(permissionRepository.save(permission));
-    }
-
-    @Transactional
-    public void delete(Long id) {
-        permissionRepository.deleteById(id);
-    }
-
-    private PermissionDTO convertToDTO(Permission permission) {
+    /**
+     * Convert single Permission entity to PermissionDTO
+     */
+    public PermissionDTO convertToDTO(Permission permission) {
+        if (permission == null) {
+            return null;
+        }
         return PermissionDTO.builder()
             .id(permission.getId())
             .name(permission.getName())
             .description(permission.getDescription())
+            // Note: Not including authority to avoid deep nesting
             .build();
+    }
+
+    /**
+     * Convert Set of Permission entities to Set of PermissionDTOs
+     */
+    public Set<PermissionDTO> convertToDTO(Set<Permission> permissions) {
+        if (permissions == null || permissions.isEmpty()) {
+            return Set.of();
+        }
+        return permissions.stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toSet());
+    }
+
+    /**
+     * Convert Set of PermissionDTOs to Set of Permission entities
+     */
+    public Set<Permission> convertToEntity(Set<PermissionDTO> permissionDTOs) {
+        if (permissionDTOs == null || permissionDTOs.isEmpty()) {
+            return Set.of();
+        }
+        return permissionDTOs.stream()
+            .map(permissionDTO -> permissionRepository.findById(permissionDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Permission not found: " + permissionDTO.getId())))
+            .collect(Collectors.toSet());
     }
 }

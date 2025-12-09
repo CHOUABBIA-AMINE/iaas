@@ -33,6 +33,7 @@ public class RoleService {
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
+    private final PermissionService permissionService;
 
     public List<RoleDTO> findAll() {
         return roleRepository.findAll().stream()
@@ -51,6 +52,12 @@ public class RoleService {
         Role role = new Role();
         role.setName(dto.getName());
         role.setDescription(dto.getDescription());
+        
+        // Assign permissions if provided
+        if (dto.getPermissions() != null && !dto.getPermissions().isEmpty()) {
+            role.setPermissions(permissionService.convertToEntity(dto.getPermissions()));
+        }
+        
         return convertToDTO(roleRepository.save(role));
     }
 
@@ -58,8 +65,15 @@ public class RoleService {
     public RoleDTO update(Long id, RoleDTO dto) {
         Role role = roleRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Role not found"));
+        
         role.setName(dto.getName());
         role.setDescription(dto.getDescription());
+        
+        // Update permissions if provided
+        if (dto.getPermissions() != null) {
+            role.setPermissions(permissionService.convertToEntity(dto.getPermissions()));
+        }
+        
         return convertToDTO(roleRepository.save(role));
     }
 
@@ -90,12 +104,12 @@ public class RoleService {
             .id(role.getId())
             .name(role.getName())
             .description(role.getDescription())
+            .permissions(permissionService.convertToDTO(role.getPermissions()))
             .build();
     }
 
     /**
      * Convert Set of Role entities to Set of RoleDTOs
-     * ✅ NEW METHOD for use by other services
      */
     public Set<RoleDTO> convertToDTO(Set<Role> roles) {
         if (roles == null || roles.isEmpty()) {
@@ -108,7 +122,6 @@ public class RoleService {
 
     /**
      * Convert Set of RoleDTOs to Set of Role entities
-     * ✅ NEW METHOD for use by other services
      */
     public Set<Role> convertToEntity(Set<RoleDTO> roleDTOs) {
         if (roleDTOs == null || roleDTOs.isEmpty()) {
