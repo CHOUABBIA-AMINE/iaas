@@ -14,6 +14,7 @@
 package dz.mdn.iaas.system.security.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -64,11 +65,44 @@ public class GroupService {
         groupRepository.deleteById(id);
     }
 
-    private GroupDTO convertToDTO(Group group) {
+    /**
+     * Convert single Group entity to GroupDTO
+     */
+    public GroupDTO convertToDTO(Group group) {
+        if (group == null) {
+            return null;
+        }
         return GroupDTO.builder()
             .id(group.getId())
             .name(group.getName())
             .description(group.getDescription())
             .build();
+    }
+
+    /**
+     * Convert Set of Group entities to Set of GroupDTOs
+     * ✅ NEW METHOD for use by other services
+     */
+    public Set<GroupDTO> convertToDTO(Set<Group> groups) {
+        if (groups == null || groups.isEmpty()) {
+            return Set.of();
+        }
+        return groups.stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toSet());
+    }
+
+    /**
+     * Convert Set of GroupDTOs to Set of Group entities
+     * ✅ NEW METHOD for use by other services
+     */
+    public Set<Group> convertToEntity(Set<GroupDTO> groupDTOs) {
+        if (groupDTOs == null || groupDTOs.isEmpty()) {
+            return Set.of();
+        }
+        return groupDTOs.stream()
+            .map(groupDTO -> groupRepository.findById(groupDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Group not found: " + groupDTO.getId())))
+            .collect(Collectors.toSet());
     }
 }

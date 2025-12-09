@@ -14,6 +14,7 @@
 package dz.mdn.iaas.system.security.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -78,11 +79,44 @@ public class RoleService {
         return convertToDTO(roleRepository.save(role));
     }
 
-    private RoleDTO convertToDTO(Role role) {
+    /**
+     * Convert single Role entity to RoleDTO
+     */
+    public RoleDTO convertToDTO(Role role) {
+        if (role == null) {
+            return null;
+        }
         return RoleDTO.builder()
             .id(role.getId())
             .name(role.getName())
             .description(role.getDescription())
             .build();
+    }
+
+    /**
+     * Convert Set of Role entities to Set of RoleDTOs
+     * ✅ NEW METHOD for use by other services
+     */
+    public Set<RoleDTO> convertToDTO(Set<Role> roles) {
+        if (roles == null || roles.isEmpty()) {
+            return Set.of();
+        }
+        return roles.stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toSet());
+    }
+
+    /**
+     * Convert Set of RoleDTOs to Set of Role entities
+     * ✅ NEW METHOD for use by other services
+     */
+    public Set<Role> convertToEntity(Set<RoleDTO> roleDTOs) {
+        if (roleDTOs == null || roleDTOs.isEmpty()) {
+            return Set.of();
+        }
+        return roleDTOs.stream()
+            .map(roleDTO -> roleRepository.findById(roleDTO.getId())
+                .orElseThrow(() -> new RuntimeException("Role not found: " + roleDTO.getId())))
+            .collect(Collectors.toSet());
     }
 }

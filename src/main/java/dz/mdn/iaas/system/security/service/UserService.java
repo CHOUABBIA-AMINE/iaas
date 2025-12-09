@@ -34,6 +34,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    
+    // ✅ Inject RoleService and GroupService for conversions
+    private final RoleService roleService;
+    private final GroupService groupService;
 
     public List<UserDTO> findAll() {
         return userRepository.findAll().stream()
@@ -53,7 +57,20 @@ public class UserService {
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
-        user.setEnabled(true);
+        user.setEnabled(dto.isEnabled());
+        user.setAccountNonExpired(dto.isAccountNonExpired());
+        user.setAccountNonLocked(dto.isAccountNonLocked());
+        user.setCredentialsNonExpired(dto.isCredentialsNonExpired());
+
+        // ✅ Use RoleService to convert DTOs to entities
+        if (dto.getRoles() != null && !dto.getRoles().isEmpty()) {
+            user.setRoles(roleService.convertToEntity(dto.getRoles()));
+        }
+
+        // ✅ Use GroupService to convert DTOs to entities
+        if (dto.getGroups() != null && !dto.getGroups().isEmpty()) {
+            user.setGroups(groupService.convertToEntity(dto.getGroups()));
+        }
 
         return convertToDTO(userRepository.save(user));
     }
@@ -64,8 +81,24 @@ public class UserService {
             .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setEmail(dto.getEmail());
+        user.setEnabled(dto.isEnabled());
+        user.setAccountNonExpired(dto.isAccountNonExpired());
+        user.setAccountNonLocked(dto.isAccountNonLocked());
+        user.setCredentialsNonExpired(dto.isCredentialsNonExpired());
+
+        // Update password only if provided
         if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
+
+        // ✅ Use RoleService to convert DTOs to entities
+        if (dto.getRoles() != null) {
+            user.setRoles(roleService.convertToEntity(dto.getRoles()));
+        }
+
+        // ✅ Use GroupService to convert DTOs to entities
+        if (dto.getGroups() != null) {
+            user.setGroups(groupService.convertToEntity(dto.getGroups()));
         }
 
         return convertToDTO(userRepository.save(user));
@@ -87,12 +120,21 @@ public class UserService {
         return convertToDTO(userRepository.save(user));
     }
 
+    /**
+     * Convert User entity to UserDTO
+     * ✅ Uses RoleService and GroupService for nested conversions
+     */
     private UserDTO convertToDTO(User user) {
         return UserDTO.builder()
             .id(user.getId())
             .username(user.getUsername())
             .email(user.getEmail())
             .enabled(user.isEnabled())
+            .accountNonExpired(user.isAccountNonExpired())
+            .accountNonLocked(user.isAccountNonLocked())
+            .credentialsNonExpired(user.isCredentialsNonExpired())
+            .roles(roleService.convertToDTO(user.getRoles()))      // ✅ Use service
+            .groups(groupService.convertToDTO(user.getGroups()))   // ✅ Use service
             .build();
     }
 }
