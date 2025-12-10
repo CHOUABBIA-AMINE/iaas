@@ -4,6 +4,7 @@
  *
  *	@Name		: GenericDTO
  *	@CreatedOn	: 12-10-2025
+ *	@Updated	: 12-10-2025
  *
  *	@Type		: Abstract Class
  *	@Layer		: DTO Base
@@ -13,16 +14,24 @@
 
 package dz.mdn.iaas.configuration.template;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serializable;
+
 /**
  * Generic DTO Base Class
  * Provides common structure and contract for all DTOs
+ * 
+ * IMPORTANT: Use @SuperBuilder instead of @Builder in subclasses!
  * 
  * Usage Example:
  * <pre>
  * {@code
  * @Data
  * @EqualsAndHashCode(callSuper = true)
- * @Builder
+ * @SuperBuilder  // <-- Use SuperBuilder, not Builder!
  * @NoArgsConstructor
  * @AllArgsConstructor
  * @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -68,23 +77,18 @@ package dz.mdn.iaas.configuration.template;
  * 
  * @param <E> Entity type
  */
-public abstract class GenericDTO<E> {
+@Data
+@SuperBuilder
+@NoArgsConstructor
+public abstract class GenericDTO<E> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * Entity ID
      * Common to all entities
      */
     private Long id;
-
-    // ========== GETTERS AND SETTERS ==========
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     // ========== ABSTRACT METHODS ==========
 
@@ -133,38 +137,5 @@ public abstract class GenericDTO<E> {
      */
     public String getEntityTypeName() {
         return this.getClass().getSimpleName().replace("DTO", "");
-    }
-
-    // ========== OBJECT METHODS ==========
-
-    /**
-     * Default toString implementation
-     * Can be overridden by Lombok @ToString or custom implementation
-     */
-    @Override
-    public String toString() {
-        return getEntityTypeName() + "DTO{id=" + id + "}";
-    }
-
-    /**
-     * Default equals based on ID
-     * Override with Lombok @EqualsAndHashCode if needed
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        
-        GenericDTO<?> that = (GenericDTO<?>) obj;
-        return id != null && id.equals(that.id);
-    }
-
-    /**
-     * Default hashCode based on ID
-     * Override with Lombok @EqualsAndHashCode if needed
-     */
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
     }
 }
