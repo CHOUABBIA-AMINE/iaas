@@ -33,15 +33,12 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContractItemDTO extends GenericDTO {
 
+    private int internalId;
+    
     @NotNull(message = "Contract is required")
     private Long contractId;
     
-    @NotNull(message = "Item is required")
-    private Long itemId;
-    
-    private double quantity;
-    private double unitPrice;
-    private double totalAmount;
-    private String observation;
+    @NotNull(message = "Planned item is required")
+    private Long plannedItemId;
 
 }
