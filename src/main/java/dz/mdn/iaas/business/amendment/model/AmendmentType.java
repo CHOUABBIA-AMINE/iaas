@@ -4,20 +4,19 @@
  *
  *	@Name		: AmendmentType
  *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-10-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
+ *	@Layer		: Model
  *	@Package	: Business / Amendment
  *
  **/
 
 package dz.mdn.iaas.business.amendment.model;
 
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -30,17 +29,12 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="AmendmentType")
 @Table(name="T_02_06_01", uniqueConstraints = { @UniqueConstraint(name = "T_02_06_01_UK_01", columnNames = { "F_03" })})
-public class AmendmentType {
-	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+public class AmendmentType extends GenericModel {
 	
 	@Column(name="F_01", length=200)
 	private String designationAr;
