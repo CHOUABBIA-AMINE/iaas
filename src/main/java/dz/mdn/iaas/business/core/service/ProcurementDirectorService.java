@@ -11,21 +11,22 @@
 
 package dz.mdn.iaas.business.core.service;
 
-import dz.mdn.iaas.business.core.dto.ProcurementDirectorDTO;
-import dz.mdn.iaas.business.core.model.ProcurementDirector;
-import dz.mdn.iaas.business.core.repository.ProcurementDirectorRepository;
-import dz.mdn.iaas.common.service.GenericService;
-import dz.mdn.iaas.exception.BusinessValidationException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.business.core.dto.ProcurementDirectorDTO;
+import dz.mdn.iaas.business.core.model.ProcurementDirector;
+import dz.mdn.iaas.business.core.repository.ProcurementDirectorRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import dz.mdn.iaas.exception.BusinessValidationException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Simplified ProcurementDirector Service - Essential CRUD Operations Only
@@ -69,11 +70,11 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
     @Override
     @Transactional
     public ProcurementDirectorDTO create(ProcurementDirectorDTO dto) {
-        log.info("Creating procurement director: designation={}", dto.getDesignation());
+        log.info("Creating procurement director: designation={}", dto.getDesignationFr());
         
         // Validate unique constraint
-        if (procurementDirectorRepository.existsByDesignation(dto.getDesignation())) {
-            throw new BusinessValidationException("Designation '" + dto.getDesignation() + "' already exists");
+        if (procurementDirectorRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Designation '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.create(dto);
@@ -87,8 +88,8 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
         log.info("Updating procurement director with ID: {}", id);
         
         // Validate unique constraint
-        if (procurementDirectorRepository.existsByDesignationAndIdNot(dto.getDesignation(), id)) {
-            throw new BusinessValidationException("Designation '" + dto.getDesignation() + "' already exists");
+        if (procurementDirectorRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
+            throw new BusinessValidationException("Designation '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.update(id, dto);

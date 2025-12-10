@@ -14,21 +14,22 @@
 
 package dz.mdn.iaas.business.core.service;
 
-import dz.mdn.iaas.business.core.dto.CurrencyDTO;
-import dz.mdn.iaas.business.core.model.Currency;
-import dz.mdn.iaas.business.core.repository.CurrencyRepository;
-import dz.mdn.iaas.common.service.GenericService;
-import dz.mdn.iaas.exception.BusinessValidationException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.business.core.dto.CurrencyDTO;
+import dz.mdn.iaas.business.core.model.Currency;
+import dz.mdn.iaas.business.core.repository.CurrencyRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import dz.mdn.iaas.exception.BusinessValidationException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Simplified Currency Service - Essential CRUD Operations Only

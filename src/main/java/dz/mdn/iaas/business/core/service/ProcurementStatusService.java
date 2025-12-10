@@ -11,21 +11,22 @@
 
 package dz.mdn.iaas.business.core.service;
 
-import dz.mdn.iaas.business.core.dto.ProcurementStatusDTO;
-import dz.mdn.iaas.business.core.model.ProcurementStatus;
-import dz.mdn.iaas.business.core.repository.ProcurementStatusRepository;
-import dz.mdn.iaas.common.service.GenericService;
-import dz.mdn.iaas.exception.BusinessValidationException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.business.core.dto.ProcurementStatusDTO;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
+import dz.mdn.iaas.business.core.repository.ProcurementStatusRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import dz.mdn.iaas.exception.BusinessValidationException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Simplified ProcurementStatus Service - Essential CRUD Operations Only
@@ -69,14 +70,11 @@ public class ProcurementStatusService extends GenericService<ProcurementStatus, 
     @Override
     @Transactional
     public ProcurementStatusDTO create(ProcurementStatusDTO dto) {
-        log.info("Creating procurement status: designationFr={}, code={}", dto.getDesignationFr(), dto.getCode());
+        log.info("Creating procurement status: designationFr={}, code={}", dto.getDesignationFr());
         
         // Validate unique constraints
         if (procurementStatusRepository.existsByDesignationFr(dto.getDesignationFr())) {
             throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
-        }
-        if (procurementStatusRepository.existsByCode(dto.getCode())) {
-            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
         }
         
         return super.create(dto);
@@ -92,9 +90,6 @@ public class ProcurementStatusService extends GenericService<ProcurementStatus, 
         // Validate unique constraints
         if (procurementStatusRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
             throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
-        }
-        if (procurementStatusRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
-            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
         }
         
         return super.update(id, dto);
