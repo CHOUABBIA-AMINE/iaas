@@ -15,9 +15,7 @@ import dz.mdn.iaas.business.core.dto.ProcurementNatureDTO;
 import dz.mdn.iaas.business.core.model.ProcurementNature;
 import dz.mdn.iaas.business.core.repository.ProcurementNatureRepository;
 import dz.mdn.iaas.common.service.GenericService;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator.UniqueFieldUpdateValidation;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator.UniqueFieldValidation;
+import dz.mdn.iaas.exception.BusinessValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -40,7 +38,6 @@ import java.util.stream.Collectors;
 public class ProcurementNatureService extends GenericService<ProcurementNature, ProcurementNatureDTO, Long> {
 
     private final ProcurementNatureRepository procurementNatureRepository;
-    private final UniqueFieldValidator uniqueFieldValidator;
 
     @Override
     protected JpaRepository<ProcurementNature, Long> getRepository() {
@@ -72,12 +69,15 @@ public class ProcurementNatureService extends GenericService<ProcurementNature, 
     @Override
     @Transactional
     public ProcurementNatureDTO create(ProcurementNatureDTO dto) {
-        log.info("Creating procurement nature: designationFr={}", dto.getDesignationFr());
+        log.info("Creating procurement nature: designationFr={}, code={}", dto.getDesignationFr(), dto.getCode());
         
-        uniqueFieldValidator.validateMultipleForCreate(
-            UniqueFieldValidation.of("French designation", dto.getDesignationFr(), procurementNatureRepository::existsByDesignationFr),
-            UniqueFieldValidation.of("Code", dto.getCode(), procurementNatureRepository::existsByCode)
-        );
+        // Validate unique constraints
+        if (procurementNatureRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
+        }
+        if (procurementNatureRepository.existsByCode(dto.getCode())) {
+            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
+        }
         
         return super.create(dto);
     }
@@ -89,17 +89,16 @@ public class ProcurementNatureService extends GenericService<ProcurementNature, 
     public ProcurementNatureDTO update(Long id, ProcurementNatureDTO dto) {
         log.info("Updating procurement nature with ID: {}", id);
         
-        uniqueFieldValidator.validateMultipleForUpdate(
-            UniqueFieldUpdateValidation.of("French designation", dto.getDesignationFr(), id, procurementNatureRepository::existsByDesignationFrAndIdNot),
-            UniqueFieldUpdateValidation.of("Code", dto.getCode(), id, procurementNatureRepository::existsByCodeAndIdNot)
-        );
+        // Validate unique constraints
+        if (procurementNatureRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
+            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
+        }
+        if (procurementNatureRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
+            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
+        }
         
         return super.update(id, dto);
     }
-
-    // ========== GET BY ID (inherited) ==========
-
-    // ========== GET ALL (PAGINATED) (inherited) ==========
 
     // ========== GET ALL (NON-PAGINATED) ==========
 
@@ -109,8 +108,6 @@ public class ProcurementNatureService extends GenericService<ProcurementNature, 
                 .map(ProcurementNatureDTO::fromEntity)
                 .collect(Collectors.toList());
     }
-
-    // ========== DELETE (inherited) ==========
 
     // ========== GLOBAL SEARCH ==========
 

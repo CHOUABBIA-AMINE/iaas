@@ -18,9 +18,7 @@ import dz.mdn.iaas.business.core.dto.CurrencyDTO;
 import dz.mdn.iaas.business.core.model.Currency;
 import dz.mdn.iaas.business.core.repository.CurrencyRepository;
 import dz.mdn.iaas.common.service.GenericService;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator.UniqueFieldUpdateValidation;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator.UniqueFieldValidation;
+import dz.mdn.iaas.exception.BusinessValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -43,7 +41,6 @@ import java.util.stream.Collectors;
 public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long> {
 
     private final CurrencyRepository currencyRepository;
-    private final UniqueFieldValidator uniqueFieldValidator;
 
     @Override
     protected JpaRepository<Currency, Long> getRepository() {
@@ -77,15 +74,8 @@ public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long>
     public CurrencyDTO create(CurrencyDTO dto) {
         log.info("Creating currency: code={}", dto.getCode());
         
-        uniqueFieldValidator.validateMultipleForCreate(
-            UniqueFieldValidation.of("Code", dto.getCode(), currencyRepository::existsByCode),
-            UniqueFieldValidation.of("Arabic designation", dto.getDesignationAr(), currencyRepository::existsByDesignationAr),
-            UniqueFieldValidation.of("English designation", dto.getDesignationEn(), currencyRepository::existsByDesignationEn),
-            UniqueFieldValidation.of("French designation", dto.getDesignationFr(), currencyRepository::existsByDesignationFr),
-            UniqueFieldValidation.of("Arabic acronym", dto.getAcronymAr(), currencyRepository::existsByAcronymAr),
-            UniqueFieldValidation.of("English acronym", dto.getAcronymEn(), currencyRepository::existsByAcronymEn),
-            UniqueFieldValidation.of("French acronym", dto.getAcronymFr(), currencyRepository::existsByAcronymFr)
-        );
+        // Validate unique constraints
+        validateUniqueConstraintsForCreate(dto);
         
         return super.create(dto);
     }
@@ -97,24 +87,11 @@ public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long>
     public CurrencyDTO update(Long id, CurrencyDTO dto) {
         log.info("Updating currency with ID: {}", id);
         
-        uniqueFieldValidator.validateMultipleForUpdate(
-            UniqueFieldUpdateValidation.of("Code", dto.getCode(), id, currencyRepository::existsByCodeAndIdNot),
-            UniqueFieldUpdateValidation.of("Arabic designation", dto.getDesignationAr(), id, currencyRepository::existsByDesignationArAndIdNot),
-            UniqueFieldUpdateValidation.of("English designation", dto.getDesignationEn(), id, currencyRepository::existsByDesignationEnAndIdNot),
-            UniqueFieldUpdateValidation.of("French designation", dto.getDesignationFr(), id, currencyRepository::existsByDesignationFrAndIdNot),
-            UniqueFieldUpdateValidation.of("Arabic acronym", dto.getAcronymAr(), id, currencyRepository::existsByAcronymArAndIdNot),
-            UniqueFieldUpdateValidation.of("English acronym", dto.getAcronymEn(), id, currencyRepository::existsByAcronymEnAndIdNot),
-            UniqueFieldUpdateValidation.of("French acronym", dto.getAcronymFr(), id, currencyRepository::existsByAcronymFrAndIdNot)
-        );
+        // Validate unique constraints
+        validateUniqueConstraintsForUpdate(dto, id);
         
         return super.update(id, dto);
     }
-
-    // ========== GET BY ID (inherited from GenericService) ==========
-    // public CurrencyDTO getById(Long id)
-
-    // ========== GET ALL (PAGINATED) (inherited from GenericService) ==========
-    // public Page<CurrencyDTO> getAll(Pageable pageable)
 
     // ========== GET ALL (NON-PAGINATED) ==========
 
@@ -124,9 +101,6 @@ public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long>
                 .map(CurrencyDTO::fromEntity)
                 .collect(Collectors.toList());
     }
-
-    // ========== DELETE (inherited from GenericService) ==========
-    // public void delete(Long id)
 
     // ========== GLOBAL SEARCH ==========
 
@@ -138,5 +112,55 @@ public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long>
         }
         
         return executeQuery(p -> currencyRepository.searchByAnyField(searchTerm.trim(), p), pageable);
+    }
+
+    // ========== VALIDATION ==========
+
+    private void validateUniqueConstraintsForCreate(CurrencyDTO dto) {
+        if (currencyRepository.existsByCode(dto.getCode())) {
+            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
+        }
+        if (currencyRepository.existsByDesignationAr(dto.getDesignationAr())) {
+            throw new BusinessValidationException("Arabic designation '" + dto.getDesignationAr() + "' already exists");
+        }
+        if (currencyRepository.existsByDesignationEn(dto.getDesignationEn())) {
+            throw new BusinessValidationException("English designation '" + dto.getDesignationEn() + "' already exists");
+        }
+        if (currencyRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
+        }
+        if (currencyRepository.existsByAcronymAr(dto.getAcronymAr())) {
+            throw new BusinessValidationException("Arabic acronym '" + dto.getAcronymAr() + "' already exists");
+        }
+        if (currencyRepository.existsByAcronymEn(dto.getAcronymEn())) {
+            throw new BusinessValidationException("English acronym '" + dto.getAcronymEn() + "' already exists");
+        }
+        if (currencyRepository.existsByAcronymFr(dto.getAcronymFr())) {
+            throw new BusinessValidationException("French acronym '" + dto.getAcronymFr() + "' already exists");
+        }
+    }
+
+    private void validateUniqueConstraintsForUpdate(CurrencyDTO dto, Long id) {
+        if (currencyRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
+            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
+        }
+        if (currencyRepository.existsByDesignationArAndIdNot(dto.getDesignationAr(), id)) {
+            throw new BusinessValidationException("Arabic designation '" + dto.getDesignationAr() + "' already exists");
+        }
+        if (currencyRepository.existsByDesignationEnAndIdNot(dto.getDesignationEn(), id)) {
+            throw new BusinessValidationException("English designation '" + dto.getDesignationEn() + "' already exists");
+        }
+        if (currencyRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
+            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
+        }
+        if (currencyRepository.existsByAcronymArAndIdNot(dto.getAcronymAr(), id)) {
+            throw new BusinessValidationException("Arabic acronym '" + dto.getAcronymAr() + "' already exists");
+        }
+        if (currencyRepository.existsByAcronymEnAndIdNot(dto.getAcronymEn(), id)) {
+            throw new BusinessValidationException("English acronym '" + dto.getAcronymEn() + "' already exists");
+        }
+        if (currencyRepository.existsByAcronymFrAndIdNot(dto.getAcronymFr(), id)) {
+            throw new BusinessValidationException("French acronym '" + dto.getAcronymFr() + "' already exists");
+        }
     }
 }

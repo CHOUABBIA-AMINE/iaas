@@ -16,7 +16,7 @@ import dz.mdn.iaas.business.core.dto.ApprovalStatusDTO;
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
 import dz.mdn.iaas.business.core.repository.ApprovalStatusRepository;
 import dz.mdn.iaas.common.service.GenericService;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator;
+import dz.mdn.iaas.exception.BusinessValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -39,7 +39,6 @@ import java.util.stream.Collectors;
 public class ApprovalStatusService extends GenericService<ApprovalStatus, ApprovalStatusDTO, Long> {
 
     private final ApprovalStatusRepository approvalStatusRepository;
-    private final UniqueFieldValidator uniqueFieldValidator;
 
     @Override
     protected JpaRepository<ApprovalStatus, Long> getRepository() {
@@ -73,11 +72,10 @@ public class ApprovalStatusService extends GenericService<ApprovalStatus, Approv
     public ApprovalStatusDTO create(ApprovalStatusDTO dto) {
         log.info("Creating approval status: designationFr={}", dto.getDesignationFr());
         
-        uniqueFieldValidator.validateUniqueForCreate(
-            "French designation", 
-            dto.getDesignationFr(), 
-            approvalStatusRepository::existsByDesignationFr
-        );
+        // Validate unique constraint
+        if (approvalStatusRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
+        }
         
         return super.create(dto);
     }
@@ -89,21 +87,13 @@ public class ApprovalStatusService extends GenericService<ApprovalStatus, Approv
     public ApprovalStatusDTO update(Long id, ApprovalStatusDTO dto) {
         log.info("Updating approval status with ID: {}", id);
         
-        uniqueFieldValidator.validateUniqueForUpdate(
-            "French designation",
-            dto.getDesignationFr(),
-            id,
-            approvalStatusRepository::existsByDesignationFrAndIdNot
-        );
+        // Validate unique constraint
+        if (approvalStatusRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
+            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
+        }
         
         return super.update(id, dto);
     }
-
-    // ========== GET BY ID (inherited from GenericService) ==========
-    // public ApprovalStatusDTO getById(Long id)
-
-    // ========== GET ALL (PAGINATED) (inherited from GenericService) ==========
-    // public Page<ApprovalStatusDTO> getAll(Pageable pageable)
 
     // ========== GET ALL (NON-PAGINATED) ==========
 
@@ -113,9 +103,6 @@ public class ApprovalStatusService extends GenericService<ApprovalStatus, Approv
                 .map(ApprovalStatusDTO::fromEntity)
                 .collect(Collectors.toList());
     }
-
-    // ========== DELETE (inherited from GenericService) ==========
-    // public void delete(Long id)
 
     // ========== GLOBAL SEARCH ==========
 
