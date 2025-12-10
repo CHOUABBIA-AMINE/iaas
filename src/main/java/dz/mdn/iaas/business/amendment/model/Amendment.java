@@ -4,9 +4,10 @@
  *
  *	@Name		: Amendment
  *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-10-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
+ *	@Layer		: Model
  *	@Package	: Business / Amendment
  *
  **/
@@ -16,6 +17,7 @@ package dz.mdn.iaas.business.amendment.model;
 import java.util.Date;
 import java.util.List;
 
+import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.business.contract.model.Contract;
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
 import dz.mdn.iaas.business.core.model.Currency;
@@ -26,9 +28,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -45,17 +44,12 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Amendment")
 @Table(name="T_02_06_04", uniqueConstraints = { @UniqueConstraint(name = "T_02_06_04_UK_01", columnNames = { "F_02" })})
-public class Amendment {
-	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+public class Amendment extends GenericModel {
 	
 	@Column(name="F_01")
 	private int internalId;
