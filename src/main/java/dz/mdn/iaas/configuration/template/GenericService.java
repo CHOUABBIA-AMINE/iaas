@@ -12,7 +12,7 @@
  *
  **/
 
-package dz.mdn.iaas.common.service;
+package dz.mdn.iaas.configuration.template;
 
 import dz.mdn.iaas.exception.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
