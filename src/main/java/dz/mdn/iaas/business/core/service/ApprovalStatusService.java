@@ -3,6 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ApprovalStatusService
  *	@CreatedOn	: 10-16-2025
+ *	@Updated	: 12-10-2025
  *	@Type		: Service
  *	@Layer		: Business / Core
  *	@Package	: Business / Core / Service
@@ -11,373 +12,120 @@
 
 package dz.mdn.iaas.business.core.service;
 
+import dz.mdn.iaas.business.core.dto.ApprovalStatusDTO;
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
 import dz.mdn.iaas.business.core.repository.ApprovalStatusRepository;
-import dz.mdn.iaas.business.core.dto.ApprovalStatusDTO;
-
+import dz.mdn.iaas.common.service.GenericService;
+import dz.mdn.iaas.common.validator.UniqueFieldValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * ApprovalStatus Service with CRUD operations
- * Handles approval status management operations with multilingual support
- * Based on exact field names: F_01=designationAr, F_02=designationEn, F_03=designationFr
- * F_03 (designationFr) has unique constraint and is required
- * F_01 (designationAr) and F_02 (designationEn) are optional
+ * Simplified ApprovalStatus Service - Essential CRUD Operations Only
+ * Methods: create, update, getById, getAll (paginated & non-paginated), delete, globalSearch
  */
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional
-public class ApprovalStatusService {
+@Transactional(readOnly = true)
+public class ApprovalStatusService extends GenericService<ApprovalStatus, ApprovalStatusDTO, Long> {
 
     private final ApprovalStatusRepository approvalStatusRepository;
+    private final UniqueFieldValidator uniqueFieldValidator;
 
-    // ========== CREATE OPERATIONS ==========
-
-    /**
-     * Create new approval status
-     */
-    public ApprovalStatusDTO createApprovalStatus(ApprovalStatusDTO approvalStatusDTO) {
-        log.info("Creating approval status with French designation: {} and designations: AR={}, EN={}", 
-                approvalStatusDTO.getDesignationFr(), approvalStatusDTO.getDesignationAr(), 
-                approvalStatusDTO.getDesignationEn());
-
-        // Validate required fields
-        validateRequiredFields(approvalStatusDTO, "create");
-
-        // Check for unique constraint violation
-        validateUniqueConstraints(approvalStatusDTO, null);
-
-        // Create entity with exact field mapping
-        ApprovalStatus approvalStatus = new ApprovalStatus();
-        approvalStatus.setDesignationAr(approvalStatusDTO.getDesignationAr()); // F_01
-        approvalStatus.setDesignationEn(approvalStatusDTO.getDesignationEn()); // F_02
-        approvalStatus.setDesignationFr(approvalStatusDTO.getDesignationFr()); // F_03
-
-        ApprovalStatus savedApprovalStatus = approvalStatusRepository.save(approvalStatus);
-        log.info("Successfully created approval status with ID: {}", savedApprovalStatus.getId());
-
-        return ApprovalStatusDTO.fromEntity(savedApprovalStatus);
+    @Override
+    protected JpaRepository<ApprovalStatus, Long> getRepository() {
+        return approvalStatusRepository;
     }
 
-    // ========== READ OPERATIONS ==========
-
-    /**
-     * Get approval status by ID
-     */
-    @Transactional(readOnly = true)
-    public ApprovalStatusDTO getApprovalStatusById(Long id) {
-        log.debug("Getting approval status with ID: {}", id);
-
-        ApprovalStatus approvalStatus = approvalStatusRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Approval status not found with ID: " + id));
-
-        return ApprovalStatusDTO.fromEntity(approvalStatus);
+    @Override
+    protected String getEntityName() {
+        return "ApprovalStatus";
     }
 
-    /**
-     * Get approval status entity by ID
-     */
-    @Transactional(readOnly = true)
-    public ApprovalStatus getApprovalStatusEntityById(Long id) {
-        return approvalStatusRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Approval status not found with ID: " + id));
+    @Override
+    protected ApprovalStatusDTO toDTO(ApprovalStatus entity) {
+        return ApprovalStatusDTO.fromEntity(entity);
     }
 
-    /**
-     * Find approval status by French designation (unique field F_03)
-     */
-    @Transactional(readOnly = true)
-    public Optional<ApprovalStatusDTO> findByDesignationFr(String designationFr) {
-        log.debug("Finding approval status with French designation: {}", designationFr);
-
-        return approvalStatusRepository.findByDesignationFr(designationFr)
-                .map(ApprovalStatusDTO::fromEntity);
+    @Override
+    protected ApprovalStatus toEntity(ApprovalStatusDTO dto) {
+        return dto.toEntity();
     }
 
-    /**
-     * Find approval status by Arabic designation (F_01)
-     */
-    @Transactional(readOnly = true)
-    public Optional<ApprovalStatusDTO> findByDesignationAr(String designationAr) {
-        log.debug("Finding approval status with Arabic designation: {}", designationAr);
-
-        return approvalStatusRepository.findByDesignationAr(designationAr)
-                .map(ApprovalStatusDTO::fromEntity);
+    @Override
+    protected void updateEntityFromDTO(ApprovalStatus entity, ApprovalStatusDTO dto) {
+        dto.updateEntity(entity);
     }
 
-    /**
-     * Find approval status by English designation (F_02)
-     */
-    @Transactional(readOnly = true)
-    public Optional<ApprovalStatusDTO> findByDesignationEn(String designationEn) {
-        log.debug("Finding approval status with English designation: {}", designationEn);
+    // ========== CREATE ==========
 
-        return approvalStatusRepository.findByDesignationEn(designationEn)
-                .map(ApprovalStatusDTO::fromEntity);
+    @Override
+    @Transactional
+    public ApprovalStatusDTO create(ApprovalStatusDTO dto) {
+        log.info("Creating approval status: designationFr={}", dto.getDesignationFr());
+        
+        uniqueFieldValidator.validateUniqueForCreate(
+            "French designation", 
+            dto.getDesignationFr(), 
+            approvalStatusRepository::existsByDesignationFr
+        );
+        
+        return super.create(dto);
     }
 
-    /**
-     * Get all approval statuses with pagination
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getAllApprovalStatuses(Pageable pageable) {
-        log.debug("Getting all approval statuses with pagination");
+    // ========== UPDATE ==========
 
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findAllOrderByDesignationFr(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Find one approval status by ID
-     */
-    @Transactional(readOnly = true)
-    public Optional<ApprovalStatusDTO> findOne(Long id) {
-        log.debug("Finding approval status by ID: {}", id);
-
-        return approvalStatusRepository.findById(id)
-                .map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Search approval statuses by designation
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> searchApprovalStatuses(String searchTerm, Pageable pageable) {
-        log.debug("Searching approval statuses with term: {}", searchTerm);
-
-        if (searchTerm == null || searchTerm.trim().isEmpty()) {
-            return getAllApprovalStatuses(pageable);
-        }
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.searchByDesignation(searchTerm.trim(), pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Get multilingual approval statuses
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getMultilingualApprovalStatuses(Pageable pageable) {
-        log.debug("Getting multilingual approval statuses");
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findMultilingualApprovalStatuses(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Get approved statuses
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getApprovedStatuses(Pageable pageable) {
-        log.debug("Getting approved statuses");
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findApprovedStatuses(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Get rejected statuses
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getRejectedStatuses(Pageable pageable) {
-        log.debug("Getting rejected statuses");
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findRejectedStatuses(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Get pending statuses
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getPendingStatuses(Pageable pageable) {
-        log.debug("Getting pending statuses");
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findPendingStatuses(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Get draft statuses
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getDraftStatuses(Pageable pageable) {
-        log.debug("Getting draft statuses");
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findDraftStatuses(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Get review statuses
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getReviewStatuses(Pageable pageable) {
-        log.debug("Getting review statuses");
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findReviewStatuses(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Get final statuses (approved, rejected, cancelled)
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getFinalStatuses(Pageable pageable) {
-        log.debug("Getting final statuses");
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findFinalStatuses(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    /**
-     * Get non-final statuses (pending, draft, under review)
-     */
-    @Transactional(readOnly = true)
-    public Page<ApprovalStatusDTO> getNonFinalStatuses(Pageable pageable) {
-        log.debug("Getting non-final statuses");
-
-        Page<ApprovalStatus> approvalStatuses = approvalStatusRepository.findNonFinalStatuses(pageable);
-        return approvalStatuses.map(ApprovalStatusDTO::fromEntity);
-    }
-
-    // ========== UPDATE OPERATIONS ==========
-
-    /**
-     * Update approval status
-     */
-    public ApprovalStatusDTO updateApprovalStatus(Long id, ApprovalStatusDTO approvalStatusDTO) {
+    @Override
+    @Transactional
+    public ApprovalStatusDTO update(Long id, ApprovalStatusDTO dto) {
         log.info("Updating approval status with ID: {}", id);
-
-        ApprovalStatus existingApprovalStatus = getApprovalStatusEntityById(id);
-
-        // Validate required fields
-        validateRequiredFields(approvalStatusDTO, "update");
-
-        // Check for unique constraint violation (excluding current record)
-        validateUniqueConstraints(approvalStatusDTO, id);
-
-        // Update fields with exact field mapping
-        existingApprovalStatus.setDesignationAr(approvalStatusDTO.getDesignationAr()); // F_01
-        existingApprovalStatus.setDesignationEn(approvalStatusDTO.getDesignationEn()); // F_02
-        existingApprovalStatus.setDesignationFr(approvalStatusDTO.getDesignationFr()); // F_03
-
-        ApprovalStatus updatedApprovalStatus = approvalStatusRepository.save(existingApprovalStatus);
-        log.info("Successfully updated approval status with ID: {}", id);
-
-        return ApprovalStatusDTO.fromEntity(updatedApprovalStatus);
+        
+        uniqueFieldValidator.validateUniqueForUpdate(
+            "French designation",
+            dto.getDesignationFr(),
+            id,
+            approvalStatusRepository::existsByDesignationFrAndIdNot
+        );
+        
+        return super.update(id, dto);
     }
 
-    // ========== DELETE OPERATIONS ==========
+    // ========== GET BY ID (inherited from GenericService) ==========
+    // public ApprovalStatusDTO getById(Long id)
 
-    /**
-     * Delete approval status
-     */
-    public void deleteApprovalStatus(Long id) {
-        log.info("Deleting approval status with ID: {}", id);
+    // ========== GET ALL (PAGINATED) (inherited from GenericService) ==========
+    // public Page<ApprovalStatusDTO> getAll(Pageable pageable)
 
-        ApprovalStatus approvalStatus = getApprovalStatusEntityById(id);
-        approvalStatusRepository.delete(approvalStatus);
+    // ========== GET ALL (NON-PAGINATED) ==========
 
-        log.info("Successfully deleted approval status with ID: {}", id);
+    public List<ApprovalStatusDTO> getAll() {
+        log.debug("Getting all approval statuses without pagination");
+        return approvalStatusRepository.findAll().stream()
+                .map(ApprovalStatusDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 
-    /**
-     * Delete approval status by ID (direct)
-     */
-    public void deleteApprovalStatusById(Long id) {
-        log.info("Deleting approval status by ID: {}", id);
+    // ========== DELETE (inherited from GenericService) ==========
+    // public void delete(Long id)
 
-        if (!approvalStatusRepository.existsById(id)) {
-            throw new RuntimeException("Approval status not found with ID: " + id);
+    // ========== GLOBAL SEARCH ==========
+
+    public Page<ApprovalStatusDTO> globalSearch(String searchTerm, Pageable pageable) {
+        log.debug("Global search for approval statuses with term: {}", searchTerm);
+        
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return getAll(pageable);
         }
-
-        approvalStatusRepository.deleteById(id);
-        log.info("Successfully deleted approval status with ID: {}", id);
-    }
-
-    // ========== UTILITY METHODS ==========
-
-    /**
-     * Check if approval status exists
-     */
-    @Transactional(readOnly = true)
-    public boolean existsById(Long id) {
-        return approvalStatusRepository.existsById(id);
-    }
-
-    /**
-     * Check if approval status exists by French designation
-     */
-    @Transactional(readOnly = true)
-    public boolean existsByDesignationFr(String designationFr) {
-        return approvalStatusRepository.existsByDesignationFr(designationFr);
-    }
-
-    /**
-     * Get total count of approval statuses
-     */
-    @Transactional(readOnly = true)
-    public Long getTotalCount() {
-        return approvalStatusRepository.countAllApprovalStatuses();
-    }
-
-    /**
-     * Get count of approved statuses
-     */
-    @Transactional(readOnly = true)
-    public Long getApprovedCount() {
-        return approvalStatusRepository.countApprovedStatuses();
-    }
-
-    /**
-     * Get count of rejected statuses
-     */
-    @Transactional(readOnly = true)
-    public Long getRejectedCount() {
-        return approvalStatusRepository.countRejectedStatuses();
-    }
-
-    /**
-     * Get count of pending statuses
-     */
-    @Transactional(readOnly = true)
-    public Long getPendingCount() {
-        return approvalStatusRepository.countPendingStatuses();
-    }
-
-    // ========== VALIDATION METHODS ==========
-
-    /**
-     * Validate required fields
-     */
-    private void validateRequiredFields(ApprovalStatusDTO approvalStatusDTO, String operation) {
-        if (approvalStatusDTO.getDesignationFr() == null || approvalStatusDTO.getDesignationFr().trim().isEmpty()) {
-            throw new RuntimeException("French designation is required for " + operation);
-        }
-    }
-
-    /**
-     * Validate unique constraints
-     */
-    private void validateUniqueConstraints(ApprovalStatusDTO approvalStatusDTO, Long excludeId) {
-        // Check French designation uniqueness (F_03)
-        if (excludeId == null) {
-            if (approvalStatusRepository.existsByDesignationFr(approvalStatusDTO.getDesignationFr())) {
-                throw new RuntimeException("Approval status with French designation '" + approvalStatusDTO.getDesignationFr() + "' already exists");
-            }
-        } else {
-            if (approvalStatusRepository.existsByDesignationFrAndIdNot(approvalStatusDTO.getDesignationFr(), excludeId)) {
-                throw new RuntimeException("Another approval status with French designation '" + approvalStatusDTO.getDesignationFr() + "' already exists");
-            }
-        }
+        
+        return executeQuery(p -> approvalStatusRepository.searchByDesignation(searchTerm.trim(), p), pageable);
     }
 }
