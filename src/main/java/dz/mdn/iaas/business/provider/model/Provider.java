@@ -4,9 +4,10 @@
  *
  *	@Name		: Provider
  *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-10-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
+ *	@Layer		: Model
  *	@Package	: Business / Provider
  *
  **/
@@ -16,6 +17,7 @@ package dz.mdn.iaas.business.provider.model;
 import java.util.Date;
 import java.util.List;
 
+import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.business.consultation.model.Submission;
 import dz.mdn.iaas.common.administration.model.Country;
 import dz.mdn.iaas.common.administration.model.State;
@@ -24,9 +26,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -34,19 +33,22 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Setter
 @Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name="Provider")
 @Table(name="T_02_03_04")
-public class Provider {
-	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+public class Provider extends GenericModel {
 	
 	@Column(name="F_01", length=200)
 	private String designationLt;
