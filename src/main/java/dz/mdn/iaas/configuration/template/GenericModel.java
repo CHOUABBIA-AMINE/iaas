@@ -26,8 +26,6 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 /**
  * Generic Model - Base class for all JPA entities
  * 
@@ -60,12 +58,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class GenericModel implements Serializable {
-
-    /**
-     * Serial version UID for serialization
-     */
-    private static final long serialVersionUID = 1L;
+public abstract class GenericModel {
 
     /**
      * Primary key identifier
