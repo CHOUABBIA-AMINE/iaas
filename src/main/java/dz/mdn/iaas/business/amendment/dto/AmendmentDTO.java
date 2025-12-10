@@ -17,11 +17,13 @@ package dz.mdn.iaas.business.amendment.dto;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.business.amendment.model.Amendment;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Amendment Data Transfer Object
@@ -29,10 +31,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AmendmentDTO extends GenericDTO {
+public class AmendmentDTO extends GenericDTO<Amendment> {
 
     private int internalId;
     private String reference;
@@ -65,5 +68,56 @@ public class AmendmentDTO extends GenericDTO {
     
     @NotNull(message = "Currency is required")
     private Long currencyId;
+
+    @Override
+    public Amendment toEntity() {
+        Amendment entity = new Amendment();
+        entity.setId(getId());
+        entity.setInternalId(this.internalId);
+        entity.setReference(this.reference);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setAmount(this.amount);
+        entity.setTransferableAmount(this.transferableAmount);
+        entity.setStartDate(this.startDate);
+        entity.setApprovalDate(this.approvalDate);
+        entity.setNotifyDate(this.notifyDate);
+        entity.setObservation(this.observation);
+        return entity;
+    }
+
+    @Override
+    public void updateEntity(Amendment entity) {
+        if (this.reference != null) entity.setReference(this.reference);
+        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        entity.setAmount(this.amount);
+        entity.setTransferableAmount(this.transferableAmount);
+        if (this.startDate != null) entity.setStartDate(this.startDate);
+        if (this.approvalDate != null) entity.setApprovalDate(this.approvalDate);
+        if (this.notifyDate != null) entity.setNotifyDate(this.notifyDate);
+        if (this.observation != null) entity.setObservation(this.observation);
+    }
+
+    public static AmendmentDTO fromEntity(Amendment entity) {
+        if (entity == null) return null;
+        
+        return AmendmentDTO.builder()
+                .id(entity.getId())
+                .internalId(entity.getInternalId())
+                .reference(entity.getReference())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .amount(entity.getAmount())
+                .transferableAmount(entity.getTransferableAmount())
+                .startDate(entity.getStartDate())
+                .approvalDate(entity.getApprovalDate())
+                .notifyDate(entity.getNotifyDate())
+                .observation(entity.getObservation())
+                .build();
+    }
 
 }
