@@ -8,7 +8,7 @@
  *
  *	@Type		: Abstract Class
  *	@Layer		: Service Base
- *	@Package	: Common / Service
+ *	@Package	: Configuration / Template
  *
  **/
 
