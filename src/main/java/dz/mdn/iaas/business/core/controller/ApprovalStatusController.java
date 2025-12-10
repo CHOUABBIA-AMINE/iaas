@@ -28,18 +28,18 @@ import java.util.List;
  * Provides standard CRUD endpoints for approval statuses
  * 
  * Inherited Endpoints:
- * - POST   /approval-status                 Create
- * - GET    /approval-status/{id}            Get by ID
- * - GET    /approval-status                 Get all (paginated)
- * - GET    /approval-status/all             Get all (non-paginated)
- * - PUT    /approval-status/{id}            Update
- * - DELETE /approval-status/{id}            Delete
- * - GET    /approval-status/search?q=...    Global search
- * - GET    /approval-status/{id}/exists     Check existence
- * - GET    /approval-status/count           Total count
+ * - POST   /approvalStatus                 Create
+ * - GET    /approvalStatus/{id}            Get by ID
+ * - GET    /approvalStatus                 Get all (paginated)
+ * - GET    /approvalStatus/all             Get all (non-paginated)
+ * - PUT    /approvalStatus/{id}            Update
+ * - DELETE /approvalStatus/{id}            Delete
+ * - GET    /approvalStatus/search?q=...    Global search
+ * - GET    /approvalStatus/{id}/exists     Check existence
+ * - GET    /approvalStatus/count           Total count
  */
 @RestController
-@RequestMapping("/approval-status")
+@RequestMapping("/approvalStatus")
 @Slf4j
 public class ApprovalStatusController extends GenericController<ApprovalStatusDTO, Long> {
 
@@ -64,22 +64,22 @@ public class ApprovalStatusController extends GenericController<ApprovalStatusDT
 
     /**
      * Get all approval statuses as list
-     * GET /approval-status/list
+     * GET /approvalStatus/list
      */
     @GetMapping("/list")
     public ResponseEntity<List<ApprovalStatusDTO>> getAllList() {
-        log.debug("GET /approval-status/list - Getting all approval statuses as list");
+        log.debug("GET /approvalStatus/list - Getting all approval statuses as list");
         List<ApprovalStatusDTO> statuses = approvalStatusService.getAll();
         return success(statuses);
     }
 
     /**
      * Check if designation exists
-     * GET /approval-status/exists/designation/{designation}
+     * GET /approvalStatus/exists/designation/{designation}
      */
     @GetMapping("/exists/designation/{designation}")
     public ResponseEntity<Boolean> existsByDesignation(@PathVariable String designation) {
-        log.debug("GET /approval-status/exists/designation/{}", designation);
+        log.debug("GET /approvalStatus/exists/designation/{}", designation);
         boolean exists = approvalStatusService.existsByDesignationFr(designation);
         return success(exists);
     }

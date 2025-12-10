@@ -28,18 +28,18 @@ import java.util.List;
  * Provides standard CRUD endpoints for procurement directors
  * 
  * Inherited Endpoints:
- * - POST   /procurement-director                 Create
- * - GET    /procurement-director/{id}            Get by ID
- * - GET    /procurement-director                 Get all (paginated)
- * - GET    /procurement-director/all             Get all (non-paginated)
- * - PUT    /procurement-director/{id}            Update
- * - DELETE /procurement-director/{id}            Delete
- * - GET    /procurement-director/search?q=...    Global search
- * - GET    /procurement-director/{id}/exists     Check existence
- * - GET    /procurement-director/count           Total count
+ * - POST   /procurementDirector                 Create
+ * - GET    /procurementDirector/{id}            Get by ID
+ * - GET    /procurementDirector                 Get all (paginated)
+ * - GET    /procurementDirector/all             Get all (non-paginated)
+ * - PUT    /procurementDirector/{id}            Update
+ * - DELETE /procurementDirector/{id}            Delete
+ * - GET    /procurementDirector/search?q=...    Global search
+ * - GET    /procurementDirector/{id}/exists     Check existence
+ * - GET    /procurementDirector/count           Total count
  */
 @RestController
-@RequestMapping("/procurement-director")
+@RequestMapping("/procurementDirector")
 @Slf4j
 public class ProcurementDirectorController extends GenericController<ProcurementDirectorDTO, Long> {
 
@@ -64,22 +64,22 @@ public class ProcurementDirectorController extends GenericController<Procurement
 
     /**
      * Get all procurement directors as list
-     * GET /procurement-director/list
+     * GET /procurementDirector/list
      */
     @GetMapping("/list")
     public ResponseEntity<List<ProcurementDirectorDTO>> getAllList() {
-        log.debug("GET /procurement-director/list - Getting all procurement directors as list");
+        log.debug("GET /procurementDirector/list - Getting all procurement directors as list");
         List<ProcurementDirectorDTO> directors = procurementDirectorService.getAll();
         return success(directors);
     }
 
     /**
      * Check if designation exists
-     * GET /procurement-director/exists/designation/{designation}
+     * GET /procurementDirector/exists/designation/{designation}
      */
     @GetMapping("/exists/designation/{designation}")
     public ResponseEntity<Boolean> existsByDesignation(@PathVariable String designation) {
-        log.debug("GET /procurement-director/exists/designation/{}", designation);
+        log.debug("GET /procurementDirector/exists/designation/{}", designation);
         boolean exists = procurementDirectorService.existsByDesignation(designation);
         return success(exists);
     }

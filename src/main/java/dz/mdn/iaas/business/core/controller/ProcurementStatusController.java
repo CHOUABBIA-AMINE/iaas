@@ -28,18 +28,18 @@ import java.util.List;
  * Provides standard CRUD endpoints for procurement statuses
  * 
  * Inherited Endpoints:
- * - POST   /procurement-status                 Create
- * - GET    /procurement-status/{id}            Get by ID
- * - GET    /procurement-status                 Get all (paginated)
- * - GET    /procurement-status/all             Get all (non-paginated)
- * - PUT    /procurement-status/{id}            Update
- * - DELETE /procurement-status/{id}            Delete
- * - GET    /procurement-status/search?q=...    Global search
- * - GET    /procurement-status/{id}/exists     Check existence
- * - GET    /procurement-status/count           Total count
+ * - POST   /procurementStatus                 Create
+ * - GET    /procurementStatus/{id}            Get by ID
+ * - GET    /procurementStatus                 Get all (paginated)
+ * - GET    /procurementStatus/all             Get all (non-paginated)
+ * - PUT    /procurementStatus/{id}            Update
+ * - DELETE /procurementStatus/{id}            Delete
+ * - GET    /procurementStatus/search?q=...    Global search
+ * - GET    /procurementStatus/{id}/exists     Check existence
+ * - GET    /procurementStatus/count           Total count
  */
 @RestController
-@RequestMapping("/procurement-status")
+@RequestMapping("/procurementStatus")
 @Slf4j
 public class ProcurementStatusController extends GenericController<ProcurementStatusDTO, Long> {
 
@@ -64,22 +64,22 @@ public class ProcurementStatusController extends GenericController<ProcurementSt
 
     /**
      * Get all procurement statuses as list
-     * GET /procurement-status/list
+     * GET /procurementStatus/list
      */
     @GetMapping("/list")
     public ResponseEntity<List<ProcurementStatusDTO>> getAllList() {
-        log.debug("GET /procurement-status/list - Getting all procurement statuses as list");
+        log.debug("GET /procurementStatus/list - Getting all procurement statuses as list");
         List<ProcurementStatusDTO> statuses = procurementStatusService.getAll();
         return success(statuses);
     }
 
     /**
      * Check if designation exists
-     * GET /procurement-status/exists/designation/{designation}
+     * GET /procurementStatus/exists/designation/{designation}
      */
     @GetMapping("/exists/designation/{designation}")
     public ResponseEntity<Boolean> existsByDesignation(@PathVariable String designation) {
-        log.debug("GET /procurement-status/exists/designation/{}", designation);
+        log.debug("GET /procurementStatus/exists/designation/{}", designation);
         boolean exists = procurementStatusService.existsByDesignationFr(designation);
         return success(exists);
     }

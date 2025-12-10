@@ -28,18 +28,18 @@ import java.util.List;
  * Provides standard CRUD endpoints for procurement natures
  * 
  * Inherited Endpoints:
- * - POST   /procurement-nature                 Create
- * - GET    /procurement-nature/{id}            Get by ID
- * - GET    /procurement-nature                 Get all (paginated)
- * - GET    /procurement-nature/all             Get all (non-paginated)
- * - PUT    /procurement-nature/{id}            Update
- * - DELETE /procurement-nature/{id}            Delete
- * - GET    /procurement-nature/search?q=...    Global search
- * - GET    /procurement-nature/{id}/exists     Check existence
- * - GET    /procurement-nature/count           Total count
+ * - POST   /procurementNature                 Create
+ * - GET    /procurementNature/{id}            Get by ID
+ * - GET    /procurementNature                 Get all (paginated)
+ * - GET    /procurementNature/all             Get all (non-paginated)
+ * - PUT    /procurementNature/{id}            Update
+ * - DELETE /procurementNature/{id}            Delete
+ * - GET    /procurementNature/search?q=...    Global search
+ * - GET    /procurementNature/{id}/exists     Check existence
+ * - GET    /procurementNature/count           Total count
  */
 @RestController
-@RequestMapping("/procurement-nature")
+@RequestMapping("/procurementNature")
 @Slf4j
 public class ProcurementNatureController extends GenericController<ProcurementNatureDTO, Long> {
 
@@ -64,22 +64,22 @@ public class ProcurementNatureController extends GenericController<ProcurementNa
 
     /**
      * Get all procurement natures as list
-     * GET /procurement-nature/list
+     * GET /procurementNature/list
      */
     @GetMapping("/list")
     public ResponseEntity<List<ProcurementNatureDTO>> getAllList() {
-        log.debug("GET /procurement-nature/list - Getting all procurement natures as list");
+        log.debug("GET /procurementNature/list - Getting all procurement natures as list");
         List<ProcurementNatureDTO> natures = procurementNatureService.getAll();
         return success(natures);
     }
 
     /**
      * Check if designation exists
-     * GET /procurement-nature/exists/designation/{designation}
+     * GET /procurementNature/exists/designation/{designation}
      */
     @GetMapping("/exists/designation/{designation}")
     public ResponseEntity<Boolean> existsByDesignation(@PathVariable String designation) {
-        log.debug("GET /procurement-nature/exists/designation/{}", designation);
+        log.debug("GET /procurementNature/exists/designation/{}", designation);
         boolean exists = procurementNatureService.existsByDesignationFr(designation);
         return success(exists);
     }
