@@ -18,8 +18,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.io.Serializable;
-
 /**
  * Generic DTO Base Class
  * Provides common structure and contract for all DTOs
@@ -80,9 +78,7 @@ import java.io.Serializable;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-public abstract class GenericDTO<E> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public abstract class GenericDTO<E> {
 
     /**
      * Entity ID
