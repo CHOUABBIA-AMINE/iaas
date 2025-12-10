@@ -74,17 +74,6 @@ public class ProcurementStatusController extends GenericController<ProcurementSt
     }
 
     /**
-     * Check if code exists
-     * GET /procurement-status/exists/code/{code}
-     */
-    @GetMapping("/exists/code/{code}")
-    public ResponseEntity<Boolean> existsByCode(@PathVariable String code) {
-        log.debug("GET /procurement-status/exists/code/{}", code);
-        boolean exists = procurementStatusService.existsByCode(code);
-        return success(exists);
-    }
-
-    /**
      * Check if designation exists
      * GET /procurement-status/exists/designation/{designation}
      */

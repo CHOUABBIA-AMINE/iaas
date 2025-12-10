@@ -74,17 +74,6 @@ public class ProcurementNatureController extends GenericController<ProcurementNa
     }
 
     /**
-     * Check if code exists
-     * GET /procurement-nature/exists/code/{code}
-     */
-    @GetMapping("/exists/code/{code}")
-    public ResponseEntity<Boolean> existsByCode(@PathVariable String code) {
-        log.debug("GET /procurement-nature/exists/code/{}", code);
-        boolean exists = procurementNatureService.existsByCode(code);
-        return success(exists);
-    }
-
-    /**
      * Check if designation exists
      * GET /procurement-nature/exists/designation/{designation}
      */

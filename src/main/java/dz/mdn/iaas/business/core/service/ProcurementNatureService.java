@@ -67,13 +67,10 @@ public class ProcurementNatureService extends GenericService<ProcurementNature, 
     @Override
     @Transactional
     public ProcurementNatureDTO create(ProcurementNatureDTO dto) {
-        log.info("Creating procurement nature: designationFr={}, code={}", dto.getDesignationFr(), dto.getCode());
+        log.info("Creating procurement nature: designationFr={}, code={}", dto.getDesignationFr());
         
         if (procurementNatureRepository.existsByDesignationFr(dto.getDesignationFr())) {
             throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
-        }
-        if (procurementNatureRepository.existsByCode(dto.getCode())) {
-            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
         }
         
         return super.create(dto);
@@ -86,9 +83,6 @@ public class ProcurementNatureService extends GenericService<ProcurementNature, 
         
         if (procurementNatureRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
             throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
-        }
-        if (procurementNatureRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
-            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
         }
         
         return super.update(id, dto);
@@ -109,10 +103,6 @@ public class ProcurementNatureService extends GenericService<ProcurementNature, 
         }
         
         return executeQuery(p -> procurementNatureRepository.searchByDesignation(searchTerm.trim(), p), pageable);
-    }
-
-    public boolean existsByCode(String code) {
-        return procurementNatureRepository.existsByCode(code);
     }
 
     public boolean existsByDesignationFr(String designationFr) {

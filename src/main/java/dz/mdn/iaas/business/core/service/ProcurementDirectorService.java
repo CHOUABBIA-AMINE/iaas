@@ -67,10 +67,10 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
     @Override
     @Transactional
     public ProcurementDirectorDTO create(ProcurementDirectorDTO dto) {
-        log.info("Creating procurement director: designation={}", dto.getDesignation());
+        log.info("Creating procurement director: designation={}", dto.getDesignationFr());
         
-        if (procurementDirectorRepository.existsByDesignation(dto.getDesignation())) {
-            throw new BusinessValidationException("Designation '" + dto.getDesignation() + "' already exists");
+        if (procurementDirectorRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Designation '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.create(dto);
@@ -81,8 +81,8 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
     public ProcurementDirectorDTO update(Long id, ProcurementDirectorDTO dto) {
         log.info("Updating procurement director with ID: {}", id);
         
-        if (procurementDirectorRepository.existsByDesignationAndIdNot(dto.getDesignation(), id)) {
-            throw new BusinessValidationException("Designation '" + dto.getDesignation() + "' already exists");
+        if (procurementDirectorRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
+            throw new BusinessValidationException("Designation '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.update(id, dto);
@@ -106,6 +106,6 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
     }
 
     public boolean existsByDesignation(String designation) {
-        return procurementDirectorRepository.existsByDesignation(designation);
+        return procurementDirectorRepository.existsByDesignationFr(designation);
     }
 }
