@@ -16,12 +16,14 @@ package dz.mdn.iaas.business.contract.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.business.contract.model.ContractPhase;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * ContractPhase Data Transfer Object
@@ -29,10 +31,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ContractPhaseDTO extends GenericDTO {
+public class ContractPhaseDTO extends GenericDTO<ContractPhase> {
 
     @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
     private String designationAr;
@@ -44,4 +47,26 @@ public class ContractPhaseDTO extends GenericDTO {
     @Size(max = 200, message = "French designation must not exceed 200 characters")
     private String designationFr;
 
+    @Override
+    public ContractPhase toEntity() {
+        ContractPhase entity = new ContractPhase();
+        entity.setId(this.getId());
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        return entity;
+    }
+
+    @Override
+    public void updateEntity(ContractPhase entity) {
+        if (this.designationAr != null) {
+            entity.setDesignationAr(this.designationAr);
+        }
+        if (this.designationEn != null) {
+            entity.setDesignationEn(this.designationEn);
+        }
+        if (this.designationFr != null) {
+            entity.setDesignationFr(this.designationFr);
+        }
+    }
 }
