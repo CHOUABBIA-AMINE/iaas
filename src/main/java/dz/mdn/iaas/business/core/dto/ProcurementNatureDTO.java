@@ -28,10 +28,9 @@ import lombok.experimental.SuperBuilder;
  * 
  * Fields:
  * - id (F_00) - inherited from GenericDTO
- * - code (F_01) - unique, required
- * - designationAr (F_02) - optional
- * - designationEn (F_03) - optional
- * - designationFr (F_04) - unique, required
+ * - designationAr (F_01) - optional
+ * - designationEn (F_02) - optional
+ * - designationFr (F_03) - unique, required
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -40,10 +39,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProcurementNatureDTO extends GenericDTO<ProcurementNature> {
-
-    @NotBlank(message = "Code is required")
-    @Size(max = 20, message = "Code must not exceed 20 characters")
-    private String code;
 
     @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
     private String designationAr;
@@ -61,7 +56,6 @@ public class ProcurementNatureDTO extends GenericDTO<ProcurementNature> {
     public ProcurementNature toEntity() {
         ProcurementNature procurementNature = new ProcurementNature();
         procurementNature.setId(getId());
-        procurementNature.setCode(this.code);
         procurementNature.setDesignationAr(this.designationAr);
         procurementNature.setDesignationEn(this.designationEn);
         procurementNature.setDesignationFr(this.designationFr);
@@ -70,9 +64,6 @@ public class ProcurementNatureDTO extends GenericDTO<ProcurementNature> {
 
     @Override
     public void updateEntity(ProcurementNature procurementNature) {
-        if (this.code != null) {
-            procurementNature.setCode(this.code);
-        }
         if (this.designationAr != null) {
             procurementNature.setDesignationAr(this.designationAr);
         }
@@ -94,7 +85,6 @@ public class ProcurementNatureDTO extends GenericDTO<ProcurementNature> {
         
         return ProcurementNatureDTO.builder()
                 .id(procurementNature.getId())
-                .code(procurementNature.getCode())
                 .designationAr(procurementNature.getDesignationAr())
                 .designationEn(procurementNature.getDesignationEn())
                 .designationFr(procurementNature.getDesignationFr())

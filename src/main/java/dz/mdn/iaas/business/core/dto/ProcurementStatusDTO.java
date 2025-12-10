@@ -28,10 +28,9 @@ import lombok.experimental.SuperBuilder;
  * 
  * Fields:
  * - id (F_00) - inherited from GenericDTO
- * - code (F_01) - unique, required
- * - designationAr (F_02) - optional
- * - designationEn (F_03) - optional
- * - designationFr (F_04) - unique, required
+ * - designationAr (F_01) - optional
+ * - designationEn (F_02) - optional
+ * - designationFr (F_03) - unique, required
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -40,10 +39,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProcurementStatusDTO extends GenericDTO<ProcurementStatus> {
-
-    @NotBlank(message = "Code is required")
-    @Size(max = 20, message = "Code must not exceed 20 characters")
-    private String code;
 
     @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
     private String designationAr;
@@ -61,7 +56,6 @@ public class ProcurementStatusDTO extends GenericDTO<ProcurementStatus> {
     public ProcurementStatus toEntity() {
         ProcurementStatus procurementStatus = new ProcurementStatus();
         procurementStatus.setId(getId());
-        procurementStatus.setCode(this.code);
         procurementStatus.setDesignationAr(this.designationAr);
         procurementStatus.setDesignationEn(this.designationEn);
         procurementStatus.setDesignationFr(this.designationFr);
@@ -70,9 +64,6 @@ public class ProcurementStatusDTO extends GenericDTO<ProcurementStatus> {
 
     @Override
     public void updateEntity(ProcurementStatus procurementStatus) {
-        if (this.code != null) {
-            procurementStatus.setCode(this.code);
-        }
         if (this.designationAr != null) {
             procurementStatus.setDesignationAr(this.designationAr);
         }
@@ -94,7 +85,6 @@ public class ProcurementStatusDTO extends GenericDTO<ProcurementStatus> {
         
         return ProcurementStatusDTO.builder()
                 .id(procurementStatus.getId())
-                .code(procurementStatus.getCode())
                 .designationAr(procurementStatus.getDesignationAr())
                 .designationEn(procurementStatus.getDesignationEn())
                 .designationFr(procurementStatus.getDesignationFr())

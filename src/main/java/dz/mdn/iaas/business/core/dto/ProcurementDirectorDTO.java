@@ -28,7 +28,9 @@ import lombok.experimental.SuperBuilder;
  * 
  * Fields:
  * - id (F_00) - inherited from GenericDTO
- * - designation (F_01) - unique, required
+ * - designationAr (F_01) - optional
+ * - designationEn (F_02) - optional
+ * - designationFr (F_03) - unique, required
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -38,9 +40,15 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProcurementDirectorDTO extends GenericDTO<ProcurementDirector> {
 
-    @NotBlank(message = "Designation is required")
-    @Size(max = 200, message = "Designation must not exceed 200 characters")
-    private String designation;
+    @Size(max = 300, message = "Arabic designation must not exceed 300 characters")
+    private String designationAr;
+
+    @Size(max = 300, message = "English designation must not exceed 300 characters")
+    private String designationEn;
+
+    @NotBlank(message = "French designation is required")
+    @Size(max = 300, message = "French designation must not exceed 300 characters")
+    private String designationFr;
 
     // ========== GENERIC DTO IMPLEMENTATION ==========
 
@@ -48,14 +56,22 @@ public class ProcurementDirectorDTO extends GenericDTO<ProcurementDirector> {
     public ProcurementDirector toEntity() {
         ProcurementDirector procurementDirector = new ProcurementDirector();
         procurementDirector.setId(getId());
-        procurementDirector.setDesignation(this.designation);
+        procurementDirector.setDesignationAr(this.designationAr);
+        procurementDirector.setDesignationEn(this.designationEn);
+        procurementDirector.setDesignationFr(this.designationFr);
         return procurementDirector;
     }
 
     @Override
     public void updateEntity(ProcurementDirector procurementDirector) {
-        if (this.designation != null) {
-            procurementDirector.setDesignation(this.designation);
+        if (this.designationAr != null) {
+            procurementDirector.setDesignationAr(this.designationAr);
+        }
+        if (this.designationEn != null) {
+            procurementDirector.setDesignationEn(this.designationEn);
+        }
+        if (this.designationFr != null) {
+            procurementDirector.setDesignationFr(this.designationFr);
         }
     }
 
@@ -69,7 +85,9 @@ public class ProcurementDirectorDTO extends GenericDTO<ProcurementDirector> {
         
         return ProcurementDirectorDTO.builder()
                 .id(procurementDirector.getId())
-                .designation(procurementDirector.getDesignation())
+                .designationAr(procurementDirector.getDesignationAr())
+                .designationEn(procurementDirector.getDesignationEn())
+                .designationFr(procurementDirector.getDesignationFr())
                 .build();
     }
 }
