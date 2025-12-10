@@ -2,24 +2,31 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: ProjectPhase
+ *	@Name		: ConsultationStep
  *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-10-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
+ *	@Layer		: Model
  *	@Package	: Business / Consultation
  *
  **/
 
 package dz.mdn.iaas.business.consultation.model;
 
+import java.util.Date;
+import java.util.List;
+
+import dz.mdn.iaas.configuration.template.GenericModel;
+import dz.mdn.iaas.common.communication.model.Mail;
+import dz.mdn.iaas.common.document.model.Document;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
@@ -33,45 +40,44 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ConsultationStep")
-@Table(name="T_02_04_03", uniqueConstraints = { @UniqueConstraint(name = "T_02_04_03_UK_01", columnNames = { "F_03" })})
-public class ConsultationStep {
+@Table(name="T_02_04_03", uniqueConstraints = { @UniqueConstraint(name = "T_02_04_03_UK_01", columnNames = { "F_02", "F_03" })})
+public class ConsultationStep extends GenericModel {
 	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name="F_01", length=200)
-	private String designationAr;
-
-	@Column(name="F_02", length=200)
-	private String designationEn;
-	
-	@Column(name="F_03", length=200, nullable=false)
-	private String designationFr;
+	@Column(name="F_01")
+	private int internalId;
 	
 	@ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_04_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_02_04_03_FK_01"), nullable=false)
+    private Consultation consultation;
+	
+	@ManyToOne
+    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_04_03_FK_02"), nullable=false)
     private ConsultationPhase consultationPhase;
 
+	@Column(name="F_04")
+	private Date date;
+
+	@Column(name="F_05", length=500)
+	private String observation;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "R_T020403_T010302", 
+			joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T020403_T010302_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T020403_T010302_FK_02")),
+			uniqueConstraints = @UniqueConstraint(name = "R_T020403_T010302_UK_01", columnNames = {"F_01", "F_02"}))
+	private List<Document> documents;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "R_T020403_T010203", 
+			joinColumns = @JoinColumn(name = "F_01", foreignKey = @ForeignKey(name = "R_T020403_T010203_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey = @ForeignKey(name = "R_T020403_T010203_FK_02")),
+			uniqueConstraints = @UniqueConstraint(name = "R_T020403_T010203_UK_01", columnNames = {"F_01", "F_02"}))
+	private List<Mail> referencedMails;
+
 }
-/*
-INSERT INTO T_02_04_03 (F_00, F_01, F_02, F_03, F_04) VALUES
-(1,'مرحلة إعداد المخطط الميزانياتي','Budget Plan Maturation Stage','Instance de maturation de plan budgétaire'),
-(2,'مرحلة تحديد الإحتياجات','Needs Identification Stage','Instance du besoin'),
-(3,'مرحلة إعداد البطاقة التقنية','Technical Data Sheet Preparation Stage','Instance de la fiche technique'),
-(4,'مرحلة موافقة القيادة العليا','High Command Approval Stage','Instance Accord du Haut Commandement'),
-(5,'مرحلة إبداء الرأي','Opinion Stage','Instance d'avis'),
-(6,'إعداد ملف اللجنة القطاعية للصفقات (CSM)','Preparation of CSM File','Préparation du dossier CSM'),
-(7,'مرحلة دراسة اللجنة القطاعية للصفقات (CSM)','CSM Review Stage','Instance Examen de la CSM'),
-(8,'رفع التحفظات جارية','Lifting of Ongoing Reservations','Leveé des réserves en cours'),
-(9,'رفع التحفظات، في إنتظار مداولة اللجنة القطاعية للصفقات (CSM)','Reservations Removed, CSM Deliberation Stage','Réserves leveés, instance délibiration de la CSM'),
-(10,'إعداد ملف النشر','Preparation of Publish File','Préparation du dossier de publication'),
-(11,'مرحلة النشر','Publish Stage','Instance publication'),
-(12,'مرحلة إيداع العروض','Submission of Offers Stage','Instance dépôt des offres'),
-(13,'تحويل الملف إلى لجنة فتح الأظرفة وتقييم العروض (COPEO)','File Transmitted to COPEO','Dossier transmis à la COPEO');
-*/
