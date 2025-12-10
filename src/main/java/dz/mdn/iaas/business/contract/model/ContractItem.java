@@ -4,21 +4,21 @@
  *
  *	@Name		: ContractItem
  *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-10-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
+ *	@Layer		: Model
  *	@Package	: Business / Contract
  *
  **/
 
 package dz.mdn.iaas.business.contract.model;
 
+import dz.mdn.iaas.configuration.template.GenericModel;
+import dz.mdn.iaas.business.plan.model.PlannedItem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -33,35 +33,22 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ContractItem")
-@Table(name="T_02_05_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_05_05_UK_01", columnNames = { "F_02", "F_06" }) })
-public class ContractItem {
+@Table(name="T_02_05_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_05_05_UK_01", columnNames = { "F_02", "F_03" })})
+public class ContractItem extends GenericModel {
 	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name="F_01", nullable=false)
-	private String designation;
-	
-	@Column(name="F_02", nullable=false)
-	private String reference;
-	
-	@Column(name="F_03")
-	private double quantity;
-	
-	@Column(name="F_04")
-	private double unitPrice;
-	
-	@Column(name="F_05")
-	private String observation;
+	@Column(name="F_01")
+	private int internalId;
 	
 	@ManyToOne
-	@JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_02_05_05_FK_01"), nullable=false)
-	private Contract contract;
+    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_02_05_05_FK_01"), nullable=false)
+    private Contract contract;
 	
+	@ManyToOne
+    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_05_05_FK_02"), nullable=false)
+    private PlannedItem plannedItem;
+
 }
