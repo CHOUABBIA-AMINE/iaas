@@ -14,30 +14,31 @@ package dz.mdn.iaas.business.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * ApprovalStatus Data Transfer Object
+ * ApprovalStatus Data Transfer Object - Extends GenericDTO
  * 
  * Fields:
- * - id (F_00)
+ * - id (F_00) - inherited from GenericDTO
  * - designationAr (F_01) - optional
  * - designationEn (F_02) - optional
  * - designationFr (F_03) - unique, required
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApprovalStatusDTO {
-
-    private Long id;
+public class ApprovalStatusDTO extends GenericDTO<ApprovalStatus> {
 
     @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
     private String designationAr;
@@ -49,7 +50,32 @@ public class ApprovalStatusDTO {
     @Size(max = 200, message = "French designation must not exceed 200 characters")
     private String designationFr;
 
-    // ========== ENTITY MAPPING ==========
+    // ========== GENERIC DTO IMPLEMENTATION ==========
+
+    @Override
+    public ApprovalStatus toEntity() {
+        ApprovalStatus approvalStatus = new ApprovalStatus();
+        approvalStatus.setId(getId());
+        approvalStatus.setDesignationAr(this.designationAr);
+        approvalStatus.setDesignationEn(this.designationEn);
+        approvalStatus.setDesignationFr(this.designationFr);
+        return approvalStatus;
+    }
+
+    @Override
+    public void updateEntity(ApprovalStatus approvalStatus) {
+        if (this.designationAr != null) {
+            approvalStatus.setDesignationAr(this.designationAr);
+        }
+        if (this.designationEn != null) {
+            approvalStatus.setDesignationEn(this.designationEn);
+        }
+        if (this.designationFr != null) {
+            approvalStatus.setDesignationFr(this.designationFr);
+        }
+    }
+
+    // ========== FACTORY METHOD ==========
 
     /**
      * Create DTO from entity
@@ -63,32 +89,5 @@ public class ApprovalStatusDTO {
                 .designationEn(approvalStatus.getDesignationEn())
                 .designationFr(approvalStatus.getDesignationFr())
                 .build();
-    }
-
-    /**
-     * Convert DTO to entity
-     */
-    public ApprovalStatus toEntity() {
-        ApprovalStatus approvalStatus = new ApprovalStatus();
-        approvalStatus.setId(this.id);
-        approvalStatus.setDesignationAr(this.designationAr);
-        approvalStatus.setDesignationEn(this.designationEn);
-        approvalStatus.setDesignationFr(this.designationFr);
-        return approvalStatus;
-    }
-
-    /**
-     * Update entity from DTO
-     */
-    public void updateEntity(ApprovalStatus approvalStatus) {
-        if (this.designationAr != null) {
-            approvalStatus.setDesignationAr(this.designationAr);
-        }
-        if (this.designationEn != null) {
-            approvalStatus.setDesignationEn(this.designationEn);
-        }
-        if (this.designationFr != null) {
-            approvalStatus.setDesignationFr(this.designationFr);
-        }
     }
 }

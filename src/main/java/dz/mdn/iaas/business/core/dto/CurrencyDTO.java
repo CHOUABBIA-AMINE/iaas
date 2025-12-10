@@ -16,18 +16,20 @@ package dz.mdn.iaas.business.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.business.core.model.Currency;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Currency Data Transfer Object
+ * Currency Data Transfer Object - Extends GenericDTO
  * 
  * Fields:
- * - id (F_00)
+ * - id (F_00) - inherited from GenericDTO
  * - code (F_01) - unique, required
  * - designationAr (F_02) - unique, required
  * - designationEn (F_03) - unique, required
@@ -37,13 +39,12 @@ import lombok.NoArgsConstructor;
  * - acronymFr (F_07) - unique, required
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CurrencyDTO {
-
-    private Long id;
+public class CurrencyDTO extends GenericDTO<Currency> {
 
     @NotBlank(message = "Code is required")
     @Size(max = 20, message = "Code must not exceed 20 characters")
@@ -73,32 +74,12 @@ public class CurrencyDTO {
     @Size(max = 20, message = "French acronym must not exceed 20 characters")
     private String acronymFr;
 
-    // ========== ENTITY MAPPING ==========
+    // ========== GENERIC DTO IMPLEMENTATION ==========
 
-    /**
-     * Create DTO from entity
-     */
-    public static CurrencyDTO fromEntity(Currency currency) {
-        if (currency == null) return null;
-        
-        return CurrencyDTO.builder()
-                .id(currency.getId())
-                .code(currency.getCode())
-                .designationAr(currency.getDesignationAr())
-                .designationEn(currency.getDesignationEn())
-                .designationFr(currency.getDesignationFr())
-                .acronymAr(currency.getAcronymAr())
-                .acronymEn(currency.getAcronymEn())
-                .acronymFr(currency.getAcronymFr())
-                .build();
-    }
-
-    /**
-     * Convert DTO to entity
-     */
+    @Override
     public Currency toEntity() {
         Currency currency = new Currency();
-        currency.setId(this.id);
+        currency.setId(getId());
         currency.setCode(this.code);
         currency.setDesignationAr(this.designationAr);
         currency.setDesignationEn(this.designationEn);
@@ -109,9 +90,7 @@ public class CurrencyDTO {
         return currency;
     }
 
-    /**
-     * Update entity from DTO
-     */
+    @Override
     public void updateEntity(Currency currency) {
         if (this.code != null) {
             currency.setCode(this.code);
@@ -134,5 +113,25 @@ public class CurrencyDTO {
         if (this.acronymFr != null) {
             currency.setAcronymFr(this.acronymFr);
         }
+    }
+
+    // ========== FACTORY METHOD ==========
+
+    /**
+     * Create DTO from entity
+     */
+    public static CurrencyDTO fromEntity(Currency currency) {
+        if (currency == null) return null;
+        
+        return CurrencyDTO.builder()
+                .id(currency.getId())
+                .code(currency.getCode())
+                .designationAr(currency.getDesignationAr())
+                .designationEn(currency.getDesignationEn())
+                .designationFr(currency.getDesignationFr())
+                .acronymAr(currency.getAcronymAr())
+                .acronymEn(currency.getAcronymEn())
+                .acronymFr(currency.getAcronymFr())
+                .build();
     }
 }

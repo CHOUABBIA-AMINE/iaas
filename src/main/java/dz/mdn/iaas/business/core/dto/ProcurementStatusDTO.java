@@ -14,31 +14,32 @@ package dz.mdn.iaas.business.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.business.core.model.ProcurementStatus;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * ProcurementStatus Data Transfer Object
+ * ProcurementStatus Data Transfer Object - Extends GenericDTO
  * 
  * Fields:
- * - id (F_00)
+ * - id (F_00) - inherited from GenericDTO
  * - code (F_01) - unique, required
  * - designationAr (F_02) - optional
  * - designationEn (F_03) - optional
  * - designationFr (F_04) - unique, required
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProcurementStatusDTO {
-
-    private Long id;
+public class ProcurementStatusDTO extends GenericDTO<ProcurementStatus> {
 
     @NotBlank(message = "Code is required")
     @Size(max = 20, message = "Code must not exceed 20 characters")
@@ -54,7 +55,36 @@ public class ProcurementStatusDTO {
     @Size(max = 200, message = "French designation must not exceed 200 characters")
     private String designationFr;
 
-    // ========== ENTITY MAPPING ==========
+    // ========== GENERIC DTO IMPLEMENTATION ==========
+
+    @Override
+    public ProcurementStatus toEntity() {
+        ProcurementStatus procurementStatus = new ProcurementStatus();
+        procurementStatus.setId(getId());
+        procurementStatus.setCode(this.code);
+        procurementStatus.setDesignationAr(this.designationAr);
+        procurementStatus.setDesignationEn(this.designationEn);
+        procurementStatus.setDesignationFr(this.designationFr);
+        return procurementStatus;
+    }
+
+    @Override
+    public void updateEntity(ProcurementStatus procurementStatus) {
+        if (this.code != null) {
+            procurementStatus.setCode(this.code);
+        }
+        if (this.designationAr != null) {
+            procurementStatus.setDesignationAr(this.designationAr);
+        }
+        if (this.designationEn != null) {
+            procurementStatus.setDesignationEn(this.designationEn);
+        }
+        if (this.designationFr != null) {
+            procurementStatus.setDesignationFr(this.designationFr);
+        }
+    }
+
+    // ========== FACTORY METHOD ==========
 
     /**
      * Create DTO from entity
@@ -69,36 +99,5 @@ public class ProcurementStatusDTO {
                 .designationEn(procurementStatus.getDesignationEn())
                 .designationFr(procurementStatus.getDesignationFr())
                 .build();
-    }
-
-    /**
-     * Convert DTO to entity
-     */
-    public ProcurementStatus toEntity() {
-        ProcurementStatus procurementStatus = new ProcurementStatus();
-        procurementStatus.setId(this.id);
-        procurementStatus.setCode(this.code);
-        procurementStatus.setDesignationAr(this.designationAr);
-        procurementStatus.setDesignationEn(this.designationEn);
-        procurementStatus.setDesignationFr(this.designationFr);
-        return procurementStatus;
-    }
-
-    /**
-     * Update entity from DTO
-     */
-    public void updateEntity(ProcurementStatus procurementStatus) {
-        if (this.code != null) {
-            procurementStatus.setCode(this.code);
-        }
-        if (this.designationAr != null) {
-            procurementStatus.setDesignationAr(this.designationAr);
-        }
-        if (this.designationEn != null) {
-            procurementStatus.setDesignationEn(this.designationEn);
-        }
-        if (this.designationFr != null) {
-            procurementStatus.setDesignationFr(this.designationFr);
-        }
     }
 }

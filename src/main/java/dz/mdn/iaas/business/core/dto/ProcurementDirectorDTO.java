@@ -14,34 +14,52 @@ package dz.mdn.iaas.business.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.business.core.model.ProcurementDirector;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * ProcurementDirector Data Transfer Object
+ * ProcurementDirector Data Transfer Object - Extends GenericDTO
  * 
  * Fields:
- * - id (F_00)
+ * - id (F_00) - inherited from GenericDTO
  * - designation (F_01) - unique, required
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProcurementDirectorDTO {
-
-    private Long id;
+public class ProcurementDirectorDTO extends GenericDTO<ProcurementDirector> {
 
     @NotBlank(message = "Designation is required")
     @Size(max = 200, message = "Designation must not exceed 200 characters")
     private String designation;
 
-    // ========== ENTITY MAPPING ==========
+    // ========== GENERIC DTO IMPLEMENTATION ==========
+
+    @Override
+    public ProcurementDirector toEntity() {
+        ProcurementDirector procurementDirector = new ProcurementDirector();
+        procurementDirector.setId(getId());
+        procurementDirector.setDesignation(this.designation);
+        return procurementDirector;
+    }
+
+    @Override
+    public void updateEntity(ProcurementDirector procurementDirector) {
+        if (this.designation != null) {
+            procurementDirector.setDesignation(this.designation);
+        }
+    }
+
+    // ========== FACTORY METHOD ==========
 
     /**
      * Create DTO from entity
@@ -53,24 +71,5 @@ public class ProcurementDirectorDTO {
                 .id(procurementDirector.getId())
                 .designation(procurementDirector.getDesignation())
                 .build();
-    }
-
-    /**
-     * Convert DTO to entity
-     */
-    public ProcurementDirector toEntity() {
-        ProcurementDirector procurementDirector = new ProcurementDirector();
-        procurementDirector.setId(this.id);
-        procurementDirector.setDesignation(this.designation);
-        return procurementDirector;
-    }
-
-    /**
-     * Update entity from DTO
-     */
-    public void updateEntity(ProcurementDirector procurementDirector) {
-        if (this.designation != null) {
-            procurementDirector.setDesignation(this.designation);
-        }
     }
 }
