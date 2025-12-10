@@ -4,48 +4,42 @@
  *
  *	@Name		: ItemDistribution
  *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-10-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
+ *	@Layer		: Model
  *	@Package	: Business / Plan
  *
  **/
 
 package dz.mdn.iaas.business.plan.model;
 
-import dz.mdn.iaas.common.administration.model.Structure;
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name="ItemDistribution")
-@Table(name="T_02_02_09")
-public class ItemDistribution {
+@Table(name="T_02_02_07", uniqueConstraints = { @UniqueConstraint(name = "T_02_02_07_UK_01", columnNames = { "F_02" })})
+public class ItemDistribution extends GenericModel {
 	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	@Column(name="F_01", length=20)
+	private String code;
 	
-	@Column(name="F_01")
-	private float quantity;
-	
-	@ManyToOne
-    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_02_02_09_FK_01"), nullable=false)
-    private PlannedItem plannedItem;
-	
-	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_02_09_FK_02"), nullable=false)
-    private Structure structure;
+	@Column(name="F_02", length=200, nullable=false)
+	private String designationFr;
 
 }
