@@ -6,22 +6,13 @@
  *	@CreatedOn	: 10-16-2025
  *	@Updated	: 12-10-2025
  *
- *	@Type		: Class
- *	@Layer		: Service
- *	@Package	: Business / Core
+ *	@Type		: Service
+ *	@Layer		: Business / Core
+ *	@Package	: Business / Core / Service
  *
  **/
 
 package dz.mdn.iaas.business.core.service;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import dz.mdn.iaas.business.core.dto.CurrencyDTO;
 import dz.mdn.iaas.business.core.model.Currency;
@@ -30,10 +21,18 @@ import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.exception.BusinessValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Simplified Currency Service - Essential CRUD Operations Only
- * Methods: create, update, getById, getAll (paginated & non-paginated), delete, globalSearch
+ * Currency Service - Extends GenericService
+ * Handles currency operations with validation and search
  */
 @Service
 @RequiredArgsConstructor
@@ -42,6 +41,8 @@ import lombok.extern.slf4j.Slf4j;
 public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long> {
 
     private final CurrencyRepository currencyRepository;
+
+    // ========== GENERIC SERVICE IMPLEMENTATION ==========
 
     @Override
     protected JpaRepository<Currency, Long> getRepository() {
@@ -68,29 +69,23 @@ public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long>
         dto.updateEntity(entity);
     }
 
-    // ========== CREATE ==========
+    // ========== CREATE WITH VALIDATION ==========
 
     @Override
     @Transactional
     public CurrencyDTO create(CurrencyDTO dto) {
         log.info("Creating currency: code={}", dto.getCode());
-        
-        // Validate unique constraints
         validateUniqueConstraintsForCreate(dto);
-        
         return super.create(dto);
     }
 
-    // ========== UPDATE ==========
+    // ========== UPDATE WITH VALIDATION ==========
 
     @Override
     @Transactional
     public CurrencyDTO update(Long id, CurrencyDTO dto) {
         log.info("Updating currency with ID: {}", id);
-        
-        // Validate unique constraints
         validateUniqueConstraintsForUpdate(dto, id);
-        
         return super.update(id, dto);
     }
 
@@ -103,8 +98,11 @@ public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long>
                 .collect(Collectors.toList());
     }
 
-    // ========== GLOBAL SEARCH ==========
+    // ========== SEARCH METHODS ==========
 
+    /**
+     * Global search across all currency fields
+     */
     public Page<CurrencyDTO> globalSearch(String searchTerm, Pageable pageable) {
         log.debug("Global search for currencies with term: {}", searchTerm);
         
@@ -113,6 +111,62 @@ public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long>
         }
         
         return executeQuery(p -> currencyRepository.searchByAnyField(searchTerm.trim(), p), pageable);
+    }
+
+    /**
+     * Search by designation (all languages)
+     */
+    public Page<CurrencyDTO> searchByDesignation(String designation, Pageable pageable) {
+        log.debug("Searching currencies by designation: {}", designation);
+        
+        if (designation == null || designation.trim().isEmpty()) {
+            return getAll(pageable);
+        }
+        
+        return executeQuery(p -> currencyRepository.searchByDesignation(designation.trim(), p), pageable);
+    }
+
+    /**
+     * Search by acronym (all languages)
+     */
+    public Page<CurrencyDTO> searchByAcronym(String acronym, Pageable pageable) {
+        log.debug("Searching currencies by acronym: {}", acronym);
+        
+        if (acronym == null || acronym.trim().isEmpty()) {
+            return getAll(pageable);
+        }
+        
+        return executeQuery(p -> currencyRepository.searchByAcronym(acronym.trim(), p), pageable);
+    }
+
+    // ========== EXISTENCE CHECKS ==========
+
+    public boolean existsByCode(String code) {
+        return currencyRepository.existsByCode(code);
+    }
+
+    public boolean existsByDesignationAr(String designationAr) {
+        return currencyRepository.existsByDesignationAr(designationAr);
+    }
+
+    public boolean existsByDesignationEn(String designationEn) {
+        return currencyRepository.existsByDesignationEn(designationEn);
+    }
+
+    public boolean existsByDesignationFr(String designationFr) {
+        return currencyRepository.existsByDesignationFr(designationFr);
+    }
+
+    public boolean existsByAcronymAr(String acronymAr) {
+        return currencyRepository.existsByAcronymAr(acronymAr);
+    }
+
+    public boolean existsByAcronymEn(String acronymEn) {
+        return currencyRepository.existsByAcronymEn(acronymEn);
+    }
+
+    public boolean existsByAcronymFr(String acronymFr) {
+        return currencyRepository.existsByAcronymFr(acronymFr);
     }
 
     // ========== VALIDATION ==========

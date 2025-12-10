@@ -6,19 +6,11 @@
  *	@Updated	: 12-10-2025
  *	@Type		: Service
  *	@Layer		: Business / Core
+ *	@Package	: Business / Core / Service
  *
  **/
 
 package dz.mdn.iaas.business.core.service;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import dz.mdn.iaas.business.core.dto.ProcurementDirectorDTO;
 import dz.mdn.iaas.business.core.model.ProcurementDirector;
@@ -27,10 +19,17 @@ import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.exception.BusinessValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Simplified ProcurementDirector Service - Essential CRUD Operations Only
- * Methods: create, update, getById, getAll (paginated & non-paginated), delete, globalSearch
+ * ProcurementDirector Service - Extends GenericService
  */
 @Service
 @RequiredArgsConstructor
@@ -65,37 +64,29 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
         dto.updateEntity(entity);
     }
 
-    // ========== CREATE ==========
-
     @Override
     @Transactional
     public ProcurementDirectorDTO create(ProcurementDirectorDTO dto) {
-        log.info("Creating procurement director: designation={}", dto.getDesignationFr());
+        log.info("Creating procurement director: designation={}", dto.getDesignation());
         
-        // Validate unique constraint
-        if (procurementDirectorRepository.existsByDesignationFr(dto.getDesignationFr())) {
-            throw new BusinessValidationException("Designation '" + dto.getDesignationFr() + "' already exists");
+        if (procurementDirectorRepository.existsByDesignation(dto.getDesignation())) {
+            throw new BusinessValidationException("Designation '" + dto.getDesignation() + "' already exists");
         }
         
         return super.create(dto);
     }
-
-    // ========== UPDATE ==========
 
     @Override
     @Transactional
     public ProcurementDirectorDTO update(Long id, ProcurementDirectorDTO dto) {
         log.info("Updating procurement director with ID: {}", id);
         
-        // Validate unique constraint
-        if (procurementDirectorRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
-            throw new BusinessValidationException("Designation '" + dto.getDesignationFr() + "' already exists");
+        if (procurementDirectorRepository.existsByDesignationAndIdNot(dto.getDesignation(), id)) {
+            throw new BusinessValidationException("Designation '" + dto.getDesignation() + "' already exists");
         }
         
         return super.update(id, dto);
     }
-
-    // ========== GET ALL (NON-PAGINATED) ==========
 
     public List<ProcurementDirectorDTO> getAll() {
         log.debug("Getting all procurement directors without pagination");
@@ -103,8 +94,6 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
                 .map(ProcurementDirectorDTO::fromEntity)
                 .collect(Collectors.toList());
     }
-
-    // ========== GLOBAL SEARCH ==========
 
     public Page<ProcurementDirectorDTO> globalSearch(String searchTerm, Pageable pageable) {
         log.debug("Global search for procurement directors with term: {}", searchTerm);
@@ -114,5 +103,9 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
         }
         
         return executeQuery(p -> procurementDirectorRepository.searchByDesignation(searchTerm.trim(), p), pageable);
+    }
+
+    public boolean existsByDesignation(String designation) {
+        return procurementDirectorRepository.existsByDesignation(designation);
     }
 }
