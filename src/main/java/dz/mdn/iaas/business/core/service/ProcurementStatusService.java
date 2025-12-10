@@ -15,9 +15,7 @@ import dz.mdn.iaas.business.core.dto.ProcurementStatusDTO;
 import dz.mdn.iaas.business.core.model.ProcurementStatus;
 import dz.mdn.iaas.business.core.repository.ProcurementStatusRepository;
 import dz.mdn.iaas.common.service.GenericService;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator.UniqueFieldUpdateValidation;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator.UniqueFieldValidation;
+import dz.mdn.iaas.exception.BusinessValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -40,7 +38,6 @@ import java.util.stream.Collectors;
 public class ProcurementStatusService extends GenericService<ProcurementStatus, ProcurementStatusDTO, Long> {
 
     private final ProcurementStatusRepository procurementStatusRepository;
-    private final UniqueFieldValidator uniqueFieldValidator;
 
     @Override
     protected JpaRepository<ProcurementStatus, Long> getRepository() {
@@ -72,12 +69,15 @@ public class ProcurementStatusService extends GenericService<ProcurementStatus, 
     @Override
     @Transactional
     public ProcurementStatusDTO create(ProcurementStatusDTO dto) {
-        log.info("Creating procurement status: designationFr={}", dto.getDesignationFr());
+        log.info("Creating procurement status: designationFr={}, code={}", dto.getDesignationFr(), dto.getCode());
         
-        uniqueFieldValidator.validateMultipleForCreate(
-            UniqueFieldValidation.of("French designation", dto.getDesignationFr(), procurementStatusRepository::existsByDesignationFr),
-            UniqueFieldValidation.of("Code", dto.getCode(), procurementStatusRepository::existsByCode)
-        );
+        // Validate unique constraints
+        if (procurementStatusRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
+        }
+        if (procurementStatusRepository.existsByCode(dto.getCode())) {
+            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
+        }
         
         return super.create(dto);
     }
@@ -89,17 +89,16 @@ public class ProcurementStatusService extends GenericService<ProcurementStatus, 
     public ProcurementStatusDTO update(Long id, ProcurementStatusDTO dto) {
         log.info("Updating procurement status with ID: {}", id);
         
-        uniqueFieldValidator.validateMultipleForUpdate(
-            UniqueFieldUpdateValidation.of("French designation", dto.getDesignationFr(), id, procurementStatusRepository::existsByDesignationFrAndIdNot),
-            UniqueFieldUpdateValidation.of("Code", dto.getCode(), id, procurementStatusRepository::existsByCodeAndIdNot)
-        );
+        // Validate unique constraints
+        if (procurementStatusRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
+            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
+        }
+        if (procurementStatusRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
+            throw new BusinessValidationException("Code '" + dto.getCode() + "' already exists");
+        }
         
         return super.update(id, dto);
     }
-
-    // ========== GET BY ID (inherited) ==========
-
-    // ========== GET ALL (PAGINATED) (inherited) ==========
 
     // ========== GET ALL (NON-PAGINATED) ==========
 
@@ -109,8 +108,6 @@ public class ProcurementStatusService extends GenericService<ProcurementStatus, 
                 .map(ProcurementStatusDTO::fromEntity)
                 .collect(Collectors.toList());
     }
-
-    // ========== DELETE (inherited) ==========
 
     // ========== GLOBAL SEARCH ==========
 

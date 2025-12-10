@@ -15,7 +15,7 @@ import dz.mdn.iaas.business.core.dto.ProcurementDirectorDTO;
 import dz.mdn.iaas.business.core.model.ProcurementDirector;
 import dz.mdn.iaas.business.core.repository.ProcurementDirectorRepository;
 import dz.mdn.iaas.common.service.GenericService;
-import dz.mdn.iaas.common.validator.UniqueFieldValidator;
+import dz.mdn.iaas.exception.BusinessValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -38,7 +38,6 @@ import java.util.stream.Collectors;
 public class ProcurementDirectorService extends GenericService<ProcurementDirector, ProcurementDirectorDTO, Long> {
 
     private final ProcurementDirectorRepository procurementDirectorRepository;
-    private final UniqueFieldValidator uniqueFieldValidator;
 
     @Override
     protected JpaRepository<ProcurementDirector, Long> getRepository() {
@@ -72,11 +71,10 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
     public ProcurementDirectorDTO create(ProcurementDirectorDTO dto) {
         log.info("Creating procurement director: designation={}", dto.getDesignation());
         
-        uniqueFieldValidator.validateUniqueForCreate(
-            "Designation", 
-            dto.getDesignation(), 
-            procurementDirectorRepository::existsByDesignation
-        );
+        // Validate unique constraint
+        if (procurementDirectorRepository.existsByDesignation(dto.getDesignation())) {
+            throw new BusinessValidationException("Designation '" + dto.getDesignation() + "' already exists");
+        }
         
         return super.create(dto);
     }
@@ -88,19 +86,13 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
     public ProcurementDirectorDTO update(Long id, ProcurementDirectorDTO dto) {
         log.info("Updating procurement director with ID: {}", id);
         
-        uniqueFieldValidator.validateUniqueForUpdate(
-            "Designation",
-            dto.getDesignation(),
-            id,
-            procurementDirectorRepository::existsByDesignationAndIdNot
-        );
+        // Validate unique constraint
+        if (procurementDirectorRepository.existsByDesignationAndIdNot(dto.getDesignation(), id)) {
+            throw new BusinessValidationException("Designation '" + dto.getDesignation() + "' already exists");
+        }
         
         return super.update(id, dto);
     }
-
-    // ========== GET BY ID (inherited) ==========
-
-    // ========== GET ALL (PAGINATED) (inherited) ==========
 
     // ========== GET ALL (NON-PAGINATED) ==========
 
@@ -110,8 +102,6 @@ public class ProcurementDirectorService extends GenericService<ProcurementDirect
                 .map(ProcurementDirectorDTO::fromEntity)
                 .collect(Collectors.toList());
     }
-
-    // ========== DELETE (inherited) ==========
 
     // ========== GLOBAL SEARCH ==========
 
