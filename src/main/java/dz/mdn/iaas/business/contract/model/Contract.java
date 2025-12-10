@@ -4,9 +4,10 @@
  *
  *	@Name		: Contract
  *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-10-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
+ *	@Layer		: Model
  *	@Package	: Business / Contract
  *
  **/
@@ -16,6 +17,7 @@ package dz.mdn.iaas.business.contract.model;
 import java.util.Date;
 import java.util.List;
 
+import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.business.consultation.model.Consultation;
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
 import dz.mdn.iaas.business.core.model.Currency;
@@ -28,9 +30,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -48,17 +47,12 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Contract")
 @Table(name="T_02_05_04", uniqueConstraints = { @UniqueConstraint(name = "T_02_05_04_UK_01", columnNames = { "F_01" })})
-public class Contract {
-	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+public class Contract extends GenericModel {
 	
 	@Column(name="F_01", nullable=false)
 	private String internalId;
