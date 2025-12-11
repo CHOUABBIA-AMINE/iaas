@@ -14,6 +14,17 @@
 
 package dz.mdn.iaas.system.security.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.exception.ResourceNotFoundException;
 import dz.mdn.iaas.system.security.dto.UserDTO;
@@ -24,17 +35,6 @@ import dz.mdn.iaas.system.security.repository.GroupRepository;
 import dz.mdn.iaas.system.security.repository.RoleRepository;
 import dz.mdn.iaas.system.security.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
