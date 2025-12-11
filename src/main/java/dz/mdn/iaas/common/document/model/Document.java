@@ -12,6 +12,8 @@
 
 package dz.mdn.iaas.common.document.model;
 
+import java.util.Date;
+
 import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.system.utility.model.File;
 import jakarta.persistence.Column;
@@ -22,12 +24,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-
-import java.util.Date;
+import lombok.ToString;
 
 /**
  * Document Entity - Extends GenericModel
@@ -35,7 +36,8 @@ import java.util.Date;
  */
 @Setter
 @Getter
-@SuperBuilder
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Document")

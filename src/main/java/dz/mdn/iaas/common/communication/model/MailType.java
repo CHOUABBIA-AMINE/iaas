@@ -18,10 +18,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.ToString;
 
 /**
  * MailType Entity - Extends GenericModel
@@ -29,14 +30,13 @@ import lombok.experimental.SuperBuilder;
  */
 @Setter
 @Getter
-@SuperBuilder
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="MailType")
-@Table(name="T_01_02_02", uniqueConstraints = { 
-    @UniqueConstraint(name = "T_01_02_02_UK_01", columnNames = { "F_03" }),
-    @UniqueConstraint(name = "T_01_02_02_UK_02", columnNames = { "F_04" })
-})
+@Table(name="T_01_02_02", uniqueConstraints = { @UniqueConstraint(name = "T_01_02_02_UK_01", columnNames = { "F_03" }),
+												@UniqueConstraint(name = "T_01_02_02_UK_02", columnNames = { "F_04" })})
 public class MailType extends GenericModel {
 	
 	@Column(name="F_01", length=100)

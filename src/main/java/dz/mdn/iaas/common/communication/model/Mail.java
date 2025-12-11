@@ -12,6 +12,9 @@
 
 package dz.mdn.iaas.common.communication.model;
 
+import java.util.Date;
+import java.util.List;
+
 import dz.mdn.iaas.common.administration.model.Structure;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.system.utility.model.File;
@@ -31,10 +34,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * Mail Entity - Extends GenericModel
@@ -42,15 +41,12 @@ import java.util.List;
  */
 @Setter
 @Getter
-@SuperBuilder
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Mail")
-@Table(name="T_01_02_03", uniqueConstraints = { 
-    @UniqueConstraint(name = "T_01_02_03_UK_01", columnNames = { "F_01" })
-})
+@Table(name="T_01_02_03", uniqueConstraints = {@UniqueConstraint(name = "T_01_02_03_UK_01", columnNames = { "F_01" })})
 public class Mail extends GenericModel {
 	
 	@Column(name="F_01", length=50)

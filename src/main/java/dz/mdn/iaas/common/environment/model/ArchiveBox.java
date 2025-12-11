@@ -21,10 +21,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.ToString;
 
 /**
  * ArchiveBox Entity - Extends GenericModel
@@ -32,13 +33,12 @@ import lombok.experimental.SuperBuilder;
  */
 @Setter
 @Getter
-@SuperBuilder
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ArchiveBox")
-@Table(name="T_01_01_07", uniqueConstraints = { 
-    @UniqueConstraint(name = "T_01_01_07_UK_01", columnNames = { "F_01" })
-})
+@Table(name="T_01_01_07", uniqueConstraints = { @UniqueConstraint(name = "T_01_01_07_UK_01", columnNames = { "F_01" })})
 public class ArchiveBox extends GenericModel {
 	
 	@Column(name="F_01", length=50, nullable=false)
