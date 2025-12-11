@@ -14,11 +14,11 @@
 
 package dz.mdn.iaas.business.provider.dto;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.provider.model.Clearance;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,30 +37,41 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClearanceDTO extends GenericDTO<Clearance> {
 
-    private int internalId;
-    private String reference;
-    
-    @NotNull(message = "Provider is required")
-    private Long providerId;
-    
-    private Date issueDate;
-    private Date expiryDate;
-    private String issuingAuthority;
-    private boolean isValid;
-    private String observation;
+    @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
+    private String designationAr;
+
+    @Size(max = 200, message = "English designation must not exceed 200 characters")
+    private String designationEn;
+
+    @NotBlank(message = "French designation is required")
+    @Size(max = 200, message = "French designation must not exceed 200 characters")
+    private String designationFr;
 
     @Override
     public Clearance toEntity() {
         Clearance entity = new Clearance();
         entity.setId(this.getId());
-        entity.setInternalId(this.internalId);
-        entity.setReference(this.reference);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
         return entity;
     }
 
     @Override
     public void updateEntity(Clearance entity) {
-        if (this.internalId > 0) entity.setInternalId(this.internalId);
-        if (this.reference != null) entity.setReference(this.reference);
+        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+    }
+
+    public static ClearanceDTO fromEntity(Clearance entity) {
+        if (entity == null) return null;
+        
+        return ClearanceDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .build();
     }
 }
