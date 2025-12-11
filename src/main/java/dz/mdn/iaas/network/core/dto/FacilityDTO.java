@@ -12,11 +12,17 @@
  *
  **/
 
-package dz.mdn.iaas.network.dto;
+package dz.mdn.iaas.network.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import dz.mdn.iaas.network.model.*;
+import dz.mdn.iaas.network.common.dto.LocationDTO;
+import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
+import dz.mdn.iaas.network.common.model.Location;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
+import dz.mdn.iaas.network.core.model.Facility;
+import dz.mdn.iaas.network.core.model.FacilityType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

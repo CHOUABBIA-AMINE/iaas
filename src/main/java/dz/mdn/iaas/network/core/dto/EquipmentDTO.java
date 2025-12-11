@@ -12,11 +12,18 @@
  *
  **/
 
-package dz.mdn.iaas.network.dto;
+package dz.mdn.iaas.network.core.dto;
+
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import dz.mdn.iaas.network.model.*;
+import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
+import dz.mdn.iaas.network.core.model.Equipment;
+import dz.mdn.iaas.network.core.model.EquipmentType;
+import dz.mdn.iaas.network.core.model.Facility;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,8 +32,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.time.LocalDate;
 
 /**
  * Equipment Data Transfer Object - Extends GenericDTO

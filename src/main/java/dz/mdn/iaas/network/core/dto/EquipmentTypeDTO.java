@@ -12,11 +12,12 @@
  *
  **/
 
-package dz.mdn.iaas.network.dto;
+package dz.mdn.iaas.network.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import dz.mdn.iaas.network.model.EquipmentType;
+import dz.mdn.iaas.network.core.model.EquipmentType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;

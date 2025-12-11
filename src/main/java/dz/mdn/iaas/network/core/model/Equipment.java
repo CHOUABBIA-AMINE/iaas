@@ -12,9 +12,12 @@
  *
  **/
 
-package dz.mdn.iaas.network.model;
+package dz.mdn.iaas.network.core.model;
+
+import java.time.LocalDate;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -27,8 +30,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.time.LocalDate;
 
 /**
  * Equipment Entity - Extends GenericModel

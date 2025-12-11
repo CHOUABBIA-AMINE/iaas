@@ -12,14 +12,15 @@
  *
  **/
 
-package dz.mdn.iaas.network.controller;
+package dz.mdn.iaas.network.common.controller;
 
-import dz.mdn.iaas.configuration.template.GenericController;
-import dz.mdn.iaas.network.dto.OperationalStatusDTO;
-import dz.mdn.iaas.network.service.OperationalStatusService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import dz.mdn.iaas.configuration.template.GenericController;
+import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
+import dz.mdn.iaas.network.common.service.OperationalStatusService;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/network/operational-status")

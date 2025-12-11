@@ -12,9 +12,11 @@
  *
  **/
 
-package dz.mdn.iaas.network.model;
+package dz.mdn.iaas.network.core.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
+import dz.mdn.iaas.network.common.model.Location;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;

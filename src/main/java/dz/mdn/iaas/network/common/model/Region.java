@@ -12,7 +12,7 @@
  *
  **/
 
-package dz.mdn.iaas.network.model;
+package dz.mdn.iaas.network.common.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
@@ -46,13 +46,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Region")
-@Table(name="T_20_02")
+@Table(name="T_03_01_02")
 public class Region extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_20_02_FK_01"), nullable=false)
+    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_03_01_02_FK_01"), nullable=false)
     private Zone zone;
 }

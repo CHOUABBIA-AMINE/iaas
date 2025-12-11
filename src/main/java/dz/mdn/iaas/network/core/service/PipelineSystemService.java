@@ -12,25 +12,26 @@
  *
  **/
 
-package dz.mdn.iaas.network.service;
+package dz.mdn.iaas.network.core.service;
 
-import dz.mdn.iaas.configuration.template.GenericService;
-import dz.mdn.iaas.exception.BusinessValidationException;
-import dz.mdn.iaas.network.dto.PipelineSystemDTO;
-import dz.mdn.iaas.network.model.PipelineSystem;
-import dz.mdn.iaas.network.model.Product;
-import dz.mdn.iaas.network.repository.PipelineSystemRepository;
-import dz.mdn.iaas.network.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.configuration.template.GenericService;
+import dz.mdn.iaas.exception.BusinessValidationException;
+import dz.mdn.iaas.network.common.model.Product;
+import dz.mdn.iaas.network.common.repository.ProductRepository;
+import dz.mdn.iaas.network.core.dto.PipelineSystemDTO;
+import dz.mdn.iaas.network.core.model.PipelineSystem;
+import dz.mdn.iaas.network.core.repository.PipelineSystemRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor

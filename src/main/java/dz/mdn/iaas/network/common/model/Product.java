@@ -12,7 +12,7 @@
  *
  **/
 
-package dz.mdn.iaas.network.model;
+package dz.mdn.iaas.network.common.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
@@ -50,7 +50,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Product")
-@Table(name="T_20_04", uniqueConstraints = { @UniqueConstraint(name="T_20_04_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_01_04", uniqueConstraints = { @UniqueConstraint(name="T_03_01_04_UK_01", columnNames={"F_02"}) })
 public class Product extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)

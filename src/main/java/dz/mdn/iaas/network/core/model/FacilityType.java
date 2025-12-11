@@ -12,7 +12,7 @@
  *
  **/
 
-package dz.mdn.iaas.network.model;
+package dz.mdn.iaas.network.core.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;

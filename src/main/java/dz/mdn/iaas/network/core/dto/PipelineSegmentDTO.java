@@ -12,12 +12,13 @@
  *
  **/
 
-package dz.mdn.iaas.network.dto;
+package dz.mdn.iaas.network.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import dz.mdn.iaas.network.model.Pipeline;
-import dz.mdn.iaas.network.model.PipelineSegment;
+import dz.mdn.iaas.network.core.model.Pipeline;
+import dz.mdn.iaas.network.core.model.PipelineSegment;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

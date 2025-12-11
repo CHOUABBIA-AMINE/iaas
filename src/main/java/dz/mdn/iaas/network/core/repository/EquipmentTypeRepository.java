@@ -12,15 +12,16 @@
  *
  **/
 
-package dz.mdn.iaas.network.repository;
+package dz.mdn.iaas.network.core.repository;
 
-import dz.mdn.iaas.network.model.EquipmentType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import dz.mdn.iaas.network.core.model.EquipmentType;
 
 @Repository
 public interface EquipmentTypeRepository extends JpaRepository<EquipmentType, Long> {

@@ -12,7 +12,7 @@
  *
  **/
 
-package dz.mdn.iaas.network.model;
+package dz.mdn.iaas.network.common.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
@@ -50,7 +50,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Location")
-@Table(name="T_20_03", uniqueConstraints = { @UniqueConstraint(name="T_20_03_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_01_03", uniqueConstraints = { @UniqueConstraint(name="T_03_01_03_UK_01", columnNames={"F_02"}) })
 public class Location extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)
@@ -66,6 +66,6 @@ public class Location extends GenericModel {
     private Double longitude;
 
     @ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_20_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_01_03_FK_01"), nullable=false)
     private Region region;
 }

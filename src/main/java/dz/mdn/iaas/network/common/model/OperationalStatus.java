@@ -12,7 +12,7 @@
  *
  **/
 
-package dz.mdn.iaas.network.model;
+package dz.mdn.iaas.network.common.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
@@ -43,7 +43,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="OperationalStatus")
-@Table(name="T_20_05")
+@Table(name="T_03_01_05")
 public class OperationalStatus extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)

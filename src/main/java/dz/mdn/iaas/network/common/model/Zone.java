@@ -12,7 +12,7 @@
  *
  **/
 
-package dz.mdn.iaas.network.model;
+package dz.mdn.iaas.network.common.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
@@ -42,7 +42,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Zone")
-@Table(name="T_20_01")
+@Table(name="T_03_01_01")
 public class Zone extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)
