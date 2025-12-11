@@ -64,7 +64,7 @@ public class Facility extends BaseEntity {
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
     private List<Equipment> equipments;
     
-    @ManyToMany(mappedBy = "producers", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "facilities", fetch = FetchType.LAZY)
     private Set<Pipeline> pipelines = new HashSet<>();
     
 }
