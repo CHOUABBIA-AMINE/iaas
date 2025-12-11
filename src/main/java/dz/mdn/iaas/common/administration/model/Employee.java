@@ -1,67 +1,61 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
- *
  *	@Name		: Employee
  *	@CreatedOn	: 06-26-2025
- *
- *	@Type		: Class
- *	@Layaer		: Model
- *	@Package	: Common / Administration
+ *	@Updated	: 12-11-2025
+ *	@Type		: Model
+ *	@Layer		: Common / Administration
+ *	@Package	: Common / Administration / Model
  *
  **/
 
 package dz.mdn.iaas.common.administration.model;
 
-import java.util.Date;
-
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
+/**
+ * Employee Entity - Extends GenericModel
+ * Represents employees with their job, structure, and military information
+ */
 @Setter
 @Getter
-@ToString
-@EqualsAndHashCode
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Employee")
-@Table(name="T_01_04_10")
-public class Employee {
-	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name="F_01", nullable=true)
-	private String serial;
-	
-	@Column(name="F_02", nullable=true)
-	private Date hiringDate;
+@Table(name="T_01_04_08")
+public class Employee extends GenericModel {
 	
 	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_01_04_10_FK_01"), nullable=false)
-    private Person person;
+	@JoinColumn(name="F_01", nullable=false)
+	private Person person;
 	
 	@ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_01_04_10_FK_02"), nullable=false)
-    private MilitaryRank militaryRank;
+	@JoinColumn(name="F_02")
+	private Job job;
 	
 	@ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_01_04_10_FK_03"), nullable=true)
-    private Job job;
+	@JoinColumn(name="F_03")
+	private Structure structure;
 	
+	@ManyToOne
+	@JoinColumn(name="F_04")
+	private MilitaryRank rank;
+	
+	@Column(name="F_05", length=50)
+	private String registrationNumber;
+	
+	@Column(name="F_06")
+	private Boolean isActive;
 }
