@@ -29,7 +29,7 @@ public class EquipmentTypeController extends GenericController<EquipmentTypeDTO,
     private final EquipmentTypeService equipmentTypeService;
 
     public EquipmentTypeController(EquipmentTypeService equipmentTypeService) {
-        super(equipmentTypeService);
+        super(equipmentTypeService, "EquipmentType");
         this.equipmentTypeService = equipmentTypeService;
     }
 }

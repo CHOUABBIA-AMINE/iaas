@@ -29,7 +29,7 @@ public class OperationalStatusController extends GenericController<OperationalSt
     private final OperationalStatusService operationalStatusService;
 
     public OperationalStatusController(OperationalStatusService operationalStatusService) {
-        super(operationalStatusService);
+        super(operationalStatusService, "OperationalStatus");
         this.operationalStatusService = operationalStatusService;
     }
 }

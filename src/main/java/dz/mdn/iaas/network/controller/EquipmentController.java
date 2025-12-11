@@ -31,7 +31,7 @@ public class EquipmentController extends GenericController<EquipmentDTO, Long> {
     private final EquipmentService equipmentService;
 
     public EquipmentController(EquipmentService equipmentService) {
-        super(equipmentService);
+        super(equipmentService, "Equipment");
         this.equipmentService = equipmentService;
     }
 

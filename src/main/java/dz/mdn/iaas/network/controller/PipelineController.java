@@ -31,7 +31,7 @@ public class PipelineController extends GenericController<PipelineDTO, Long> {
     private final PipelineService pipelineService;
 
     public PipelineController(PipelineService pipelineService) {
-        super(pipelineService);
+        super(pipelineService, "Pipeline");
         this.pipelineService = pipelineService;
     }
 

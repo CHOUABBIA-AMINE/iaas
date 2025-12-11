@@ -31,7 +31,7 @@ public class PipelineSegmentController extends GenericController<PipelineSegment
     private final PipelineSegmentService pipelineSegmentService;
 
     public PipelineSegmentController(PipelineSegmentService pipelineSegmentService) {
-        super(pipelineSegmentService);
+        super(pipelineSegmentService, "PipelineSegment");
         this.pipelineSegmentService = pipelineSegmentService;
     }
 

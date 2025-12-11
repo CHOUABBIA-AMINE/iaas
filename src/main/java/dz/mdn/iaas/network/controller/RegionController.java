@@ -31,7 +31,7 @@ public class RegionController extends GenericController<RegionDTO, Long> {
     private final RegionService regionService;
 
     public RegionController(RegionService regionService) {
-        super(regionService);
+        super(regionService, "Region");
         this.regionService = regionService;
     }
 

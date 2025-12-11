@@ -31,7 +31,7 @@ public class FacilityController extends GenericController<FacilityDTO, Long> {
     private final FacilityService facilityService;
 
     public FacilityController(FacilityService facilityService) {
-        super(facilityService);
+        super(facilityService, "Facility");
         this.facilityService = facilityService;
     }
 

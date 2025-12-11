@@ -29,7 +29,7 @@ public class ZoneController extends GenericController<ZoneDTO, Long> {
     private final ZoneService zoneService;
 
     public ZoneController(ZoneService zoneService) {
-        super(zoneService);
+        super(zoneService, "Zone");
         this.zoneService = zoneService;
     }
 }

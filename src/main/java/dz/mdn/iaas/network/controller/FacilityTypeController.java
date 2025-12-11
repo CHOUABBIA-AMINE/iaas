@@ -29,7 +29,7 @@ public class FacilityTypeController extends GenericController<FacilityTypeDTO, L
     private final FacilityTypeService facilityTypeService;
 
     public FacilityTypeController(FacilityTypeService facilityTypeService) {
-        super(facilityTypeService);
+        super(facilityTypeService, "FacilityType");
         this.facilityTypeService = facilityTypeService;
     }
 }

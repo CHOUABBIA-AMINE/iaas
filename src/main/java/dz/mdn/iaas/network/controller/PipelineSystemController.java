@@ -31,7 +31,7 @@ public class PipelineSystemController extends GenericController<PipelineSystemDT
     private final PipelineSystemService pipelineSystemService;
 
     public PipelineSystemController(PipelineSystemService pipelineSystemService) {
-        super(pipelineSystemService);
+        super(pipelineSystemService, "PipelineSystem");
         this.pipelineSystemService = pipelineSystemService;
     }
 

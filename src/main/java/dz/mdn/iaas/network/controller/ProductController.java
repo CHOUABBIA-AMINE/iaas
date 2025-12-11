@@ -29,7 +29,7 @@ public class ProductController extends GenericController<ProductDTO, Long> {
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
-        super(productService);
+        super(productService, "Product");
         this.productService = productService;
     }
 }

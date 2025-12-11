@@ -31,7 +31,7 @@ public class LocationController extends GenericController<LocationDTO, Long> {
     private final LocationService locationService;
 
     public LocationController(LocationService locationService) {
-        super(locationService);
+        super(locationService, "Location");
         this.locationService = locationService;
     }
 
