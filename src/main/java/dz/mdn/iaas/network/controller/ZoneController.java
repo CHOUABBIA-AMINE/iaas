@@ -26,7 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ZoneController extends GenericController<ZoneDTO, Long> {
 
+    private final ZoneService zoneService;
+
     public ZoneController(ZoneService zoneService) {
         super(zoneService);
+        this.zoneService = zoneService;
     }
 }

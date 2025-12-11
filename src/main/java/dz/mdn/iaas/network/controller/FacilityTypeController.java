@@ -26,7 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class FacilityTypeController extends GenericController<FacilityTypeDTO, Long> {
 
+    private final FacilityTypeService facilityTypeService;
+
     public FacilityTypeController(FacilityTypeService facilityTypeService) {
         super(facilityTypeService);
+        this.facilityTypeService = facilityTypeService;
     }
 }

@@ -26,7 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ProductController extends GenericController<ProductDTO, Long> {
 
+    private final ProductService productService;
+
     public ProductController(ProductService productService) {
         super(productService);
+        this.productService = productService;
     }
 }
