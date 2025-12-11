@@ -18,11 +18,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.system.security.model.Authority;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -32,21 +32,17 @@ public class AuthorityDTO extends GenericDTO<Authority> {
     private String description;
     private String type;
 
-    @Builder
-    public AuthorityDTO(Long id, String name, String description, String type) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.type = type;
-    }
-
     @Override
     public Authority toEntity() {
-        return Authority.builder()
+        Authority entity = Authority.builder()
                 .name(this.name)
                 .description(this.description)
                 .type(this.type)
                 .build();
+        if (getId() != null) {
+            entity.setId(getId());
+        }
+        return entity;
     }
 
     @Override

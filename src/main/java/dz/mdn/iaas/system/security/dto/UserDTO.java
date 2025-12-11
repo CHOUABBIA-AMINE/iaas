@@ -21,15 +21,15 @@ import dz.mdn.iaas.system.security.model.Group;
 import dz.mdn.iaas.system.security.model.Role;
 import dz.mdn.iaas.system.security.model.User;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -49,25 +49,9 @@ public class UserDTO extends GenericDTO<User> {
     private Set<RoleDTO> roles;
     private Set<GroupDTO> groups;
 
-    @Builder
-    public UserDTO(Long id, String username, String email, String password, 
-                   Boolean enabled, Boolean accountNonExpired, Boolean accountNonLocked, 
-                   Boolean credentialsNonExpired, Set<RoleDTO> roles, Set<GroupDTO> groups) {
-        super(id);
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.enabled = enabled;
-        this.accountNonExpired = accountNonExpired;
-        this.accountNonLocked = accountNonLocked;
-        this.credentialsNonExpired = credentialsNonExpired;
-        this.roles = roles;
-        this.groups = groups;
-    }
-
     @Override
     public User toEntity() {
-        User user = User.builder()
+        User entity = User.builder()
                 .username(this.username)
                 .email(this.email)
                 .password(this.password)
@@ -77,21 +61,25 @@ public class UserDTO extends GenericDTO<User> {
                 .credentialsNonExpired(this.credentialsNonExpired != null ? this.credentialsNonExpired : true)
                 .build();
         
+        if (getId() != null) {
+            entity.setId(getId());
+        }
+        
         if (this.roles != null && !this.roles.isEmpty()) {
             Set<Role> roleEntities = this.roles.stream()
                     .map(RoleDTO::toEntity)
                     .collect(Collectors.toSet());
-            user.setRoles(roleEntities);
+            entity.setRoles(roleEntities);
         }
         
         if (this.groups != null && !this.groups.isEmpty()) {
             Set<Group> groupEntities = this.groups.stream()
                     .map(GroupDTO::toEntity)
                     .collect(Collectors.toSet());
-            user.setGroups(groupEntities);
+            entity.setGroups(groupEntities);
         }
         
-        return user;
+        return entity;
     }
 
     @Override

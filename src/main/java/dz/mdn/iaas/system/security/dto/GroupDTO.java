@@ -19,15 +19,15 @@ import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.system.security.model.Group;
 import dz.mdn.iaas.system.security.model.Role;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -37,29 +37,25 @@ public class GroupDTO extends GenericDTO<Group> {
     private String description;
     private Set<RoleDTO> roles;
 
-    @Builder
-    public GroupDTO(Long id, String name, String description, Set<RoleDTO> roles) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.roles = roles;
-    }
-
     @Override
     public Group toEntity() {
-        Group group = Group.builder()
+        Group entity = Group.builder()
                 .name(this.name)
                 .description(this.description)
                 .build();
+        
+        if (getId() != null) {
+            entity.setId(getId());
+        }
         
         if (this.roles != null && !this.roles.isEmpty()) {
             Set<Role> roleEntities = this.roles.stream()
                     .map(RoleDTO::toEntity)
                     .collect(Collectors.toSet());
-            group.setRoles(roleEntities);
+            entity.setRoles(roleEntities);
         }
         
-        return group;
+        return entity;
     }
 
     @Override

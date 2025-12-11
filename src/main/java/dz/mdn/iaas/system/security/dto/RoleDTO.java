@@ -19,16 +19,15 @@ import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.system.security.model.Permission;
 import dz.mdn.iaas.system.security.model.Role;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -38,29 +37,25 @@ public class RoleDTO extends GenericDTO<Role> {
     private String description;
     private Set<PermissionDTO> permissions;
 
-    @Builder
-    public RoleDTO(Long id, String name, String description, Set<PermissionDTO> permissions) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.permissions = permissions;
-    }
-
     @Override
     public Role toEntity() {
-        Role role = Role.builder()
+        Role entity = Role.builder()
                 .name(this.name)
                 .description(this.description)
                 .build();
+        
+        if (getId() != null) {
+            entity.setId(getId());
+        }
         
         if (this.permissions != null && !this.permissions.isEmpty()) {
             Set<Permission> permissionEntities = this.permissions.stream()
                     .map(PermissionDTO::toEntity)
                     .collect(Collectors.toSet());
-            role.setPermissions(permissionEntities);
+            entity.setPermissions(permissionEntities);
         }
         
-        return role;
+        return entity;
     }
 
     @Override
