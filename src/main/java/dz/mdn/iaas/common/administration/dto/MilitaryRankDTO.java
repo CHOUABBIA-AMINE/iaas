@@ -95,7 +95,7 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
 
     public static MilitaryRankDTO fromEntity(MilitaryRank entity) {
         if (entity == null) return null;
-        MilitaryRankDTOBuilder builder = MilitaryRankDTO.builder()
+        return MilitaryRankDTO.builder()
                 .id(entity.getId())
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
@@ -103,11 +103,9 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
                 .acronymAr(entity.getAcronymAr())
                 .acronymEn(entity.getAcronymEn())
                 .acronymFr(entity.getAcronymFr())
+                .categoryId(entity.getCategory() != null ? entity.getCategory().getId() : null)
                 .hierarchyLevel(entity.getHierarchyLevel())
-                .displayOrder(entity.getDisplayOrder());
-        if (entity.getCategory() != null) {
-            builder.categoryId(entity.getCategory().getId());
-        }
-        return builder.build();
+                .displayOrder(entity.getDisplayOrder())
+                .build();
     }
 }

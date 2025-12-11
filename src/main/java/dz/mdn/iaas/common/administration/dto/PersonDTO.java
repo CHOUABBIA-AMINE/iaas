@@ -87,17 +87,15 @@ public class PersonDTO extends GenericDTO<Person> {
 
     public static PersonDTO fromEntity(Person entity) {
         if (entity == null) return null;
-        PersonDTOBuilder builder = PersonDTO.builder()
+        return PersonDTO.builder()
                 .id(entity.getId())
                 .lastNameAr(entity.getLastNameAr())
                 .firstNameAr(entity.getFirstNameAr())
                 .lastNameLt(entity.getLastNameLt())
                 .firstNameLt(entity.getFirstNameLt())
                 .birthDate(entity.getBirthDate())
-                .birthPlace(entity.getBirthPlace());
-        if (entity.getNationality() != null) {
-            builder.nationalityId(entity.getNationality().getId());
-        }
-        return builder.build();
+                .birthPlace(entity.getBirthPlace())
+                .nationalityId(entity.getNationality() != null ? entity.getNationality().getId() : null)
+                .build();
     }
 }

@@ -76,15 +76,13 @@ public class LocalityDTO extends GenericDTO<Locality> {
 
     public static LocalityDTO fromEntity(Locality entity) {
         if (entity == null) return null;
-        LocalityDTOBuilder builder = LocalityDTO.builder()
+        return LocalityDTO.builder()
                 .id(entity.getId())
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
-                .code(entity.getCode());
-        if (entity.getState() != null) {
-            builder.stateId(entity.getState().getId());
-        }
-        return builder.build();
+                .code(entity.getCode())
+                .stateId(entity.getState() != null ? entity.getState().getId() : null)
+                .build();
     }
 }

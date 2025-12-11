@@ -78,18 +78,14 @@ public class StructureDTO extends GenericDTO<Structure> {
 
     public static StructureDTO fromEntity(Structure entity) {
         if (entity == null) return null;
-        StructureDTOBuilder builder = StructureDTO.builder()
+        return StructureDTO.builder()
                 .id(entity.getId())
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
-                .code(entity.getCode());
-        if (entity.getParentStructure() != null) {
-            builder.parentStructureId(entity.getParentStructure().getId());
-        }
-        if (entity.getStructureType() != null) {
-            builder.structureTypeId(entity.getStructureType().getId());
-        }
-        return builder.build();
+                .code(entity.getCode())
+                .parentStructureId(entity.getParentStructure() != null ? entity.getParentStructure().getId() : null)
+                .structureTypeId(entity.getStructureType() != null ? entity.getStructureType().getId() : null)
+                .build();
     }
 }

@@ -76,15 +76,13 @@ public class StateDTO extends GenericDTO<State> {
 
     public static StateDTO fromEntity(State entity) {
         if (entity == null) return null;
-        StateDTOBuilder builder = StateDTO.builder()
+        return StateDTO.builder()
                 .id(entity.getId())
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
-                .code(entity.getCode());
-        if (entity.getCountry() != null) {
-            builder.countryId(entity.getCountry().getId());
-        }
-        return builder.build();
+                .code(entity.getCode())
+                .countryId(entity.getCountry() != null ? entity.getCountry().getId() : null)
+                .build();
     }
 }

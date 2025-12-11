@@ -68,22 +68,14 @@ public class EmployeeDTO extends GenericDTO<Employee> {
 
     public static EmployeeDTO fromEntity(Employee entity) {
         if (entity == null) return null;
-        EmployeeDTOBuilder builder = EmployeeDTO.builder()
+        return EmployeeDTO.builder()
                 .id(entity.getId())
+                .personId(entity.getPerson() != null ? entity.getPerson().getId() : null)
+                .jobId(entity.getJob() != null ? entity.getJob().getId() : null)
+                .structureId(entity.getStructure() != null ? entity.getStructure().getId() : null)
+                .rankId(entity.getRank() != null ? entity.getRank().getId() : null)
                 .registrationNumber(entity.getRegistrationNumber())
-                .isActive(entity.getIsActive());
-        if (entity.getPerson() != null) {
-            builder.personId(entity.getPerson().getId());
-        }
-        if (entity.getJob() != null) {
-            builder.jobId(entity.getJob().getId());
-        }
-        if (entity.getStructure() != null) {
-            builder.structureId(entity.getStructure().getId());
-        }
-        if (entity.getRank() != null) {
-            builder.rankId(entity.getRank().getId());
-        }
-        return builder.build();
+                .isActive(entity.getIsActive())
+                .build();
     }
 }
