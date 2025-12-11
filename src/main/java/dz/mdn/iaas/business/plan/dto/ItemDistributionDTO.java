@@ -4,7 +4,7 @@
  *
  *	@Name		: ItemDistributionDTO
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-10-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -17,11 +17,13 @@ package dz.mdn.iaas.business.plan.dto;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.business.plan.model.ItemDistribution;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * ItemDistribution Data Transfer Object
@@ -29,10 +31,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ItemDistributionDTO extends GenericDTO {
+public class ItemDistributionDTO extends GenericDTO<ItemDistribution> {
 
     private int internalId;
     
@@ -48,4 +51,18 @@ public class ItemDistributionDTO extends GenericDTO {
     private Date allocationDate;
     private String observation;
 
+    @Override
+    public ItemDistribution toEntity() {
+        ItemDistribution entity = new ItemDistribution();
+        entity.setId(this.getId());
+        entity.setInternalId(this.internalId);
+        return entity;
+    }
+
+    @Override
+    public void updateEntity(ItemDistribution entity) {
+        if (this.internalId > 0) {
+            entity.setInternalId(this.internalId);
+        }
+    }
 }
