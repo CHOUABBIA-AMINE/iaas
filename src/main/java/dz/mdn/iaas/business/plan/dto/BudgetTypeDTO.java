@@ -69,4 +69,14 @@ public class BudgetTypeDTO extends GenericDTO<BudgetType> {
             entity.setDesignationFr(this.designationFr);
         }
     }
+
+    public static BudgetTypeDTO fromEntity(BudgetType entity) {
+        if (entity == null) return null;
+        return BudgetTypeDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .build();
+    }
 }
