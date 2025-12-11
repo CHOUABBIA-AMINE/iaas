@@ -4,7 +4,7 @@
  *
  *	@Name		: ContractStepDTO
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-10-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -14,11 +14,12 @@
 
 package dz.mdn.iaas.business.contract.dto;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.contract.model.ContractStep;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,37 +38,44 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContractStepDTO extends GenericDTO<ContractStep> {
 
-    private int internalId;
-    
-    @NotNull(message = "Contract is required")
-    private Long contractId;
+    @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
+    private String designationAr;
+
+    @Size(max = 200, message = "English designation must not exceed 200 characters")
+    private String designationEn;
+
+    @NotBlank(message = "French designation is required")
+    @Size(max = 200, message = "French designation must not exceed 200 characters")
+    private String designationFr;
     
     @NotNull(message = "Contract phase is required")
     private Long contractPhaseId;
-    
-    private Date date;
-    private String observation;
 
     @Override
     public ContractStep toEntity() {
         ContractStep entity = new ContractStep();
-        entity.setId(this.getId());
-        entity.setInternalId(this.internalId);
-        entity.setDate(this.date);
-        entity.setObservation(this.observation);
+        entity.setId(getId());
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
         return entity;
     }
 
     @Override
     public void updateEntity(ContractStep entity) {
-        if (this.internalId > 0) {
-            entity.setInternalId(this.internalId);
-        }
-        if (this.date != null) {
-            entity.setDate(this.date);
-        }
-        if (this.observation != null) {
-            entity.setObservation(this.observation);
-        }
+        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+    }
+
+    public static ContractStepDTO fromEntity(ContractStep entity) {
+        if (entity == null) return null;
+        return ContractStepDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .contractPhaseId(entity.getContractPhase() != null ? entity.getContractPhase().getId() : null)
+                .build();
     }
 }
