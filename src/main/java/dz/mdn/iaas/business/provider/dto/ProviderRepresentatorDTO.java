@@ -14,7 +14,6 @@
 
 package dz.mdn.iaas.business.provider.dto;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.provider.model.ProviderRepresentator;
@@ -39,48 +38,65 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> {
 
-    private int internalId;
+    @NotBlank(message = "First name is required")
+    @Size(max = 50, message = "First name must not exceed 50 characters")
+    private String firstname;
+    
+    @NotBlank(message = "Last name is required")
+    @Size(max = 50, message = "Last name must not exceed 50 characters")
+    private String lastname;
+    
+    @Size(max = 200, message = "Birth date must not exceed 200 characters")
+    private String birthDate;
+    
+    @Size(max = 100, message = "Birth place must not exceed 100 characters")
+    private String birthPlace;
+    
+    @Size(max = 100, message = "Address must not exceed 100 characters")
+    private String address;
+    
+    @Size(max = 50, message = "Job title must not exceed 50 characters")
+    private String jobTitle;
+    
+    @Size(max = 100, message = "Mobile phone number must not exceed 100 characters")
+    private String mobilePhoneNumber;
+    
+    @Size(max = 100, message = "Fix phone number must not exceed 100 characters")
+    private String fixPhoneNumber;
+    
+    @Size(max = 100, message = "Email must not exceed 100 characters")
+    private String mail;
     
     @NotNull(message = "Provider is required")
     private Long providerId;
-    
-    @NotBlank(message = "First name is required")
-    @Size(max = 100, message = "First name must not exceed 100 characters")
-    private String firstName;
-    
-    @NotBlank(message = "Last name is required")
-    @Size(max = 100, message = "Last name must not exceed 100 characters")
-    private String lastName;
-    
-    @Size(max = 300, message = "Email must not exceed 300 characters")
-    private String mail;
-    
-    @Size(max = 200, message = "Phone number must not exceed 200 characters")
-    private String phoneNumber;
-    
-    private Date birthDate;
 
     @Override
     public ProviderRepresentator toEntity() {
         ProviderRepresentator entity = new ProviderRepresentator();
         entity.setId(this.getId());
-        entity.setInternalId(this.internalId);
-        entity.setFirstName(this.firstName);
-        entity.setLastName(this.lastName);
-        entity.setMail(this.mail);
-        entity.setPhoneNumber(this.phoneNumber);
+        entity.setFirstname(this.firstname);
+        entity.setLastname(this.lastname);
         entity.setBirthDate(this.birthDate);
+        entity.setBirthPlace(this.birthPlace);
+        entity.setAddress(this.address);
+        entity.setJobTitle(this.jobTitle);
+        entity.setMobilePhoneNumber(this.mobilePhoneNumber);
+        entity.setFixPhoneNumber(this.fixPhoneNumber);
+        entity.setMail(this.mail);
         return entity;
     }
 
     @Override
     public void updateEntity(ProviderRepresentator entity) {
-        if (this.internalId > 0) entity.setInternalId(this.internalId);
-        if (this.firstName != null) entity.setFirstName(this.firstName);
-        if (this.lastName != null) entity.setLastName(this.lastName);
-        if (this.mail != null) entity.setMail(this.mail);
-        if (this.phoneNumber != null) entity.setPhoneNumber(this.phoneNumber);
+        if (this.firstname != null) entity.setFirstname(this.firstname);
+        if (this.lastname != null) entity.setLastname(this.lastname);
         if (this.birthDate != null) entity.setBirthDate(this.birthDate);
+        if (this.birthPlace != null) entity.setBirthPlace(this.birthPlace);
+        if (this.address != null) entity.setAddress(this.address);
+        if (this.jobTitle != null) entity.setJobTitle(this.jobTitle);
+        if (this.mobilePhoneNumber != null) entity.setMobilePhoneNumber(this.mobilePhoneNumber);
+        if (this.fixPhoneNumber != null) entity.setFixPhoneNumber(this.fixPhoneNumber);
+        if (this.mail != null) entity.setMail(this.mail);
     }
 
     public static ProviderRepresentatorDTO fromEntity(ProviderRepresentator entity) {
@@ -88,13 +104,16 @@ public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> 
         
         return ProviderRepresentatorDTO.builder()
                 .id(entity.getId())
-                .internalId(entity.getInternalId())
-                .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .mail(entity.getMail())
-                .phoneNumber(entity.getPhoneNumber())
+                .firstname(entity.getFirstname())
+                .lastname(entity.getLastname())
                 .birthDate(entity.getBirthDate())
+                .birthPlace(entity.getBirthPlace())
+                .address(entity.getAddress())
+                .jobTitle(entity.getJobTitle())
+                .mobilePhoneNumber(entity.getMobilePhoneNumber())
+                .fixPhoneNumber(entity.getFixPhoneNumber())
+                .mail(entity.getMail())
+                .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
                 .build();
     }
 }
