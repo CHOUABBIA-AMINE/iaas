@@ -12,20 +12,20 @@
 
 package dz.mdn.iaas.common.administration.model;
 
+import java.util.Date;
+
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import java.util.Date;
+import lombok.ToString;
 
 /**
  * Person Entity - Extends GenericModel
@@ -33,7 +33,8 @@ import java.util.Date;
  */
 @Setter
 @Getter
-@SuperBuilder
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Person")
@@ -53,7 +54,6 @@ public class Person extends GenericModel {
 	private String firstNameLt;
 	
 	@Column(name="F_05")
-	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 	
 	@Column(name="F_06", length=100)

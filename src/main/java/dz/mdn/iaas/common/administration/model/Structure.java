@@ -20,10 +20,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
+import lombok.ToString;
 
 /**
  * Structure Entity - Extends GenericModel
@@ -31,13 +32,12 @@ import lombok.experimental.SuperBuilder;
  */
 @Setter
 @Getter
-@SuperBuilder
+@ToString
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Structure")
-@Table(name="T_01_04_09", uniqueConstraints = { 
-    @UniqueConstraint(name = "T_01_04_09_UK_01", columnNames = { "F_06" })
-})
+@Table(name="T_01_04_09", uniqueConstraints = { @UniqueConstraint(name = "T_01_04_09_UK_01", columnNames = { "F_06" })})
 public class Structure extends GenericModel {
 	
 	@Column(name="F_01", length=100)

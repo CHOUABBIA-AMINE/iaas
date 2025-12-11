@@ -19,8 +19,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Currency Entity - Extends GenericModel
@@ -40,6 +44,10 @@ import lombok.Setter;
  */
 @Setter
 @Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name="Currency")
 @Table(name="T_02_01_01", uniqueConstraints = { @UniqueConstraint(name = "T_02_01_01_UK_01", columnNames = { "F_01" }), 
 											 	@UniqueConstraint(name = "T_02_01_01_UK_02", columnNames = { "F_02" }), 

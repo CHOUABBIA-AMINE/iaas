@@ -51,7 +51,11 @@ public class PlannedItem extends GenericModel {
 	private double allocatedAmount;
 	
 	@ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_02_02_08_FK_01_"), nullable=false)
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_02_02_08_FK_01"), nullable=false)
     private ItemStatus itemStatus;
+	
+	@ManyToOne
+    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_02_02_08_FK_02"), nullable=false)
+    private Item item;
 
 }

@@ -17,11 +17,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 /**
  * Country Entity - Extends GenericModel
@@ -29,13 +26,8 @@ import lombok.experimental.SuperBuilder;
  */
 @Setter
 @Getter
-@SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity(name="Country")
-@Table(name="T_01_04_01", uniqueConstraints = { 
-    @UniqueConstraint(name = "T_01_04_01_UK_01", columnNames = { "F_03" })
-})
+@Table(name="T_01_04_01", uniqueConstraints = { @UniqueConstraint(name = "T_01_04_01_UK_01", columnNames = { "F_03" })})
 public class Country extends GenericModel {
 	
 	@Column(name="F_01", length=3, nullable=false)
