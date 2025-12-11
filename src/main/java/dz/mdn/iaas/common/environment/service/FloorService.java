@@ -4,322 +4,119 @@
  *
  *	@Name		: FloorService
  *	@CreatedOn	: 10-15-2025
+ *	@Updated	: 12-11-2025
  *
- *	@Type		: Class
- *	@Layer		: Service
- *	@Package	: Common / Environment
+ *	@Type		: Service
+ *	@Layer		: Common / Environment
+ *	@Package	: Common / Environment / Service
  *
  **/
 
 package dz.mdn.iaas.common.environment.service;
 
+import dz.mdn.iaas.common.environment.dto.FloorDTO;
+import dz.mdn.iaas.common.environment.model.Bloc;
 import dz.mdn.iaas.common.environment.model.Floor;
 import dz.mdn.iaas.common.environment.repository.FloorRepository;
-import dz.mdn.iaas.common.environment.dto.FloorDTO;
-
+import dz.mdn.iaas.configuration.template.GenericService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * Floor Service - Extends GenericService
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional
-public class FloorService {
+@Transactional(readOnly = true)
+public class FloorService extends GenericService<Floor, FloorDTO, Long> {
 
     private final FloorRepository floorRepository;
+    private final BlocService blocService;
 
-    // ========== CREATE OPERATIONS ==========
-
-    public FloorDTO createFloor(FloorDTO floorDTO) {
-        log.info("Creating floor with code: {} and French designation: {}", 
-                floorDTO.getCode(), floorDTO.getDesignationFr());
-
-        // Validate required fields
-        validateRequiredFields(floorDTO, "create");
-
-        // Check for unique constraint violations
-        validateUniqueConstraints(floorDTO, null);
-
-        // Create entity with exact field mapping
-        Floor floor = new Floor();
-        floor.setCode(floorDTO.getCode()); // F_01
-        floor.setDesignationAr(floorDTO.getDesignationAr()); // F_02
-        floor.setDesignationEn(floorDTO.getDesignationEn()); // F_03
-        floor.setDesignationFr(floorDTO.getDesignationFr()); // F_04
-
-        Floor savedFloor = floorRepository.save(floor);
-        log.info("Successfully created floor with ID: {}", savedFloor.getId());
-
-        return FloorDTO.fromEntity(savedFloor);
+    @Override
+    protected JpaRepository<Floor, Long> getRepository() {
+        return floorRepository;
     }
 
-    // ========== READ OPERATIONS ==========
-
-    @Transactional(readOnly = true)
-    public FloorDTO getFloorById(Long id) {
-        log.debug("Getting floor with ID: {}", id);
-
-        Floor floor = floorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Floor not found with ID: " + id));
-
-        return FloorDTO.fromEntity(floor);
+    @Override
+    protected String getEntityName() {
+        return "Floor";
     }
 
-    @Transactional(readOnly = true)
-    public Floor getFloorEntityById(Long id) {
-        return floorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Floor not found with ID: " + id));
+    @Override
+    protected FloorDTO toDTO(Floor entity) {
+        return FloorDTO.fromEntity(entity);
     }
 
-    @Transactional(readOnly = true)
-    public Optional<FloorDTO> findByCode(String code) {
-        log.debug("Finding floor with code: {}", code);
-
-        return floorRepository.findByCode(code)
-                .map(FloorDTO::fromEntity);
-    }
-
-    @Transactional(readOnly = true)
-    public Optional<FloorDTO> findByDesignationFr(String designationFr) {
-        log.debug("Finding floor with French designation: {}", designationFr);
-
-        return floorRepository.findByDesignationFr(designationFr)
-                .map(FloorDTO::fromEntity);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<FloorDTO> getAllFloors(Pageable pageable) {
-        log.debug("Getting all floors with pagination");
-
-        Page<Floor> floors = floorRepository.findAllOrderByCode(pageable);
-        return floors.map(FloorDTO::fromEntity);
-    }
-
-    @Transactional(readOnly = true)
-    public Optional<FloorDTO> findOne(Long id) {
-        log.debug("Finding floor by ID: {}", id);
-
-        return floorRepository.findById(id)
-                .map(FloorDTO::fromEntity);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<FloorDTO> searchFloors(String searchTerm, Pageable pageable) {
-        log.debug("Searching floors with term: {}", searchTerm);
-
-        if (searchTerm == null || searchTerm.trim().isEmpty()) {
-            return getAllFloors(pageable);
+    @Override
+    protected Floor toEntity(FloorDTO dto) {
+        Floor entity = dto.toEntity();
+        
+        // Set relationships
+        if (dto.getBlocId() != null) {
+            Bloc bloc = blocService.getEntityById(dto.getBlocId());
+            entity.setBloc(bloc);
         }
-
-        Page<Floor> floors = floorRepository.searchByAnyField(searchTerm.trim(), pageable);
-        return floors.map(FloorDTO::fromEntity);
+        
+        return entity;
     }
 
-    @Transactional(readOnly = true)
-    public Page<FloorDTO> searchByCode(String code, Pageable pageable) {
-        log.debug("Searching floors by code: {}", code);
-
-        Page<Floor> floors = floorRepository.findByCodeContaining(code, pageable);
-        return floors.map(FloorDTO::fromEntity);
+    @Override
+    protected void updateEntityFromDTO(Floor entity, FloorDTO dto) {
+        dto.updateEntity(entity);
+        
+        // Update relationships
+        if (dto.getBlocId() != null) {
+            Bloc bloc = blocService.getEntityById(dto.getBlocId());
+            entity.setBloc(bloc);
+        }
     }
 
-    @Transactional(readOnly = true)
-    public Page<FloorDTO> searchByDesignation(String designation, Pageable pageable) {
-        log.debug("Searching floors by designation: {}", designation);
-
-        Page<Floor> floors = floorRepository.findByDesignationPattern(designation, pageable);
-        return floors.map(FloorDTO::fromEntity);
+    @Override
+    @Transactional
+    public FloorDTO create(FloorDTO dto) {
+        log.info("Creating floor: designationFr={}, floorNumber={}, blocId={}", 
+                dto.getDesignationFr(), dto.getFloorNumber(), dto.getBlocId());
+        return super.create(dto);
     }
 
-    @Transactional(readOnly = true)
-    public Page<FloorDTO> getMultilingualFloors(Pageable pageable) {
-        log.debug("Getting multilingual floors");
-
-        Page<Floor> floors = floorRepository.findMultilingualFloors(pageable);
-        return floors.map(FloorDTO::fromEntity);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<FloorDTO> getGroundFloors(Pageable pageable) {
-        log.debug("Getting ground floors");
-
-        Page<Floor> floors = floorRepository.findGroundFloors(pageable);
-        return floors.map(FloorDTO::fromEntity);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<FloorDTO> getBasementFloors(Pageable pageable) {
-        log.debug("Getting basement floors");
-
-        Page<Floor> floors = floorRepository.findBasementFloors(pageable);
-        return floors.map(FloorDTO::fromEntity);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<FloorDTO> getUpperFloors(Pageable pageable) {
-        log.debug("Getting upper floors");
-
-        Page<Floor> floors = floorRepository.findUpperFloors(pageable);
-        return floors.map(FloorDTO::fromEntity);
-    }
-
-    // ========== UPDATE OPERATIONS ==========
-
-    public FloorDTO updateFloor(Long id, FloorDTO floorDTO) {
+    @Override
+    @Transactional
+    public FloorDTO update(Long id, FloorDTO dto) {
         log.info("Updating floor with ID: {}", id);
-
-        Floor existingFloor = getFloorEntityById(id);
-
-        // Validate required fields
-        validateRequiredFields(floorDTO, "update");
-
-        // Check for unique constraint violations (excluding current record)
-        validateUniqueConstraints(floorDTO, id);
-
-        // Update fields with exact field mapping
-        existingFloor.setCode(floorDTO.getCode()); // F_01
-        existingFloor.setDesignationAr(floorDTO.getDesignationAr()); // F_02
-        existingFloor.setDesignationEn(floorDTO.getDesignationEn()); // F_03
-        existingFloor.setDesignationFr(floorDTO.getDesignationFr()); // F_04
-
-        Floor updatedFloor = floorRepository.save(existingFloor);
-        log.info("Successfully updated floor with ID: {}", id);
-
-        return FloorDTO.fromEntity(updatedFloor);
+        return super.update(id, dto);
     }
 
-    public FloorDTO partialUpdateFloor(Long id, FloorDTO floorDTO) {
-        log.info("Partially updating floor with ID: {}", id);
-
-        Floor existingFloor = getFloorEntityById(id);
-        boolean updated = false;
-
-        // Update only non-null fields
-        if (floorDTO.getCode() != null) {
-            if (floorDTO.getCode().trim().isEmpty()) {
-                throw new RuntimeException("Code cannot be empty");
-            }
-            if (floorRepository.existsByCodeAndIdNot(floorDTO.getCode(), id)) {
-                throw new RuntimeException("Another floor with code '" + floorDTO.getCode() + "' already exists");
-            }
-            existingFloor.setCode(floorDTO.getCode()); // F_01
-            updated = true;
-        }
-
-        if (floorDTO.getDesignationAr() != null) {
-            existingFloor.setDesignationAr(floorDTO.getDesignationAr()); // F_02
-            updated = true;
-        }
-
-        if (floorDTO.getDesignationEn() != null) {
-            existingFloor.setDesignationEn(floorDTO.getDesignationEn()); // F_03
-            updated = true;
-        }
-
-        if (floorDTO.getDesignationFr() != null) {
-            if (floorDTO.getDesignationFr().trim().isEmpty()) {
-                throw new RuntimeException("French designation cannot be empty");
-            }
-            if (floorRepository.existsByDesignationFrAndIdNot(floorDTO.getDesignationFr(), id)) {
-                throw new RuntimeException("Another floor with French designation '" + floorDTO.getDesignationFr() + "' already exists");
-            }
-            existingFloor.setDesignationFr(floorDTO.getDesignationFr()); // F_04
-            updated = true;
-        }
-
-        if (updated) {
-            Floor updatedFloor = floorRepository.save(existingFloor);
-            log.info("Successfully partially updated floor with ID: {}", id);
-            return FloorDTO.fromEntity(updatedFloor);
-        } else {
-            log.debug("No fields to update for floor with ID: {}", id);
-            return FloorDTO.fromEntity(existingFloor);
-        }
+    public List<FloorDTO> getAll() {
+        log.debug("Getting all floors without pagination");
+        return floorRepository.findAll().stream()
+                .map(FloorDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 
-    // ========== DELETE OPERATIONS ==========
-
-    public void deleteFloor(Long id) {
-        log.info("Deleting floor with ID: {}", id);
-
-        Floor floor = getFloorEntityById(id);
-        floorRepository.delete(floor);
-
-        log.info("Successfully deleted floor with ID: {}", id);
-    }
-
-    public void deleteFloorById(Long id) {
-        log.info("Deleting floor by ID: {}", id);
-
-        if (!floorRepository.existsById(id)) {
-            throw new RuntimeException("Floor not found with ID: " + id);
+    public Page<FloorDTO> globalSearch(String searchTerm, Pageable pageable) {
+        log.debug("Global search for floors with term: {}", searchTerm);
+        
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return getAll(pageable);
         }
-
-        floorRepository.deleteById(id);
-        log.info("Successfully deleted floor with ID: {}", id);
+        
+        return getAll(pageable);
     }
 
-    // ========== UTILITY METHODS ==========
-
-    @Transactional(readOnly = true)
-    public boolean existsById(Long id) {
-        return floorRepository.existsById(id);
-    }
-
-    @Transactional(readOnly = true)
-    public boolean existsByCode(String code) {
-        return floorRepository.existsByCode(code);
-    }
-
-    @Transactional(readOnly = true)
-    public boolean existsByDesignationFr(String designationFr) {
-        return floorRepository.existsByDesignationFr(designationFr);
-    }
-
-    @Transactional(readOnly = true)
-    public Long getTotalCount() {
-        return floorRepository.countAllFloors();
-    }
-
-    // ========== VALIDATION METHODS ==========
-
-    private void validateRequiredFields(FloorDTO floorDTO, String operation) {
-        if (floorDTO.getCode() == null || floorDTO.getCode().trim().isEmpty()) {
-            throw new RuntimeException("Code is required for " + operation);
-        }
-
-        if (floorDTO.getDesignationFr() == null || floorDTO.getDesignationFr().trim().isEmpty()) {
-            throw new RuntimeException("French designation is required for " + operation);
-        }
-    }
-
-    private void validateUniqueConstraints(FloorDTO floorDTO, Long excludeId) {
-        // Check code uniqueness (F_01)
-        if (excludeId == null) {
-            if (floorRepository.existsByCode(floorDTO.getCode())) {
-                throw new RuntimeException("Floor with code '" + floorDTO.getCode() + "' already exists");
-            }
-        } else {
-            if (floorRepository.existsByCodeAndIdNot(floorDTO.getCode(), excludeId)) {
-                throw new RuntimeException("Another floor with code '" + floorDTO.getCode() + "' already exists");
-            }
-        }
-
-        // Check French designation uniqueness (F_04)
-        if (excludeId == null) {
-            if (floorRepository.existsByDesignationFr(floorDTO.getDesignationFr())) {
-                throw new RuntimeException("Floor with French designation '" + floorDTO.getDesignationFr() + "' already exists");
-            }
-        } else {
-            if (floorRepository.existsByDesignationFrAndIdNot(floorDTO.getDesignationFr(), excludeId)) {
-                throw new RuntimeException("Another floor with French designation '" + floorDTO.getDesignationFr() + "' already exists");
-            }
-        }
+    public List<FloorDTO> getByBlocId(Long blocId) {
+        log.debug("Getting floors by bloc ID: {}", blocId);
+        return floorRepository.findByBlocId(blocId).stream()
+                .map(FloorDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 }
