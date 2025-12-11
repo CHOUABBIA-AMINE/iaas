@@ -33,13 +33,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="EconomicDomain")
-@Table(name="T_02_03_02", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_02_UK_01", columnNames = { "F_02" })})
+@Table(name="T_02_03_02", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_02_UK_01", columnNames = { "F_04" })})
 public class EconomicDomain extends GenericModel {
 	
 	@Column(name="F_01", length=20)
 	private String code;
 	
-	@Column(name="F_02", length=200, nullable=false)
+	@Column(name="F_02", length=200)
+	private String designationAr;
+
+	@Column(name="F_03", length=200)
+	private String designationEn;
+	
+	@Column(name="F_04", length=200, nullable=false)
 	private String designationFr;
 
 }

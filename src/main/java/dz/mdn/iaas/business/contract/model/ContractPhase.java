@@ -14,9 +14,12 @@
 
 package dz.mdn.iaas.business.contract.model;
 
+import java.util.List;
+
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -44,5 +47,8 @@ public class ContractPhase extends GenericModel {
 	
 	@Column(name="F_03", length=200, nullable=false)
 	private String designationFr;
+	
+	@OneToMany(mappedBy="contractPhase")
+    private List<ContractStep> contractSteps;
 
 }

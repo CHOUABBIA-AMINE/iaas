@@ -14,9 +14,16 @@
 
 package dz.mdn.iaas.business.plan.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -36,10 +43,20 @@ import lombok.ToString;
 @Table(name="T_02_02_06", uniqueConstraints = { @UniqueConstraint(name = "T_02_02_06_UK_01", columnNames = { "F_02" })})
 public class Item extends GenericModel {
 	
-	@Column(name="F_01", length=20)
-	private String code;
+	@Column(name="F_01", length=200)
+	private String designationAr;
+
+	@Column(name="F_02", length=200)
+	private String designationEn;
 	
-	@Column(name="F_02", length=200, nullable=false)
+	@Column(name="F_03", length=200, nullable=false)
 	private String designationFr;
+	
+	@ManyToOne
+    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_02_06_FK_01"), nullable=false)
+    private Rubric rubric;
+	
+	@OneToMany(mappedBy="item")
+    private Set<PlannedItem> plannedItems = new HashSet<PlannedItem>();
 
 }

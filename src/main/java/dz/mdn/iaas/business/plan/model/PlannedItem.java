@@ -21,7 +21,6 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,17 +35,23 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="PlannedItem")
-@Table(name="T_02_02_08", uniqueConstraints = { @UniqueConstraint(name = "T_02_02_08_UK_01", columnNames = { "F_02" })})
+@Table(name="T_02_02_08")
 public class PlannedItem extends GenericModel {
 	
-	@Column(name="F_01")
-	private int internalId;
+	@Column(name="F_01", length=200, nullable=false)
+	private String designation;
 	
-	@Column(name="F_02", length=20, nullable=false)
-	private String reference;
+	@Column(name="F_02")
+	private double unitairCost;
+	
+	@Column(name="F_03")
+	private double planedQuantity;
+	
+	@Column(name="F_04")
+	private double allocatedAmount;
 	
 	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_02_08_FK_01"), nullable=false)
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_02_02_08_FK_01_"), nullable=false)
     private ItemStatus itemStatus;
 
 }

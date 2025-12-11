@@ -33,7 +33,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="BudgetType")
-@Table(name="T_02_02_02", uniqueConstraints = { @UniqueConstraint(name = "T_02_02_02_UK_01", columnNames = { "F_03" })})
+@Table(name="T_02_02_01", uniqueConstraints = { @UniqueConstraint(name = "T_02_02_01_UK_01", columnNames = { "F_03" }), 
+	 											@UniqueConstraint(name = "T_02_02_01_UK_02", columnNames = { "F_06" })})
 public class BudgetType extends GenericModel {
 	
 	@Column(name="F_01", length=200)
@@ -44,5 +45,14 @@ public class BudgetType extends GenericModel {
 	
 	@Column(name="F_03", length=200, nullable=false)
 	private String designationFr;
+	
+	@Column(name="F_04", length=20)
+	private String acronymAr;
+	
+	@Column(name="F_05", length=20)
+	private String acronymEn;
+	
+	@Column(name="F_06", length=20, nullable=false)
+	private String acronymFr;
 
 }

@@ -14,9 +14,15 @@
 
 package dz.mdn.iaas.business.plan.model;
 
+import java.util.List;
+
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -33,13 +39,23 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Rubric")
-@Table(name="T_02_02_01", uniqueConstraints = { @UniqueConstraint(name = "T_02_02_01_UK_01", columnNames = { "F_02" })})
+@Table(name="T_02_02_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_02_05_UK_01", columnNames = { "F_03" })})
 public class Rubric extends GenericModel {
 	
-	@Column(name="F_01", length=20)
-	private String code;
+	@Column(name="F_01", length=200)
+	private String designationAr;
+
+	@Column(name="F_02", length=200)
+	private String designationEn;
 	
-	@Column(name="F_02", length=200, nullable=false)
+	@Column(name="F_03", length=200, nullable=false)
 	private String designationFr;
+	
+	@ManyToOne
+    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_02_05_FK_01"), nullable=false)
+    private Domain domain;
+	
+	@OneToMany(mappedBy="rubric")
+    private List<Item> items;
 
 }

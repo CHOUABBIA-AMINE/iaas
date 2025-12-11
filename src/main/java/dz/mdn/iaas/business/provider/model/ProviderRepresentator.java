@@ -14,8 +14,6 @@
 
 package dz.mdn.iaas.business.provider.model;
 
-import java.util.Date;
-
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,26 +39,35 @@ import lombok.ToString;
 @Table(name="T_02_03_07", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_07_UK_01", columnNames = { "F_02", "F_03", "F_04" })})
 public class ProviderRepresentator extends GenericModel {
 	
-	@Column(name="F_01")
-	private int internalId;
-	
-	@ManyToOne
-    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_02_03_07_FK_01"), nullable=false)
-    private Provider provider;
-	
-	@Column(name="F_03", length=100, nullable=false)
-	private String firstName;
-	
-	@Column(name="F_04", length=100, nullable=false)
-	private String lastName;
+	@Column(name="F_01", length=50, nullable=false)
+	private String firstname;
 
-	@Column(name="F_05", length=300)
+	@Column(name="F_02", length=50, nullable=false)
+	private String lastname;
+	
+	@Column(name="F_03", length=200)
+	private String birthDate;
+	
+	@Column(name="F_04", length=100)
+	private String birthPlace;
+	
+	@Column(name="F_05", length=100)
+	private String address;
+	
+	@Column(name="F_06", length=50)
+	private String jobTitle;
+	
+	@Column(name="F_07", length=100)
+	private String mobilePhoneNumber;
+	
+	@Column(name="F_08", length=100)
+	private String fixPhoneNumber;
+	
+	@Column(name="F_09", length=100)
 	private String mail;
 	
-	@Column(name="F_06", length=200)
-	private String phoneNumber;
-	
-	@Column(name="F_07")
-	private Date birthDate;
+	@ManyToOne
+    @JoinColumn(name="F_10", foreignKey=@ForeignKey(name="T_02_03_05_FK_01"), nullable=false)
+    private Provider provider;
 
 }

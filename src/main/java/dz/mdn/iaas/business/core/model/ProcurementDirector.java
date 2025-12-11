@@ -45,9 +45,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ProcurementDirector")
-@Table(name="T_02_01_03", uniqueConstraints = { 
-    @UniqueConstraint(name = "T_02_01_03_UK_01", columnNames = { "F_03" })
-})
+@Table(name="T_02_01_03", uniqueConstraints = { @UniqueConstraint(name = "T_02_01_03_UK_01", columnNames = { "F_03" })})
 public class ProcurementDirector extends GenericModel {
 	
 	@Column(name="F_01", length=300)

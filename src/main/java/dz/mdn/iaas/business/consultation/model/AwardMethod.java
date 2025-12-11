@@ -33,10 +33,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="AwardMethod")
-@Table(name="T_02_04_01", uniqueConstraints = { 
-    @UniqueConstraint(name = "T_02_04_01_UK_01", columnNames = { "F_03" }), 
-    @UniqueConstraint(name = "T_02_04_01_UK_02", columnNames = { "F_06" })
-})
+@Table(name="T_02_04_01", uniqueConstraints = { @UniqueConstraint(name = "T_02_04_01_UK_01", columnNames = { "F_03" }), 
+												@UniqueConstraint(name = "T_02_04_01_UK_02", columnNames = { "F_06" })})
 public class AwardMethod extends GenericModel {
 	
 	@Column(name="F_01", length=150)

@@ -17,9 +17,6 @@ package dz.mdn.iaas.business.provider.model;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -36,17 +33,29 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="EconomicNature")
-@Table(name="T_02_03_01", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_01_UK_01", columnNames = { "F_03" })})
+@Table(name="T_02_03_02", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_02_UK_01", columnNames = { "F_03" }), 
+	 											@UniqueConstraint(name = "T_02_03_02_UK_02", columnNames = { "F_06" })})
 public class EconomicNature extends GenericModel {
 	
 	@Column(name="F_01", length=20)
 	private String code;
 	
+	@Column(name="F_01", length=200)
+	private String designationAr;
+
 	@Column(name="F_02", length=200)
+	private String designationEn;
+	
+	@Column(name="F_03", length=200, nullable=false)
 	private String designationFr;
 	
-	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_03_01_FK_01"), nullable=false)
-    private EconomicDomain economicDomain;
+	@Column(name="F_04", length=20)
+	private String acronymAr;
+	
+	@Column(name="F_05", length=20)
+	private String acronymEn;
+	
+	@Column(name="F_06", length=20, nullable=false)
+	private String acronymFr;
 
 }

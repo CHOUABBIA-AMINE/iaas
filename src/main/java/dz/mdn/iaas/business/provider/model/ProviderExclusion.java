@@ -16,6 +16,7 @@ package dz.mdn.iaas.business.provider.model;
 
 import java.util.Date;
 
+import dz.mdn.iaas.common.communication.model.Mail;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,24 +39,28 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ProviderExclusion")
-@Table(name="T_02_03_06", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_06_UK_01", columnNames = { "F_02", "F_03" })})
+@Table(name="T_02_03_06", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_06_UK_01", columnNames = { "F_01", "F_05" })})
 public class ProviderExclusion extends GenericModel {
 	
-	@Column(name="F_01")
-	private int internalId;
-	
-	@ManyToOne
-    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_02_03_06_FK_01"), nullable=false)
-    private Provider provider;
-	
-	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_03_06_FK_02"), nullable=false)
-    private ExclusionType exclusionType;
-
-	@Column(name="F_04")
+	@Column(name="F_01", nullable=false)
 	private Date startDate;
-	
-	@Column(name="F_05")
+
+	@Column(name="F_02", nullable=true)
 	private Date endDate;
+	
+	@Column(name="F_03", nullable=true)
+	private String cause;
+
+	@ManyToOne
+    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_03_07_FK_01"), nullable=false)
+    private ExclusionType exclusionType;
+	
+	@ManyToOne
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_02_03_07_FK_02"), nullable=false)
+    private Provider provider;
+
+	@ManyToOne
+    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_02_03_07_FK_03"), nullable=true)
+    private Mail reference;
 
 }

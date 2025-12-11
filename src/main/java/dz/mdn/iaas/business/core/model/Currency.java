@@ -41,15 +41,13 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity(name="Currency")
-@Table(name="T_02_01_01", uniqueConstraints = { 
-    @UniqueConstraint(name = "T_02_01_01_UK_01", columnNames = { "F_01" }), 
-    @UniqueConstraint(name = "T_02_01_01_UK_02", columnNames = { "F_02" }), 
-    @UniqueConstraint(name = "T_02_01_01_UK_03", columnNames = { "F_03" }), 
-    @UniqueConstraint(name = "T_02_01_01_UK_04", columnNames = { "F_04" }), 
-    @UniqueConstraint(name = "T_02_01_01_UK_05", columnNames = { "F_05" }), 
-    @UniqueConstraint(name = "T_02_01_01_UK_06", columnNames = { "F_06" }), 
-    @UniqueConstraint(name = "T_02_01_01_UK_07", columnNames = { "F_07" })
-})
+@Table(name="T_02_01_01", uniqueConstraints = { @UniqueConstraint(name = "T_02_01_01_UK_01", columnNames = { "F_01" }), 
+											 	@UniqueConstraint(name = "T_02_01_01_UK_02", columnNames = { "F_02" }), 
+											 	@UniqueConstraint(name = "T_02_01_01_UK_03", columnNames = { "F_03" }), 
+											 	@UniqueConstraint(name = "T_02_01_01_UK_04", columnNames = { "F_04" }), 
+											 	@UniqueConstraint(name = "T_02_01_01_UK_05", columnNames = { "F_05" }), 
+											 	@UniqueConstraint(name = "T_02_01_01_UK_05", columnNames = { "F_06" }), 
+											 	@UniqueConstraint(name = "T_02_01_01_UK_05", columnNames = { "F_07" })})
 public class Currency extends GenericModel {
 	
 	@Column(name="F_01", length=20, nullable=false)

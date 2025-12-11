@@ -14,9 +14,13 @@
 
 package dz.mdn.iaas.business.provider.model;
 
+import dz.mdn.iaas.common.communication.model.Mail;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -44,5 +48,17 @@ public class Clearance extends GenericModel {
 	
 	@Column(name="F_03", length=200, nullable=false)
 	private String designationFr;
+	
+	@ManyToOne
+    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_03_06_FK_01"), nullable=false)
+    private Provider provider;
+	
+	@ManyToOne
+    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_03_06_FK_02"), nullable=false)
+    private ProviderRepresentator providerRepresentator;
+
+	@ManyToOne
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_02_03_06_FK_03"), nullable=true)
+    private Mail reference;
 
 }

@@ -14,8 +14,11 @@
 
 package dz.mdn.iaas.business.consultation.model;
 
-import dz.mdn.iaas.configuration.template.GenericModel;
+import java.util.Date;
+
 import dz.mdn.iaas.business.provider.model.Provider;
+import dz.mdn.iaas.configuration.template.GenericModel;
+import dz.mdn.iaas.system.utility.model.File;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -37,33 +40,33 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Submission")
-@Table(name="T_02_04_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_04_05_UK_01", columnNames = { "F_02", "F_03" })})
+@Table(name="T_02_04_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_04_05_UK_01", columnNames = { "F_03", "F_04" })})
 public class Submission extends GenericModel {
 	
-	@Column(name="F_01")
-	private int internalId;
+	@Column(name="F_01", nullable=true)
+	private Date submissionDate;
+	
+	@Column(name="F_02", nullable=true)
+	private double financialOffer;
 	
 	@ManyToOne
-    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_02_04_05_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_04_05_FK_01"), nullable=false)
     private Consultation consultation;
 	
 	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_04_05_FK_02"), nullable=false)
-    private Provider provider;
-
-	@Column(name="F_04")
-	private double financialOffer;
+    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_04_05_FK_02"), nullable=false)
+    private Provider tender;
 	
-	@Column(name="F_05")
-	private double technicalMark;
+	@ManyToOne
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_02_04_05_FK_03"), nullable=true)
+    private File administrativePart;
 	
-	@Column(name="F_06")
-	private double financialMark;
+	@ManyToOne
+    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_02_04_05_FK_04"), nullable=true)
+    private File technicalPart;
 	
-	@Column(name="F_07")
-	private double mark;
-	
-	@Column(name="F_08")
-	private int rank;
+	@ManyToOne
+    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_02_04_05_FK_05"), nullable=true)
+    private File financialPart;
 
 }

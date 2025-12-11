@@ -15,7 +15,6 @@
 package dz.mdn.iaas.business.contract.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
-import dz.mdn.iaas.business.plan.model.PlannedItem;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -37,18 +36,26 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ContractItem")
-@Table(name="T_02_05_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_05_05_UK_01", columnNames = { "F_02", "F_03" })})
+@Table(name="T_02_05_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_05_05_UK_01", columnNames = { "F_02", "F_06" })})
 public class ContractItem extends GenericModel {
 	
-	@Column(name="F_01")
-	private int internalId;
+	@Column(name="F_01", nullable=false)
+	private String designation;
+	
+	@Column(name="F_02", nullable=false)
+	private String reference;
+	
+	@Column(name="F_03")
+	private double quantity;
+	
+	@Column(name="F_04")
+	private double unitPrice;
+	
+	@Column(name="F_05")
+	private String observation;
 	
 	@ManyToOne
-    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_02_05_05_FK_01"), nullable=false)
-    private Contract contract;
-	
-	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_05_05_FK_02"), nullable=false)
-    private PlannedItem plannedItem;
+	@JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_02_05_05_FK_01"), nullable=false)
+	private Contract contract;
 
 }
