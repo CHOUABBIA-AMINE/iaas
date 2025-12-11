@@ -46,9 +46,6 @@ public class ExclusionTypeDTO extends GenericDTO<ExclusionType> {
     @NotBlank(message = "French designation is required")
     @Size(max = 200, message = "French designation must not exceed 200 characters")
     private String designationFr;
-    
-    private int severityLevel;
-    private String description;
 
     @Override
     public ExclusionType toEntity() {
