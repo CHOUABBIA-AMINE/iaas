@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class EquipmentTypeController extends GenericController<EquipmentTypeDTO, Long> {
 
-    private final EquipmentTypeService equipmentTypeService;
+    @SuppressWarnings("unused")
+	private final EquipmentTypeService equipmentTypeService;
 
     public EquipmentTypeController(EquipmentTypeService equipmentTypeService) {
         super(equipmentTypeService, "EquipmentType");
