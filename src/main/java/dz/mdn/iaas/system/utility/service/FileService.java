@@ -616,6 +616,54 @@ public class FileService extends GenericService<File, FileDTO, Long> {
                 .collect(Collectors.toList());
     }
 
+    // ========== CONTENT TYPE UTILITY METHODS ==========
+
+    /**
+     * Get content type for file extension
+     * Uses CONTENT_TYPE_MAP for supported extensions
+     * 
+     * @param extension File extension (without dot)
+     * @return MIME content type or "application/octet-stream" as default
+     */
+    public String getContentType(String extension) {
+        if (extension == null || extension.isEmpty()) {
+            return "application/octet-stream";
+        }
+        return CONTENT_TYPE_MAP.getOrDefault(extension.toLowerCase(), "application/octet-stream");
+    }
+
+    /**
+     * Get content type for a file by ID
+     * 
+     * @param fileId File ID
+     * @return MIME content type
+     */
+    @Transactional(readOnly = true)
+    public String getContentTypeById(Long fileId) {
+        FileDTO file = getById(fileId);
+        return getContentType(file.getExtension());
+    }
+
+    /**
+     * Get all supported content types
+     * 
+     * @return Map of extension to content type
+     */
+    public Map<String, String> getSupportedContentTypes() {
+        return new HashMap<>(CONTENT_TYPE_MAP);
+    }
+
+    /**
+     * Check if content type is supported
+     * 
+     * @param extension File extension
+     * @return true if content type is known
+     */
+    public boolean isContentTypeSupported(String extension) {
+        if (extension == null) return false;
+        return CONTENT_TYPE_MAP.containsKey(extension.toLowerCase());
+    }
+
     // ========== HELPER METHODS ==========
 
     private boolean physicalFileExistsInternal(String relativePath) {
