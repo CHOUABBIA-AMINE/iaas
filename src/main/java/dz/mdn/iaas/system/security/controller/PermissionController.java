@@ -4,8 +4,9 @@
  *
  *	@Name		: PermissionController
  *	@CreatedOn	: 11-18-2025
+ *	@Updated	: 12-12-2025
  *
- *	@Type		: Class
+ *	@Type		: Controller
  *	@Layer		: Controller
  *	@Package	: System / Security
  *
@@ -13,55 +14,94 @@
 
 package dz.mdn.iaas.system.security.controller;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.system.security.dto.PermissionDTO;
 import dz.mdn.iaas.system.security.service.PermissionService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/permission")
-@RequiredArgsConstructor
+@RequestMapping("/system/security/permission")
 @Slf4j
-@Validated
-public class PermissionController {
+public class PermissionController extends GenericController<PermissionDTO, Long> {
 
     private final PermissionService permissionService;
 
-    @GetMapping
+    public PermissionController(PermissionService permissionService) {
+        super(permissionService, "Permission");
+        this.permissionService = permissionService;
+    }
+
+    // ========== STANDARD CRUD OPERATIONS (From GenericController) ==========
+    // Inherited:
+    // - GET    /system/security/permission           -> getAll(Pageable)
+    // - GET    /system/security/permission/{id}      -> getById(Long)
+    // - POST   /system/security/permission           -> create(PermissionDTO)
+    // - PUT    /system/security/permission/{id}      -> update(Long, PermissionDTO)
+    // - DELETE /system/security/permission/{id}      -> delete(Long)
+
+    // ========== CUSTOM QUERY OPERATIONS ==========
+
+    /**
+     * Find permission by name
+     * GET /system/security/permission/by-name/{name}
+     */
+    @GetMapping("/by-name/{name}")
     @PreAuthorize("hasAuthority('PERMISSION:READ')")
-    public ResponseEntity<List<PermissionDTO>> getAll() {
-        return ResponseEntity.ok(permissionService.findAll());
+    public ResponseEntity<PermissionDTO> getByName(@PathVariable String name) {
+        log.info("REST request to get Permission by name: {}", name);
+        return ResponseEntity.ok(permissionService.findByName(name));
     }
 
-    @GetMapping("/{id}")
+    /**
+     * Find permissions by resource
+     * GET /system/security/permission/by-resource/{resource}
+     */
+    @GetMapping("/by-resource/{resource}")
     @PreAuthorize("hasAuthority('PERMISSION:READ')")
-    public ResponseEntity<PermissionDTO> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(permissionService.findById(id));
+    public ResponseEntity<List<PermissionDTO>> getByResource(@PathVariable String resource) {
+        log.info("REST request to get Permissions by resource: {}", resource);
+        return ResponseEntity.ok(permissionService.findByResource(resource));
     }
 
-    /*@PostMapping
-    public ResponseEntity<PermissionDTO> create(@Valid @RequestBody PermissionDTO dto) {
-        return ResponseEntity.ok(permissionService.create(dto));
+    /**
+     * Find permissions by action
+     * GET /system/security/permission/by-action/{action}
+     */
+    @GetMapping("/by-action/{action}")
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<List<PermissionDTO>> getByAction(@PathVariable String action) {
+        log.info("REST request to get Permissions by action: {}", action);
+        return ResponseEntity.ok(permissionService.findByAction(action));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PermissionDTO> update(@PathVariable Long id, @Valid @RequestBody PermissionDTO dto) {
-        return ResponseEntity.ok(permissionService.update(id, dto));
+    /**
+     * Find permissions by resource and action
+     * GET /system/security/permission/by-resource-action?resource=X&action=Y
+     */
+    @GetMapping("/by-resource-action")
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<List<PermissionDTO>> getByResourceAndAction(
+            @RequestParam String resource,
+            @RequestParam String action) {
+        log.info("REST request to get Permissions by resource: {} and action: {}", resource, action);
+        return ResponseEntity.ok(permissionService.findByResourceAndAction(resource, action));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        permissionService.delete(id);
-        return ResponseEntity.ok().build();
-    }*/
+    /**
+     * Check if permission exists by name
+     * GET /system/security/permission/exists/{name}
+     */
+    @GetMapping("/exists/{name}")
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<Map<String, Boolean>> checkExists(@PathVariable String name) {
+        log.info("REST request to check if Permission exists: {}", name);
+        boolean exists = permissionService.existsByName(name);
+        return ResponseEntity.ok(Map.of("exists", exists));
+    }
 }
