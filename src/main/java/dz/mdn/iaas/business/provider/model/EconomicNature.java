@@ -33,29 +33,29 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="EconomicNature")
-@Table(name="T_02_03_02", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_02_UK_01", columnNames = { "F_03" }), 
-	 											@UniqueConstraint(name = "T_02_03_02_UK_02", columnNames = { "F_06" })})
+@Table(name="T_02_03_02", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_02_UK_01", columnNames = { "F_04" }), 
+	 											@UniqueConstraint(name = "T_02_03_02_UK_02", columnNames = { "F_07" })})
 public class EconomicNature extends GenericModel {
 	
 	@Column(name="F_01", length=20)
 	private String code;
 	
-	@Column(name="F_01", length=200)
+	@Column(name="F_02", length=200)
 	private String designationAr;
 
-	@Column(name="F_02", length=200)
+	@Column(name="F_03", length=200)
 	private String designationEn;
 	
-	@Column(name="F_03", length=200, nullable=false)
+	@Column(name="F_04", length=200, nullable=false)
 	private String designationFr;
 	
-	@Column(name="F_04", length=20)
+	@Column(name="F_05", length=20)
 	private String acronymAr;
 	
-	@Column(name="F_05", length=20)
+	@Column(name="F_06", length=20)
 	private String acronymEn;
 	
-	@Column(name="F_06", length=20, nullable=false)
+	@Column(name="F_07", length=20, nullable=false)
 	private String acronymFr;
 
 }
