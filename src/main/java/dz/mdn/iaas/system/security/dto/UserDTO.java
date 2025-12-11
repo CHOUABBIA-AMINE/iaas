@@ -14,18 +14,21 @@
 
 package dz.mdn.iaas.system.security.dto;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.system.security.model.Group;
 import dz.mdn.iaas.system.security.model.Role;
 import dz.mdn.iaas.system.security.model.User;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
