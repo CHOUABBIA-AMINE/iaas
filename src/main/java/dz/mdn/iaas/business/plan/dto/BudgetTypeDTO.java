@@ -46,6 +46,16 @@ public class BudgetTypeDTO extends GenericDTO<BudgetType> {
     @NotBlank(message = "French designation is required")
     @Size(max = 200, message = "French designation must not exceed 200 characters")
     private String designationFr;
+    
+    @Size(max = 20, message = "Arabic acronym must not exceed 20 characters")
+    private String acronymAr;
+    
+    @Size(max = 20, message = "English acronym must not exceed 20 characters")
+    private String acronymEn;
+    
+    @NotBlank(message = "French acronym is required")
+    @Size(max = 20, message = "French acronym must not exceed 20 characters")
+    private String acronymFr;
 
     @Override
     public BudgetType toEntity() {
@@ -54,20 +64,20 @@ public class BudgetTypeDTO extends GenericDTO<BudgetType> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
+        entity.setAcronymAr(this.acronymAr);
+        entity.setAcronymEn(this.acronymEn);
+        entity.setAcronymFr(this.acronymFr);
         return entity;
     }
 
     @Override
     public void updateEntity(BudgetType entity) {
-        if (this.designationAr != null) {
-            entity.setDesignationAr(this.designationAr);
-        }
-        if (this.designationEn != null) {
-            entity.setDesignationEn(this.designationEn);
-        }
-        if (this.designationFr != null) {
-            entity.setDesignationFr(this.designationFr);
-        }
+        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        if (this.acronymAr != null) entity.setAcronymAr(this.acronymAr);
+        if (this.acronymEn != null) entity.setAcronymEn(this.acronymEn);
+        if (this.acronymFr != null) entity.setAcronymFr(this.acronymFr);
     }
 
     public static BudgetTypeDTO fromEntity(BudgetType entity) {
@@ -77,6 +87,9 @@ public class BudgetTypeDTO extends GenericDTO<BudgetType> {
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
+                .acronymAr(entity.getAcronymAr())
+                .acronymEn(entity.getAcronymEn())
+                .acronymFr(entity.getAcronymFr())
                 .build();
     }
 }
