@@ -4,8 +4,9 @@
  *
  *	@Name		: UserController
  *	@CreatedOn	: 11-18-2025
+ *	@Updated	: 12-11-2025
  *
- *	@Type		: Class
+ *	@Type		: Controller
  *	@Layer		: Controller
  *	@Package	: System / Security
  *
@@ -13,82 +14,228 @@
 
 package dz.mdn.iaas.system.security.controller;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.system.security.dto.ResetPasswordRequest;
 import dz.mdn.iaas.system.security.dto.UserDTO;
 import dz.mdn.iaas.system.security.service.UserService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
-@RequiredArgsConstructor
+@RequestMapping("/system/security/user")
 @Slf4j
 @Validated
-public class UserController {
+public class UserController extends GenericController<UserDTO, Long> {
 
     private final UserService userService;
 
-    @GetMapping
+    public UserController(UserService userService) {
+        super(userService, "User");
+        this.userService = userService;
+    }
+
+    // ========== STANDARD CRUD OPERATIONS (From GenericController) ==========
+    // The following are inherited from GenericController:
+    // - GET    /system/security/user           -> getAll(Pageable)
+    // - GET    /system/security/user/{id}      -> getById(Long)
+    // - POST   /system/security/user           -> create(UserDTO)
+    // - PUT    /system/security/user/{id}      -> update(Long, UserDTO)
+    // - DELETE /system/security/user/{id}      -> delete(Long)
+
+    // ========== USER SEARCH OPERATIONS ==========
+
+    /**
+     * Find user by username
+     * GET /system/security/user/by-username/{username}
+     */
+    @GetMapping("/by-username/{username}")
+    @PreAuthorize("hasAuthority('USER:ADMIN') or #username == authentication.principal.username")
+    public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
+        log.info("REST request to get User by username: {}", username);
+        return ResponseEntity.ok(userService.findByUsername(username));
+    }
+
+    /**
+     * Find user by email
+     * GET /system/security/user/by-email/{email}
+     */
+    @GetMapping("/by-email/{email}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        return ResponseEntity.ok(userService.findAll());
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
+        log.info("REST request to get User by email: {}", email);
+        return ResponseEntity.ok(userService.findByEmail(email));
     }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER:ADMIN') or #id == authentication.principal.id")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.findById(id));
+    /**
+     * Check if username exists
+     * GET /system/security/user/exists/username/{username}
+     */
+    @GetMapping("/exists/username/{username}")
+    public ResponseEntity<Map<String, Boolean>> checkUsernameExists(@PathVariable String username) {
+        log.info("REST request to check if username exists: {}", username);
+        boolean exists = userService.existsByUsername(username);
+        return ResponseEntity.ok(Map.of("exists", exists));
     }
 
-    @PostMapping
+    /**
+     * Check if email exists
+     * GET /system/security/user/exists/email/{email}
+     */
+    @GetMapping("/exists/email/{email}")
+    public ResponseEntity<Map<String, Boolean>> checkEmailExists(@PathVariable String email) {
+        log.info("REST request to check if email exists: {}", email);
+        boolean exists = userService.existsByEmail(email);
+        return ResponseEntity.ok(Map.of("exists", exists));
+    }
+
+    // ========== PASSWORD MANAGEMENT ==========
+
+    /**
+     * Reset user password
+     * POST /system/security/user/reset-password
+     */
+    @PostMapping("/reset-password")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
-    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO dto) {
-        return ResponseEntity.ok(userService.create(dto));
+    public ResponseEntity<Map<String, String>> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        log.info("REST request to reset password for user: {}", request.getUsername());
+        
+        userService.resetPassword(request.getUsername(), request.getNewPassword());
+        
+        return ResponseEntity.ok(Map.of(
+            "message", "Password reset successfully",
+            "username", request.getUsername()
+        ));
     }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER:ADMIN') or #id == authentication.principal.id")
-    public ResponseEntity<UserDTO> updateUser(
-            @PathVariable Long id,
-            @Valid @RequestBody UserDTO dto) {
-        return ResponseEntity.ok(userService.update(id, dto));
-    }
+    // ========== ROLE MANAGEMENT ==========
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER:ADMIN')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.delete(id);
-        return ResponseEntity.ok().build();
-    }
-
+    /**
+     * Assign role to user
+     * POST /system/security/user/{userId}/roles/{roleId}
+     */
     @PostMapping("/{userId}/roles/{roleId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> assignRole(
             @PathVariable Long userId,
             @PathVariable Long roleId) {
+        log.info("REST request to assign role {} to user {}", roleId, userId);
         return ResponseEntity.ok(userService.assignRole(userId, roleId));
     }
 
-    // ✅ NEW ENDPOINT: Reset Password
-    @PostMapping("/reset-password")
-    @PreAuthorize("hasAuthority('USER:ADMIN') or #id == authentication.principal.id")
-    public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
-        userService.resetPassword(request.getUsername(), request.getNewPassword());
-        return ResponseEntity.ok("Password reset successfully for user: " + request.getUsername());
+    /**
+     * Remove role from user
+     * DELETE /system/security/user/{userId}/roles/{roleId}
+     */
+    @DeleteMapping("/{userId}/roles/{roleId}")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<UserDTO> removeRole(
+            @PathVariable Long userId,
+            @PathVariable Long roleId) {
+        log.info("REST request to remove role {} from user {}", roleId, userId);
+        return ResponseEntity.ok(userService.removeRole(userId, roleId));
+    }
+
+    /**
+     * Find users by role
+     * GET /system/security/user/by-role/{roleId}
+     */
+    @GetMapping("/by-role/{roleId}")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<List<UserDTO>> getUsersByRole(@PathVariable Long roleId) {
+        log.info("REST request to get users by role: {}", roleId);
+        return ResponseEntity.ok(userService.findByRole(roleId));
+    }
+
+    // ========== GROUP MANAGEMENT ==========
+
+    /**
+     * Assign group to user
+     * POST /system/security/user/{userId}/groups/{groupId}
+     */
+    @PostMapping("/{userId}/groups/{groupId}")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<UserDTO> assignGroup(
+            @PathVariable Long userId,
+            @PathVariable Long groupId) {
+        log.info("REST request to assign group {} to user {}", groupId, userId);
+        return ResponseEntity.ok(userService.assignGroup(userId, groupId));
+    }
+
+    /**
+     * Remove group from user
+     * DELETE /system/security/user/{userId}/groups/{groupId}
+     */
+    @DeleteMapping("/{userId}/groups/{groupId}")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<UserDTO> removeGroup(
+            @PathVariable Long userId,
+            @PathVariable Long groupId) {
+        log.info("REST request to remove group {} from user {}", groupId, userId);
+        return ResponseEntity.ok(userService.removeGroup(userId, groupId));
+    }
+
+    /**
+     * Find users by group
+     * GET /system/security/user/by-group/{groupId}
+     */
+    @GetMapping("/by-group/{groupId}")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<List<UserDTO>> getUsersByGroup(@PathVariable Long groupId) {
+        log.info("REST request to get users by group: {}", groupId);
+        return ResponseEntity.ok(userService.findByGroup(groupId));
+    }
+
+    // ========== ACCOUNT STATUS MANAGEMENT ==========
+
+    /**
+     * Enable user account
+     * PUT /system/security/user/{id}/enable
+     */
+    @PutMapping("/{id}/enable")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<UserDTO> enableUser(@PathVariable Long id) {
+        log.info("REST request to enable user: {}", id);
+        return ResponseEntity.ok(userService.enableUser(id));
+    }
+
+    /**
+     * Disable user account
+     * PUT /system/security/user/{id}/disable
+     */
+    @PutMapping("/{id}/disable")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<UserDTO> disableUser(@PathVariable Long id) {
+        log.info("REST request to disable user: {}", id);
+        return ResponseEntity.ok(userService.disableUser(id));
+    }
+
+    /**
+     * Lock user account
+     * PUT /system/security/user/{id}/lock
+     */
+    @PutMapping("/{id}/lock")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<UserDTO> lockUser(@PathVariable Long id) {
+        log.info("REST request to lock user: {}", id);
+        return ResponseEntity.ok(userService.lockUser(id));
+    }
+
+    /**
+     * Unlock user account
+     * PUT /system/security/user/{id}/unlock
+     */
+    @PutMapping("/{id}/unlock")
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<UserDTO> unlockUser(@PathVariable Long id) {
+        log.info("REST request to unlock user: {}", id);
+        return ResponseEntity.ok(userService.unlockUser(id));
     }
 }
