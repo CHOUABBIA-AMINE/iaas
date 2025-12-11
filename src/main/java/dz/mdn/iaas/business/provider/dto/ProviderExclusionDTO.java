@@ -37,33 +37,36 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProviderExclusionDTO extends GenericDTO<ProviderExclusion> {
 
-    private int internalId;
+    @NotNull(message = "Start date is required")
+    private Date startDate;
     
-    @NotNull(message = "Provider is required")
-    private Long providerId;
+    private Date endDate;
+    
+    private String cause;
     
     @NotNull(message = "Exclusion type is required")
     private Long exclusionTypeId;
     
-    private Date startDate;
+    @NotNull(message = "Provider is required")
+    private Long providerId;
     
-    private Date endDate;
+    private Long referenceId;
 
     @Override
     public ProviderExclusion toEntity() {
         ProviderExclusion entity = new ProviderExclusion();
         entity.setId(this.getId());
-        entity.setInternalId(this.internalId);
         entity.setStartDate(this.startDate);
         entity.setEndDate(this.endDate);
+        entity.setCause(this.cause);
         return entity;
     }
 
     @Override
     public void updateEntity(ProviderExclusion entity) {
-        if (this.internalId > 0) entity.setInternalId(this.internalId);
         if (this.startDate != null) entity.setStartDate(this.startDate);
         if (this.endDate != null) entity.setEndDate(this.endDate);
+        if (this.cause != null) entity.setCause(this.cause);
     }
 
     public static ProviderExclusionDTO fromEntity(ProviderExclusion entity) {
@@ -71,11 +74,12 @@ public class ProviderExclusionDTO extends GenericDTO<ProviderExclusion> {
         
         return ProviderExclusionDTO.builder()
                 .id(entity.getId())
-                .internalId(entity.getInternalId())
-                .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
-                .exclusionTypeId(entity.getExclusionType() != null ? entity.getExclusionType().getId() : null)
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
+                .cause(entity.getCause())
+                .exclusionTypeId(entity.getExclusionType() != null ? entity.getExclusionType().getId() : null)
+                .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
+                .referenceId(entity.getReference() != null ? entity.getReference().getId() : null)
                 .build();
     }
 }
