@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.plan.model.Rubric;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,40 +38,44 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RubricDTO extends GenericDTO<Rubric> {
 
-    @NotBlank(message = "Code is required")
-    private String code;
-    
-    @Size(max = 300, message = "Arabic designation must not exceed 300 characters")
+    @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
     private String designationAr;
 
-    @Size(max = 300, message = "English designation must not exceed 300 characters")
+    @Size(max = 200, message = "English designation must not exceed 200 characters")
     private String designationEn;
 
     @NotBlank(message = "French designation is required")
-    @Size(max = 300, message = "French designation must not exceed 300 characters")
+    @Size(max = 200, message = "French designation must not exceed 200 characters")
     private String designationFr;
     
-    private String description;
-    private Long parentRubricId;
+    @NotNull(message = "Domain is required")
+    private Long domainId;
 
     @Override
     public Rubric toEntity() {
         Rubric entity = new Rubric();
         entity.setId(this.getId());
-        entity.setCode(this.code);
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
-        entity.setDescription(this.description);
         return entity;
     }
 
     @Override
     public void updateEntity(Rubric entity) {
-        if (this.code != null) entity.setCode(this.code);
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
-        if (this.description != null) entity.setDescription(this.description);
+    }
+
+    public static RubricDTO fromEntity(Rubric entity) {
+        if (entity == null) return null;
+        return RubricDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .domainId(entity.getDomain() != null ? entity.getDomain().getId() : null)
+                .build();
     }
 }
