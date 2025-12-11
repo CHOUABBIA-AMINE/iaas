@@ -38,47 +38,44 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemDTO extends GenericDTO<Item> {
 
-    @NotBlank(message = "Code is required")
-    private String code;
-    
-    @Size(max = 500, message = "Arabic designation must not exceed 500 characters")
+    @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
     private String designationAr;
 
-    @Size(max = 500, message = "English designation must not exceed 500 characters")
+    @Size(max = 200, message = "English designation must not exceed 200 characters")
     private String designationEn;
 
     @NotBlank(message = "French designation is required")
-    @Size(max = 500, message = "French designation must not exceed 500 characters")
+    @Size(max = 200, message = "French designation must not exceed 200 characters")
     private String designationFr;
-    
-    private String technicalSpecification;
-    private String unitMeasure;
     
     @NotNull(message = "Rubric is required")
     private Long rubricId;
-    
-    private Long itemStatusId;
 
     @Override
     public Item toEntity() {
         Item entity = new Item();
         entity.setId(this.getId());
-        entity.setCode(this.code);
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
-        entity.setTechnicalSpecification(this.technicalSpecification);
-        entity.setUnitMeasure(this.unitMeasure);
         return entity;
     }
 
     @Override
     public void updateEntity(Item entity) {
-        if (this.code != null) entity.setCode(this.code);
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
-        if (this.technicalSpecification != null) entity.setTechnicalSpecification(this.technicalSpecification);
-        if (this.unitMeasure != null) entity.setUnitMeasure(this.unitMeasure);
+    }
+
+    public static ItemDTO fromEntity(Item entity) {
+        if (entity == null) return null;
+        return ItemDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .rubricId(entity.getRubric() != null ? entity.getRubric().getId() : null)
+                .build();
     }
 }
