@@ -66,7 +66,7 @@ public class ProviderService extends GenericService<Provider, ProviderDTO, Long>
     @Override
     @Transactional
     public ProviderDTO create(ProviderDTO dto) {
-        log.info("Creating provider: designation={}", dto.getDesignation());
+        log.info("Creating provider: designationLt={}", dto.getDesignationLt());
         return super.create(dto);
     }
 

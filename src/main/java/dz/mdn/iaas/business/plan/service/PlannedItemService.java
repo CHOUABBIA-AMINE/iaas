@@ -66,7 +66,7 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
     @Override
     @Transactional
     public PlannedItemDTO create(PlannedItemDTO dto) {
-        log.info("Creating planned item: quantity={}", dto.getQuantity());
+        log.info("Creating planned item: designation={}, quantity={}", dto.getDesignation(), dto.getPlanedQuantity());
         return super.create(dto);
     }
 
