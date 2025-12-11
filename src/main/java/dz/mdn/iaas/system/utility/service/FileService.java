@@ -25,6 +25,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,7 +79,6 @@ public class FileService extends GenericService<File, FileDTO, Long> {
             @Value("${file.upload-dir:uploads}") String uploadDir,
             @Value("${file.max-size:10485760}") long maxFileSize,
             @Value("${file.allowed-extensions:pdf,jpg,jpeg,png,gif,doc,docx,xls,xlsx,txt,zip}") String allowedExtensions) {
-        super(fileRepository);
         this.fileRepository = fileRepository;
         this.maxFileSize = maxFileSize;
         this.allowedExtensions = new HashSet<>(Arrays.asList(allowedExtensions.toLowerCase().split(",")));
@@ -95,15 +95,25 @@ public class FileService extends GenericService<File, FileDTO, Long> {
         }
     }
 
-    // ========== ABSTRACT METHOD IMPLEMENTATIONS ==========
+    // ========== GENERIC SERVICE ABSTRACT METHOD IMPLEMENTATIONS ==========
 
     @Override
-    protected FileDTO convertToDTO(File entity) {
+    protected JpaRepository<File, Long> getRepository() {
+        return fileRepository;
+    }
+
+    @Override
+    protected String getEntityName() {
+        return "File";
+    }
+
+    @Override
+    protected FileDTO toDTO(File entity) {
         return FileDTO.fromEntity(entity);
     }
 
     @Override
-    protected File convertToEntity(FileDTO dto) {
+    protected File toEntity(FileDTO dto) {
         return dto.toEntity();
     }
 
@@ -112,7 +122,61 @@ public class FileService extends GenericService<File, FileDTO, Long> {
         dto.updateEntity(entity);
     }
 
+    // ========== OVERRIDDEN METHODS WITH VALIDATION ==========
+
     @Override
+    @Transactional
+    public FileDTO create(FileDTO dto) {
+        log.info("Creating new {} with validation", getEntityName());
+        validateCreate(dto);
+        return super.create(dto);
+    }
+
+    @Override
+    @Transactional
+    public FileDTO update(Long id, FileDTO dto) {
+        log.info("Updating {} with id: {} with validation", getEntityName(), id);
+        validateUpdate(id, dto);
+        return super.update(id, dto);
+    }
+
+    /**
+     * Override delete to ensure both metadata and physical file are removed
+     */
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        log.info("Deleting file (metadata and physical) with id: {}", id);
+        deleteFilePhysically(id);
+    }
+
+    /**
+     * Override getById to validate physical file existence
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public FileDTO getById(Long id) {
+        log.debug("Getting file by id: {} with physical validation", id);
+        
+        FileDTO dto = super.getById(id);
+        
+        // Log warning if physical file doesn't exist
+        if (!physicalFileExistsInternal(dto.getPath())) {
+            log.warn("Metadata exists but physical file missing for id: {} at path: {}", id, dto.getPath());
+        }
+        
+        return dto;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<FileDTO> getAll(Pageable pageable) {
+        log.debug("Getting all files with pagination");
+        return super.getAll(pageable);
+    }
+
+    // ========== VALIDATION METHODS ==========
+
     protected void validateCreate(FileDTO dto) {
         log.debug("Validating File creation: {}", dto);
         
@@ -138,7 +202,6 @@ public class FileService extends GenericService<File, FileDTO, Long> {
         }
     }
 
-    @Override
     protected void validateUpdate(Long id, FileDTO dto) {
         log.debug("Validating File update for id: {}", id);
         
@@ -164,42 +227,41 @@ public class FileService extends GenericService<File, FileDTO, Long> {
         }
     }
 
-    @Override
-    public Page<FileDTO> globalSearch(String query, Pageable pageable) {
-        log.debug("Searching files with query: {}", query);
-        
-        if (query == null || query.trim().isEmpty()) {
-            return fileRepository.findAll(pageable).map(this::convertToDTO);
+    /**
+     * Validate uploaded file
+     */
+    private void validateUploadedFile(MultipartFile file) {
+        // Check if file is empty
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("Cannot upload empty file");
         }
         
-        return fileRepository.searchFiles(query.trim(), pageable).map(this::convertToDTO);
-    }
-
-    /**
-     * Override delete to ensure both metadata and physical file are removed
-     */
-    @Override
-    public void delete(Long id) {
-        log.info("Deleting file (metadata and physical) with id: {}", id);
-        deleteFilePhysically(id);
-    }
-
-    /**
-     * Override getById to validate physical file existence
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public FileDTO getById(Long id) {
-        log.debug("Getting file by id: {} with physical validation", id);
-        
-        FileDTO dto = super.getById(id);
-        
-        // Log warning if physical file doesn't exist
-        if (!physicalFileExistsInternal(dto.getPath())) {
-            log.warn("Metadata exists but physical file missing for id: {} at path: {}", id, dto.getPath());
+        // Check file size
+        if (file.getSize() > maxFileSize) {
+            throw new IllegalArgumentException(
+                String.format("File size (%d bytes) exceeds maximum allowed size (%d bytes)", 
+                    file.getSize(), maxFileSize)
+            );
         }
         
-        return dto;
+        // Validate filename
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null || originalFilename.trim().isEmpty()) {
+            throw new IllegalArgumentException("File name is required");
+        }
+        
+        // Check for path traversal attempts
+        if (originalFilename.contains("..") || originalFilename.contains("/") || originalFilename.contains("\\")) {
+            throw new IllegalArgumentException("Invalid file name: " + originalFilename);
+        }
+        
+        // Validate extension
+        String extension = getFileExtension(originalFilename);
+        if (!allowedExtensions.contains(extension.toLowerCase())) {
+            throw new IllegalArgumentException(
+                "File extension '" + extension + "' is not allowed. Allowed extensions: " + allowedExtensions
+            );
+        }
     }
 
     // ========== PHYSICAL FILE STORAGE OPERATIONS ==========
@@ -550,47 +612,8 @@ public class FileService extends GenericService<File, FileDTO, Long> {
         
         return fileRepository.findAll().stream()
                 .filter(file -> !physicalFileExistsInternal(file.getPath()))
-                .map(this::convertToDTO)
+                .map(this::toDTO)
                 .collect(Collectors.toList());
-    }
-
-    // ========== VALIDATION METHODS ==========
-
-    /**
-     * Validate uploaded file
-     */
-    private void validateUploadedFile(MultipartFile file) {
-        // Check if file is empty
-        if (file.isEmpty()) {
-            throw new IllegalArgumentException("Cannot upload empty file");
-        }
-        
-        // Check file size
-        if (file.getSize() > maxFileSize) {
-            throw new IllegalArgumentException(
-                String.format("File size (%d bytes) exceeds maximum allowed size (%d bytes)", 
-                    file.getSize(), maxFileSize)
-            );
-        }
-        
-        // Validate filename
-        String originalFilename = file.getOriginalFilename();
-        if (originalFilename == null || originalFilename.trim().isEmpty()) {
-            throw new IllegalArgumentException("File name is required");
-        }
-        
-        // Check for path traversal attempts
-        if (originalFilename.contains("..") || originalFilename.contains("/") || originalFilename.contains("\\")) {
-            throw new IllegalArgumentException("Invalid file name: " + originalFilename);
-        }
-        
-        // Validate extension
-        String extension = getFileExtension(originalFilename);
-        if (!allowedExtensions.contains(extension.toLowerCase())) {
-            throw new IllegalArgumentException(
-                "File extension '" + extension + "' is not allowed. Allowed extensions: " + allowedExtensions
-            );
-        }
     }
 
     // ========== HELPER METHODS ==========
@@ -631,7 +654,7 @@ public class FileService extends GenericService<File, FileDTO, Long> {
     public FileDTO findByPath(String path) {
         log.debug("Finding file by path: {}", path);
         return fileRepository.findByPath(path)
-                .map(this::convertToDTO)
+                .map(this::toDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("File not found with path: " + path));
     }
 
@@ -640,7 +663,7 @@ public class FileService extends GenericService<File, FileDTO, Long> {
         log.debug("Finding files by extension: {}", extension);
         return fileRepository.findByExtension(extension)
                 .stream()
-                .map(this::convertToDTO)
+                .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -649,7 +672,7 @@ public class FileService extends GenericService<File, FileDTO, Long> {
         log.debug("Finding files by file type: {}", fileType);
         return fileRepository.findByFileType(fileType)
                 .stream()
-                .map(this::convertToDTO)
+                .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
