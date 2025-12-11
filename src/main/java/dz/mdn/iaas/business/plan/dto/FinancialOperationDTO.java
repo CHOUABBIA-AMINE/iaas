@@ -14,11 +14,12 @@
 
 package dz.mdn.iaas.business.plan.dto;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.plan.model.FinancialOperation;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,48 +38,39 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FinancialOperationDTO extends GenericDTO<FinancialOperation> {
 
-    private int internalId;
-    private String reference;
-    private String designationAr;
-    private String designationEn;
+    @NotBlank(message = "Operation is required")
+    @Size(max = 200, message = "Operation must not exceed 200 characters")
+    private String operation;
     
-    @NotNull(message = "French designation is required")
-    private String designationFr;
-    
-    private double initialAmount;
-    private double currentAmount;
-    private double consumedAmount;
-    private double remainingAmount;
-    private Date startDate;
-    private Date endDate;
-    private String observation;
-    
-    @NotNull(message = "Domain is required")
-    private Long domainId;
+    @NotBlank(message = "Budget year is required")
+    @Size(max = 4, message = "Budget year must not exceed 4 characters")
+    private String budgetYear;
     
     @NotNull(message = "Budget type is required")
     private Long budgetTypeId;
-    
-    private Long approvalStatusId;
 
     @Override
     public FinancialOperation toEntity() {
         FinancialOperation entity = new FinancialOperation();
         entity.setId(this.getId());
-        entity.setInternalId(this.internalId);
-        entity.setReference(this.reference);
-        entity.setDesignationAr(this.designationAr);
-        entity.setDesignationEn(this.designationEn);
-        entity.setDesignationFr(this.designationFr);
+        entity.setOperation(this.operation);
+        entity.setBudgetYear(this.budgetYear);
         return entity;
     }
 
     @Override
     public void updateEntity(FinancialOperation entity) {
-        if (this.internalId > 0) entity.setInternalId(this.internalId);
-        if (this.reference != null) entity.setReference(this.reference);
-        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
-        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
-        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        if (this.operation != null) entity.setOperation(this.operation);
+        if (this.budgetYear != null) entity.setBudgetYear(this.budgetYear);
+    }
+
+    public static FinancialOperationDTO fromEntity(FinancialOperation entity) {
+        if (entity == null) return null;
+        return FinancialOperationDTO.builder()
+                .id(entity.getId())
+                .operation(entity.getOperation())
+                .budgetYear(entity.getBudgetYear())
+                .budgetTypeId(entity.getBudgetType() != null ? entity.getBudgetType().getId() : null)
+                .build();
     }
 }
