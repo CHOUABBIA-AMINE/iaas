@@ -68,4 +68,15 @@ public class EconomicDomainDTO extends GenericDTO<EconomicDomain> {
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
     }
+
+    public static EconomicDomainDTO fromEntity(EconomicDomain entity) {
+        if (entity == null) return null;
+        return EconomicDomainDTO.builder()
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .build();
+    }
 }
