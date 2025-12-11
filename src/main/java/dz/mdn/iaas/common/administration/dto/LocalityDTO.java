@@ -4,6 +4,7 @@
  *
  *	@Name		: LocalityDTO
  *	@CreatedOn	: 10-14-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -14,110 +15,123 @@
 package dz.mdn.iaas.common.administration.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import dz.mdn.iaas.common.administration.model.Locality;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class LocalityDTO {
+public class LocalityDTO extends GenericDTO<Locality> {
 
-    private Long id; // F_00
+    @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
+    private String designationAr; // F_01
+
+    @Size(max = 100, message = "English designation must not exceed 100 characters")
+    private String designationEn; // F_02
+
+    @NotBlank(message = "French designation is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String designationFr; // F_03 - required
 
     @NotBlank(message = "Code is required")
-    @Size(max = 100, message = "Code must not exceed 100 characters")
-    private int code; // F_01 - required and unique
-
-    @NotBlank(message = "Arabic designation is required")
-    @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
-    private String designationAr; // F_02 - required and unique
-
-    @NotBlank(message = "Latin designation is required")
-    @Size(max = 100, message = "Latin designation must not exceed 100 characters")
-    private String designationLt; // F_03 - required and unique
+    @Size(max = 10, message = "Code must not exceed 10 characters")
+    private String code; // F_04 - required and unique
 
     @NotNull(message = "State ID is required")
-    private Long stateId; // F_04 - foreign key to State (required)
+    private Long stateId; // F_05 - foreign key to State (required)
 
     // Additional fields for display purposes
-    private int stateCode;
+    private String stateCode;
+    private String stateDesignationFr;
     private String stateDesignationAr;
-    private String stateDesignationLt;
     private String stateDisplayText;
+
+    @Override
+    public Locality toEntity() {
+        Locality locality = new Locality();
+        locality.setId(getId());
+        locality.setDesignationAr(this.designationAr);
+        locality.setDesignationEn(this.designationEn);
+        locality.setDesignationFr(this.designationFr);
+        locality.setCode(this.code);
+        // Note: state must be set by service layer using stateId
+        return locality;
+    }
+
+    @Override
+    public void updateEntity(Locality locality) {
+        if (this.designationAr != null) {
+            locality.setDesignationAr(this.designationAr);
+        }
+        if (this.designationEn != null) {
+            locality.setDesignationEn(this.designationEn);
+        }
+        if (this.designationFr != null) {
+            locality.setDesignationFr(this.designationFr);
+        }
+        if (this.code != null) {
+            locality.setCode(this.code);
+        }
+        // Note: state update must be handled by service layer using stateId
+    }
 
     public static LocalityDTO fromEntity(Locality locality) {
         if (locality == null) return null;
         
-        LocalityDTO.LocalityDTOBuilder builder = LocalityDTO.builder()
+        LocalityDTOBuilder builder = LocalityDTO.builder()
                 .id(locality.getId())
-                .code(locality.getCode())
                 .designationAr(locality.getDesignationAr())
-                .designationLt(locality.getDesignationLt());
+                .designationEn(locality.getDesignationEn())
+                .designationFr(locality.getDesignationFr())
+                .code(locality.getCode());
 
         // Handle state relationship
         if (locality.getState() != null) {
             builder.stateId(locality.getState().getId())
                    .stateCode(locality.getState().getCode())
+                   .stateDesignationFr(locality.getState().getDesignationFr())
                    .stateDesignationAr(locality.getState().getDesignationAr())
-                   .stateDesignationLt(locality.getState().getDesignationLt())
-                   .stateDisplayText(locality.getState().getCode() + " - " + locality.getState().getDesignationLt());
+                   .stateDisplayText(locality.getState().getCode() + " - " + locality.getState().getDesignationFr());
         }
         
         return builder.build();
     }
 
-    public Locality toEntity() {
-        Locality locality = new Locality();
-        locality.setId(this.id);
-        locality.setCode(this.code);
-        locality.setDesignationAr(this.designationAr);
-        locality.setDesignationLt(this.designationLt);
-        // Note: state must be set by service layer using stateId
-        return locality;
-    }
-
-    public void updateEntity(Locality locality) {
-        if (this.code != 0) {
-            locality.setCode(this.code);
-        }
-        if (this.designationAr != null) {
-            locality.setDesignationAr(this.designationAr);
-        }
-        if (this.designationLt != null) {
-            locality.setDesignationLt(this.designationLt);
-        }
-        // Note: state update must be handled by service layer using stateId
-    }
-
     public String getDefaultDesignation() {
-        return designationLt;
+        return designationFr;
     }
 
     public String getDesignationByLanguage(String language) {
-        if (language == null) return designationLt;
+        if (language == null) return designationFr;
         
         return switch (language.toLowerCase()) {
-            case "ar", "arabic" -> designationAr;
-            case "lt", "latin", "en", "english" -> designationLt;
-            default -> designationLt;
+            case "ar", "arabic" -> designationAr != null ? designationAr : designationFr;
+            case "en", "english" -> designationEn != null ? designationEn : designationFr;
+            case "fr", "french" -> designationFr;
+            default -> designationFr;
         };
     }
 
     public String getDisplayText() {
-        return String.format("%s - %s", code, designationLt);
+        return String.format("%s - %s", code, designationFr);
     }
 
     public String getDisplayTextAr() {
-        return String.format("%s - %s", code, designationAr);
+        if (designationAr != null) {
+            return String.format("%s - %s", code, designationAr);
+        }
+        return getDisplayText();
     }
 
     public String getFullDisplayText() {
@@ -128,25 +142,23 @@ public class LocalityDTO {
     }
 
     public String getFullDisplayTextAr() {
-        if (stateDesignationAr != null && stateCode != 0) {
+        if (stateDesignationAr != null && stateCode != null) {
             return String.format("%s (%s - %s)", getDisplayTextAr(), stateCode, stateDesignationAr);
         }
         return getDisplayTextAr();
     }
 
     public boolean isComplete() {
-        return code != 0 &&
-               designationAr != null && !designationAr.trim().isEmpty() &&
-               designationLt != null && !designationLt.trim().isEmpty() &&
+        return code != null && !code.trim().isEmpty() &&
+               designationFr != null && !designationFr.trim().isEmpty() &&
                stateId != null;
     }
 
-    public static LocalityDTO createSimple(Long id, int code, String designationAr, String designationLt, Long stateId) {
+    public static LocalityDTO createSimple(Long id, String code, String designationFr, Long stateId) {
         return LocalityDTO.builder()
                 .id(id)
                 .code(code)
-                .designationAr(designationAr)
-                .designationLt(designationLt)
+                .designationFr(designationFr)
                 .stateId(stateId)
                 .build();
     }
