@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.plan.model.BudgetModification;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,32 +38,46 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BudgetModificationDTO extends GenericDTO<BudgetModification> {
 
-    private int internalId;
-    private String reference;
-    private Date modificationDate;
-    private double previousAmount;
-    private double newAmount;
-    private double differenceAmount;
-    private String reason;
-    private String observation;
+    @Size(max = 200, message = "Object must not exceed 200 characters")
+    private String object;
+
+    @Size(max = 500, message = "Description must not exceed 500 characters")
+    private String description;
     
-    @NotNull(message = "Budget type is required")
-    private Long budgetTypeId;
+    private Date approvalDate;
     
-    @NotNull(message = "Item distribution is required")
-    private Long itemDistributionId;
+    @NotNull(message = "Demande document is required")
+    private Long demandeId;
     
-    private Long approvalStatusId;
+    @NotNull(message = "Response document is required")
+    private Long responseId;
 
     @Override
     public BudgetModification toEntity() {
         BudgetModification entity = new BudgetModification();
         entity.setId(this.getId());
+        entity.setObject(this.object);
+        entity.setDescription(this.description);
+        entity.setApprovalDate(this.approvalDate);
         return entity;
     }
 
     @Override
     public void updateEntity(BudgetModification entity) {
-        // Update logic for fields present in model
+        if (this.object != null) entity.setObject(this.object);
+        if (this.description != null) entity.setDescription(this.description);
+        if (this.approvalDate != null) entity.setApprovalDate(this.approvalDate);
+    }
+
+    public static BudgetModificationDTO fromEntity(BudgetModification entity) {
+        if (entity == null) return null;
+        return BudgetModificationDTO.builder()
+                .id(entity.getId())
+                .object(entity.getObject())
+                .description(entity.getDescription())
+                .approvalDate(entity.getApprovalDate())
+                .demandeId(entity.getDemande() != null ? entity.getDemande().getId() : null)
+                .responseId(entity.getResponse() != null ? entity.getResponse().getId() : null)
+                .build();
     }
 }
