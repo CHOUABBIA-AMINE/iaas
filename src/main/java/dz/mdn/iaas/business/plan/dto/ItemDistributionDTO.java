@@ -14,7 +14,6 @@
 
 package dz.mdn.iaas.business.plan.dto;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.plan.model.ItemDistribution;
@@ -37,32 +36,34 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemDistributionDTO extends GenericDTO<ItemDistribution> {
 
-    private int internalId;
+    private float quantity;
     
     @NotNull(message = "Planned item is required")
     private Long plannedItemId;
     
-    @NotNull(message = "Financial operation is required")
-    private Long financialOperationId;
-    
-    private double allocatedAmount;
-    private double consumedAmount;
-    private double remainingAmount;
-    private Date allocationDate;
-    private String observation;
+    @NotNull(message = "Structure is required")
+    private Long structureId;
 
     @Override
     public ItemDistribution toEntity() {
         ItemDistribution entity = new ItemDistribution();
         entity.setId(this.getId());
-        entity.setInternalId(this.internalId);
+        entity.setQuantity(this.quantity);
         return entity;
     }
 
     @Override
     public void updateEntity(ItemDistribution entity) {
-        if (this.internalId > 0) {
-            entity.setInternalId(this.internalId);
-        }
+        entity.setQuantity(this.quantity);
+    }
+
+    public static ItemDistributionDTO fromEntity(ItemDistribution entity) {
+        if (entity == null) return null;
+        return ItemDistributionDTO.builder()
+                .id(entity.getId())
+                .quantity(entity.getQuantity())
+                .plannedItemId(entity.getPlannedItem() != null ? entity.getPlannedItem().getId() : null)
+                .structureId(entity.getStructure() != null ? entity.getStructure().getId() : null)
+                .build();
     }
 }
