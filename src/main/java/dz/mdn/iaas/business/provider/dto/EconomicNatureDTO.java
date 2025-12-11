@@ -72,4 +72,16 @@ public class EconomicNatureDTO extends GenericDTO<EconomicNature> {
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
     }
+
+    public static EconomicNatureDTO fromEntity(EconomicNature entity) {
+        if (entity == null) return null;
+        return EconomicNatureDTO.builder()
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .economicDomainId(entity.getEconomicDomain() != null ? entity.getEconomicDomain().getId() : null)
+                .build();
+    }
 }
