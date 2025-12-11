@@ -3,7 +3,8 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: StructureTypeDTO
- *	@CreatedOn	: 10-16-2025
+ *	@CreatedOn	: 10-14-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -14,194 +15,96 @@
 package dz.mdn.iaas.common.administration.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import dz.mdn.iaas.common.administration.model.StructureType;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * StructureType Data Transfer Object
- * Maps exactly to StructureType model fields: F_00=id, F_01=designationAr, F_02=designationEn, F_03=designationFr
- * F_03 (designationFr) has unique constraint and is required
- * F_01 (designationAr), F_02 (designationEn) are optional
+ * Extends GenericDTO for automatic entity conversion
  */
 @Data
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StructureTypeDTO {
+public class StructureTypeDTO extends GenericDTO<StructureType> {
 
-    private Long id; // F_00
+    @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
+    private String designationAr;
 
-    @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
-    private String designationAr; // F_01 - optional
-
-    @Size(max = 200, message = "English designation must not exceed 200 characters")
-    private String designationEn; // F_02 - optional
+    @Size(max = 100, message = "English designation must not exceed 100 characters")
+    private String designationEn;
 
     @NotBlank(message = "French designation is required")
-    @Size(max = 200, message = "French designation must not exceed 200 characters")
-    private String designationFr; // F_03 - required and unique
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String designationFr;
 
-    /**
-     * Create DTO from entity
-     */
-    public static StructureTypeDTO fromEntity(dz.mdn.iaas.common.administration.model.StructureType structureType) {
-        if (structureType == null) return null;
-        
-        return StructureTypeDTO.builder()
-                .id(structureType.getId())
-                .designationAr(structureType.getDesignationAr())
-                .designationEn(structureType.getDesignationEn())
-                .designationFr(structureType.getDesignationFr())
-                .build();
-    }
+    @Size(max = 100, message = "Arabic acronym must not exceed 100 characters")
+    private String acronymAr;
 
-    /**
-     * Convert to entity
-     */
+    @Size(max = 100, message = "English acronym must not exceed 100 characters")
+    private String acronymEn;
+
+    @NotBlank(message = "French acronym is required")
+    @Size(max = 100, message = "French acronym must not exceed 100 characters")
+    private String acronymFr;
+
+    private Integer hierarchyLevel;
+
+    private Boolean isOperational;
+
+    private Boolean canHaveSubStructures;
+
+    @Override
     public StructureType toEntity() {
-        StructureType structureType = new StructureType();
-        structureType.setId(this.id);
-        structureType.setDesignationAr(this.designationAr);
-        structureType.setDesignationEn(this.designationEn);
-        structureType.setDesignationFr(this.designationFr);
-        return structureType;
+        StructureType entity = new StructureType();
+        entity.setId(this.getId());
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setAcronymAr(this.acronymAr);
+        entity.setAcronymEn(this.acronymEn);
+        entity.setAcronymFr(this.acronymFr);
+        entity.setHierarchyLevel(this.hierarchyLevel);
+        entity.setIsOperational(this.isOperational);
+        entity.setCanHaveSubStructures(this.canHaveSubStructures);
+        return entity;
     }
 
-    /**
-     * Update entity from DTO
-     */
-    public void updateEntity(dz.mdn.iaas.common.administration.model.StructureType structureType) {
-        if (this.designationAr != null) {
-            structureType.setDesignationAr(this.designationAr);
-        }
-        if (this.designationEn != null) {
-            structureType.setDesignationEn(this.designationEn);
-        }
-        if (this.designationFr != null) {
-            structureType.setDesignationFr(this.designationFr);
-        }
+    @Override
+    public void updateEntity(StructureType entity) {
+        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        if (this.acronymAr != null) entity.setAcronymAr(this.acronymAr);
+        if (this.acronymEn != null) entity.setAcronymEn(this.acronymEn);
+        if (this.acronymFr != null) entity.setAcronymFr(this.acronymFr);
+        if (this.hierarchyLevel != null) entity.setHierarchyLevel(this.hierarchyLevel);
+        if (this.isOperational != null) entity.setIsOperational(this.isOperational);
+        if (this.canHaveSubStructures != null) entity.setCanHaveSubStructures(this.canHaveSubStructures);
     }
 
-    /**
-     * Get default designation (French as it's required)
-     */
-    public String getDefaultDesignation() {
-        return designationFr;
-    }
-
-    /**
-     * Get designation by language preference
-     */
-    public String getDesignationByLanguage(String language) {
-        if (language == null) return designationFr;
-        
-        return switch (language.toLowerCase()) {
-            case "ar", "arabic" -> designationAr != null ? designationAr : designationFr;
-            case "en", "english" -> designationEn != null ? designationEn : designationFr;
-            case "fr", "french" -> designationFr;
-            default -> designationFr;
-        };
-    }
-
-    /**
-     * Get display text with priority: French designation > English designation > Arabic designation
-     */
-    public String getDisplayText() {
-        if (designationFr != null && !designationFr.trim().isEmpty()) {
-            return designationFr;
-        }
-        if (designationEn != null && !designationEn.trim().isEmpty()) {
-            return designationEn;
-        }
-        if (designationAr != null && !designationAr.trim().isEmpty()) {
-            return designationAr;
-        }
-        return "N/A";
-    }
-
-    /**
-     * Check if structure type has multiple language support
-     */
-    public boolean isMultilingual() {
-        int languageCount = 0;
-        if (designationAr != null && !designationAr.trim().isEmpty()) languageCount++;
-        if (designationEn != null && !designationEn.trim().isEmpty()) languageCount++;
-        if (designationFr != null && !designationFr.trim().isEmpty()) languageCount++;
-        return languageCount > 1;
-    }
-
-    /**
-     * Get available languages for this structure type
-     */
-    public String[] getAvailableLanguages() {
-        java.util.List<String> languages = new java.util.ArrayList<>();
-        
-        if (designationAr != null && !designationAr.trim().isEmpty()) {
-            languages.add("arabic");
-        }
-        if (designationEn != null && !designationEn.trim().isEmpty()) {
-            languages.add("english");
-        }
-        if (designationFr != null && !designationFr.trim().isEmpty()) {
-            languages.add("french");
-        }
-        
-        return languages.stream().toArray(String[]::new);
-    }
-
-    /**
-     * Create simplified DTO for dropdowns
-     */
-    public static StructureTypeDTO createSimple(Long id, String designationFr) {
+    public static StructureTypeDTO fromEntity(StructureType entity) {
+        if (entity == null) return null;
         return StructureTypeDTO.builder()
-                .id(id)
-                .designationFr(designationFr)
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .acronymAr(entity.getAcronymAr())
+                .acronymEn(entity.getAcronymEn())
+                .acronymFr(entity.getAcronymFr())
+                .hierarchyLevel(entity.getHierarchyLevel())
+                .isOperational(entity.getIsOperational())
+                .canHaveSubStructures(entity.getCanHaveSubStructures())
                 .build();
-    }
-
-    /**
-     * Validate required fields are present
-     */
-    public boolean isValid() {
-        return designationFr != null && !designationFr.trim().isEmpty();
-    }
-
-    /**
-     * Get short display for lists
-     */
-    public String getShortDisplay() {
-        return designationFr != null && designationFr.length() > 30 ? designationFr.substring(0, 30) + "..." : designationFr;
-    }
-
-    /**
-     * Get full display with all languages
-     */
-    public String getFullDisplay() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(designationFr);
-        
-        if (designationEn != null && !designationEn.equals(designationFr)) {
-            sb.append(" / ").append(designationEn);
-        }
-        
-        if (designationAr != null) {
-            sb.append(" / ").append(designationAr);
-        }
-        
-        return sb.toString();
-    }
-
-    /**
-     * Get comparison key for sorting (by French designation)
-     */
-    public String getComparisonKey() {
-        return designationFr != null ? designationFr.toLowerCase() : "";
     }
 }
