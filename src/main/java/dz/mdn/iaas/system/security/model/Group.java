@@ -29,9 +29,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Group")
-@Table(name = "T_00_02_01", uniqueConstraints = {
-    @UniqueConstraint(name = "T_00_02_01_UK_01", columnNames = "F_01")
-})
+@Table(name = "T_00_02_01", uniqueConstraints = {@UniqueConstraint(name = "T_00_02_01_UK_01", columnNames = "F_01")})
 public class Group extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)

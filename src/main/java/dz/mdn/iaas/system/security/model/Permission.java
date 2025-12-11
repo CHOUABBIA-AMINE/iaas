@@ -26,9 +26,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Permission")
-@Table(name = "T_00_02_04", uniqueConstraints = {
-    @UniqueConstraint(name = "T_00_02_04_UK_01", columnNames = "F_01")
-})
+@Table(name = "T_00_02_04", uniqueConstraints = {@UniqueConstraint(name = "T_00_02_04_UK_01", columnNames = "F_01")})
 public class Permission extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)

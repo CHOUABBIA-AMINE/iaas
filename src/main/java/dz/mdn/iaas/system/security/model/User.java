@@ -35,10 +35,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="User")
-@Table(name = "T_00_02_02", uniqueConstraints = {
-    @UniqueConstraint(name = "T_00_02_02_UK_01", columnNames = "F_01"),
-    @UniqueConstraint(name = "T_00_02_02_UK_02", columnNames = "F_02")
-})
+@Table(name = "T_00_02_02", uniqueConstraints = { @UniqueConstraint(name = "T_00_02_02_UK_01", columnNames = "F_01"),
+												  @UniqueConstraint(name = "T_00_02_02_UK_02", columnNames = "F_02")})
 public class User extends GenericModel implements UserDetails {
 
     private static final long serialVersionUID = 6957215815941701487L;
