@@ -19,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.provider.model.ProviderRepresentator;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,22 +45,20 @@ public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> 
     private Long providerId;
     
     @NotBlank(message = "First name is required")
+    @Size(max = 100, message = "First name must not exceed 100 characters")
     private String firstName;
     
     @NotBlank(message = "Last name is required")
+    @Size(max = 100, message = "Last name must not exceed 100 characters")
     private String lastName;
     
-    private String position;
-    private String nationalId;
+    @Size(max = 300, message = "Email must not exceed 300 characters")
+    private String mail;
     
-    @Email(message = "Invalid email format")
-    private String email;
+    @Size(max = 200, message = "Phone number must not exceed 200 characters")
+    private String phoneNumber;
     
-    private String phone;
-    private String mobile;
-    private Date appointmentDate;
-    private boolean isPrimary;
-    private String observation;
+    private Date birthDate;
 
     @Override
     public ProviderRepresentator toEntity() {
@@ -69,8 +67,9 @@ public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> 
         entity.setInternalId(this.internalId);
         entity.setFirstName(this.firstName);
         entity.setLastName(this.lastName);
-        entity.setPosition(this.position);
-        entity.setNationalId(this.nationalId);
+        entity.setMail(this.mail);
+        entity.setPhoneNumber(this.phoneNumber);
+        entity.setBirthDate(this.birthDate);
         return entity;
     }
 
@@ -79,7 +78,23 @@ public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> 
         if (this.internalId > 0) entity.setInternalId(this.internalId);
         if (this.firstName != null) entity.setFirstName(this.firstName);
         if (this.lastName != null) entity.setLastName(this.lastName);
-        if (this.position != null) entity.setPosition(this.position);
-        if (this.nationalId != null) entity.setNationalId(this.nationalId);
+        if (this.mail != null) entity.setMail(this.mail);
+        if (this.phoneNumber != null) entity.setPhoneNumber(this.phoneNumber);
+        if (this.birthDate != null) entity.setBirthDate(this.birthDate);
+    }
+
+    public static ProviderRepresentatorDTO fromEntity(ProviderRepresentator entity) {
+        if (entity == null) return null;
+        
+        return ProviderRepresentatorDTO.builder()
+                .id(entity.getId())
+                .internalId(entity.getInternalId())
+                .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
+                .firstName(entity.getFirstName())
+                .lastName(entity.getLastName())
+                .mail(entity.getMail())
+                .phoneNumber(entity.getPhoneNumber())
+                .birthDate(entity.getBirthDate())
+                .build();
     }
 }
