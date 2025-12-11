@@ -3,42 +3,52 @@
  *	@author		: MEDJERAB ABIR
  *
  *	@Name		: FacilityType
- *	@CreatedOn	: 26-06-2025
+ *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
- *	@Goal		: Network
+ *	@Layer		: Model
+ *	@Package	: Network
  *
  **/
 
 package dz.mdn.iaas.network.model;
 
-import java.util.List;
-
-import dz.mdn.iaas.configuration.BaseEntity;
-import jakarta.persistence.CascadeType;
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@NoArgsConstructor
-@Entity
-@Table(name = "T_20_05")
-@Getter
+/**
+ * FacilityType Entity - Extends GenericModel
+ * 
+ * Database table: T_20_07
+ * Primary key: F_00 (id) - inherited from GenericModel
+ * 
+ * Fields:
+ * - F_00: id (inherited) - Primary key
+ * - F_01: code - Type code (required)
+ * - F_02: designation - Type designation (required)
+ */
 @Setter
-public class FacilityType extends BaseEntity {
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name="FacilityType")
+@Table(name="T_20_07")
+public class FacilityType extends GenericModel {
 
-	@Column(name = "F_01", nullable = false, length = 100)
-    private String name;
+    @Column(name="F_01", length=50, nullable=false)
+    private String code;
 
-	@Column(name = "F_02", nullable = false, length = 500)
-    private String description;
-
-    @OneToMany(mappedBy = "facilityType", cascade = CascadeType.ALL)
-    private List<Facility> facilities;
-    
+    @Column(name="F_02", length=100, nullable=false)
+    private String designation;
 }

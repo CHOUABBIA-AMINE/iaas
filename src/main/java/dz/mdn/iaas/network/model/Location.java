@@ -3,17 +3,18 @@
  *	@author		: MEDJERAB ABIR
  *
  *	@Name		: Location
- *	@CreatedOn	: 26-06-2025
+ *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
- *	@Goal		: Network
+ *	@Layer		: Model
+ *	@Package	: Network
  *
  **/
 
 package dz.mdn.iaas.network.model;
 
-import dz.mdn.iaas.configuration.BaseEntity;
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -21,40 +22,50 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@NoArgsConstructor
-@Entity
-@Table( name = "T_20_03", 
-		uniqueConstraints = {
-			@UniqueConstraint(name="T_20_03_UK_01", columnNames = "F_02")
-		})
-@Getter
+/**
+ * Location Entity - Extends GenericModel
+ * 
+ * Database table: T_20_03
+ * Primary key: F_00 (id) - inherited from GenericModel
+ * 
+ * Fields:
+ * - F_00: id (inherited) - Primary key
+ * - F_01: name - Location name (required)
+ * - F_02: code - Location code (unique, required)
+ * - F_03: latitude - Latitude coordinate (required)
+ * - F_04: longitude - Longitude coordinate (required)
+ * - F_05: region - Region relationship (required)
+ */
 @Setter
-public class Location extends BaseEntity {
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name="Location")
+@Table(name="T_20_03", uniqueConstraints = { @UniqueConstraint(name="T_20_03_UK_01", columnNames={"F_02"}) })
+public class Location extends GenericModel {
 
-	@Column(name = "F_01", nullable = false, length = 100)
+    @Column(name="F_01", length=100, nullable=false)
     private String name;
 
-	@Column(name = "F_02", nullable = false, unique = true, length = 50)
+    @Column(name="F_02", length=50, nullable=false)
     private String code;
 
-	@Column(name = "F_03", nullable = false)
+    @Column(name="F_03", nullable=false)
     private Double latitude;
 
-	@Column(name = "F_04", nullable = false)
+    @Column(name="F_04", nullable=false)
     private Double longitude;
 
     @ManyToOne
-    @JoinColumn(name = "F_05", foreignKey=@ForeignKey(name="T_20_03_FK_01"), nullable = false)
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_20_03_FK_01"), nullable=false)
     private Region region;
-
-    //@OneToMany(mappedBy = "origin", cascade = CascadeType.ALL)
-    //private List<PipelineSystem> outgoingOriginatingSystems;
-
-    //@OneToMany(mappedBy = "destination", cascade = CascadeType.ALL)
-    //private List<PipelineSystem> arrivingOriginatingSystems;
-    
 }

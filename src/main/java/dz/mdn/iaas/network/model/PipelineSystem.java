@@ -3,73 +3,69 @@
  *	@author		: MEDJERAB ABIR
  *
  *	@Name		: PipelineSystem
- *	@CreatedOn	: 26-06-2025
+ *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
- *	@Goal		: Network
+ *	@Layer		: Model
+ *	@Package	: Network
  *
  **/
 
 package dz.mdn.iaas.network.model;
 
-import java.util.List;
-
-import dz.mdn.iaas.configuration.BaseEntity;
-import jakarta.persistence.CascadeType;
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@NoArgsConstructor
-@Entity
-@Table( name = "T_20_10", 
-		uniqueConstraints = {
-			@UniqueConstraint(name="T_20_10_UK_01", columnNames = "F_02")
-		})
-@Getter
+/**
+ * PipelineSystem Entity - Extends GenericModel
+ * 
+ * Database table: T_20_12
+ * Primary key: F_00 (id) - inherited from GenericModel
+ * 
+ * Fields:
+ * - F_00: id (inherited) - Primary key
+ * - F_01: code - System code (unique, required)
+ * - F_02: designationAr - Arabic designation (required)
+ * - F_03: designationEn - English designation (required)
+ * - F_04: designationFr - French designation (required)
+ * - F_05: product - Product relationship (required)
+ */
 @Setter
-public class PipelineSystem extends BaseEntity {
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name="PipelineSystem")
+@Table(name="T_20_12", uniqueConstraints = { @UniqueConstraint(name="T_20_12_UK_01", columnNames={"F_01"}) })
+public class PipelineSystem extends GenericModel {
 
-	@Column(name = "F_01", nullable = false, length = 100)
-    private String name;
-
-	@Column(name = "F_02", nullable = false, unique = true, length = 50)
+    @Column(name="F_01", length=50, nullable=false)
     private String code;
 
+    @Column(name="F_02", length=100, nullable=false)
+    private String designationAr;
+
+    @Column(name="F_03", length=100, nullable=false)
+    private String designationEn;
+
+    @Column(name="F_04", length=100, nullable=false)
+    private String designationFr;
+
     @ManyToOne
-    @JoinColumn(name = "F_03", foreignKey=@ForeignKey(name="T_20_10_FK_01"), nullable = false)
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_20_12_FK_01"), nullable=false)
     private Product product;
-
-    @OneToMany(mappedBy = "pipelineSystem", cascade = CascadeType.ALL)
-    private List<Pipeline> pipelines;
-
-    /*@Column(name = "F_03", nullable = false)
-    private Double totalLength;
-
-    @Column(name = "F_04", nullable = false)
-    private Double designCapacity;
-
-    @Column(name = "F_05", nullable = false)
-    private LocalDate operationalSince;*/
-
-    /*@ManyToOne
-    @JoinColumn(name = "F_07", foreignKey=@ForeignKey(name="T_20_08_FK_02"), nullable = false)
-    private Location origin;
-
-    @ManyToOne
-    @JoinColumn(name = "F_08", foreignKey=@ForeignKey(name="T_20_08_FK_03"), nullable = false)
-    private Location destination;
-
-    @OneToMany(mappedBy = "pipelineSystem", cascade = CascadeType.ALL)
-    private List<SystemOperation> systemeOperations;*/
-    
 }

@@ -3,39 +3,48 @@
  *	@author		: MEDJERAB ABIR
  *
  *	@Name		: Zone
- *	@CreatedOn	: 26-06-2025
+ *	@CreatedOn	: 06-26-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
- *	@Layaer		: Model
- *	@Goal		: Network
+ *	@Layer		: Model
+ *	@Package	: Network
  *
  **/
 
 package dz.mdn.iaas.network.model;
 
-import java.util.List;
-
-import dz.mdn.iaas.configuration.BaseEntity;
-import jakarta.persistence.CascadeType;
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@NoArgsConstructor
-@Entity
-@Table(name = "T_20_01")
-@Getter
+/**
+ * Zone Entity - Extends GenericModel
+ * 
+ * Database table: T_20_01
+ * Primary key: F_00 (id) - inherited from GenericModel
+ * 
+ * Fields:
+ * - F_00: id (inherited) - Primary key
+ * - F_01: name - Zone name (required)
+ */
 @Setter
-public class Zone extends BaseEntity {
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name="Zone")
+@Table(name="T_20_01")
+public class Zone extends GenericModel {
 
-	@Column(name = "F_01", nullable = false, length = 100)
+    @Column(name="F_01", length=100, nullable=false)
     private String name;
-
-    @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
-    private List<Region> regions;
-    
 }
