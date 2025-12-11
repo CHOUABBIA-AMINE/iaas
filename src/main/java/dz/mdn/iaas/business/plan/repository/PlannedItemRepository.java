@@ -14,32 +14,48 @@
 
 package dz.mdn.iaas.business.plan.repository;
 
+import dz.mdn.iaas.business.plan.model.Item;
+import dz.mdn.iaas.business.plan.model.ItemStatus;
 import dz.mdn.iaas.business.plan.model.PlannedItem;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * PlannedItem Repository
- * PlannedItem belongs to Item and ItemStatus
+ * Methods aligned with PlannedItemService requirements
  */
 @Repository
 public interface PlannedItemRepository extends JpaRepository<PlannedItem, Long> {
     
     /**
-     * Find planned items by item ID
-     * Used by PlannedItemService.getByItemId()
+     * Find planned items by item ID (already exists from previous update)
      */
-    @Query("SELECT pi FROM PlannedItem pi WHERE pi.item.id = :itemId")
-    List<PlannedItem> findByItemId(@Param("itemId") Long itemId);
+    List<PlannedItem> findByItemId(Long itemId);
     
     /**
-     * Find planned items by item status ID
-     * Used by PlannedItemService.getByItemStatusId()
+     * Find planned items by item status ID (already exists from previous update)
      */
-    @Query("SELECT pi FROM PlannedItem pi WHERE pi.itemStatus.id = :itemStatusId")
-    List<PlannedItem> findByItemStatusId(@Param("itemStatusId") Long itemStatusId);
+    List<PlannedItem> findByItemStatusId(Long itemStatusId);
+    
+    /**
+     * Search by designation (case-insensitive)
+     * Used by PlannedItemService.globalSearch()
+     */
+    Page<PlannedItem> findByDesignationContainingIgnoreCase(String designation, Pageable pageable);
+    
+    /**
+     * Find planned items by ItemStatus entity
+     * Used by PlannedItemService.findByItemStatus()
+     */
+    List<PlannedItem> findByItemStatus(ItemStatus itemStatus);
+    
+    /**
+     * Find planned items by Item entity
+     * Used by PlannedItemService.findByItem()
+     */
+    List<PlannedItem> findByItem(Item item);
 }

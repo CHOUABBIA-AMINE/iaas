@@ -15,14 +15,38 @@
 package dz.mdn.iaas.business.core.repository;
 
 import dz.mdn.iaas.business.core.model.ApprovalStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
  * ApprovalStatus Repository
- * Basic CRUD operations provided by JpaRepository
+ * Methods aligned with ApprovalStatusService requirements
  */
 @Repository
 public interface ApprovalStatusRepository extends JpaRepository<ApprovalStatus, Long> {
-    // All basic CRUD operations inherited from JpaRepository
+    
+    /**
+     * Check if French designation exists
+     */
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM ApprovalStatus a WHERE a.designationFr = :designationFr")
+    boolean existsByDesignationFr(@Param("designationFr") String designationFr);
+    
+    /**
+     * Check if French designation exists excluding current ID (for updates)
+     */
+    @Query("SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM ApprovalStatus a WHERE a.designationFr = :designationFr AND a.id != :id")
+    boolean existsByDesignationFrAndIdNot(@Param("designationFr") String designationFr, @Param("id") Long id);
+    
+    /**
+     * Search by designation (all languages)
+     */
+    @Query("SELECT a FROM ApprovalStatus a WHERE " +
+           "LOWER(a.designationFr) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+           "LOWER(a.designationEn) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
+           "LOWER(a.designationAr) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<ApprovalStatus> searchByDesignation(@Param("search") String search, Pageable pageable);
 }
