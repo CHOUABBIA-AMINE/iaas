@@ -1,70 +1,53 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
- *
  *	@Name		: MailType
  *	@CreatedOn	: 06-26-2025
- *
- *	@Type		: Class
- *	@Layaer		: Model
- *	@Package	: Common / Communication
+ *	@Updated	: 12-11-2025
+ *	@Type		: Model
+ *	@Layer		: Common / Communication
+ *	@Package	: Common / Communication / Model
  *
  **/
 
 package dz.mdn.iaas.common.communication.model;
 
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
+/**
+ * MailType Entity - Extends GenericModel
+ * Represents type of mail with multilingual designations and code
+ */
 @Setter
 @Getter
-@ToString
-@EqualsAndHashCode
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="MailType")
-@Table(name="T_01_02_02", uniqueConstraints = { @UniqueConstraint(name = "T_01_02_02_UK_01", columnNames = { "F_03" })})
-public class MailType {
+@Table(name="T_01_02_02", uniqueConstraints = { 
+    @UniqueConstraint(name = "T_01_02_02_UK_01", columnNames = { "F_03" }),
+    @UniqueConstraint(name = "T_01_02_02_UK_02", columnNames = { "F_04" })
+})
+public class MailType extends GenericModel {
 	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name="F_01", length=200)
+	@Column(name="F_01", length=100)
 	private String designationAr;
-	
-	@Column(name="F_02", length=200)
+
+	@Column(name="F_02", length=100)
 	private String designationEn;
 	
-	@Column(name="F_03", length=200, nullable=false)
+	@Column(name="F_03", length=100, nullable=false)
 	private String designationFr;
 	
+	@Column(name="F_04", length=10, nullable=false)
+	private String code;
 }
-
-/*
-INSERT INTO T_01_02_02 (F_00, F_01, F_02, F_03) VALUES
-(1, 'مرسوم', 'Decree', 'Décret'),
-(2, 'قرار', 'Administrative Decree', 'Arrété'),
-(3, 'أمر﻿', 'Order', 'Ordonnance'),
-(4, 'منشور﻿', 'Circular', 'Circulaire'),
-(5, 'توجيهة', 'Directive', 'Directive'),
-(6, 'تعليمة', 'Instruction', 'Instruction'),
-(7, 'لائحة', 'Note', 'Note'),
-(8, 'مقرر', 'Decision', 'Décision'),
-(9, 'إرسالية', 'Dispatch', 'Envoi'),
-(10, 'فاكس', 'Fax', 'Fax'),
-(11, 'جدول إرسال', 'Dispatch Sheet', 'Bordereau d\'Envoi'),
-(12, 'برقية', 'Telegram', 'Message');
-*/

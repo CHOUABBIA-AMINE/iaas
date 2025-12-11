@@ -1,30 +1,24 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
- *
  *	@Name		: Mail
  *	@CreatedOn	: 06-26-2025
- *
- *	@Type		: Class
- *	@Layaer		: Model
- *	@Package	: Common / Communication
+ *	@Updated	: 12-11-2025
+ *	@Type		: Model
+ *	@Layer		: Common / Communication
+ *	@Package	: Common / Communication / Model
  *
  **/
 
 package dz.mdn.iaas.common.communication.model;
 
-import java.util.Date;
-import java.util.List;
-
 import dz.mdn.iaas.common.administration.model.Structure;
+import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.system.utility.model.File;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -37,21 +31,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Mail Entity - Extends GenericModel
+ * Represents mail correspondence with references and attachments
+ */
 @Setter
 @Getter
+@SuperBuilder
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Mail")
-@Table(name="T_01_02_03", uniqueConstraints = { @UniqueConstraint(name = "T_01_02_03_UK_01", columnNames = { "F_01" })})
-public class Mail {
-	
-	@Id
-	@Column(name="F_00")
-  	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+@Table(name="T_01_02_03", uniqueConstraints = { 
+    @UniqueConstraint(name = "T_01_02_03_UK_01", columnNames = { "F_01" })
+})
+public class Mail extends GenericModel {
 	
 	@Column(name="F_01", length=50)
 	private String reference;
@@ -91,5 +91,4 @@ public class Mail {
 			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T010203_T010203_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T010203_T010203_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<Mail> referencedMails;
-
 }
