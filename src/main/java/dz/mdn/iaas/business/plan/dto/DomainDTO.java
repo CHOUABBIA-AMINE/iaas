@@ -63,4 +63,14 @@ public class DomainDTO extends GenericDTO<Domain> {
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
     }
+
+    public static DomainDTO fromEntity(Domain entity) {
+        if (entity == null) return null;
+        return DomainDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .build();
+    }
 }

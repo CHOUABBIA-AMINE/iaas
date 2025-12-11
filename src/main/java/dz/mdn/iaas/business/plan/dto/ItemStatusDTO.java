@@ -63,4 +63,14 @@ public class ItemStatusDTO extends GenericDTO<ItemStatus> {
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
     }
+
+    public static ItemStatusDTO fromEntity(ItemStatus entity) {
+        if (entity == null) return null;
+        return ItemStatusDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .build();
+    }
 }
