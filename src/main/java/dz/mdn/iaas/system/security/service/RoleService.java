@@ -4,8 +4,9 @@
  *
  *	@Name		: RoleService
  *	@CreatedOn	: 11-18-2025
+ *	@Updated	: 12-11-2025
  *
- *	@Type		: Class
+ *	@Type		: Service
  *	@Layer		: Service
  *	@Package	: System / Security
  *
@@ -13,123 +14,202 @@
 
 package dz.mdn.iaas.system.security.service;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import dz.mdn.iaas.configuration.template.GenericService;
+import dz.mdn.iaas.exception.ResourceNotFoundException;
 import dz.mdn.iaas.system.security.dto.RoleDTO;
 import dz.mdn.iaas.system.security.model.Permission;
 import dz.mdn.iaas.system.security.model.Role;
 import dz.mdn.iaas.system.security.repository.PermissionRepository;
 import dz.mdn.iaas.system.security.repository.RoleRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
-public class RoleService {
+@Slf4j
+@Transactional
+public class RoleService extends GenericService<Role, RoleDTO, Long> {
 
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
-    private final PermissionService permissionService;
 
-    public List<RoleDTO> findAll() {
-        return roleRepository.findAll().stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toList());
+    public RoleService(RoleRepository roleRepository, PermissionRepository permissionRepository) {
+        this.roleRepository = roleRepository;
+        this.permissionRepository = permissionRepository;
     }
 
-    public RoleDTO findById(Long id) {
-        return roleRepository.findById(id)
-            .map(this::convertToDTO)
-            .orElseThrow(() -> new RuntimeException("Role not found"));
+    // ========== GENERIC SERVICE ABSTRACT METHOD IMPLEMENTATIONS ==========
+
+    @Override
+    protected JpaRepository<Role, Long> getRepository() {
+        return roleRepository;
     }
 
+    @Override
+    protected String getEntityName() {
+        return "Role";
+    }
+
+    @Override
+    protected RoleDTO toDTO(Role entity) {
+        return RoleDTO.fromEntity(entity);
+    }
+
+    @Override
+    protected Role toEntity(RoleDTO dto) {
+        return dto.toEntity();
+    }
+
+    @Override
+    protected void updateEntityFromDTO(Role entity, RoleDTO dto) {
+        dto.updateEntity(entity);
+    }
+
+    // ========== OVERRIDDEN METHODS WITH CUSTOM LOGIC ==========
+
+    @Override
     @Transactional
     public RoleDTO create(RoleDTO dto) {
-        Role role = new Role();
-        role.setName(dto.getName());
-        role.setDescription(dto.getDescription());
+        log.info("Creating new Role: {}", dto.getName());
         
-        // Assign permissions if provided
-        if (dto.getPermissions() != null && !dto.getPermissions().isEmpty()) {
-            role.setPermissions(permissionService.convertToEntity(dto.getPermissions()));
+        // Validate unique name
+        if (roleRepository.existsByName(dto.getName())) {
+            throw new IllegalArgumentException("Role with name '" + dto.getName() + "' already exists");
         }
         
-        return convertToDTO(roleRepository.save(role));
+        // Create role and resolve permissions
+        Role role = toEntity(dto);
+        resolvePermissions(role, dto);
+        
+        Role savedRole = roleRepository.save(role);
+        return toDTO(savedRole);
     }
 
+    @Override
     @Transactional
     public RoleDTO update(Long id, RoleDTO dto) {
-        Role role = roleRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Role not found"));
+        log.info("Updating Role with ID: {}", id);
         
-        role.setName(dto.getName());
-        role.setDescription(dto.getDescription());
+        Role existingRole = getEntityById(id);
         
-        // Update permissions if provided
-        if (dto.getPermissions() != null) {
-            role.setPermissions(permissionService.convertToEntity(dto.getPermissions()));
+        // Validate unique name if changed
+        if (dto.getName() != null && !dto.getName().equals(existingRole.getName())) {
+            if (roleRepository.existsByName(dto.getName())) {
+                throw new IllegalArgumentException("Role with name '" + dto.getName() + "' already exists");
+            }
         }
         
-        return convertToDTO(roleRepository.save(role));
+        // Update basic fields
+        updateEntityFromDTO(existingRole, dto);
+        
+        // Resolve and update permissions
+        resolvePermissions(existingRole, dto);
+        
+        Role savedRole = roleRepository.save(existingRole);
+        return toDTO(savedRole);
     }
 
-    @Transactional
-    public void delete(Long id) {
-        roleRepository.deleteById(id);
-    }
+    // ========== PERMISSION MANAGEMENT ==========
 
+    /**
+     * Assign permission to role
+     */
     @Transactional
     public RoleDTO assignPermission(Long roleId, Long permissionId) {
-        Role role = roleRepository.findById(roleId)
-            .orElseThrow(() -> new RuntimeException("Role not found"));
+        log.info("Assigning permission {} to role {}", permissionId, roleId);
+        
+        Role role = getEntityById(roleId);
         Permission permission = permissionRepository.findById(permissionId)
-            .orElseThrow(() -> new RuntimeException("Permission not found"));
-
-        role.getPermissions().add(permission);
-        return convertToDTO(roleRepository.save(role));
+                .orElseThrow(() -> new ResourceNotFoundException("Permission not found with ID: " + permissionId));
+        
+        if (role.getPermissions().contains(permission)) {
+            log.warn("Role {} already has permission {}", roleId, permissionId);
+        } else {
+            role.getPermissions().add(permission);
+            roleRepository.save(role);
+            log.info("Permission {} assigned to role {} successfully", permissionId, roleId);
+        }
+        
+        return toDTO(role);
     }
 
     /**
-     * Convert single Role entity to RoleDTO
+     * Remove permission from role
      */
-    public RoleDTO convertToDTO(Role role) {
-        if (role == null) {
-            return null;
+    @Transactional
+    public RoleDTO removePermission(Long roleId, Long permissionId) {
+        log.info("Removing permission {} from role {}", permissionId, roleId);
+        
+        Role role = getEntityById(roleId);
+        Permission permission = permissionRepository.findById(permissionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Permission not found with ID: " + permissionId));
+        
+        if (role.getPermissions().remove(permission)) {
+            roleRepository.save(role);
+            log.info("Permission {} removed from role {} successfully", permissionId, roleId);
+        } else {
+            log.warn("Role {} does not have permission {}", roleId, permissionId);
         }
-        return RoleDTO.builder()
-            .id(role.getId())
-            .name(role.getName())
-            .description(role.getDescription())
-            .permissions(permissionService.convertToDTO(role.getPermissions()))
-            .build();
+        
+        return toDTO(role);
+    }
+
+    // ========== CUSTOM BUSINESS METHODS ==========
+
+    /**
+     * Find role by name
+     */
+    @Transactional(readOnly = true)
+    public RoleDTO findByName(String name) {
+        log.debug("Finding role by name: {}", name);
+        return roleRepository.findByName(name)
+                .map(this::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found with name: " + name));
     }
 
     /**
-     * Convert Set of Role entities to Set of RoleDTOs
+     * Find roles by permission
      */
-    public Set<RoleDTO> convertToDTO(Set<Role> roles) {
-        if (roles == null || roles.isEmpty()) {
-            return Set.of();
-        }
-        return roles.stream()
-            .map(this::convertToDTO)
-            .collect(Collectors.toSet());
+    @Transactional(readOnly = true)
+    public List<RoleDTO> findByPermission(Long permissionId) {
+        log.debug("Finding roles by permission: {}", permissionId);
+        
+        Permission permission = permissionRepository.findById(permissionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Permission not found with ID: " + permissionId));
+        
+        return roleRepository.findAll().stream()
+                .filter(role -> role.getPermissions().contains(permission))
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     /**
-     * Convert Set of RoleDTOs to Set of Role entities
+     * Check if role exists by name
      */
-    public Set<Role> convertToEntity(Set<RoleDTO> roleDTOs) {
-        if (roleDTOs == null || roleDTOs.isEmpty()) {
-            return Set.of();
+    @Transactional(readOnly = true)
+    public boolean existsByName(String name) {
+        return roleRepository.existsByName(name);
+    }
+
+    // ========== HELPER METHODS ==========
+
+    /**
+     * Resolve permission IDs from DTO to actual entities
+     */
+    private void resolvePermissions(Role role, RoleDTO dto) {
+        if (dto.getPermissions() != null && !dto.getPermissions().isEmpty()) {
+            role.getPermissions().clear();
+            dto.getPermissions().forEach(permissionDTO -> {
+                if (permissionDTO.getId() != null) {
+                    Permission permission = permissionRepository.findById(permissionDTO.getId())
+                            .orElseThrow(() -> new ResourceNotFoundException("Permission not found with ID: " + permissionDTO.getId()));
+                    role.getPermissions().add(permission);
+                }
+            });
         }
-        return roleDTOs.stream()
-            .map(roleDTO -> roleRepository.findById(roleDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Role not found: " + roleDTO.getId())))
-            .collect(Collectors.toSet());
     }
 }
