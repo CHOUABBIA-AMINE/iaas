@@ -66,4 +66,14 @@ public class ExclusionTypeDTO extends GenericDTO<ExclusionType> {
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
     }
+
+    public static ExclusionTypeDTO fromEntity(ExclusionType entity) {
+        if (entity == null) return null;
+        return ExclusionTypeDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .build();
+    }
 }
