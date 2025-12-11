@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.provider.model.Clearance;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,6 +47,14 @@ public class ClearanceDTO extends GenericDTO<Clearance> {
     @NotBlank(message = "French designation is required")
     @Size(max = 200, message = "French designation must not exceed 200 characters")
     private String designationFr;
+    
+    @NotNull(message = "Provider is required")
+    private Long providerId;
+    
+    @NotNull(message = "Provider representator is required")
+    private Long providerRepresentatorId;
+    
+    private Long referenceId;
 
     @Override
     public Clearance toEntity() {
@@ -72,6 +81,9 @@ public class ClearanceDTO extends GenericDTO<Clearance> {
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
+                .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
+                .providerRepresentatorId(entity.getProviderRepresentator() != null ? entity.getProviderRepresentator().getId() : null)
+                .referenceId(entity.getReference() != null ? entity.getReference().getId() : null)
                 .build();
     }
 }
