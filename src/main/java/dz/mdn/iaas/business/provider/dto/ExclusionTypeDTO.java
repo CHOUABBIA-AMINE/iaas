@@ -4,7 +4,7 @@
  *
  *	@Name		: ExclusionTypeDTO
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-10-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -16,12 +16,14 @@ package dz.mdn.iaas.business.provider.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.business.provider.model.ExclusionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * ExclusionType Data Transfer Object
@@ -29,10 +31,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ExclusionTypeDTO extends GenericDTO {
+public class ExclusionTypeDTO extends GenericDTO<ExclusionType> {
 
     @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
     private String designationAr;
@@ -47,4 +50,20 @@ public class ExclusionTypeDTO extends GenericDTO {
     private int severityLevel;
     private String description;
 
+    @Override
+    public ExclusionType toEntity() {
+        ExclusionType entity = new ExclusionType();
+        entity.setId(this.getId());
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        return entity;
+    }
+
+    @Override
+    public void updateEntity(ExclusionType entity) {
+        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+    }
 }
