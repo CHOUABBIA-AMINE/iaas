@@ -20,6 +20,7 @@ import dz.mdn.iaas.system.utility.service.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class FileController extends GenericController<FileDTO, Long> {
     // ========== PHYSICAL FILE OPERATIONS ==========
 
     /**
-     * Upload file
+     * Upload single file
      * POST /system/file/upload
      */
     @PostMapping("/upload")
@@ -54,7 +55,26 @@ public class FileController extends GenericController<FileDTO, Long> {
         
         FileDTO uploadedFile = fileService.uploadFile(file, fileType);
         
-        return ResponseEntity.ok(uploadedFile);
+        return ResponseEntity.status(HttpStatus.CREATED).body(uploadedFile);
+    }
+
+    /**
+     * Upload multiple files
+     * POST /system/file/upload/batch
+     */
+    @PostMapping("/upload/batch")
+    public ResponseEntity<Map<String, Object>> uploadFiles(
+            @RequestParam("files") List<MultipartFile> files,
+            @RequestParam(value = "fileType", required = false) String fileType) {
+        log.info("REST request to upload {} files", files.size());
+        
+        List<FileDTO> uploadedFiles = fileService.uploadFiles(files, fileType);
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
+            "uploadedCount", uploadedFiles.size(),
+            "totalCount", files.size(),
+            "files", uploadedFiles
+        ));
     }
 
     /**
@@ -79,14 +99,45 @@ public class FileController extends GenericController<FileDTO, Long> {
     }
 
     /**
-     * Delete file physically
-     * DELETE /system/file/{id}/physical
+     * Replace file content
+     * PUT /system/file/{id}/replace
      */
-    @DeleteMapping("/{id}/physical")
-    public ResponseEntity<Void> deleteFilePhysically(@PathVariable Long id) {
-        log.info("REST request to delete file physically with id: {}", id);
+    @PutMapping("/{id}/replace")
+    public ResponseEntity<FileDTO> replaceFile(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) {
+        log.info("REST request to replace file with id: {}", id);
         
-        fileService.deleteFilePhysically(id);
+        FileDTO replacedFile = fileService.replaceFile(id, file);
+        
+        return ResponseEntity.ok(replacedFile);
+    }
+
+    /**
+     * Copy file
+     * POST /system/file/{id}/copy
+     */
+    @PostMapping("/{id}/copy")
+    public ResponseEntity<FileDTO> copyFile(
+            @PathVariable Long id,
+            @RequestParam(value = "fileType", required = false) String fileType) {
+        log.info("REST request to copy file with id: {}", id);
+        
+        FileDTO copiedFile = fileService.copyFile(id, fileType);
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body(copiedFile);
+    }
+
+    /**
+     * Delete file physically (overrides standard delete)
+     * DELETE /system/file/{id}
+     */
+    @Override
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        log.info("REST request to delete file (physical and metadata) with id: {}", id);
+        
+        fileService.delete(id);
         
         return ResponseEntity.noContent().build();
     }
@@ -117,6 +168,42 @@ public class FileController extends GenericController<FileDTO, Long> {
         return ResponseEntity.ok(Map.of(
             "size", size != null ? size : 0,
             "formatted", formatSize(size)
+        ));
+    }
+
+    // ========== MAINTENANCE OPERATIONS ==========
+
+    /**
+     * Cleanup orphaned files
+     * POST /system/file/cleanup/orphans
+     */
+    @PostMapping("/cleanup/orphans")
+    public ResponseEntity<Map<String, Object>> cleanupOrphanedFiles() {
+        log.info("REST request to cleanup orphaned files");
+        
+        FileService.OrphanCleanupResult result = fileService.cleanupOrphanedFiles();
+        
+        return ResponseEntity.ok(Map.of(
+            "deletedCount", result.deletedCount(),
+            "deletedFiles", result.deletedFiles(),
+            "errors", result.errors(),
+            "hasErrors", result.hasErrors()
+        ));
+    }
+
+    /**
+     * Find files with missing physical files
+     * GET /system/file/missing-physical
+     */
+    @GetMapping("/missing-physical")
+    public ResponseEntity<Map<String, Object>> findFilesWithMissingPhysical() {
+        log.info("REST request to find files with missing physical files");
+        
+        List<FileDTO> files = fileService.findFilesWithMissingPhysical();
+        
+        return ResponseEntity.ok(Map.of(
+            "count", files.size(),
+            "files", files
         ));
     }
 
@@ -157,9 +244,19 @@ public class FileController extends GenericController<FileDTO, Long> {
      * GET /system/file/stats
      */
     @GetMapping("/stats")
-    public ResponseEntity<FileService.FileStorageStats> getStorageStats() {
+    public ResponseEntity<Map<String, Object>> getStorageStats() {
         log.info("REST request to get storage statistics");
-        return ResponseEntity.ok(fileService.getStorageStats());
+        
+        FileService.FileStorageStats stats = fileService.getStorageStats();
+        
+        return ResponseEntity.ok(Map.of(
+            "totalFiles", stats.totalFiles(),
+            "totalSize", stats.totalSize() != null ? stats.totalSize() : 0,
+            "totalSizeFormatted", stats.getFormattedTotalSize(),
+            "maxFileSize", stats.maxFileSize(),
+            "maxFileSizeFormatted", stats.getFormattedMaxFileSize(),
+            "allowedExtensions", stats.allowedExtensions()
+        ));
     }
 
     // ========== HELPER METHODS ==========
@@ -170,15 +267,21 @@ public class FileController extends GenericController<FileDTO, Long> {
         return switch (extension.toLowerCase()) {
             case "pdf" -> "application/pdf";
             case "txt" -> "text/plain";
+            case "csv" -> "text/csv";
             case "jpg", "jpeg" -> "image/jpeg";
             case "png" -> "image/png";
             case "gif" -> "image/gif";
+            case "bmp" -> "image/bmp";
             case "json" -> "application/json";
             case "xml" -> "application/xml";
             case "zip" -> "application/zip";
-            case "doc", "docx" -> "application/msword";
-            case "xls", "xlsx" -> "application/vnd.ms-excel";
-            case "ppt", "pptx" -> "application/vnd.ms-powerpoint";
+            case "rar" -> "application/x-rar-compressed";
+            case "doc" -> "application/msword";
+            case "docx" -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            case "xls" -> "application/vnd.ms-excel";
+            case "xlsx" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            case "ppt" -> "application/vnd.ms-powerpoint";
+            case "pptx" -> "application/vnd.openxmlformats-officedocument.presentationml.presentation";
             default -> "application/octet-stream";
         };
     }
