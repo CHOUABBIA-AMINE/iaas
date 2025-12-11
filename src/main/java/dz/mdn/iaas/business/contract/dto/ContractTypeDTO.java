@@ -4,7 +4,7 @@
  *
  *	@Name		: ContractTypeDTO
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-10-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -68,5 +68,15 @@ public class ContractTypeDTO extends GenericDTO<ContractType> {
         if (this.designationFr != null) {
             entity.setDesignationFr(this.designationFr);
         }
+    }
+
+    public static ContractTypeDTO fromEntity(ContractType entity) {
+        if (entity == null) return null;
+        return ContractTypeDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .build();
     }
 }

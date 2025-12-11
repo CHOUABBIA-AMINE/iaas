@@ -4,7 +4,7 @@
  *
  *	@Name		: ContractPhaseDTO
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-10-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -68,5 +68,15 @@ public class ContractPhaseDTO extends GenericDTO<ContractPhase> {
         if (this.designationFr != null) {
             entity.setDesignationFr(this.designationFr);
         }
+    }
+
+    public static ContractPhaseDTO fromEntity(ContractPhase entity) {
+        if (entity == null) return null;
+        return ContractPhaseDTO.builder()
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .build();
     }
 }

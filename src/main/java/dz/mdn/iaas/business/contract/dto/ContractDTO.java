@@ -4,7 +4,7 @@
  *
  *	@Name		: ContractDTO
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-10-2025
+ *	@Updated	: 12-11-2025
  *
  *	@Type		: Class
  *	@Layer		: DTO
@@ -149,5 +149,35 @@ public class ContractDTO extends GenericDTO<Contract> {
         if (this.observation != null) {
             entity.setObservation(this.observation);
         }
+    }
+
+    public static ContractDTO fromEntity(Contract entity) {
+        if (entity == null) return null;
+        return ContractDTO.builder()
+                .id(entity.getId())
+                .internalId(entity.getInternalId())
+                .contractYear(entity.getContractYear())
+                .reference(entity.getReference())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .amount(entity.getAmount())
+                .transferableAmount(entity.getTransferableAmount())
+                .startDate(entity.getStartDate())
+                .approvalReference(entity.getApprovalReference())
+                .approvalDate(entity.getApprovalDate())
+                .contractDate(entity.getContractDate())
+                .notifyDate(entity.getNotifyDate())
+                .contractDuration(entity.getContractDuration())
+                .observation(entity.getObservation())
+                .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
+                .contractTypeId(entity.getContractType() != null ? entity.getContractType().getId() : null)
+                .contractStepId(entity.getContractStep() != null ? entity.getContractStep().getId() : null)
+                .procurementStatusId(entity.getProcurementStatus() != null ? entity.getProcurementStatus().getId() : null)
+                .approvalStatusId(entity.getApprovalStatus() != null ? entity.getApprovalStatus().getId() : null)
+                .currencyId(entity.getCurrency() != null ? entity.getCurrency().getId() : null)
+                .consultationId(entity.getConsultation() != null ? entity.getConsultation().getId() : null)
+                .contractUpId(entity.getContractUp() != null ? entity.getContractUp().getId() : null)
+                .build();
     }
 }
