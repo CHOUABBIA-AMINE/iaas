@@ -20,9 +20,11 @@ import dz.mdn.iaas.business.plan.repository.ItemRepository;
 import dz.mdn.iaas.business.plan.repository.ItemStatusRepository;
 import dz.mdn.iaas.business.plan.repository.PlannedItemRepository;
 import dz.mdn.iaas.configuration.template.GenericService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,25 +36,32 @@ import java.util.stream.Collectors;
  * Provides business logic for planned items with item status and item relationships
  */
 @Service
+@RequiredArgsConstructor
 @Slf4j
-@Transactional
+@Transactional(readOnly = true)
 public class PlannedItemService extends GenericService<PlannedItem, PlannedItemDTO, Long> {
 
     private final PlannedItemRepository plannedItemRepository;
     private final ItemStatusRepository itemStatusRepository;
     private final ItemRepository itemRepository;
 
-    public PlannedItemService(PlannedItemRepository plannedItemRepository,
-                             ItemStatusRepository itemStatusRepository,
-                             ItemRepository itemRepository) {
-        super(plannedItemRepository, PlannedItemDTO.class);
-        this.plannedItemRepository = plannedItemRepository;
-        this.itemStatusRepository = itemStatusRepository;
-        this.itemRepository = itemRepository;
+    @Override
+    protected JpaRepository<PlannedItem, Long> getRepository() {
+        return plannedItemRepository;
     }
 
     @Override
-    protected PlannedItem convertToEntity(PlannedItemDTO dto) {
+    protected String getEntityName() {
+        return "PlannedItem";
+    }
+
+    @Override
+    protected PlannedItemDTO toDTO(PlannedItem entity) {
+        return PlannedItemDTO.fromEntity(entity);
+    }
+
+    @Override
+    protected PlannedItem toEntity(PlannedItemDTO dto) {
         PlannedItem entity = dto.toEntity();
         
         // Set ItemStatus relationship
@@ -73,12 +82,7 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
     }
 
     @Override
-    protected PlannedItemDTO convertToDTO(PlannedItem entity) {
-        return PlannedItemDTO.fromEntity(entity);
-    }
-
-    @Override
-    protected void updateEntityFromDTO(PlannedItemDTO dto, PlannedItem entity) {
+    protected void updateEntityFromDTO(PlannedItem entity, PlannedItemDTO dto) {
         dto.updateEntity(entity);
         
         // Update ItemStatus relationship if provided
@@ -96,13 +100,18 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
         }
     }
 
-    // ========== SEARCH ==========
+    @Override
+    @Transactional
+    public PlannedItemDTO create(PlannedItemDTO dto) {
+        log.info("Creating planned item: designation={}", dto.getDesignation());
+        return super.create(dto);
+    }
 
     @Override
-    public Page<PlannedItemDTO> globalSearch(String query, Pageable pageable) {
-        log.debug("Global search for PlannedItems with query: {}", query);
-        Page<PlannedItem> entities = plannedItemRepository.findByDesignationContainingIgnoreCase(query, pageable);
-        return entities.map(this::convertToDTO);
+    @Transactional
+    public PlannedItemDTO update(Long id, PlannedItemDTO dto) {
+        log.info("Updating planned item with ID: {}", id);
+        return super.update(id, dto);
     }
 
     // ========== CUSTOM METHODS ==========
@@ -113,8 +122,22 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
     public List<PlannedItemDTO> getAll() {
         log.debug("Getting all planned items without pagination");
         return plannedItemRepository.findAll().stream()
-                .map(this::convertToDTO)
+                .map(PlannedItemDTO::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Global search for planned items
+     */
+    public Page<PlannedItemDTO> globalSearch(String searchTerm, Pageable pageable) {
+        log.debug("Global search for planned items with term: {}", searchTerm);
+        
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return getAll(pageable);
+        }
+        
+        Page<PlannedItem> entities = plannedItemRepository.findByDesignationContainingIgnoreCase(searchTerm, pageable);
+        return entities.map(this::toDTO);
     }
 
     /**
@@ -125,7 +148,7 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
         ItemStatus itemStatus = itemStatusRepository.findById(itemStatusId)
                 .orElseThrow(() -> new RuntimeException("ItemStatus not found with id: " + itemStatusId));
         return plannedItemRepository.findByItemStatus(itemStatus).stream()
-                .map(this::convertToDTO)
+                .map(PlannedItemDTO::fromEntity)
                 .collect(Collectors.toList());
     }
     
@@ -137,7 +160,7 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new RuntimeException("Item not found with id: " + itemId));
         return plannedItemRepository.findByItem(item).stream()
-                .map(this::convertToDTO)
+                .map(PlannedItemDTO::fromEntity)
                 .collect(Collectors.toList());
     }
 }
