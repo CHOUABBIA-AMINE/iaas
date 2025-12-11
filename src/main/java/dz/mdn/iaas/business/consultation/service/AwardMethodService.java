@@ -1,35 +1,96 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
- *
  *	@Name		: AwardMethodService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-10-2025
- *
- *	@Type		: Class
- *	@Layer		: Service
- *	@Package	: Business / Consultation
+ *	@Updated	: 12-11-2025
+ *	@Type		: Service
+ *	@Layer		: Business / Consultation
+ *	@Package	: Business / Consultation / Service
  *
  **/
 
 package dz.mdn.iaas.business.consultation.service;
 
-import org.springframework.stereotype.Service;
-
-import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.business.consultation.dto.AwardMethodDTO;
 import dz.mdn.iaas.business.consultation.model.AwardMethod;
 import dz.mdn.iaas.business.consultation.repository.AwardMethodRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * AwardMethod Service
- * Extends GenericService for automatic CRUD inheritance
+ * AwardMethod Service - Extends GenericService
  */
 @Service
-public class AwardMethodService extends GenericService<AwardMethod, AwardMethodDTO, AwardMethodRepository> {
+@RequiredArgsConstructor
+@Slf4j
+@Transactional(readOnly = true)
+public class AwardMethodService extends GenericService<AwardMethod, AwardMethodDTO, Long> {
 
-    public AwardMethodService(AwardMethodRepository repository) {
-        super(repository, AwardMethod.class, AwardMethodDTO.class);
+    private final AwardMethodRepository awardMethodRepository;
+
+    @Override
+    protected JpaRepository<AwardMethod, Long> getRepository() {
+        return awardMethodRepository;
     }
 
+    @Override
+    protected String getEntityName() {
+        return "AwardMethod";
+    }
+
+    @Override
+    protected AwardMethodDTO toDTO(AwardMethod entity) {
+        return AwardMethodDTO.fromEntity(entity);
+    }
+
+    @Override
+    protected AwardMethod toEntity(AwardMethodDTO dto) {
+        return dto.toEntity();
+    }
+
+    @Override
+    protected void updateEntityFromDTO(AwardMethod entity, AwardMethodDTO dto) {
+        dto.updateEntity(entity);
+    }
+
+    @Override
+    @Transactional
+    public AwardMethodDTO create(AwardMethodDTO dto) {
+        log.info("Creating award method: designationFr={}", dto.getDesignationFr());
+        return super.create(dto);
+    }
+
+    @Override
+    @Transactional
+    public AwardMethodDTO update(Long id, AwardMethodDTO dto) {
+        log.info("Updating award method with ID: {}", id);
+        return super.update(id, dto);
+    }
+
+    public List<AwardMethodDTO> getAll() {
+        log.debug("Getting all award methods without pagination");
+        return awardMethodRepository.findAll().stream()
+                .map(AwardMethodDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public Page<AwardMethodDTO> globalSearch(String searchTerm, Pageable pageable) {
+        log.debug("Global search for award methods with term: {}", searchTerm);
+        
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return getAll(pageable);
+        }
+        
+        return getAll(pageable);
+    }
 }
