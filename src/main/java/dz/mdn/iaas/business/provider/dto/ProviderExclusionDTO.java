@@ -38,7 +38,6 @@ import lombok.experimental.SuperBuilder;
 public class ProviderExclusionDTO extends GenericDTO<ProviderExclusion> {
 
     private int internalId;
-    private String reference;
     
     @NotNull(message = "Provider is required")
     private Long providerId;
@@ -47,24 +46,36 @@ public class ProviderExclusionDTO extends GenericDTO<ProviderExclusion> {
     private Long exclusionTypeId;
     
     private Date startDate;
+    
     private Date endDate;
-    private String reason;
-    private String decisionAuthority;
-    private boolean isPermanent;
-    private String observation;
 
     @Override
     public ProviderExclusion toEntity() {
         ProviderExclusion entity = new ProviderExclusion();
         entity.setId(this.getId());
         entity.setInternalId(this.internalId);
-        entity.setReference(this.reference);
+        entity.setStartDate(this.startDate);
+        entity.setEndDate(this.endDate);
         return entity;
     }
 
     @Override
     public void updateEntity(ProviderExclusion entity) {
         if (this.internalId > 0) entity.setInternalId(this.internalId);
-        if (this.reference != null) entity.setReference(this.reference);
+        if (this.startDate != null) entity.setStartDate(this.startDate);
+        if (this.endDate != null) entity.setEndDate(this.endDate);
+    }
+
+    public static ProviderExclusionDTO fromEntity(ProviderExclusion entity) {
+        if (entity == null) return null;
+        
+        return ProviderExclusionDTO.builder()
+                .id(entity.getId())
+                .internalId(entity.getInternalId())
+                .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
+                .exclusionTypeId(entity.getExclusionType() != null ? entity.getExclusionType().getId() : null)
+                .startDate(entity.getStartDate())
+                .endDate(entity.getEndDate())
+                .build();
     }
 }
