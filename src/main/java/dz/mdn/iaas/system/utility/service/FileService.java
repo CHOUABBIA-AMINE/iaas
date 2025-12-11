@@ -3,9 +3,10 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: FileService
- *	@CreatedOn	: 10-14-2025
+ *	@CreatedOn	: 06-26-2023
+ *	@Updated	: 12-11-2025
  *
- *	@Type		: Class
+ *	@Type		: Service
  *	@Layer		: Service
  *	@Package	: System / Utility
  *
@@ -13,237 +14,210 @@
 
 package dz.mdn.iaas.system.utility.service;
 
+import dz.mdn.iaas.configuration.template.GenericService;
+import dz.mdn.iaas.exception.ResourceNotFoundException;
+import dz.mdn.iaas.system.utility.dto.FileDTO;
 import dz.mdn.iaas.system.utility.model.File;
 import dz.mdn.iaas.system.utility.repository.FileRepository;
-import dz.mdn.iaas.system.utility.dto.FileDTO;
-
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.net.MalformedURLException;
-import java.nio.file.*;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 @Transactional
-public class FileService {
+public class FileService extends GenericService<File, FileDTO, Long> {
 
     private final FileRepository fileRepository;
 
-    @Value("${app.file.upload-dir:f:/files}")
-    private String uploadDirectory;
+    public FileService(FileRepository fileRepository) {
+        super(fileRepository);
+        this.fileRepository = fileRepository;
+    }
 
-    // ========== CREATE OPERATIONS ==========
+    // ========== ABSTRACT METHOD IMPLEMENTATIONS ==========
 
-    public FileDTO createFile(MultipartFile multipartFile, String fileType) {
-        log.info("Creating file: {}", multipartFile.getOriginalFilename());
+    @Override
+    protected FileDTO convertToDTO(File entity) {
+        return FileDTO.fromEntity(entity);
+    }
 
-        try {
-            // Extract file properties
-            String extension = getFileExtension(multipartFile.getOriginalFilename());
-            String filePath = generateFilePath(extension);
-            long size = multipartFile.getSize();
+    @Override
+    protected File convertToEntity(FileDTO dto) {
+        return dto.toEntity();
+    }
 
-            // Save file to disk
-            saveFileToDisk(multipartFile, filePath);
+    @Override
+    protected void updateEntityFromDTO(File entity, FileDTO dto) {
+        dto.updateEntity(entity);
+    }
 
-            // Create entity with exact field mapping
-            File file = new File();
-            file.setExtension(extension); // F_01
-            file.setSize(size); // F_02
-            file.setPath(filePath); // F_03
-            file.setFileType(fileType != null ? fileType : detectFileType(extension)); // F_04
+    @Override
+    protected void validateCreate(FileDTO dto) {
+        log.debug("Validating File creation: {}", dto);
+        
+        // Check if path already exists
+        if (fileRepository.existsByPath(dto.getPath())) {
+            throw new IllegalArgumentException("File with path '" + dto.getPath() + "' already exists");
+        }
 
-            File savedFile = fileRepository.save(file);
-            log.info("Successfully created file with ID: {}", savedFile.getId());
+        // Validate extension
+        if (dto.getExtension() == null || dto.getExtension().trim().isEmpty()) {
+            throw new IllegalArgumentException("File extension is required");
+        }
 
-            return FileDTO.fromEntity(savedFile);
+        // Validate path
+        if (dto.getPath() == null || dto.getPath().trim().isEmpty()) {
+            throw new IllegalArgumentException("File path is required");
+        }
 
-        } catch (IOException e) {
-            log.error("Error creating file: {}", multipartFile.getOriginalFilename(), e);
-            throw new RuntimeException("Failed to create file", e);
+        // Validate size
+        if (dto.getSize() != null && dto.getSize() < 0) {
+            throw new IllegalArgumentException("File size cannot be negative");
         }
     }
 
-    // ========== READ OPERATIONS ==========
+    @Override
+    protected void validateUpdate(Long id, FileDTO dto) {
+        log.debug("Validating File update for id: {}", id);
+        
+        // Check if file exists
+        if (!fileRepository.existsById(id)) {
+            throw new ResourceNotFoundException("File not found with id: " + id);
+        }
 
+        // Check if new path conflicts with existing file
+        if (dto.getPath() != null) {
+            fileRepository.findByPath(dto.getPath()).ifPresent(existing -> {
+                if (!existing.getId().equals(id)) {
+                    throw new IllegalArgumentException("File with path '" + dto.getPath() + "' already exists");
+                }
+            });
+        }
+
+        // Validate size if provided
+        if (dto.getSize() != null && dto.getSize() < 0) {
+            throw new IllegalArgumentException("File size cannot be negative");
+        }
+    }
+
+    @Override
+    public Page<FileDTO> globalSearch(String query, Pageable pageable) {
+        log.debug("Searching files with query: {}", query);
+        
+        if (query == null || query.trim().isEmpty()) {
+            return fileRepository.findAll(pageable).map(this::convertToDTO);
+        }
+        
+        return fileRepository.searchFiles(query.trim(), pageable).map(this::convertToDTO);
+    }
+
+    // ========== CUSTOM BUSINESS METHODS ==========
+
+    /**
+     * Find file by path
+     */
     @Transactional(readOnly = true)
-    public FileDTO getFileMetadata(Long id) {
-        log.debug("Getting metadata for file ID: {}", id);
-
-        File file = fileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found with ID: " + id));
-
-        FileDTO dto = FileDTO.fromEntity(file);
-        dto.setExists(Files.exists(Paths.get(file.getPath())));
-
-        return dto;
+    public FileDTO findByPath(String path) {
+        log.debug("Finding file by path: {}", path);
+        return fileRepository.findByPath(path)
+                .map(this::convertToDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("File not found with path: " + path));
     }
 
     /**
-     * Get file content as Resource
+     * Find files by extension
      */
     @Transactional(readOnly = true)
-    public Resource getFileContent(Long id) {
-        log.debug("Getting content for file ID: {}", id);
-
-        File file = fileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found with ID: " + id));
-
-        return loadFileAsResource(file.getPath());
+    public List<FileDTO> findByExtension(String extension) {
+        log.debug("Finding files by extension: {}", extension);
+        return fileRepository.findByExtension(extension)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
+    /**
+     * Find files by file type
+     */
     @Transactional(readOnly = true)
-    public Page<FileDTO> getAllFilesMetadata(Pageable pageable) {
-        log.debug("Getting all files metadata with pagination");
-
-        Page<File> files = fileRepository.findAll(pageable);
-        return files.map(file -> {
-            FileDTO dto = FileDTO.fromEntity(file);
-            dto.setExists(Files.exists(Paths.get(file.getPath())));
-            return dto;
-        });
+    public List<FileDTO> findByFileType(String fileType) {
+        log.debug("Finding files by file type: {}", fileType);
+        return fileRepository.findByFileType(fileType)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
+    /**
+     * Find files by extension and file type
+     */
     @Transactional(readOnly = true)
-    public Optional<FileDTO> findOne(Long id) {
-        log.debug("Finding file by ID: {}", id);
-
-        return fileRepository.findById(id)
-                .map(file -> {
-                    FileDTO dto = FileDTO.fromEntity(file);
-                    dto.setExists(Files.exists(Paths.get(file.getPath())));
-                    return dto;
-                });
+    public List<FileDTO> findByExtensionAndFileType(String extension, String fileType) {
+        log.debug("Finding files by extension: {} and file type: {}", extension, fileType);
+        return fileRepository.findByExtensionAndFileType(extension, fileType)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
-    // ========== UPDATE OPERATIONS ==========
-
-    public FileDTO updateFile(Long id, FileDTO fileDTO) {
-        log.info("Updating file with ID: {}", id);
-
-        File existingFile = fileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found with ID: " + id));
-
-        // Update modifiable fields
-        if (fileDTO.getExtension() != null) {
-            existingFile.setExtension(fileDTO.getExtension()); // F_01
-        }
-        if (fileDTO.getFileType() != null) {
-            existingFile.setFileType(fileDTO.getFileType()); // F_04
-        }
-        // Note: path (F_03) and size (F_02) are typically not updated directly
-
-        File updatedFile = fileRepository.save(existingFile);
-        log.info("Successfully updated file with ID: {}", id);
-
-        return FileDTO.fromEntity(updatedFile);
-    }
-
-    // ========== DELETE OPERATIONS ==========
-
-    public void deleteFile(Long id) {
-        log.info("Deleting file with ID: {}", id);
-
-        File file = fileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found with ID: " + id));
-
-        try {
-            // Delete physical file
-            deletePhysicalFile(file.getPath());
-
-            // Delete database record
-            fileRepository.delete(file);
-
-            log.info("Successfully deleted file with ID: {}", id);
-
-        } catch (IOException e) {
-            log.error("Error deleting file with ID: {}", id, e);
-            throw new RuntimeException("Failed to delete file", e);
-        }
-    }
-
-    // ========== HELPER METHODS ==========
-
-    private String getFileExtension(String filename) {
-        if (filename == null || filename.lastIndexOf('.') == -1) {
-            return "";
-        }
-        return filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
-    }
-
-    private String generateFilePath(String extension) {
-        String filename = UUID.randomUUID().toString() + "." + extension;
-        return Paths.get(uploadDirectory, filename).toString();
-    }
-
-    private void saveFileToDisk(MultipartFile multipartFile, String filePath) throws IOException {
-        Path path = Paths.get(filePath);
-        Files.createDirectories(path.getParent());
-
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
-        }
-    }
-
-    private Resource loadFileAsResource(String filePath) {
-        try {
-            Path path = Paths.get(filePath).normalize();
-            Resource resource = new UrlResource(path.toUri());
-
-            if (resource.exists() && resource.isReadable()) {
-                return resource;
-            } else {
-                throw new RuntimeException("File not found or not readable: " + filePath);
-            }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Malformed file path: " + filePath, e);
-        }
-    }
-
-    private void deletePhysicalFile(String filePath) throws IOException {
-        Path path = Paths.get(filePath);
-        if (Files.exists(path)) {
-            Files.delete(path);
-            log.debug("Deleted physical file: {}", filePath);
-        }
-    }
-
-    private String detectFileType(String extension) {
-        if (extension == null) return "unknown";
-
-        return switch (extension.toLowerCase()) {
-            case "pdf" -> "document";
-            case "jpg", "jpeg", "png", "gif" -> "image";
-            case "txt", "doc", "docx" -> "document";
-            case "mp4", "avi", "mov" -> "video";
-            case "mp3", "wav" -> "audio";
-            case "zip", "rar" -> "archive";
-            default -> "file";
-        };
-    }
-    
+    /**
+     * Find large files
+     */
     @Transactional(readOnly = true)
-    public UrlResource getFileUrlResource(Long id) {
-        File file = fileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found with ID: " + id));
-        try {
-            Path path = Paths.get(file.getPath()).normalize();
-            return new UrlResource(path.toUri());
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("Invalid file URI: " + file.getPath(), e);
+    public List<FileDTO> findLargeFiles(Long minimumSize) {
+        log.debug("Finding files larger than: {} bytes", minimumSize);
+        return fileRepository.findBySizeGreaterThan(minimumSize)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get total storage size
+     */
+    @Transactional(readOnly = true)
+    public Long getTotalStorageSize() {
+        log.debug("Calculating total storage size");
+        Long total = fileRepository.getTotalStorageSize();
+        return total != null ? total : 0L;
+    }
+
+    /**
+     * Get storage statistics
+     */
+    @Transactional(readOnly = true)
+    public FileStorageStats getStorageStats() {
+        log.debug("Getting storage statistics");
+        
+        long totalFiles = fileRepository.count();
+        Long totalSize = getTotalStorageSize();
+        
+        return new FileStorageStats(totalFiles, totalSize);
+    }
+
+    /**
+     * Count files by extension
+     */
+    @Transactional(readOnly = true)
+    public long countByExtension(String extension) {
+        log.debug("Counting files by extension: {}", extension);
+        return fileRepository.countByExtension(extension);
+    }
+
+    // Inner class for storage statistics
+    public record FileStorageStats(long totalFiles, Long totalSize) {
+        public String getFormattedTotalSize() {
+            if (totalSize == null || totalSize == 0) return "0 B";
+            if (totalSize < 1024) return totalSize + " B";
+            if (totalSize < 1024 * 1024) return String.format("%.1f KB", totalSize / 1024.0);
+            if (totalSize < 1024 * 1024 * 1024) return String.format("%.1f MB", totalSize / (1024.0 * 1024));
+            return String.format("%.1f GB", totalSize / (1024.0 * 1024 * 1024));
         }
     }
 }

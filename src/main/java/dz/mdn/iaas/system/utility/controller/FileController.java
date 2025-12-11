@@ -3,9 +3,10 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: FileController
- *	@CreatedOn	: 10-14-2025
+ *	@CreatedOn	: 12-11-2025
+ *	@Updated	: 12-11-2025
  *
- *	@Type		: Class
+ *	@Type		: Controller
  *	@Layer		: Controller
  *	@Package	: System / Utility
  *
@@ -13,152 +14,124 @@
 
 package dz.mdn.iaas.system.utility.controller;
 
-import dz.mdn.iaas.system.utility.service.FileService;
+import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.system.utility.dto.FileDTO;
-
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import dz.mdn.iaas.system.utility.service.FileService;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/file")
-@RequiredArgsConstructor
+@RequestMapping("/system/file")
 @Slf4j
-public class FileController {
+public class FileController extends GenericController<FileDTO, Long> {
 
     private final FileService fileService;
 
-    // ========== POST ONE FILE (CONTENT AND METADATA) ==========
-
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<FileDTO> uploadFile(
-            @RequestParam MultipartFile file,
-            @RequestParam(required = false) String fileType) {
-        
-        log.info("Uploading file: {}", file.getOriginalFilename());
-        
-        FileDTO createdFile = fileService.createFile(file, fileType);
-        
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdFile);
+    public FileController(FileService fileService) {
+        super(fileService, "File");
+        this.fileService = fileService;
     }
 
-    // ========== GET CONTENT ==========
-
-    @GetMapping("/{id}/content")
-    public ResponseEntity<Resource> downloadFileContent(@PathVariable Long id) {
-        log.debug("Downloading content for file ID: {}", id);
-        
-        // Get metadata first to determine content type and filename
-        FileDTO fileMetadata = fileService.getFileMetadata(id);
-        
-        // Get file content
-        Resource resource = fileService.getFileContent(id);
-        
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(fileMetadata.getContentType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, 
-                        "attachment; filename=\"" + fileMetadata.getFileName() + "\"")
-                .contentLength(fileMetadata.getSize())
-                .body(resource);
+    /**
+     * Find file by path
+     * GET /system/file/by-path?path=...
+     */
+    @GetMapping("/by-path")
+    public ResponseEntity<FileDTO> getByPath(@RequestParam String path) {
+        log.info("REST request to get File by path: {}", path);
+        return ResponseEntity.ok(fileService.findByPath(path));
     }
 
-    @GetMapping("/{id}/stream")
-    public ResponseEntity<Resource> streamFileContent(@PathVariable Long id) {
-        log.debug("Streaming content for file ID: {}", id);
-        
-        FileDTO fileMetadata = fileService.getFileMetadata(id);
-        Resource resource = fileService.getFileContent(id);
-        
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(fileMetadata.getContentType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline")
-                .body(resource);
+    /**
+     * Find files by extension
+     * GET /system/file/by-extension/{extension}
+     */
+    @GetMapping("/by-extension/{extension}")
+    public ResponseEntity<List<FileDTO>> getByExtension(@PathVariable String extension) {
+        log.info("REST request to get Files by extension: {}", extension);
+        return ResponseEntity.ok(fileService.findByExtension(extension));
     }
 
-    // ========== GET METADATA ==========
-
-    @GetMapping("/{id}")
-    public ResponseEntity<FileDTO> getFileMetadata(@PathVariable Long id) {
-        log.debug("Getting metadata for file ID: {}", id);
-        
-        FileDTO fileMetadata = fileService.getFileMetadata(id);
-        
-        return ResponseEntity.ok(fileMetadata);
+    /**
+     * Find files by file type
+     * GET /system/file/by-type/{fileType}
+     */
+    @GetMapping("/by-type/{fileType}")
+    public ResponseEntity<List<FileDTO>> getByFileType(@PathVariable String fileType) {
+        log.info("REST request to get Files by file type: {}", fileType);
+        return ResponseEntity.ok(fileService.findByFileType(fileType));
     }
 
-    // ========== DELETE FILE (CONTENT AND METADATA) ==========
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFile(@PathVariable Long id) {
-        log.info("Deleting file with ID: {}", id);
-        
-        fileService.deleteFile(id);
-        
-        return ResponseEntity.noContent().build();
+    /**
+     * Find files by extension and file type
+     * GET /system/file/by-extension-and-type?extension=...&fileType=...
+     */
+    @GetMapping("/by-extension-and-type")
+    public ResponseEntity<List<FileDTO>> getByExtensionAndFileType(
+            @RequestParam String extension,
+            @RequestParam String fileType) {
+        log.info("REST request to get Files by extension: {} and file type: {}", extension, fileType);
+        return ResponseEntity.ok(fileService.findByExtensionAndFileType(extension, fileType));
     }
 
-    // ========== GET ALL FILES METADATA ==========
-
-    @GetMapping
-    public ResponseEntity<Page<FileDTO>> getAllFilesMetadata(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "desc") String sortDir) {
-        
-        log.debug("Getting all files metadata - page: {}, size: {}", page, size);
-        
-        Sort.Direction direction = "asc".equalsIgnoreCase(sortDir) ? 
-                Sort.Direction.ASC : Sort.Direction.DESC;
-        
-        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
-        
-        Page<FileDTO> filesMetadata = fileService.getAllFilesMetadata(pageable);
-        
-        return ResponseEntity.ok(filesMetadata);
+    /**
+     * Find large files
+     * GET /system/file/large?minSize=...
+     */
+    @GetMapping("/large")
+    public ResponseEntity<List<FileDTO>> getLargeFiles(@RequestParam Long minSize) {
+        log.info("REST request to get large files (min size: {} bytes)", minSize);
+        return ResponseEntity.ok(fileService.findLargeFiles(minSize));
     }
 
-    // ========== ADDITIONAL UTILITY ENDPOINTS ==========
-
-    @PutMapping("/{id}")
-    public ResponseEntity<FileDTO> updateFileMetadata(
-            @PathVariable Long id,
-            @Valid @RequestBody FileDTO fileDTO) {
-        
-        log.info("Updating metadata for file ID: {}", id);
-        
-        FileDTO updatedFile = fileService.updateFile(id, fileDTO);
-        
-        return ResponseEntity.ok(updatedFile);
+    /**
+     * Get storage statistics
+     * GET /system/file/stats
+     */
+    @GetMapping("/stats")
+    public ResponseEntity<FileService.FileStorageStats> getStorageStats() {
+        log.info("REST request to get storage statistics");
+        return ResponseEntity.ok(fileService.getStorageStats());
     }
 
-    @GetMapping("/{id}/exists")
-    public ResponseEntity<Boolean> checkFileExists(@PathVariable Long id) {
-        log.debug("Checking existence of file ID: {}", id);
-        
-        boolean exists = fileService.findOne(id).isPresent();
-        
-        return ResponseEntity.ok(exists);
+    /**
+     * Get total storage size
+     * GET /system/file/total-size
+     */
+    @GetMapping("/total-size")
+    public ResponseEntity<Map<String, Object>> getTotalStorageSize() {
+        log.info("REST request to get total storage size");
+        Long totalSize = fileService.getTotalStorageSize();
+        return ResponseEntity.ok(Map.of(
+            "totalSize", totalSize,
+            "formatted", formatSize(totalSize)
+        ));
     }
 
-    @GetMapping("/{id}/info")
-    public ResponseEntity<FileDTO> getFileInfo(@PathVariable Long id) {
-        log.debug("Getting complete info for file ID: {}", id);
-        
-        return fileService.findOne(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    /**
+     * Count files by extension
+     * GET /system/file/count-by-extension/{extension}
+     */
+    @GetMapping("/count-by-extension/{extension}")
+    public ResponseEntity<Map<String, Object>> countByExtension(@PathVariable String extension) {
+        log.info("REST request to count files by extension: {}", extension);
+        long count = fileService.countByExtension(extension);
+        return ResponseEntity.ok(Map.of(
+            "extension", extension,
+            "count", count
+        ));
+    }
+
+    // Helper method
+    private String formatSize(Long size) {
+        if (size == null || size == 0) return "0 B";
+        if (size < 1024) return size + " B";
+        if (size < 1024 * 1024) return String.format("%.1f KB", size / 1024.0);
+        if (size < 1024 * 1024 * 1024) return String.format("%.1f MB", size / (1024.0 * 1024));
+        return String.format("%.1f GB", size / (1024.0 * 1024 * 1024));
     }
 }
