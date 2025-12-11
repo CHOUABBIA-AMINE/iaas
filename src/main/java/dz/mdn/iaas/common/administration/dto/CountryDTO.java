@@ -17,13 +17,18 @@ package dz.mdn.iaas.common.administration.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.common.administration.model.Country;
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * Country Data Transfer Object
+ * Extends GenericDTO for automatic entity conversion
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -34,69 +39,45 @@ public class CountryDTO extends GenericDTO<Country> {
 
     @NotBlank(message = "Code is required")
     @Size(max = 3, message = "Code must not exceed 3 characters")
-    private String code; // F_01
+    private String code;
 
     @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
-    private String designationAr; // F_02
+    private String designationAr;
 
     @Size(max = 100, message = "English designation must not exceed 100 characters")
-    private String designationEn; // F_03
+    private String designationEn;
 
     @NotBlank(message = "French designation is required")
     @Size(max = 100, message = "French designation must not exceed 100 characters")
-    private String designationFr; // F_04 - required field
+    private String designationFr;
 
     @Override
     public Country toEntity() {
-        Country country = new Country();
-        country.setId(getId());
-        country.setCode(this.code);
-        country.setDesignationAr(this.designationAr);
-        country.setDesignationEn(this.designationEn);
-        country.setDesignationFr(this.designationFr);
-        return country;
+        Country entity = new Country();
+        entity.setId(this.getId());
+        entity.setCode(this.code);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        return entity;
     }
 
     @Override
-    public void updateEntity(Country country) {
-        if (this.code != null) {
-            country.setCode(this.code);
-        }
-        if (this.designationAr != null) {
-            country.setDesignationAr(this.designationAr);
-        }
-        if (this.designationEn != null) {
-            country.setDesignationEn(this.designationEn);
-        }
-        if (this.designationFr != null) {
-            country.setDesignationFr(this.designationFr);
-        }
+    public void updateEntity(Country entity) {
+        if (this.code != null) entity.setCode(this.code);
+        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
     }
 
-    public static CountryDTO fromEntity(Country country) {
-        if (country == null) return null;
-        
+    public static CountryDTO fromEntity(Country entity) {
+        if (entity == null) return null;
         return CountryDTO.builder()
-                .id(country.getId())
-                .code(country.getCode())
-                .designationAr(country.getDesignationAr())
-                .designationEn(country.getDesignationEn())
-                .designationFr(country.getDesignationFr())
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
                 .build();
-    }
-
-    public String getDefaultDesignation() {
-        return designationFr;
-    }
-
-    public String getDesignationByLanguage(String language) {
-        if (language == null) return designationFr;
-        
-        return switch (language.toLowerCase()) {
-            case "ar", "arabic" -> designationAr != null ? designationAr : designationFr;
-            case "en", "english" -> designationEn != null ? designationEn : designationFr;
-            case "fr", "french" -> designationFr;
-            default -> designationFr;
-        };
     }
 }

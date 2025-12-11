@@ -26,6 +26,10 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+/**
+ * State Data Transfer Object
+ * Extends GenericDTO for automatic entity conversion
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
@@ -35,113 +39,52 @@ import lombok.experimental.SuperBuilder;
 public class StateDTO extends GenericDTO<State> {
 
     @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
-    private String designationAr; // F_01
+    private String designationAr;
 
     @Size(max = 100, message = "English designation must not exceed 100 characters")
-    private String designationEn; // F_02
+    private String designationEn;
 
     @NotBlank(message = "French designation is required")
     @Size(max = 100, message = "French designation must not exceed 100 characters")
-    private String designationFr; // F_03 - required
+    private String designationFr;
 
     @NotBlank(message = "Code is required")
     @Size(max = 10, message = "Code must not exceed 10 characters")
-    private String code; // F_04 - required and unique
+    private String code;
 
     @NotNull(message = "Country ID is required")
-    private Long countryId; // F_05 - foreign key to Country (required)
-
-    // Additional fields for display purposes
-    private String countryCode;
-    private String countryDesignationFr;
-    private String countryDisplayText;
+    private Long countryId;
 
     @Override
     public State toEntity() {
-        State state = new State();
-        state.setId(getId());
-        state.setDesignationAr(this.designationAr);
-        state.setDesignationEn(this.designationEn);
-        state.setDesignationFr(this.designationFr);
-        state.setCode(this.code);
-        // Note: country must be set by service layer using countryId
-        return state;
+        State entity = new State();
+        entity.setId(this.getId());
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setCode(this.code);
+        return entity;
     }
 
     @Override
-    public void updateEntity(State state) {
-        if (this.designationAr != null) {
-            state.setDesignationAr(this.designationAr);
-        }
-        if (this.designationEn != null) {
-            state.setDesignationEn(this.designationEn);
-        }
-        if (this.designationFr != null) {
-            state.setDesignationFr(this.designationFr);
-        }
-        if (this.code != null) {
-            state.setCode(this.code);
-        }
-        // Note: country update must be handled by service layer using countryId
+    public void updateEntity(State entity) {
+        if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        if (this.code != null) entity.setCode(this.code);
     }
 
-    public static StateDTO fromEntity(State state) {
-        if (state == null) return null;
-        
+    public static StateDTO fromEntity(State entity) {
+        if (entity == null) return null;
         StateDTOBuilder builder = StateDTO.builder()
-                .id(state.getId())
-                .designationAr(state.getDesignationAr())
-                .designationEn(state.getDesignationEn())
-                .designationFr(state.getDesignationFr())
-                .code(state.getCode());
-
-        // Handle country relationship
-        if (state.getCountry() != null) {
-            builder.countryId(state.getCountry().getId())
-                   .countryCode(state.getCountry().getCode())
-                   .countryDesignationFr(state.getCountry().getDesignationFr())
-                   .countryDisplayText(state.getCountry().getCode() + " - " + state.getCountry().getDesignationFr());
+                .id(entity.getId())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .code(entity.getCode());
+        if (entity.getCountry() != null) {
+            builder.countryId(entity.getCountry().getId());
         }
-        
         return builder.build();
-    }
-
-    public String getDefaultDesignation() {
-        return designationFr;
-    }
-
-    public String getDesignationByLanguage(String language) {
-        if (language == null) return designationFr;
-        
-        return switch (language.toLowerCase()) {
-            case "ar", "arabic" -> designationAr != null ? designationAr : designationFr;
-            case "en", "english" -> designationEn != null ? designationEn : designationFr;
-            case "fr", "french" -> designationFr;
-            default -> designationFr;
-        };
-    }
-
-    public String getDisplayText() {
-        return String.format("%s - %s", code, designationFr);
-    }
-
-    public String getDisplayTextAr() {
-        if (designationAr != null) {
-            return String.format("%s - %s", code, designationAr);
-        }
-        return getDisplayText();
-    }
-
-    public String getFullDisplayText() {
-        if (countryDisplayText != null) {
-            return String.format("%s (%s)", getDisplayText(), countryDisplayText);
-        }
-        return getDisplayText();
-    }
-
-    public boolean isComplete() {
-        return code != null && !code.trim().isEmpty() &&
-               designationFr != null && !designationFr.trim().isEmpty() &&
-               countryId != null;
     }
 }
