@@ -1,14 +1,12 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
- *
  *	@Name		: PlannedItemDTO
  *	@CreatedOn	: 10-16-2025
  *	@Updated	: 12-11-2025
- *
- *	@Type		: Class
- *	@Layer		: DTO
- *	@Package	: Business / Plan
+ *	@Type		: DTO
+ *	@Layer		: Business / Plan
+ *	@Package	: Business / Plan / DTO
  *
  **/
 
@@ -50,6 +48,9 @@ public class PlannedItemDTO extends GenericDTO<PlannedItem> {
     
     @NotNull(message = "Item status is required")
     private Long itemStatusId;
+    
+    @NotNull(message = "Item is required")
+    private Long itemId;
 
     @Override
     public PlannedItem toEntity() {
@@ -79,6 +80,7 @@ public class PlannedItemDTO extends GenericDTO<PlannedItem> {
                 .planedQuantity(entity.getPlanedQuantity())
                 .allocatedAmount(entity.getAllocatedAmount())
                 .itemStatusId(entity.getItemStatus() != null ? entity.getItemStatus().getId() : null)
+                .itemId(entity.getItem() != null ? entity.getItem().getId() : null)
                 .build();
     }
 }

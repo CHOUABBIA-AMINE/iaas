@@ -72,4 +72,26 @@ public class PlannedItemController extends GenericController<PlannedItemDTO, Lon
         List<PlannedItemDTO> plannedItems = plannedItemService.getAll();
         return success(plannedItems);
     }
+
+    /**
+     * Get planned items by item status
+     * GET /plannedItem/by-status/{itemStatusId}
+     */
+    @GetMapping("/by-status/{itemStatusId}")
+    public ResponseEntity<List<PlannedItemDTO>> getByItemStatus(@PathVariable Long itemStatusId) {
+        log.debug("GET /plannedItem/by-status/{} - Getting planned items by item status", itemStatusId);
+        List<PlannedItemDTO> plannedItems = plannedItemService.findByItemStatus(itemStatusId);
+        return success(plannedItems);
+    }
+    
+    /**
+     * Get planned items by item
+     * GET /plannedItem/by-item/{itemId}
+     */
+    @GetMapping("/by-item/{itemId}")
+    public ResponseEntity<List<PlannedItemDTO>> getByItem(@PathVariable Long itemId) {
+        log.debug("GET /plannedItem/by-item/{} - Getting planned items by item", itemId);
+        List<PlannedItemDTO> plannedItems = plannedItemService.findByItem(itemId);
+        return success(plannedItems);
+    }
 }
