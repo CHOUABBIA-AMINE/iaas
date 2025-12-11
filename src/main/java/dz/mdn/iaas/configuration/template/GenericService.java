@@ -165,7 +165,7 @@ public abstract class GenericService<E, D, ID> {
      * @return Entity instance
      * @throws ResourceNotFoundException if entity not found
      */
-    protected E getEntityById(ID id) {
+    public E getEntityById(ID id) {
         return getRepository().findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                     getEntityName() + " not found with ID: " + id));
