@@ -88,8 +88,8 @@ public class FileController extends GenericController<FileDTO, Long> {
         Resource resource = fileService.downloadFile(id);
         FileDTO fileDTO = fileService.getById(id);
         
-        // Determine content type
-        String contentType = determineContentType(fileDTO.getExtension());
+        // Get content type from service
+        String contentType = fileService.getContentType(fileDTO.getExtension());
         
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
@@ -168,6 +168,54 @@ public class FileController extends GenericController<FileDTO, Long> {
         return ResponseEntity.ok(Map.of(
             "size", size != null ? size : 0,
             "formatted", formatSize(size)
+        ));
+    }
+
+    // ========== CONTENT TYPE OPERATIONS ==========
+
+    /**
+     * Get content type for file
+     * GET /system/file/{id}/content-type
+     */
+    @GetMapping("/{id}/content-type")
+    public ResponseEntity<Map<String, String>> getContentType(@PathVariable Long id) {
+        log.info("REST request to get content type for file with id: {}", id);
+        
+        String contentType = fileService.getContentTypeById(id);
+        FileDTO file = fileService.getById(id);
+        
+        return ResponseEntity.ok(Map.of(
+            "extension", file.getExtension(),
+            "contentType", contentType
+        ));
+    }
+
+    /**
+     * Get all supported content types
+     * GET /system/file/content-types
+     */
+    @GetMapping("/content-types")
+    public ResponseEntity<Map<String, String>> getSupportedContentTypes() {
+        log.info("REST request to get all supported content types");
+        
+        return ResponseEntity.ok(fileService.getSupportedContentTypes());
+    }
+
+    /**
+     * Check if extension is supported
+     * GET /system/file/content-types/check/{extension}
+     */
+    @GetMapping("/content-types/check/{extension}")
+    public ResponseEntity<Map<String, Object>> checkContentTypeSupport(@PathVariable String extension) {
+        log.info("REST request to check if extension is supported: {}", extension);
+        
+        boolean supported = fileService.isContentTypeSupported(extension);
+        String contentType = supported ? fileService.getContentType(extension) : null;
+        
+        return ResponseEntity.ok(Map.of(
+            "extension", extension,
+            "supported", supported,
+            "contentType", contentType != null ? contentType : "N/A"
         ));
     }
 
@@ -260,31 +308,6 @@ public class FileController extends GenericController<FileDTO, Long> {
     }
 
     // ========== HELPER METHODS ==========
-
-    private String determineContentType(String extension) {
-        if (extension == null) return "application/octet-stream";
-        
-        return switch (extension.toLowerCase()) {
-            case "pdf" -> "application/pdf";
-            case "txt" -> "text/plain";
-            case "csv" -> "text/csv";
-            case "jpg", "jpeg" -> "image/jpeg";
-            case "png" -> "image/png";
-            case "gif" -> "image/gif";
-            case "bmp" -> "image/bmp";
-            case "json" -> "application/json";
-            case "xml" -> "application/xml";
-            case "zip" -> "application/zip";
-            case "rar" -> "application/x-rar-compressed";
-            case "doc" -> "application/msword";
-            case "docx" -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            case "xls" -> "application/vnd.ms-excel";
-            case "xlsx" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            case "ppt" -> "application/vnd.ms-powerpoint";
-            case "pptx" -> "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-            default -> "application/octet-stream";
-        };
-    }
 
     private String formatSize(Long size) {
         if (size == null || size == 0) return "0 B";
