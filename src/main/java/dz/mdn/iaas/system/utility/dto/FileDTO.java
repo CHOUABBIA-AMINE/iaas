@@ -49,13 +49,6 @@ public class FileDTO {
     @Size(max = 20, message = "File type must not exceed 20 characters")
     private String fileType;
 
-    // Additional response fields
-    private String fileName;
-    private String sizeFormatted;
-    private String downloadUrl;
-    private String contentType;
-    private Boolean exists;
-
     // Audit fields
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -74,10 +67,6 @@ public class FileDTO {
                 .size(file.getSize())
                 .path(file.getPath())
                 .fileType(file.getFileType())
-                .fileName(extractFileName(file.getPath()))
-                .sizeFormatted(formatSize(file.getSize()))
-                .downloadUrl("/system/file/" + file.getId() + "/download")
-                .contentType(getContentType(file.getExtension()))
                 .createdAt(file.getCreatedAt())
                 .updatedAt(file.getUpdatedAt())
                 .createdBy(file.getCreatedBy())
@@ -106,37 +95,5 @@ public class FileDTO {
         if (this.size != null) file.setSize(this.size);
         if (this.path != null) file.setPath(this.path);
         if (this.fileType != null) file.setFileType(this.fileType);
-    }
-
-    // Helper methods
-    
-    private static String extractFileName(String path) {
-        if (path == null) return null;
-        return java.nio.file.Paths.get(path).getFileName().toString();
-    }
-
-    private static String formatSize(Long size) {
-        if (size == null || size == 0) return "0 B";
-        if (size < 1024) return size + " B";
-        if (size < 1024 * 1024) return String.format("%.1f KB", size / 1024.0);
-        if (size < 1024 * 1024 * 1024) return String.format("%.1f MB", size / (1024.0 * 1024));
-        return String.format("%.1f GB", size / (1024.0 * 1024 * 1024));
-    }
-
-    private static String getContentType(String extension) {
-        if (extension == null) return "application/octet-stream";
-        return switch (extension.toLowerCase()) {
-            case "pdf" -> "application/pdf";
-            case "txt" -> "text/plain";
-            case "jpg", "jpeg" -> "image/jpeg";
-            case "png" -> "image/png";
-            case "gif" -> "image/gif";
-            case "json" -> "application/json";
-            case "xml" -> "application/xml";
-            case "zip" -> "application/zip";
-            case "doc", "docx" -> "application/msword";
-            case "xls", "xlsx" -> "application/vnd.ms-excel";
-            default -> "application/octet-stream";
-        };
     }
 }
