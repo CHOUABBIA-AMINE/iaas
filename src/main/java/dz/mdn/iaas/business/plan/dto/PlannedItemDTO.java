@@ -14,11 +14,12 @@
 
 package dz.mdn.iaas.business.plan.dto;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.business.plan.model.PlannedItem;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,33 +38,47 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PlannedItemDTO extends GenericDTO<PlannedItem> {
 
-    private int internalId;
+    @NotBlank(message = "Designation is required")
+    @Size(max = 200, message = "Designation must not exceed 200 characters")
+    private String designation;
     
-    @NotNull(message = "Item is required")
-    private Long itemId;
+    private double unitairCost;
     
-    @NotNull(message = "Financial operation is required")
-    private Long financialOperationId;
+    private double planedQuantity;
     
-    private double plannedQuantity;
-    private double unitPrice;
-    private double totalAmount;
-    private Date plannedDate;
-    private int priority;
-    private String observation;
+    private double allocatedAmount;
+    
+    @NotNull(message = "Item status is required")
+    private Long itemStatusId;
 
     @Override
     public PlannedItem toEntity() {
         PlannedItem entity = new PlannedItem();
         entity.setId(this.getId());
-        entity.setInternalId(this.internalId);
+        entity.setDesignation(this.designation);
+        entity.setUnitairCost(this.unitairCost);
+        entity.setPlanedQuantity(this.planedQuantity);
+        entity.setAllocatedAmount(this.allocatedAmount);
         return entity;
     }
 
     @Override
     public void updateEntity(PlannedItem entity) {
-        if (this.internalId > 0) {
-            entity.setInternalId(this.internalId);
-        }
+        if (this.designation != null) entity.setDesignation(this.designation);
+        entity.setUnitairCost(this.unitairCost);
+        entity.setPlanedQuantity(this.planedQuantity);
+        entity.setAllocatedAmount(this.allocatedAmount);
+    }
+
+    public static PlannedItemDTO fromEntity(PlannedItem entity) {
+        if (entity == null) return null;
+        return PlannedItemDTO.builder()
+                .id(entity.getId())
+                .designation(entity.getDesignation())
+                .unitairCost(entity.getUnitairCost())
+                .planedQuantity(entity.getPlanedQuantity())
+                .allocatedAmount(entity.getAllocatedAmount())
+                .itemStatusId(entity.getItemStatus() != null ? entity.getItemStatus().getId() : null)
+                .build();
     }
 }
