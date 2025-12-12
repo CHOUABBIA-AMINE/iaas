@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: AmendmentStepService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Service
  *	@Layer		: Business / Amendment
  *	@Package	: Business / Amendment / Service
@@ -80,6 +80,18 @@ public class AmendmentStepService extends GenericService<AmendmentStep, Amendmen
     public List<AmendmentStepDTO> getAll() {
         log.debug("Getting all amendment steps without pagination");
         return amendmentStepRepository.findAll().stream()
+                .map(AmendmentStepDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all amendment steps by phase ID
+     * @param phaseId the amendment phase ID
+     * @return list of amendment steps
+     */
+    public List<AmendmentStepDTO> getByPhaseId(Long phaseId) {
+        log.debug("Getting amendment steps by phase ID: {}", phaseId);
+        return amendmentStepRepository.findByAmendmentPhaseId(phaseId).stream()
                 .map(AmendmentStepDTO::fromEntity)
                 .collect(Collectors.toList());
     }

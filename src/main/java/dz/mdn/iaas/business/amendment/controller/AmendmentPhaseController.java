@@ -106,11 +106,4 @@ public class AmendmentPhaseController extends GenericController<AmendmentPhaseDT
         log.debug("GET /amendment-phase/list");
         return success(amendmentPhaseService.getAll());
     }
-
-    @GetMapping("/amendment/{amendmentId}")
-    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
-    public ResponseEntity<List<AmendmentPhaseDTO>> getByAmendment(@PathVariable Long amendmentId) {
-        log.debug("GET /amendment-phase/amendment/{}", amendmentId);
-        return success(amendmentPhaseService.getByAmendmentId(amendmentId));
-    }
 }
