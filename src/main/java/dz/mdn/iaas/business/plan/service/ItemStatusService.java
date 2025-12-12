@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ItemStatusService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Service
@@ -80,6 +80,18 @@ public class ItemStatusService extends GenericService<ItemStatus, ItemStatusDTO,
     public List<ItemStatusDTO> getAll() {
         log.debug("Getting all item statuses without pagination");
         return itemStatusRepository.findAll().stream()
+                .map(ItemStatusDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all active item statuses
+     * @return list of active item statuses
+     */
+    public List<ItemStatusDTO> getActiveStatuses() {
+        log.debug("Getting all active item statuses");
+        return itemStatusRepository.findAll().stream()
+                .filter(status -> status.getIsActive() != null && status.getIsActive())
                 .map(ItemStatusDTO::fromEntity)
                 .collect(Collectors.toList());
     }

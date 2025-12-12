@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: FinancialOperationService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Service
@@ -66,7 +66,7 @@ public class FinancialOperationService extends GenericService<FinancialOperation
     @Override
     @Transactional
     public FinancialOperationDTO create(FinancialOperationDTO dto) {
-        log.info("Creating financial operation: operation={}", dto.getOperation());
+        log.info("Creating financial operation");
         return super.create(dto);
     }
 
@@ -80,6 +80,18 @@ public class FinancialOperationService extends GenericService<FinancialOperation
     public List<FinancialOperationDTO> getAll() {
         log.debug("Getting all financial operations without pagination");
         return financialOperationRepository.findAll().stream()
+                .map(FinancialOperationDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all financial operations by year
+     * @param year the year
+     * @return list of financial operations
+     */
+    public List<FinancialOperationDTO> getByYear(Integer year) {
+        log.debug("Getting financial operations by year: {}", year);
+        return financialOperationRepository.findByYear(year).stream()
                 .map(FinancialOperationDTO::fromEntity)
                 .collect(Collectors.toList());
     }

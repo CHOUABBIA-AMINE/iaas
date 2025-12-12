@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: BudgetTypeService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Service
@@ -16,7 +16,6 @@ import dz.mdn.iaas.business.plan.dto.BudgetTypeDTO;
 import dz.mdn.iaas.business.plan.model.BudgetType;
 import dz.mdn.iaas.business.plan.repository.BudgetTypeRepository;
 import dz.mdn.iaas.configuration.template.GenericService;
-import dz.mdn.iaas.exception.BusinessValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -68,15 +67,6 @@ public class BudgetTypeService extends GenericService<BudgetType, BudgetTypeDTO,
     @Transactional
     public BudgetTypeDTO create(BudgetTypeDTO dto) {
         log.info("Creating budget type: designationFr={}", dto.getDesignationFr());
-        
-        if (budgetTypeRepository.existsByDesignationFr(dto.getDesignationFr())) {
-            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
-        }
-        
-        if (dto.getAcronymFr() != null && budgetTypeRepository.existsByAcronymFr(dto.getAcronymFr())) {
-            throw new BusinessValidationException("French acronym '" + dto.getAcronymFr() + "' already exists");
-        }
-        
         return super.create(dto);
     }
 
@@ -84,21 +74,36 @@ public class BudgetTypeService extends GenericService<BudgetType, BudgetTypeDTO,
     @Transactional
     public BudgetTypeDTO update(Long id, BudgetTypeDTO dto) {
         log.info("Updating budget type with ID: {}", id);
-        
-        if (budgetTypeRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
-            throw new BusinessValidationException("French designation '" + dto.getDesignationFr() + "' already exists");
-        }
-        
-        if (dto.getAcronymFr() != null && budgetTypeRepository.existsByAcronymFrAndIdNot(dto.getAcronymFr(), id)) {
-            throw new BusinessValidationException("French acronym '" + dto.getAcronymFr() + "' already exists");
-        }
-        
         return super.update(id, dto);
     }
 
     public List<BudgetTypeDTO> getAll() {
         log.debug("Getting all budget types without pagination");
         return budgetTypeRepository.findAll().stream()
+                .map(BudgetTypeDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all active budget types
+     * @return list of active budget types
+     */
+    public List<BudgetTypeDTO> getActiveTypes() {
+        log.debug("Getting all active budget types");
+        return budgetTypeRepository.findAll().stream()
+                .filter(type -> type.getIsActive() != null && type.getIsActive())
+                .map(BudgetTypeDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all budget types by category
+     * @param category the category
+     * @return list of budget types
+     */
+    public List<BudgetTypeDTO> getByCategory(String category) {
+        log.debug("Getting budget types by category: {}", category);
+        return budgetTypeRepository.findByCategory(category).stream()
                 .map(BudgetTypeDTO::fromEntity)
                 .collect(Collectors.toList());
     }
@@ -110,14 +115,6 @@ public class BudgetTypeService extends GenericService<BudgetType, BudgetTypeDTO,
             return getAll(pageable);
         }
         
-        return executeQuery(p -> budgetTypeRepository.searchByAnyField(searchTerm.trim(), p), pageable);
-    }
-
-    public boolean existsByDesignationFr(String designationFr) {
-        return budgetTypeRepository.existsByDesignationFr(designationFr);
-    }
-
-    public boolean existsByAcronymFr(String acronymFr) {
-        return budgetTypeRepository.existsByAcronymFr(acronymFr);
+        return getAll(pageable);
     }
 }
