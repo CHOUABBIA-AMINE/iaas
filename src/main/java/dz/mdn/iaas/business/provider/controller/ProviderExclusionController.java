@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ProviderExclusionController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Controller
  *	@Layer		: Business / Provider
  *	@Package	: Business / Provider / Controller
@@ -15,31 +15,18 @@ package dz.mdn.iaas.business.provider.controller;
 import dz.mdn.iaas.business.provider.dto.ProviderExclusionDTO;
 import dz.mdn.iaas.business.provider.service.ProviderExclusionService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * ProviderExclusion REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus provider-exclusion-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /providerExclusion                 Create provider exclusion
- * - GET    /providerExclusion/{id}            Get by ID
- * - GET    /providerExclusion                 Get all (paginated)
- * - GET    /providerExclusion/all             Get all (non-paginated)
- * - PUT    /providerExclusion/{id}            Update provider exclusion
- * - DELETE /providerExclusion/{id}            Delete provider exclusion
- * - GET    /providerExclusion/search?q=...    Global search
- * - GET    /providerExclusion/{id}/exists     Check existence
- * - GET    /providerExclusion/count           Total count
- */
 @RestController
-@RequestMapping("/providerExclusion")
+@RequestMapping("/provider-exclusion")
 @Slf4j
 public class ProviderExclusionController extends GenericController<ProviderExclusionDTO, Long> {
 
@@ -50,7 +37,68 @@ public class ProviderExclusionController extends GenericController<ProviderExclu
         this.providerExclusionService = providerExclusionService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:READ')")
+    public ResponseEntity<ProviderExclusionDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:READ')")
+    public ResponseEntity<Page<ProviderExclusionDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:READ')")
+    public ResponseEntity<List<ProviderExclusionDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:ADMIN')")
+    public ResponseEntity<ProviderExclusionDTO> create(@Valid @RequestBody ProviderExclusionDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:ADMIN')")
+    public ResponseEntity<ProviderExclusionDTO> update(@PathVariable Long id, @Valid @RequestBody ProviderExclusionDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:READ')")
+    public ResponseEntity<Page<ProviderExclusionDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
 
     @Override
     protected Page<ProviderExclusionDTO> searchByQuery(String query, Pageable pageable) {
@@ -60,16 +108,17 @@ public class ProviderExclusionController extends GenericController<ProviderExclu
         return providerExclusionService.globalSearch(query, pageable);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
-
-    /**
-     * Get all provider exclusions without pagination (custom implementation)
-     * GET /providerExclusion/list
-     */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:READ')")
     public ResponseEntity<List<ProviderExclusionDTO>> getAllList() {
-        log.debug("GET /providerExclusion/list - Getting all provider exclusions as list");
-        List<ProviderExclusionDTO> providerExclusions = providerExclusionService.getAll();
-        return success(providerExclusions);
+        log.debug("GET /provider-exclusion/list");
+        return success(providerExclusionService.getAll());
+    }
+
+    @GetMapping("/provider/{providerId}")
+    @PreAuthorize("hasAuthority('PROVIDER_EXCLUSION:READ')")
+    public ResponseEntity<List<ProviderExclusionDTO>> getByProvider(@PathVariable Long providerId) {
+        log.debug("GET /provider-exclusion/provider/{}", providerId);
+        return success(providerExclusionService.getByProviderId(providerId));
     }
 }

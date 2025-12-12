@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: EconomicDomainController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Controller
  *	@Layer		: Business / Provider
  *	@Package	: Business / Provider / Controller
@@ -15,31 +15,18 @@ package dz.mdn.iaas.business.provider.controller;
 import dz.mdn.iaas.business.provider.dto.EconomicDomainDTO;
 import dz.mdn.iaas.business.provider.service.EconomicDomainService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * EconomicDomain REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus economic-domain-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /economicDomain                 Create economic domain
- * - GET    /economicDomain/{id}            Get by ID
- * - GET    /economicDomain                 Get all (paginated)
- * - GET    /economicDomain/all             Get all (non-paginated)
- * - PUT    /economicDomain/{id}            Update economic domain
- * - DELETE /economicDomain/{id}            Delete economic domain
- * - GET    /economicDomain/search?q=...    Global search
- * - GET    /economicDomain/{id}/exists     Check existence
- * - GET    /economicDomain/count           Total count
- */
 @RestController
-@RequestMapping("/economicDomain")
+@RequestMapping("/economic-domain")
 @Slf4j
 public class EconomicDomainController extends GenericController<EconomicDomainDTO, Long> {
 
@@ -50,7 +37,68 @@ public class EconomicDomainController extends GenericController<EconomicDomainDT
         this.economicDomainService = economicDomainService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:READ')")
+    public ResponseEntity<EconomicDomainDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:READ')")
+    public ResponseEntity<Page<EconomicDomainDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:READ')")
+    public ResponseEntity<List<EconomicDomainDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:ADMIN')")
+    public ResponseEntity<EconomicDomainDTO> create(@Valid @RequestBody EconomicDomainDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:ADMIN')")
+    public ResponseEntity<EconomicDomainDTO> update(@PathVariable Long id, @Valid @RequestBody EconomicDomainDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:READ')")
+    public ResponseEntity<Page<EconomicDomainDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
 
     @Override
     protected Page<EconomicDomainDTO> searchByQuery(String query, Pageable pageable) {
@@ -60,16 +108,10 @@ public class EconomicDomainController extends GenericController<EconomicDomainDT
         return economicDomainService.globalSearch(query, pageable);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
-
-    /**
-     * Get all economic domains without pagination (custom implementation)
-     * GET /economicDomain/list
-     */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('ECONOMIC_DOMAIN:READ')")
     public ResponseEntity<List<EconomicDomainDTO>> getAllList() {
-        log.debug("GET /economicDomain/list - Getting all economic domains as list");
-        List<EconomicDomainDTO> economicDomains = economicDomainService.getAll();
-        return success(economicDomains);
+        log.debug("GET /economic-domain/list");
+        return success(economicDomainService.getAll());
     }
 }

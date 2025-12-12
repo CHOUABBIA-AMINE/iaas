@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ProviderRepresentatorController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Controller
  *	@Layer		: Business / Provider
  *	@Package	: Business / Provider / Controller
@@ -15,31 +15,18 @@ package dz.mdn.iaas.business.provider.controller;
 import dz.mdn.iaas.business.provider.dto.ProviderRepresentatorDTO;
 import dz.mdn.iaas.business.provider.service.ProviderRepresentatorService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * ProviderRepresentator REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus provider-representator-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /providerRepresentator                 Create provider representator
- * - GET    /providerRepresentator/{id}            Get by ID
- * - GET    /providerRepresentator                 Get all (paginated)
- * - GET    /providerRepresentator/all             Get all (non-paginated)
- * - PUT    /providerRepresentator/{id}            Update provider representator
- * - DELETE /providerRepresentator/{id}            Delete provider representator
- * - GET    /providerRepresentator/search?q=...    Global search
- * - GET    /providerRepresentator/{id}/exists     Check existence
- * - GET    /providerRepresentator/count           Total count
- */
 @RestController
-@RequestMapping("/providerRepresentator")
+@RequestMapping("/provider-representator")
 @Slf4j
 public class ProviderRepresentatorController extends GenericController<ProviderRepresentatorDTO, Long> {
 
@@ -50,7 +37,68 @@ public class ProviderRepresentatorController extends GenericController<ProviderR
         this.providerRepresentatorService = providerRepresentatorService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:READ')")
+    public ResponseEntity<ProviderRepresentatorDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:READ')")
+    public ResponseEntity<Page<ProviderRepresentatorDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:READ')")
+    public ResponseEntity<List<ProviderRepresentatorDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:ADMIN')")
+    public ResponseEntity<ProviderRepresentatorDTO> create(@Valid @RequestBody ProviderRepresentatorDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:ADMIN')")
+    public ResponseEntity<ProviderRepresentatorDTO> update(@PathVariable Long id, @Valid @RequestBody ProviderRepresentatorDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:READ')")
+    public ResponseEntity<Page<ProviderRepresentatorDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
 
     @Override
     protected Page<ProviderRepresentatorDTO> searchByQuery(String query, Pageable pageable) {
@@ -60,16 +108,17 @@ public class ProviderRepresentatorController extends GenericController<ProviderR
         return providerRepresentatorService.globalSearch(query, pageable);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
-
-    /**
-     * Get all provider representators without pagination (custom implementation)
-     * GET /providerRepresentator/list
-     */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:READ')")
     public ResponseEntity<List<ProviderRepresentatorDTO>> getAllList() {
-        log.debug("GET /providerRepresentator/list - Getting all provider representators as list");
-        List<ProviderRepresentatorDTO> providerRepresentators = providerRepresentatorService.getAll();
-        return success(providerRepresentators);
+        log.debug("GET /provider-representator/list");
+        return success(providerRepresentatorService.getAll());
+    }
+
+    @GetMapping("/provider/{providerId}")
+    @PreAuthorize("hasAuthority('PROVIDER_REPRESENTATOR:READ')")
+    public ResponseEntity<List<ProviderRepresentatorDTO>> getByProvider(@PathVariable Long providerId) {
+        log.debug("GET /provider-representator/provider/{}", providerId);
+        return success(providerRepresentatorService.getByProviderId(providerId));
     }
 }
