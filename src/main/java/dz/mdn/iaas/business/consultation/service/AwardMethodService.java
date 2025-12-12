@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: AwardMethodService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Consultation
  *	@Package	: Business / Consultation / Service
@@ -82,6 +82,16 @@ public class AwardMethodService extends GenericService<AwardMethod, AwardMethodD
         return awardMethodRepository.findAll().stream()
                 .map(AwardMethodDTO::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all active award methods
+     * Note: AwardMethod model doesn't have isActive field, so returning all methods
+     * @return list of all award methods
+     */
+    public List<AwardMethodDTO> getActiveMethods() {
+        log.debug("Getting all award methods (no isActive field in model)");
+        return getAll();
     }
 
     public Page<AwardMethodDTO> globalSearch(String searchTerm, Pageable pageable) {

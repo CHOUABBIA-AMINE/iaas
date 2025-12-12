@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ConsultationPhaseService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Consultation
  *	@Package	: Business / Consultation / Service
@@ -80,6 +80,18 @@ public class ConsultationPhaseService extends GenericService<ConsultationPhase, 
     public List<ConsultationPhaseDTO> getAll() {
         log.debug("Getting all consultation phases without pagination");
         return consultationPhaseRepository.findAll().stream()
+                .map(ConsultationPhaseDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all consultation phases by consultation ID
+     * @param consultationId the consultation ID
+     * @return list of consultation phases
+     */
+    public List<ConsultationPhaseDTO> getByConsultationId(Long consultationId) {
+        log.debug("Getting consultation phases by consultation ID: {}", consultationId);
+        return consultationPhaseRepository.findByConsultationId(consultationId).stream()
                 .map(ConsultationPhaseDTO::fromEntity)
                 .collect(Collectors.toList());
     }
