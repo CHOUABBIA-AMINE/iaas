@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ProviderExclusionService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Provider
  *	@Package	: Business / Provider / Service
@@ -80,6 +80,18 @@ public class ProviderExclusionService extends GenericService<ProviderExclusion, 
     public List<ProviderExclusionDTO> getAll() {
         log.debug("Getting all provider exclusions without pagination");
         return providerExclusionRepository.findAll().stream()
+                .map(ProviderExclusionDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all provider exclusions by provider ID
+     * @param providerId the provider ID
+     * @return list of provider exclusions
+     */
+    public List<ProviderExclusionDTO> getByProviderId(Long providerId) {
+        log.debug("Getting provider exclusions by provider ID: {}", providerId);
+        return providerExclusionRepository.findByProviderId(providerId).stream()
                 .map(ProviderExclusionDTO::fromEntity)
                 .collect(Collectors.toList());
     }

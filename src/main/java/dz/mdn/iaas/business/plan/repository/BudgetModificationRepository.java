@@ -4,7 +4,7 @@
  *
  *	@Name		: BudgetModificationRepository
  *	@CreatedOn	: 06-26-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *
  *	@Type		: Repository
  *	@Layer		: Business / Plan
@@ -16,24 +16,21 @@ package dz.mdn.iaas.business.plan.repository;
 
 import dz.mdn.iaas.business.plan.model.BudgetModification;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * BudgetModification Repository
- * BudgetModification belongs to PlannedItem and BudgetType
+ * Basic CRUD operations provided by JpaRepository
  */
 @Repository
 public interface BudgetModificationRepository extends JpaRepository<BudgetModification, Long> {
     
     /**
-     * Find budget modifications by planned item ID
-     * Used by BudgetModificationService.getByPlannedItemId()
+     * Find all budget modifications by year
+     * @param year the year
+     * @return list of budget modifications
      */
-    @Query("SELECT bm FROM BudgetModification bm JOIN bm.plannedItems pi WHERE pi.id = :plannedItemId")
-	List<BudgetModification> findByPlannedItemId(@Param("plannedItemId") Long plannedItemId);
-    
+    List<BudgetModification> findByYear(Integer year);
 }

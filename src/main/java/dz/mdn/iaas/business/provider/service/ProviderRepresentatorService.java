@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ProviderRepresentatorService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Provider
  *	@Package	: Business / Provider / Service
@@ -80,6 +80,18 @@ public class ProviderRepresentatorService extends GenericService<ProviderReprese
     public List<ProviderRepresentatorDTO> getAll() {
         log.debug("Getting all provider representators without pagination");
         return providerRepresentatorRepository.findAll().stream()
+                .map(ProviderRepresentatorDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all provider representators by provider ID
+     * @param providerId the provider ID
+     * @return list of provider representators
+     */
+    public List<ProviderRepresentatorDTO> getByProviderId(Long providerId) {
+        log.debug("Getting provider representators by provider ID: {}", providerId);
+        return providerRepresentatorRepository.findByProviderId(providerId).stream()
                 .map(ProviderRepresentatorDTO::fromEntity)
                 .collect(Collectors.toList());
     }

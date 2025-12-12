@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: SubmissionService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Consultation
  *	@Package	: Business / Consultation / Service
@@ -66,7 +66,7 @@ public class SubmissionService extends GenericService<Submission, SubmissionDTO,
     @Override
     @Transactional
     public SubmissionDTO create(SubmissionDTO dto) {
-        log.info("Creating submission");
+        log.info("Creating submission for consultation ID: {}", dto.getConsultationId());
         return super.create(dto);
     }
 
@@ -80,6 +80,18 @@ public class SubmissionService extends GenericService<Submission, SubmissionDTO,
     public List<SubmissionDTO> getAll() {
         log.debug("Getting all submissions without pagination");
         return submissionRepository.findAll().stream()
+                .map(SubmissionDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all submissions by consultation ID
+     * @param consultationId the consultation ID
+     * @return list of submissions
+     */
+    public List<SubmissionDTO> getByConsultationId(Long consultationId) {
+        log.debug("Getting submissions by consultation ID: {}", consultationId);
+        return submissionRepository.findByConsultationId(consultationId).stream()
                 .map(SubmissionDTO::fromEntity)
                 .collect(Collectors.toList());
     }

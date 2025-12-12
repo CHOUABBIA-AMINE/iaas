@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: BudgetModificationService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Service
@@ -80,6 +80,18 @@ public class BudgetModificationService extends GenericService<BudgetModification
     public List<BudgetModificationDTO> getAll() {
         log.debug("Getting all budget modifications without pagination");
         return budgetModificationRepository.findAll().stream()
+                .map(BudgetModificationDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all budget modifications by year
+     * @param year the year
+     * @return list of budget modifications
+     */
+    public List<BudgetModificationDTO> getByYear(Integer year) {
+        log.debug("Getting budget modifications by year: {}", year);
+        return budgetModificationRepository.findByYear(year).stream()
                 .map(BudgetModificationDTO::fromEntity)
                 .collect(Collectors.toList());
     }
