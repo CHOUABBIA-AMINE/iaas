@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: BudgetModificationController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Controller
@@ -15,31 +15,17 @@ package dz.mdn.iaas.business.plan.controller;
 import dz.mdn.iaas.business.plan.dto.BudgetModificationDTO;
 import dz.mdn.iaas.business.plan.service.BudgetModificationService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * BudgetModification REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus budget-modification-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /budgetModification                 Create budget modification
- * - GET    /budgetModification/{id}            Get by ID
- * - GET    /budgetModification                 Get all (paginated)
- * - GET    /budgetModification/all             Get all (non-paginated)
- * - PUT    /budgetModification/{id}            Update budget modification
- * - DELETE /budgetModification/{id}            Delete budget modification
- * - GET    /budgetModification/search?q=...    Global search
- * - GET    /budgetModification/{id}/exists     Check existence
- * - GET    /budgetModification/count           Total count
- */
 @RestController
-@RequestMapping("/budgetModification")
+@RequestMapping("/budget-modification")
 @Slf4j
 public class BudgetModificationController extends GenericController<BudgetModificationDTO, Long> {
 
@@ -50,26 +36,80 @@ public class BudgetModificationController extends GenericController<BudgetModifi
         this.budgetModificationService = budgetModificationService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<BudgetModificationDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return budgetModificationService.getAll(pageable);
-        }
-        return budgetModificationService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:READ')")
+    public ResponseEntity<BudgetModificationDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:READ')")
+    public ResponseEntity<Page<BudgetModificationDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all budget modifications without pagination (custom implementation)
-     * GET /budgetModification/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:READ')")
+    public ResponseEntity<List<BudgetModificationDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:ADMIN')")
+    public ResponseEntity<BudgetModificationDTO> create(@Valid @RequestBody BudgetModificationDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:ADMIN')")
+    public ResponseEntity<BudgetModificationDTO> update(@PathVariable Long id, @Valid @RequestBody BudgetModificationDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:READ')")
+    public ResponseEntity<Page<BudgetModificationDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:READ')")
     public ResponseEntity<List<BudgetModificationDTO>> getAllList() {
-        log.debug("GET /budgetModification/list - Getting all budget modifications as list");
-        List<BudgetModificationDTO> modifications = budgetModificationService.getAll();
-        return success(modifications);
+        log.debug("GET /budget-modification/list");
+        return success(budgetModificationService.getAll());
+    }
+
+    @GetMapping("/year/{year}")
+    @PreAuthorize("hasAuthority('BUDGET_MODIFICATION:READ')")
+    public ResponseEntity<List<BudgetModificationDTO>> getByYear(@PathVariable Integer year) {
+        log.debug("GET /budget-modification/year/{}", year);
+        return success(budgetModificationService.getByYear(year));
     }
 }
