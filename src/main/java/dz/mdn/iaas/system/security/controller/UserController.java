@@ -6,7 +6,7 @@
  *	@CreatedOn	: 11-18-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
+ *	@Type		: Class
  *	@Layer		: Controller
  *	@Package	: System / Security
  *
