@@ -17,7 +17,9 @@ package dz.mdn.iaas.system.security.controller;
 import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.system.security.dto.GroupDTO;
 import dz.mdn.iaas.system.security.service.GroupService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,20 +39,73 @@ public class GroupController extends GenericController<GroupDTO, Long> {
         this.groupService = groupService;
     }
 
-    // ========== STANDARD CRUD OPERATIONS (From GenericController) ==========
-    // Inherited:
-    // - GET    /system/security/group           -> getAll(Pageable)
-    // - GET    /system/security/group/{id}      -> getById(Long)
-    // - POST   /system/security/group           -> create(GroupDTO)
-    // - PUT    /system/security/group/{id}      -> update(Long, GroupDTO)
-    // - DELETE /system/security/group/{id}      -> delete(Long)
+    // ========== SECURED CRUD OPERATIONS ==========
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:READ')")
+    public ResponseEntity<GroupDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:READ')")
+    public ResponseEntity<Page<GroupDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:READ')")
+    public ResponseEntity<List<GroupDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:ADMIN')")
+    public ResponseEntity<GroupDTO> create(@Valid @RequestBody GroupDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:ADMIN')")
+    public ResponseEntity<GroupDTO> update(@PathVariable Long id, @Valid @RequestBody GroupDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:READ')")
+    public ResponseEntity<Page<GroupDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('GROUP:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
 
     // ========== ROLE MANAGEMENT ==========
 
-    /**
-     * Assign role to group
-     * POST /system/security/group/{groupId}/roles/{roleId}
-     */
     @PostMapping("/{groupId}/roles/{roleId}")
     @PreAuthorize("hasAuthority('GROUP:ADMIN')")
     public ResponseEntity<GroupDTO> assignRole(
@@ -60,10 +115,6 @@ public class GroupController extends GenericController<GroupDTO, Long> {
         return ResponseEntity.ok(groupService.assignRole(groupId, roleId));
     }
 
-    /**
-     * Remove role from group
-     * DELETE /system/security/group/{groupId}/roles/{roleId}
-     */
     @DeleteMapping("/{groupId}/roles/{roleId}")
     @PreAuthorize("hasAuthority('GROUP:ADMIN')")
     public ResponseEntity<GroupDTO> removeRole(
@@ -75,10 +126,6 @@ public class GroupController extends GenericController<GroupDTO, Long> {
 
     // ========== CUSTOM QUERY OPERATIONS ==========
 
-    /**
-     * Find group by name
-     * GET /system/security/group/by-name/{name}
-     */
     @GetMapping("/by-name/{name}")
     @PreAuthorize("hasAuthority('GROUP:READ')")
     public ResponseEntity<GroupDTO> getByName(@PathVariable String name) {
@@ -86,10 +133,6 @@ public class GroupController extends GenericController<GroupDTO, Long> {
         return ResponseEntity.ok(groupService.findByName(name));
     }
 
-    /**
-     * Find groups by role
-     * GET /system/security/group/by-role/{roleId}
-     */
     @GetMapping("/by-role/{roleId}")
     @PreAuthorize("hasAuthority('GROUP:READ')")
     public ResponseEntity<List<GroupDTO>> getByRole(@PathVariable Long roleId) {
@@ -97,10 +140,6 @@ public class GroupController extends GenericController<GroupDTO, Long> {
         return ResponseEntity.ok(groupService.findByRole(roleId));
     }
 
-    /**
-     * Check if group exists by name
-     * GET /system/security/group/exists/{name}
-     */
     @GetMapping("/exists/{name}")
     @PreAuthorize("hasAuthority('GROUP:READ')")
     public ResponseEntity<Map<String, Boolean>> checkExists(@PathVariable String name) {

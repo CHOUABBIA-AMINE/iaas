@@ -17,7 +17,9 @@ package dz.mdn.iaas.system.security.controller;
 import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.system.security.dto.RoleDTO;
 import dz.mdn.iaas.system.security.service.RoleService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,20 +39,73 @@ public class RoleController extends GenericController<RoleDTO, Long> {
         this.roleService = roleService;
     }
 
-    // ========== STANDARD CRUD OPERATIONS (From GenericController) ==========
-    // Inherited:
-    // - GET    /system/security/role           -> getAll(Pageable)
-    // - GET    /system/security/role/{id}      -> getById(Long)
-    // - POST   /system/security/role           -> create(RoleDTO)
-    // - PUT    /system/security/role/{id}      -> update(Long, RoleDTO)
-    // - DELETE /system/security/role/{id}      -> delete(Long)
+    // ========== SECURED CRUD OPERATIONS ==========
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:READ')")
+    public ResponseEntity<RoleDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:READ')")
+    public ResponseEntity<Page<RoleDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:READ')")
+    public ResponseEntity<List<RoleDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
+    public ResponseEntity<RoleDTO> create(@Valid @RequestBody RoleDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
+    public ResponseEntity<RoleDTO> update(@PathVariable Long id, @Valid @RequestBody RoleDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:READ')")
+    public ResponseEntity<Page<RoleDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ROLE:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
 
     // ========== PERMISSION MANAGEMENT ==========
 
-    /**
-     * Assign permission to role
-     * POST /system/security/role/{roleId}/permissions/{permissionId}
-     */
     @PostMapping("/{roleId}/permissions/{permissionId}")
     @PreAuthorize("hasAuthority('ROLE:ADMIN')")
     public ResponseEntity<RoleDTO> assignPermission(
@@ -60,10 +115,6 @@ public class RoleController extends GenericController<RoleDTO, Long> {
         return ResponseEntity.ok(roleService.assignPermission(roleId, permissionId));
     }
 
-    /**
-     * Remove permission from role
-     * DELETE /system/security/role/{roleId}/permissions/{permissionId}
-     */
     @DeleteMapping("/{roleId}/permissions/{permissionId}")
     @PreAuthorize("hasAuthority('ROLE:ADMIN')")
     public ResponseEntity<RoleDTO> removePermission(
@@ -75,10 +126,6 @@ public class RoleController extends GenericController<RoleDTO, Long> {
 
     // ========== CUSTOM QUERY OPERATIONS ==========
 
-    /**
-     * Find role by name
-     * GET /system/security/role/by-name/{name}
-     */
     @GetMapping("/by-name/{name}")
     @PreAuthorize("hasAuthority('ROLE:READ')")
     public ResponseEntity<RoleDTO> getByName(@PathVariable String name) {
@@ -86,10 +133,6 @@ public class RoleController extends GenericController<RoleDTO, Long> {
         return ResponseEntity.ok(roleService.findByName(name));
     }
 
-    /**
-     * Find roles by permission
-     * GET /system/security/role/by-permission/{permissionId}
-     */
     @GetMapping("/by-permission/{permissionId}")
     @PreAuthorize("hasAuthority('ROLE:READ')")
     public ResponseEntity<List<RoleDTO>> getByPermission(@PathVariable Long permissionId) {
@@ -97,10 +140,6 @@ public class RoleController extends GenericController<RoleDTO, Long> {
         return ResponseEntity.ok(roleService.findByPermission(permissionId));
     }
 
-    /**
-     * Check if role exists by name
-     * GET /system/security/role/exists/{name}
-     */
     @GetMapping("/exists/{name}")
     @PreAuthorize("hasAuthority('ROLE:READ')")
     public ResponseEntity<Map<String, Boolean>> checkExists(@PathVariable String name) {

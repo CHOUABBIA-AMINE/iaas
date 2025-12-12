@@ -17,7 +17,9 @@ package dz.mdn.iaas.system.security.controller;
 import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.system.security.dto.PermissionDTO;
 import dz.mdn.iaas.system.security.service.PermissionService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,20 +39,73 @@ public class PermissionController extends GenericController<PermissionDTO, Long>
         this.permissionService = permissionService;
     }
 
-    // ========== STANDARD CRUD OPERATIONS (From GenericController) ==========
-    // Inherited:
-    // - GET    /system/security/permission           -> getAll(Pageable)
-    // - GET    /system/security/permission/{id}      -> getById(Long)
-    // - POST   /system/security/permission           -> create(PermissionDTO)
-    // - PUT    /system/security/permission/{id}      -> update(Long, PermissionDTO)
-    // - DELETE /system/security/permission/{id}      -> delete(Long)
+    // ========== SECURED CRUD OPERATIONS ==========
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<PermissionDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<Page<PermissionDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<List<PermissionDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:ADMIN')")
+    public ResponseEntity<PermissionDTO> create(@Valid @RequestBody PermissionDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:ADMIN')")
+    public ResponseEntity<PermissionDTO> update(@PathVariable Long id, @Valid @RequestBody PermissionDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<Page<PermissionDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('PERMISSION:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
 
     // ========== CUSTOM QUERY OPERATIONS ==========
 
-    /**
-     * Find permission by name
-     * GET /system/security/permission/by-name/{name}
-     */
     @GetMapping("/by-name/{name}")
     @PreAuthorize("hasAuthority('PERMISSION:READ')")
     public ResponseEntity<PermissionDTO> getByName(@PathVariable String name) {
@@ -58,10 +113,6 @@ public class PermissionController extends GenericController<PermissionDTO, Long>
         return ResponseEntity.ok(permissionService.findByName(name));
     }
 
-    /**
-     * Find permissions by resource
-     * GET /system/security/permission/by-resource/{resource}
-     */
     @GetMapping("/by-resource/{resource}")
     @PreAuthorize("hasAuthority('PERMISSION:READ')")
     public ResponseEntity<List<PermissionDTO>> getByResource(@PathVariable String resource) {
@@ -69,10 +120,6 @@ public class PermissionController extends GenericController<PermissionDTO, Long>
         return ResponseEntity.ok(permissionService.findByResource(resource));
     }
 
-    /**
-     * Find permissions by action
-     * GET /system/security/permission/by-action/{action}
-     */
     @GetMapping("/by-action/{action}")
     @PreAuthorize("hasAuthority('PERMISSION:READ')")
     public ResponseEntity<List<PermissionDTO>> getByAction(@PathVariable String action) {
@@ -80,10 +127,6 @@ public class PermissionController extends GenericController<PermissionDTO, Long>
         return ResponseEntity.ok(permissionService.findByAction(action));
     }
 
-    /**
-     * Find permissions by resource and action
-     * GET /system/security/permission/by-resource-action?resource=X&action=Y
-     */
     @GetMapping("/by-resource-action")
     @PreAuthorize("hasAuthority('PERMISSION:READ')")
     public ResponseEntity<List<PermissionDTO>> getByResourceAndAction(
@@ -93,10 +136,6 @@ public class PermissionController extends GenericController<PermissionDTO, Long>
         return ResponseEntity.ok(permissionService.findByResourceAndAction(resource, action));
     }
 
-    /**
-     * Check if permission exists by name
-     * GET /system/security/permission/exists/{name}
-     */
     @GetMapping("/exists/{name}")
     @PreAuthorize("hasAuthority('PERMISSION:READ')")
     public ResponseEntity<Map<String, Boolean>> checkExists(@PathVariable String name) {

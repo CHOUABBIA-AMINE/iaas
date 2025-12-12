@@ -4,7 +4,7 @@
  *
  *	@Name		: UserController
  *	@CreatedOn	: 11-18-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *
  *	@Type		: Controller
  *	@Layer		: Controller
@@ -14,27 +14,20 @@
 
 package dz.mdn.iaas.system.security.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.system.security.dto.ResetPasswordRequest;
 import dz.mdn.iaas.system.security.dto.UserDTO;
 import dz.mdn.iaas.system.security.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/system/security/user")
@@ -49,20 +42,73 @@ public class UserController extends GenericController<UserDTO, Long> {
         this.userService = userService;
     }
 
-    // ========== STANDARD CRUD OPERATIONS (From GenericController) ==========
-    // The following are inherited from GenericController:
-    // - GET    /system/security/user           -> getAll(Pageable)
-    // - GET    /system/security/user/{id}      -> getById(Long)
-    // - POST   /system/security/user           -> create(UserDTO)
-    // - PUT    /system/security/user/{id}      -> update(Long, UserDTO)
-    // - DELETE /system/security/user/{id}      -> delete(Long)
+    // ========== SECURED CRUD OPERATIONS ==========
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:READ')")
+    public ResponseEntity<UserDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:READ')")
+    public ResponseEntity<Page<UserDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:READ')")
+    public ResponseEntity<List<UserDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:ADMIN') or #id == authentication.principal.id")
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid @RequestBody UserDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:READ')")
+    public ResponseEntity<Page<UserDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('USER:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
 
     // ========== USER SEARCH OPERATIONS ==========
 
-    /**
-     * Find user by username
-     * GET /system/security/user/by-username/{username}
-     */
     @GetMapping("/by-username/{username}")
     @PreAuthorize("hasAuthority('USER:ADMIN') or #username == authentication.principal.username")
     public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
@@ -70,10 +116,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.findByUsername(username));
     }
 
-    /**
-     * Find user by email
-     * GET /system/security/user/by-email/{email}
-     */
     @GetMapping("/by-email/{email}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
@@ -81,10 +123,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.findByEmail(email));
     }
 
-    /**
-     * Check if username exists
-     * GET /system/security/user/exists/username/{username}
-     */
     @GetMapping("/exists/username/{username}")
     public ResponseEntity<Map<String, Boolean>> checkUsernameExists(@PathVariable String username) {
         log.info("REST request to check if username exists: {}", username);
@@ -92,10 +130,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(Map.of("exists", exists));
     }
 
-    /**
-     * Check if email exists
-     * GET /system/security/user/exists/email/{email}
-     */
     @GetMapping("/exists/email/{email}")
     public ResponseEntity<Map<String, Boolean>> checkEmailExists(@PathVariable String email) {
         log.info("REST request to check if email exists: {}", email);
@@ -105,17 +139,11 @@ public class UserController extends GenericController<UserDTO, Long> {
 
     // ========== PASSWORD MANAGEMENT ==========
 
-    /**
-     * Reset user password
-     * POST /system/security/user/reset-password
-     */
     @PostMapping("/reset-password")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<Map<String, String>> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
         log.info("REST request to reset password for user: {}", request.getUsername());
-        
         userService.resetPassword(request.getUsername(), request.getNewPassword());
-        
         return ResponseEntity.ok(Map.of(
             "message", "Password reset successfully",
             "username", request.getUsername()
@@ -124,10 +152,6 @@ public class UserController extends GenericController<UserDTO, Long> {
 
     // ========== ROLE MANAGEMENT ==========
 
-    /**
-     * Assign role to user
-     * POST /system/security/user/{userId}/roles/{roleId}
-     */
     @PostMapping("/{userId}/roles/{roleId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> assignRole(
@@ -137,10 +161,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.assignRole(userId, roleId));
     }
 
-    /**
-     * Remove role from user
-     * DELETE /system/security/user/{userId}/roles/{roleId}
-     */
     @DeleteMapping("/{userId}/roles/{roleId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> removeRole(
@@ -150,10 +170,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.removeRole(userId, roleId));
     }
 
-    /**
-     * Find users by role
-     * GET /system/security/user/by-role/{roleId}
-     */
     @GetMapping("/by-role/{roleId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<List<UserDTO>> getUsersByRole(@PathVariable Long roleId) {
@@ -163,10 +179,6 @@ public class UserController extends GenericController<UserDTO, Long> {
 
     // ========== GROUP MANAGEMENT ==========
 
-    /**
-     * Assign group to user
-     * POST /system/security/user/{userId}/groups/{groupId}
-     */
     @PostMapping("/{userId}/groups/{groupId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> assignGroup(
@@ -176,10 +188,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.assignGroup(userId, groupId));
     }
 
-    /**
-     * Remove group from user
-     * DELETE /system/security/user/{userId}/groups/{groupId}
-     */
     @DeleteMapping("/{userId}/groups/{groupId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> removeGroup(
@@ -189,10 +197,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.removeGroup(userId, groupId));
     }
 
-    /**
-     * Find users by group
-     * GET /system/security/user/by-group/{groupId}
-     */
     @GetMapping("/by-group/{groupId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<List<UserDTO>> getUsersByGroup(@PathVariable Long groupId) {
@@ -202,10 +206,6 @@ public class UserController extends GenericController<UserDTO, Long> {
 
     // ========== ACCOUNT STATUS MANAGEMENT ==========
 
-    /**
-     * Enable user account
-     * PUT /system/security/user/{id}/enable
-     */
     @PutMapping("/{id}/enable")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> enableUser(@PathVariable Long id) {
@@ -213,10 +213,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.enableUser(id));
     }
 
-    /**
-     * Disable user account
-     * PUT /system/security/user/{id}/disable
-     */
     @PutMapping("/{id}/disable")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> disableUser(@PathVariable Long id) {
@@ -224,10 +220,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.disableUser(id));
     }
 
-    /**
-     * Lock user account
-     * PUT /system/security/user/{id}/lock
-     */
     @PutMapping("/{id}/lock")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> lockUser(@PathVariable Long id) {
@@ -235,10 +227,6 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.lockUser(id));
     }
 
-    /**
-     * Unlock user account
-     * PUT /system/security/user/{id}/unlock
-     */
     @PutMapping("/{id}/unlock")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> unlockUser(@PathVariable Long id) {
