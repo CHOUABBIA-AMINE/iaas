@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: AmendmentTypeService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Service
  *	@Layer		: Business / Amendment
  *	@Package	: Business / Amendment / Service
@@ -80,6 +80,18 @@ public class AmendmentTypeService extends GenericService<AmendmentType, Amendmen
     public List<AmendmentTypeDTO> getAll() {
         log.debug("Getting all amendment types without pagination");
         return amendmentTypeRepository.findAll().stream()
+                .map(AmendmentTypeDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all active amendment types
+     * @return list of active amendment types
+     */
+    public List<AmendmentTypeDTO> getActiveTypes() {
+        log.debug("Getting all active amendment types");
+        return amendmentTypeRepository.findAll().stream()
+                .filter(type -> type.getIsActive() != null && type.getIsActive())
                 .map(AmendmentTypeDTO::fromEntity)
                 .collect(Collectors.toList());
     }
