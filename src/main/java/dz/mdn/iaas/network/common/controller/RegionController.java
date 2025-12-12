@@ -1,31 +1,28 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
- *
  *	@Name		: RegionController
  *	@CreatedOn	: 12-11-2025
- *	@Updated	: 12-11-2025
- *
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
- *	@Layer		: Network / Controller
- *	@Package	: Network / Controller
+ *	@Layer		: Network / Common
+ *	@Package	: Network / Common / Controller
  *
  **/
 
 package dz.mdn.iaas.network.common.controller;
 
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.network.common.dto.RegionDTO;
 import dz.mdn.iaas.network.common.service.RegionService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/network/region")
@@ -39,9 +36,73 @@ public class RegionController extends GenericController<RegionDTO, Long> {
         this.regionService = regionService;
     }
 
+    @Override
+    @PreAuthorize("hasAuthority('REGION:READ')")
+    public ResponseEntity<RegionDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('REGION:READ')")
+    public ResponseEntity<Page<RegionDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('REGION:READ')")
+    public ResponseEntity<List<RegionDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('REGION:ADMIN')")
+    public ResponseEntity<RegionDTO> create(@Valid @RequestBody RegionDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('REGION:ADMIN')")
+    public ResponseEntity<RegionDTO> update(@PathVariable Long id, @Valid @RequestBody RegionDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('REGION:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('REGION:READ')")
+    public ResponseEntity<Page<RegionDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('REGION:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('REGION:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/by-zone/{zoneId}")
+    @PreAuthorize("hasAuthority('REGION:READ')")
     public ResponseEntity<List<RegionDTO>> getByZone(@PathVariable Long zoneId) {
-        log.info("REST request to get Regions by zone id: {}", zoneId);
+        log.info("GET /network/region/by-zone/{} - Getting regions by zone", zoneId);
         return ResponseEntity.ok(regionService.findByZone(zoneId));
     }
 }
