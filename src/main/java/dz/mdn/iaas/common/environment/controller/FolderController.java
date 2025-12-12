@@ -4,7 +4,7 @@
  *
  *	@Name		: FolderController
  *	@CreatedOn	: 10-15-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *
  *	@Type		: Controller
  *	@Layer		: Common / Environment
@@ -17,10 +17,12 @@ package dz.mdn.iaas.common.environment.controller;
 import dz.mdn.iaas.common.environment.dto.FolderDTO;
 import dz.mdn.iaas.common.environment.service.FolderService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +43,71 @@ public class FolderController extends GenericController<FolderDTO, Long> {
         this.folderService = folderService;
     }
 
+    // ========== SECURED CRUD OPERATIONS ==========
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:READ')")
+    public ResponseEntity<FolderDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:READ')")
+    public ResponseEntity<Page<FolderDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:READ')")
+    public ResponseEntity<List<FolderDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:ADMIN')")
+    public ResponseEntity<FolderDTO> create(@Valid @RequestBody FolderDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:ADMIN')")
+    public ResponseEntity<FolderDTO> update(@PathVariable Long id, @Valid @RequestBody FolderDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:READ')")
+    public ResponseEntity<Page<FolderDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('FOLDER:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @Override
     protected Page<FolderDTO> searchByQuery(String query, Pageable pageable) {
         if (query == null || query.trim().isEmpty()) {
@@ -54,6 +121,7 @@ public class FolderController extends GenericController<FolderDTO, Long> {
      * GET /folder/list
      */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('FOLDER:READ')")
     public ResponseEntity<List<FolderDTO>> getAllList() {
         log.debug("GET /folder/list - Getting all folders as list");
         List<FolderDTO> folders = folderService.getAll();
@@ -65,6 +133,7 @@ public class FolderController extends GenericController<FolderDTO, Long> {
      * GET /folder/archive-box/{archiveBoxId}
      */
     @GetMapping("/archive-box/{archiveBoxId}")
+    @PreAuthorize("hasAuthority('FOLDER:READ')")
     public ResponseEntity<List<FolderDTO>> getByArchiveBoxId(@PathVariable Long archiveBoxId) {
         log.debug("GET /folder/archive-box/{} - Getting folders by archive box ID", archiveBoxId);
         List<FolderDTO> folders = folderService.getByArchiveBoxId(archiveBoxId);
