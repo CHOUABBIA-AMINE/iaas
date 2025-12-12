@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ItemController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Controller
@@ -15,29 +15,15 @@ package dz.mdn.iaas.business.plan.controller;
 import dz.mdn.iaas.business.plan.dto.ItemDTO;
 import dz.mdn.iaas.business.plan.service.ItemService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Item REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus item-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /item                 Create item
- * - GET    /item/{id}            Get by ID
- * - GET    /item                 Get all (paginated)
- * - GET    /item/all             Get all (non-paginated)
- * - PUT    /item/{id}            Update item
- * - DELETE /item/{id}            Delete item
- * - GET    /item/search?q=...    Global search
- * - GET    /item/{id}/exists     Check existence
- * - GET    /item/count           Total count
- */
 @RestController
 @RequestMapping("/item")
 @Slf4j
@@ -50,26 +36,73 @@ public class ItemController extends GenericController<ItemDTO, Long> {
         this.itemService = itemService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<ItemDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return itemService.getAll(pageable);
-        }
-        return itemService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('ITEM:READ')")
+    public ResponseEntity<ItemDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('ITEM:READ')")
+    public ResponseEntity<Page<ItemDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all items without pagination (custom implementation)
-     * GET /item/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('ITEM:READ')")
+    public ResponseEntity<List<ItemDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ITEM:ADMIN')")
+    public ResponseEntity<ItemDTO> create(@Valid @RequestBody ItemDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ITEM:ADMIN')")
+    public ResponseEntity<ItemDTO> update(@PathVariable Long id, @Valid @RequestBody ItemDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ITEM:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ITEM:READ')")
+    public ResponseEntity<Page<ItemDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ITEM:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('ITEM:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('ITEM:READ')")
     public ResponseEntity<List<ItemDTO>> getAllList() {
-        log.debug("GET /item/list - Getting all items as list");
-        List<ItemDTO> items = itemService.getAll();
-        return success(items);
+        log.debug("GET /item/list");
+        return success(itemService.getAll());
     }
 }
