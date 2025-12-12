@@ -4,7 +4,7 @@
  *
  *	@Name		: StructureTypeController
  *	@CreatedOn	: 10-14-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *
  *	@Type		: Controller
  *	@Layer		: Common / Administration
@@ -17,10 +17,12 @@ package dz.mdn.iaas.common.administration.controller;
 import dz.mdn.iaas.common.administration.dto.StructureTypeDTO;
 import dz.mdn.iaas.common.administration.service.StructureTypeService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +43,73 @@ public class StructureTypeController extends GenericController<StructureTypeDTO,
         this.structureTypeService = structureTypeService;
     }
 
+    // ========== SECURED CRUD OPERATIONS ==========
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
+    public ResponseEntity<StructureTypeDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
+    public ResponseEntity<Page<StructureTypeDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
+    public ResponseEntity<List<StructureTypeDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:ADMIN')")
+    public ResponseEntity<StructureTypeDTO> create(@Valid @RequestBody StructureTypeDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:ADMIN')")
+    public ResponseEntity<StructureTypeDTO> update(@PathVariable Long id, @Valid @RequestBody StructureTypeDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
+    public ResponseEntity<Page<StructureTypeDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
+    // ========== IMPLEMENT SEARCH ==========
+
     @Override
     protected Page<StructureTypeDTO> searchByQuery(String query, Pageable pageable) {
         if (query == null || query.trim().isEmpty()) {
@@ -49,11 +118,14 @@ public class StructureTypeController extends GenericController<StructureTypeDTO,
         return structureTypeService.globalSearch(query, pageable);
     }
 
+    // ========== CUSTOM ENDPOINTS ==========
+
     /**
      * Get all structure types as list (non-paginated)
      * GET /structure-type/list
      */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
     public ResponseEntity<List<StructureTypeDTO>> getAllList() {
         log.debug("GET /structure-type/list - Getting all structure types as list");
         List<StructureTypeDTO> types = structureTypeService.getAll();
@@ -65,6 +137,7 @@ public class StructureTypeController extends GenericController<StructureTypeDTO,
      * GET /structure-type/operational
      */
     @GetMapping("/operational")
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
     public ResponseEntity<List<StructureTypeDTO>> getOperationalTypes() {
         log.debug("GET /structure-type/operational - Getting operational structure types");
         List<StructureTypeDTO> types = structureTypeService.getOperationalTypes();
@@ -76,6 +149,7 @@ public class StructureTypeController extends GenericController<StructureTypeDTO,
      * GET /structure-type/hierarchy/{hierarchyLevel}
      */
     @GetMapping("/hierarchy/{hierarchyLevel}")
+    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
     public ResponseEntity<List<StructureTypeDTO>> getByHierarchyLevel(@PathVariable Integer hierarchyLevel) {
         log.debug("GET /structure-type/hierarchy/{} - Getting structure types by hierarchy level", hierarchyLevel);
         List<StructureTypeDTO> types = structureTypeService.getByHierarchyLevel(hierarchyLevel);
