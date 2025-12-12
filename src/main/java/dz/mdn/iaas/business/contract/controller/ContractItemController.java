@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ContractItemController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Contract
  *	@Package	: Business / Contract / Controller
@@ -15,31 +15,17 @@ package dz.mdn.iaas.business.contract.controller;
 import dz.mdn.iaas.business.contract.dto.ContractItemDTO;
 import dz.mdn.iaas.business.contract.service.ContractItemService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * ContractItem REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus contract-item-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /contractItem                 Create contract item
- * - GET    /contractItem/{id}            Get by ID
- * - GET    /contractItem                 Get all (paginated)
- * - GET    /contractItem/all             Get all (non-paginated)
- * - PUT    /contractItem/{id}            Update contract item
- * - DELETE /contractItem/{id}            Delete contract item
- * - GET    /contractItem/search?q=...    Global search
- * - GET    /contractItem/{id}/exists     Check existence
- * - GET    /contractItem/count           Total count
- */
 @RestController
-@RequestMapping("/contractItem")
+@RequestMapping("/contract-item")
 @Slf4j
 public class ContractItemController extends GenericController<ContractItemDTO, Long> {
 
@@ -50,26 +36,80 @@ public class ContractItemController extends GenericController<ContractItemDTO, L
         this.contractItemService = contractItemService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<ContractItemDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return contractItemService.getAll(pageable);
-        }
-        return contractItemService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:READ')")
+    public ResponseEntity<ContractItemDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:READ')")
+    public ResponseEntity<Page<ContractItemDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all contract items without pagination (custom implementation)
-     * GET /contractItem/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:READ')")
+    public ResponseEntity<List<ContractItemDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:ADMIN')")
+    public ResponseEntity<ContractItemDTO> create(@Valid @RequestBody ContractItemDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:ADMIN')")
+    public ResponseEntity<ContractItemDTO> update(@PathVariable Long id, @Valid @RequestBody ContractItemDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:READ')")
+    public ResponseEntity<Page<ContractItemDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:READ')")
     public ResponseEntity<List<ContractItemDTO>> getAllList() {
-        log.debug("GET /contractItem/list - Getting all contract items as list");
-        List<ContractItemDTO> contractItems = contractItemService.getAll();
-        return success(contractItems);
+        log.debug("GET /contract-item/list");
+        return success(contractItemService.getAll());
+    }
+
+    @GetMapping("/contract/{contractId}")
+    @PreAuthorize("hasAuthority('CONTRACT_ITEM:READ')")
+    public ResponseEntity<List<ContractItemDTO>> getByContract(@PathVariable Long contractId) {
+        log.debug("GET /contract-item/contract/{}", contractId);
+        return success(contractItemService.getByContractId(contractId));
     }
 }

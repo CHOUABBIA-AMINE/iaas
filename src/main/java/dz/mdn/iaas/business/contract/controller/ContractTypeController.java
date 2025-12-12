@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ContractTypeController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Contract
  *	@Package	: Business / Contract / Controller
@@ -15,31 +15,17 @@ package dz.mdn.iaas.business.contract.controller;
 import dz.mdn.iaas.business.contract.dto.ContractTypeDTO;
 import dz.mdn.iaas.business.contract.service.ContractTypeService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * ContractType REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus contract-type-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /contractType                 Create contract type
- * - GET    /contractType/{id}            Get by ID
- * - GET    /contractType                 Get all (paginated)
- * - GET    /contractType/all             Get all (non-paginated)
- * - PUT    /contractType/{id}            Update contract type
- * - DELETE /contractType/{id}            Delete contract type
- * - GET    /contractType/search?q=...    Global search
- * - GET    /contractType/{id}/exists     Check existence
- * - GET    /contractType/count           Total count
- */
 @RestController
-@RequestMapping("/contractType")
+@RequestMapping("/contract-type")
 @Slf4j
 public class ContractTypeController extends GenericController<ContractTypeDTO, Long> {
 
@@ -50,26 +36,80 @@ public class ContractTypeController extends GenericController<ContractTypeDTO, L
         this.contractTypeService = contractTypeService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<ContractTypeDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return contractTypeService.getAll(pageable);
-        }
-        return contractTypeService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:READ')")
+    public ResponseEntity<ContractTypeDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:READ')")
+    public ResponseEntity<Page<ContractTypeDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all contract types without pagination (custom implementation)
-     * GET /contractType/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:READ')")
+    public ResponseEntity<List<ContractTypeDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:ADMIN')")
+    public ResponseEntity<ContractTypeDTO> create(@Valid @RequestBody ContractTypeDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:ADMIN')")
+    public ResponseEntity<ContractTypeDTO> update(@PathVariable Long id, @Valid @RequestBody ContractTypeDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:READ')")
+    public ResponseEntity<Page<ContractTypeDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:READ')")
     public ResponseEntity<List<ContractTypeDTO>> getAllList() {
-        log.debug("GET /contractType/list - Getting all contract types as list");
-        List<ContractTypeDTO> contractTypes = contractTypeService.getAll();
-        return success(contractTypes);
+        log.debug("GET /contract-type/list");
+        return success(contractTypeService.getAll());
+    }
+
+    @GetMapping("/active")
+    @PreAuthorize("hasAuthority('CONTRACT_TYPE:READ')")
+    public ResponseEntity<List<ContractTypeDTO>> getActiveTypes() {
+        log.debug("GET /contract-type/active");
+        return success(contractTypeService.getActiveTypes());
     }
 }
