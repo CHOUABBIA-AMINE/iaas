@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: SubmissionController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Consultation
  *	@Package	: Business / Consultation / Controller
@@ -15,29 +15,15 @@ package dz.mdn.iaas.business.consultation.controller;
 import dz.mdn.iaas.business.consultation.dto.SubmissionDTO;
 import dz.mdn.iaas.business.consultation.service.SubmissionService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Submission REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus submission-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /submission                 Create submission
- * - GET    /submission/{id}            Get by ID
- * - GET    /submission                 Get all (paginated)
- * - GET    /submission/all             Get all (non-paginated)
- * - PUT    /submission/{id}            Update submission
- * - DELETE /submission/{id}            Delete submission
- * - GET    /submission/search?q=...    Global search
- * - GET    /submission/{id}/exists     Check existence
- * - GET    /submission/count           Total count
- */
 @RestController
 @RequestMapping("/submission")
 @Slf4j
@@ -50,26 +36,80 @@ public class SubmissionController extends GenericController<SubmissionDTO, Long>
         this.submissionService = submissionService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<SubmissionDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return submissionService.getAll(pageable);
-        }
-        return submissionService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('SUBMISSION:READ')")
+    public ResponseEntity<SubmissionDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('SUBMISSION:READ')")
+    public ResponseEntity<Page<SubmissionDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all submissions without pagination (custom implementation)
-     * GET /submission/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('SUBMISSION:READ')")
+    public ResponseEntity<List<SubmissionDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('SUBMISSION:ADMIN')")
+    public ResponseEntity<SubmissionDTO> create(@Valid @RequestBody SubmissionDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('SUBMISSION:ADMIN')")
+    public ResponseEntity<SubmissionDTO> update(@PathVariable Long id, @Valid @RequestBody SubmissionDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('SUBMISSION:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('SUBMISSION:READ')")
+    public ResponseEntity<Page<SubmissionDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('SUBMISSION:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('SUBMISSION:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('SUBMISSION:READ')")
     public ResponseEntity<List<SubmissionDTO>> getAllList() {
-        log.debug("GET /submission/list - Getting all submissions as list");
-        List<SubmissionDTO> submissions = submissionService.getAll();
-        return success(submissions);
+        log.debug("GET /submission/list");
+        return success(submissionService.getAll());
+    }
+
+    @GetMapping("/consultation/{consultationId}")
+    @PreAuthorize("hasAuthority('SUBMISSION:READ')")
+    public ResponseEntity<List<SubmissionDTO>> getByConsultation(@PathVariable Long consultationId) {
+        log.debug("GET /submission/consultation/{}", consultationId);
+        return success(submissionService.getByConsultationId(consultationId));
     }
 }
