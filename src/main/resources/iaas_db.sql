@@ -21,6 +21,140 @@ SET time_zone = "+00:00";
 -- Database: `iaas_db`
 --
 
+INSERT INTO T_02_01_02 (F_00, F_01, F_02, F_03) VALUES
+(1,'غير قابل للتطبيق','Not Applicabale','Non applicable'),
+(2,'قيد التحضير','Under Preparation','En cours de préparation'),
+(3,'تأشيرة','Visa','Visa'),
+(4,'تأشيرة مع توصيات','Visa with Recommendations','Visa avec recommandations'),
+(5,'تأشيرة مع تحفظات','Visa under Reservations','Visa sous réserves'),
+(6,'تأجيل','Adjournment','Ajournement'),
+(7,'رفض','Rejection','Rejet'),
+(8,'رفض مؤقت','Temporary Rejection','Rejet à titre temporaire'),
+(9,'رفض نهائي','Definitive Rejection','Rejet définitif');
+
+INSERT INTO T_02_01_03 (F_00, F_01, F_02, F_03) VALUES
+(1, 'المديرية الفرعية للإنجازات', 'Sub Directorat of Realizations', 'Sous Direction Réalisations'),
+(2, 'دائرة المؤن', 'Approvisionment Department', 'Département des Approvisionnements');
+
+INSERT INTO T_02_01_04 (F_00, F_01, F_02, F_03) VALUES
+(1,'الوسائل الكبرى','Major Means','Moyens Majeurs'),
+(2,'تسيير','Operation','Fonctionnement'),
+(3,'تجهيز','Equipment','Équipement'),
+(4,'قطع غيار','Spare Parts','Pièces de Rechange'),
+(5,'أشغال','Constructions','Travaux'),
+(6,'خدمات','Services','Prestations'),
+(7,'دراسات','Studies','Études');
+
+INSERT INTO T_02_01_05 (F_00, F_01, F_02, F_03) VALUES
+(1,'قيد الانتظار','On Hold','En Instance'),
+(2,'قيد التنفيذ','Ongoing','En cours'),
+(3,'غيرمجدي','Defective','Infrectieux'),
+(4,'مُنجز','Finalized','Finalisé'),
+(5,'ملغي','Canceled','Annulé'),
+(6,'مؤجل','Deferred','Différé'),
+(7,'منقول','Transferred','Transféré');
+
+INSERT INTO T_02_02_01 (F_00, F_04, F_05, F_06, F_01, F_02, F_03) VALUES
+(1, 'تسيير', 'F', 'F', 'ميزانية التسيير', 'Functional Budget', 'Budget de Fonctionnement'),
+(2, 'تجهيز', 'E', 'E', 'ميزانية التجهيز', 'Equipment Budget', 'Budget d\'Equipement');
+
+INSERT INTO T_02_03_02 (F_00, F_01, F_02, F_03, F_04, F_05, F_06) VALUES
+(1,'شخص طبيعي','Natural Person','Personne Physique','ش ط','NP','PP'),
+(2,'شخص معنوي','Legal Entity','Personne Morale','ش م','LP','PM'),
+(3,'شركة ذات مسؤولية محدودة لشخص واحد','One-Person Limited Liability Company','Entreprise Unipersonnelle à Responsabilité Limitée﻿','ش ذ م م ش و','OPLLC','EURL'),
+(4,'شركة ذات مسؤولية محدودة','Limited Liability Company','Société à Responsabilité Limitée﻿','ش ذ م م','LLC','SARL'),
+(5,'شركة ذات أسهم','Joint Stock Company','Société par Action﻿','ش ذ أ','JSC','SPA'),
+(6,'شركة مساهمة مبسطة','Simplified Joint Stock Company','Société par Action Simplifiée﻿','ش م م','SJSC','SPAS'),
+(7,'شركة تضامن','General Partnership','Société en Nom Collectif﻿','ش ت','GP','SNC'),
+(8,'تجمع','Grouping / Consortium','Groupement','ت','C','G'),
+(9,'شركة مجهولة الاسم','Public Limited Company','Société Anonyme﻿','ش م إ','PLC','SA'),
+(10,'مؤسسة عمومية ذات طابع صناعي وتجاري','Public Industrial and Commercial Establishment','Etablissement Public à Caractère Industriel et Commerciale﻿','م ع ذ ط ص ت','PICE','EPIC'),
+(11,'مؤسسة عمومية ذات إداري','Public Administrative Establishment','Etablissement Public à Caractère Administratif','م ع ذ ط إ','PAE','EPA');
+
+INSERT INTO T_02_03_03 (F_00, F_01, F_02, F_03) VALUES
+(1,'إقصاء مؤقت','Temporary exclusion','Exclusion à titre temporale'),
+(2,'إقصاء نهائي','Permanent exclusion','Exclusion à titre definitif');
+
+INSERT INTO T_02_04_01 (F_00, F_04, F_05, F_06, F_01, F_02, F_03) VALUES
+(1, 'ط ع م  و', 'NOTC', 'AOON', 'طلب عروض مفتوح وطني', 'National Open Tender Call', 'Appel d\'Offres Ouvert National'),
+(2, 'ط ع م و د', 'NIOTC', 'AOONI', 'طلب عروض مفتوح وطني ودولي', 'National and International Open Tender Call', 'Appel d\'Offres Ouvert National et International'),
+(3, 'ت ب', 'SDN', 'GG / S', 'التراضي البسيط', 'Simple Direct Negotiation', 'Gré à Gré Simple'),
+(4, 'ت ب إ', 'NAC', 'GG / AC', 'التراضي بعد الاستشارة', 'Negotiation after Consultation', 'Gré à Gré après Consultation'),
+(5, 'إد', 'IC(AP)', 'CI(PA)', 'استشارة داخلية', 'Internal Consultation (Adapted Procedure)', 'Consultation Interne (Procédure Adaptée)');
+
+INSERT INTO T_02_04_02 (F_00, F_01, F_02, F_03) VALUES
+(1,'مبرمجة','Planed','Programmée'),
+(2,'قيد الإعداد','In Progress','En cours d\'élaboration'),
+(3,'قيد المراجعة','Under Review','En cours de contrôle'),
+(4,'قيد النشر','In Publication','En cours de publication'),
+(5,'قيد التقييم','Under Evaluation','En cours d\'évaluation');
+
+INSERT INTO T_02_04_03 (F_00, F_01, F_02, F_03, F_04) VALUES
+(1,'مرحلة إعداد المخطط الميزانياتي','Budget Plan Maturation Stage','Instance de maturation de plan budgétaire'),
+(2,'مرحلة تحديد الإحتياجات','Needs Identification Stage','Instance du besoin'),
+(3,'مرحلة إعداد البطاقة التقنية','Technical Data Sheet Preparation Stage','Instance de la fiche technique'),
+(4,'مرحلة موافقة القيادة العليا','High Command Approval Stage','Instance Accord du Haut Commandement'),
+(5,'مرحلة إبداء الرأي','Opinion Stage','Instance d\'avis'),
+(6,'إعداد ملف اللجنة القطاعية للصفقات (CSM)','Preparation of CSM File','Préparation du dossier CSM'),
+(7,'مرحلة دراسة اللجنة القطاعية للصفقات (CSM)','CSM Review Stage','Instance Examen de la CSM'),
+(8,'رفع التحفظات جارية','Lifting of Ongoing Reservations','Leveé des réserves en cours'),
+(9,'رفع التحفظات، في إنتظار مداولة اللجنة القطاعية للصفقات (CSM)','Reservations Removed, CSM Deliberation Stage','Réserves leveés, instance délibiration de la CSM'),
+(10,'إعداد ملف النشر','Preparation of Publish File','Préparation du dossier de publication'),
+(11,'مرحلة النشر','Publish Stage','Instance publication'),
+(12,'مرحلة إيداع العروض','Submission of Offers Stage','Instance dépôt des offres'),
+(13,'تحويل الملف إلى لجنة فتح الأظرفة وتقييم العروض (COPEO)','File Transmitted to COPEO','Dossier transmis à la COPEO');
+
+INSERT INTO T_02_05_01 (F_00, F_01, F_02, F_03) VALUES
+(1,'اتفاقية','Convention','Convention'),
+(2,'اتفاقية إطار','Framework Convention','Convention Cadre'),
+(3,'صفقة','Contract','Marché'),
+(4,'صفقة تسوية','Regularization Contract','Marché de Régularisation'),
+(5,'صفقة طلبات','Contract on Demand','Marché à Commandes'),
+(6,'عقد','Contract','Contrat'),
+(7,'عقد برنامج','Framework Contract','Contrat Programme'),
+(8,'عقد تطبيق','Implementation Contract','Contrat d\'Application'),
+(9,'أمر شراء','Purchase Order','Bon de Commande');
+ 
+INSERT INTO T_02_05_02 (F_00, F_01, F_02, F_03) VALUES
+(1,'مبرمجة','Planed','Programmée'),
+(2,'قيد الإعداد','In Progress','En cours d\'élaboration'),
+(3,'قيد المراجعة','Under Review','En cours de contrôle'),
+(4,'قيد الإلتزام','Under Engagement','En cours d\engagement');
+
+INSERT INTO T_02_05_03 (F_00, F_01, F_02, F_03, F_04) VALUES
+(1,'مرحلة مداولات لجنة فتح الأظرفة وتقييم العروض','COPEO Committee Deliberation Stage','Instance PVs COPEO',1),
+(2,'إمضاء مشروع العقد/الفقة','Signature of the contract project','Signature du projet du contrat/marché',2),
+(3,'إعداد ملف اللجنة القطاعية للصفقات','Preparation of CSM File','Préparation du dossier CSM',2),
+(4,'مرحلة دراسة اللجنة القطاعية للصفقات','CSM Review Stage','Instance Examen de la CSM',3),
+(5,'رفع التحفظات جارية','Lifting of Ongoing Reservations','Leveé des réserves en cours',3),
+(6,'رفع التحفظات، في إنتظار مداولة اللجنة القطاعية للصفقات','Reservations Removed, CSM Deliberation Stage','Réserves leveés, instance délibiration de la CSM',3),
+(7,'إعداد ملف الالتزام','Preparation of Commitment File','Préparation du dossier du dossier d\'engagement',3),
+(8,'إرسال الملف للالتزام','File Sent for Commitment','Dossier transmis pour engagement',4);
+ 
+INSERT INTO T_02_06_01 (F_00, F_01, F_02, F_03) VALUES
+(1,'ملحق عقد','Amendment','Avenant'),
+(2,'ملحق تعديل','Adjustment Amendment','Avenant d\'Ajustement'),
+(3,'ملحق نقل الحقوق والالتزامات','Amendment for Transfer of Rights and Obligations','Avenant de transfert des droits et des obligations'),
+(4,'ملحق تعديل الكميات النهائية','Amendment for Adjustment of Final Quantities','Avenant d\'Ajustement des Quantités Définitives');
+
+INSERT INTO T_02_06_02 (F_00, F_01, F_02, F_03) VALUES
+(1,'مبرمجة﻿','Planed','Programmée'),
+(2,'قيد الإعداد','In Progress','En cours d\'élaboration'),
+(3,'قيد المراجعة﻿','Under Review','En cours de contrôle'),
+(4,'قيد الإلتزام','Under Engagement','En cours d\'engagement');
+
+INSERT INTO T_02_06_03 (F_00, F_01, F_02, F_03, F_04) VALUES
+(1,'مرحلة مداولات لجنة فتح الأظرفة وتقييم العروض','COPEO Amendment fileStage','Instance Dossier de l\'avenant',1),
+(2,'مرحلة مداولات لجنة فتح الأظرفة وتقييم العروض','COPEO Committee Deliberation Stage','Instance PVs COPEO',1),
+(3,'مرحلة موافقة القيادة العليا','High Command Approval Stage','Instance Accord du Haut Commandement',1),
+(4,'إمضاء مشروع العقد/الفقة','Signature of the Amendment project','Signature du projet de l\'avenant',2),
+(5,'إعداد ملف اللجنة القطاعية للصفقات','Preparation of CSM File','Préparation du dossier CSM',2),
+(6,'مرحلة دراسة اللجنة القطاعية للصفقات','CSM Review Stage','Instance Examen de la CSM',3),
+(7,'رفع التحفظات جارية','Lifting of Ongoing Reservations','Leveé des réserves en cours',3),
+(8,'رفع التحفظات، في إنتظار مداولة اللجنة القطاعية للصفقات','Reservations Removed, CSM Deliberation Stage','Réserves leveés, instance délibiration de la CSM',3),
+(9,'إعداد ملف الالتزام','Preparation of Commitment File','Préparation du dossier du dossier d\'engagement',3),
+(10,'إرسال الملف للالتزام','File Sent for Commitment','Dossier transmis pour engagement',4);
+
 -- --------------------------------------------------------
 
 --

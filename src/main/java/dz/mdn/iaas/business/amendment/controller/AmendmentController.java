@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: AmendmentController
  *	@CreatedOn	: 10-16-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Business / Amendment
- *	@Package	: Business / Amendment / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Business / Amendment
  *
  **/
 
@@ -30,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus amendment-specific operations
  */
 @RestController
-@RequestMapping("/amendment")
+@RequestMapping("/business/amendment")
 @Slf4j
 public class AmendmentController extends GenericController<AmendmentDTO, Long> {
 
