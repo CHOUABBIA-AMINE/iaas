@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: PlannedItemService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Service
@@ -13,11 +13,7 @@
 package dz.mdn.iaas.business.plan.service;
 
 import dz.mdn.iaas.business.plan.dto.PlannedItemDTO;
-import dz.mdn.iaas.business.plan.model.Item;
-import dz.mdn.iaas.business.plan.model.ItemStatus;
 import dz.mdn.iaas.business.plan.model.PlannedItem;
-import dz.mdn.iaas.business.plan.repository.ItemRepository;
-import dz.mdn.iaas.business.plan.repository.ItemStatusRepository;
 import dz.mdn.iaas.business.plan.repository.PlannedItemRepository;
 import dz.mdn.iaas.configuration.template.GenericService;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +29,6 @@ import java.util.stream.Collectors;
 
 /**
  * PlannedItem Service - Extends GenericService
- * Provides business logic for planned items with item status and item relationships
  */
 @Service
 @RequiredArgsConstructor
@@ -42,8 +37,6 @@ import java.util.stream.Collectors;
 public class PlannedItemService extends GenericService<PlannedItem, PlannedItemDTO, Long> {
 
     private final PlannedItemRepository plannedItemRepository;
-    private final ItemStatusRepository itemStatusRepository;
-    private final ItemRepository itemRepository;
 
     @Override
     protected JpaRepository<PlannedItem, Long> getRepository() {
@@ -62,48 +55,18 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
 
     @Override
     protected PlannedItem toEntity(PlannedItemDTO dto) {
-        PlannedItem entity = dto.toEntity();
-        
-        // Set ItemStatus relationship
-        if (dto.getItemStatusId() != null) {
-            ItemStatus itemStatus = itemStatusRepository.findById(dto.getItemStatusId())
-                    .orElseThrow(() -> new RuntimeException("ItemStatus not found with id: " + dto.getItemStatusId()));
-            entity.setItemStatus(itemStatus);
-        }
-        
-        // Set Item relationship
-        if (dto.getItemId() != null) {
-            Item item = itemRepository.findById(dto.getItemId())
-                    .orElseThrow(() -> new RuntimeException("Item not found with id: " + dto.getItemId()));
-            entity.setItem(item);
-        }
-        
-        return entity;
+        return dto.toEntity();
     }
 
     @Override
     protected void updateEntityFromDTO(PlannedItem entity, PlannedItemDTO dto) {
         dto.updateEntity(entity);
-        
-        // Update ItemStatus relationship if provided
-        if (dto.getItemStatusId() != null) {
-            ItemStatus itemStatus = itemStatusRepository.findById(dto.getItemStatusId())
-                    .orElseThrow(() -> new RuntimeException("ItemStatus not found with id: " + dto.getItemStatusId()));
-            entity.setItemStatus(itemStatus);
-        }
-        
-        // Update Item relationship if provided
-        if (dto.getItemId() != null) {
-            Item item = itemRepository.findById(dto.getItemId())
-                    .orElseThrow(() -> new RuntimeException("Item not found with id: " + dto.getItemId()));
-            entity.setItem(item);
-        }
     }
 
     @Override
     @Transactional
     public PlannedItemDTO create(PlannedItemDTO dto) {
-        log.info("Creating planned item: designation={}", dto.getDesignation());
+        log.info("Creating planned item");
         return super.create(dto);
     }
 
@@ -114,11 +77,6 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
         return super.update(id, dto);
     }
 
-    // ========== CUSTOM METHODS ==========
-
-    /**
-     * Get all planned items without pagination
-     */
     public List<PlannedItemDTO> getAll() {
         log.debug("Getting all planned items without pagination");
         return plannedItemRepository.findAll().stream()
@@ -127,8 +85,29 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
     }
 
     /**
-     * Global search for planned items
+     * Get all planned items by year
+     * @param year the year
+     * @return list of planned items
      */
+    public List<PlannedItemDTO> getByYear(Integer year) {
+        log.debug("Getting planned items by year: {}", year);
+        return plannedItemRepository.findByYear(year).stream()
+                .map(PlannedItemDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all planned items by structure ID
+     * @param structureId the structure ID
+     * @return list of planned items
+     */
+    public List<PlannedItemDTO> getByStructureId(Long structureId) {
+        log.debug("Getting planned items by structure ID: {}", structureId);
+        return plannedItemRepository.findByStructureId(structureId).stream()
+                .map(PlannedItemDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
     public Page<PlannedItemDTO> globalSearch(String searchTerm, Pageable pageable) {
         log.debug("Global search for planned items with term: {}", searchTerm);
         
@@ -136,31 +115,6 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
             return getAll(pageable);
         }
         
-        Page<PlannedItem> entities = plannedItemRepository.findByDesignationContainingIgnoreCase(searchTerm, pageable);
-        return entities.map(this::toDTO);
-    }
-
-    /**
-     * Find planned items by item status
-     */
-    public List<PlannedItemDTO> findByItemStatus(Long itemStatusId) {
-        log.debug("Finding planned items by item status id: {}", itemStatusId);
-        ItemStatus itemStatus = itemStatusRepository.findById(itemStatusId)
-                .orElseThrow(() -> new RuntimeException("ItemStatus not found with id: " + itemStatusId));
-        return plannedItemRepository.findByItemStatus(itemStatus).stream()
-                .map(PlannedItemDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
-    
-    /**
-     * Find planned items by item
-     */
-    public List<PlannedItemDTO> findByItem(Long itemId) {
-        log.debug("Finding planned items by item id: {}", itemId);
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Item not found with id: " + itemId));
-        return plannedItemRepository.findByItem(item).stream()
-                .map(PlannedItemDTO::fromEntity)
-                .collect(Collectors.toList());
+        return getAll(pageable);
     }
 }

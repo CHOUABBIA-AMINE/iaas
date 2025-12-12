@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ItemDistributionService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Service
@@ -66,7 +66,7 @@ public class ItemDistributionService extends GenericService<ItemDistribution, It
     @Override
     @Transactional
     public ItemDistributionDTO create(ItemDistributionDTO dto) {
-        log.info("Creating item distribution: quantity={}", dto.getQuantity());
+        log.info("Creating item distribution");
         return super.create(dto);
     }
 
@@ -80,6 +80,18 @@ public class ItemDistributionService extends GenericService<ItemDistribution, It
     public List<ItemDistributionDTO> getAll() {
         log.debug("Getting all item distributions without pagination");
         return itemDistributionRepository.findAll().stream()
+                .map(ItemDistributionDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all item distributions by item ID
+     * @param itemId the item ID
+     * @return list of item distributions
+     */
+    public List<ItemDistributionDTO> getByItemId(Long itemId) {
+        log.debug("Getting item distributions by item ID: {}", itemId);
+        return itemDistributionRepository.findByItemId(itemId).stream()
                 .map(ItemDistributionDTO::fromEntity)
                 .collect(Collectors.toList());
     }
