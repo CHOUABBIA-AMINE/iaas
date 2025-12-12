@@ -105,11 +105,4 @@ public class ContractPhaseController extends GenericController<ContractPhaseDTO,
         log.debug("GET /contract-phase/list");
         return success(contractPhaseService.getAll());
     }
-
-    @GetMapping("/contract/{contractId}")
-    @PreAuthorize("hasAuthority('CONTRACT_PHASE:READ')")
-    public ResponseEntity<List<ContractPhaseDTO>> getByContract(@PathVariable Long contractId) {
-        log.debug("GET /contract-phase/contract/{}", contractId);
-        return success(contractPhaseService.getByContractId(contractId));
-    }
 }

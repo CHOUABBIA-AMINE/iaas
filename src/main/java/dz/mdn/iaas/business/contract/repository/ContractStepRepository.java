@@ -4,7 +4,7 @@
  *
  *	@Name		: ContractStepRepository
  *	@CreatedOn	: 06-26-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *
  *	@Type		: Repository
  *	@Layer		: Business / Contract
@@ -18,11 +18,19 @@ import dz.mdn.iaas.business.contract.model.ContractStep;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * ContractStep Repository
  * Basic CRUD operations provided by JpaRepository
  */
 @Repository
 public interface ContractStepRepository extends JpaRepository<ContractStep, Long> {
-    // All basic CRUD operations inherited from JpaRepository
+    
+    /**
+     * Find all contract steps by phase ID
+     * @param phaseId the contract phase ID
+     * @return list of contract steps
+     */
+    List<ContractStep> findByContractPhaseId(Long phaseId);
 }

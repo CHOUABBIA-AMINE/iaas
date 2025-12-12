@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ContractItemService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Service
  *	@Layer		: Business / Contract
  *	@Package	: Business / Contract / Service
@@ -80,6 +80,18 @@ public class ContractItemService extends GenericService<ContractItem, ContractIt
     public List<ContractItemDTO> getAll() {
         log.debug("Getting all contract items without pagination");
         return contractItemRepository.findAll().stream()
+                .map(ContractItemDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all contract items by contract ID
+     * @param contractId the contract ID
+     * @return list of contract items
+     */
+    public List<ContractItemDTO> getByContractId(Long contractId) {
+        log.debug("Getting contract items by contract ID: {}", contractId);
+        return contractItemRepository.findByContractId(contractId).stream()
                 .map(ContractItemDTO::fromEntity)
                 .collect(Collectors.toList());
     }

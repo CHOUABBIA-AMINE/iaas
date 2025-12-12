@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ContractStepService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Service
  *	@Layer		: Business / Contract
  *	@Package	: Business / Contract / Service
@@ -80,6 +80,18 @@ public class ContractStepService extends GenericService<ContractStep, ContractSt
     public List<ContractStepDTO> getAll() {
         log.debug("Getting all contract steps without pagination");
         return contractStepRepository.findAll().stream()
+                .map(ContractStepDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all contract steps by phase ID
+     * @param phaseId the contract phase ID
+     * @return list of contract steps
+     */
+    public List<ContractStepDTO> getByPhaseId(Long phaseId) {
+        log.debug("Getting contract steps by phase ID: {}", phaseId);
+        return contractStepRepository.findByContractPhaseId(phaseId).stream()
                 .map(ContractStepDTO::fromEntity)
                 .collect(Collectors.toList());
     }

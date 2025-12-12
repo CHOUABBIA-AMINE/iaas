@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ContractTypeService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Service
  *	@Layer		: Business / Contract
  *	@Package	: Business / Contract / Service
@@ -80,6 +80,18 @@ public class ContractTypeService extends GenericService<ContractType, ContractTy
     public List<ContractTypeDTO> getAll() {
         log.debug("Getting all contract types without pagination");
         return contractTypeRepository.findAll().stream()
+                .map(ContractTypeDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Get all active contract types
+     * @return list of active contract types
+     */
+    public List<ContractTypeDTO> getActiveTypes() {
+        log.debug("Getting all active contract types");
+        return contractTypeRepository.findAll().stream()
+                .filter(type -> type.getIsActive() != null && type.getIsActive())
                 .map(ContractTypeDTO::fromEntity)
                 .collect(Collectors.toList());
     }
