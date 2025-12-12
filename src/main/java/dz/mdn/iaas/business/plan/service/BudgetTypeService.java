@@ -86,14 +86,12 @@ public class BudgetTypeService extends GenericService<BudgetType, BudgetTypeDTO,
 
     /**
      * Get all active budget types
-     * @return list of active budget types
+     * Note: BudgetType model doesn't have isActive field, so returning all types
+     * @return list of all budget types
      */
     public List<BudgetTypeDTO> getActiveTypes() {
-        log.debug("Getting all active budget types");
-        return budgetTypeRepository.findAll().stream()
-                .filter(type -> type.getIsActive() != null && type.getIsActive())
-                .map(BudgetTypeDTO::fromEntity)
-                .collect(Collectors.toList());
+        log.debug("Getting all budget types (no isActive field in model)");
+        return getAll();
     }
 
     /**

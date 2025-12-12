@@ -86,14 +86,12 @@ public class ItemStatusService extends GenericService<ItemStatus, ItemStatusDTO,
 
     /**
      * Get all active item statuses
-     * @return list of active item statuses
+     * Note: ItemStatus model doesn't have isActive field, so returning all statuses
+     * @return list of all item statuses
      */
     public List<ItemStatusDTO> getActiveStatuses() {
-        log.debug("Getting all active item statuses");
-        return itemStatusRepository.findAll().stream()
-                .filter(status -> status.getIsActive() != null && status.getIsActive())
-                .map(ItemStatusDTO::fromEntity)
-                .collect(Collectors.toList());
+        log.debug("Getting all item statuses (no isActive field in model)");
+        return getAll();
     }
 
     public Page<ItemStatusDTO> globalSearch(String searchTerm, Pageable pageable) {
