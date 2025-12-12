@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ContractTypeService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-12-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Contract
  *	@Package	: Business / Contract / Service
@@ -86,14 +86,12 @@ public class ContractTypeService extends GenericService<ContractType, ContractTy
 
     /**
      * Get all active contract types
-     * @return list of active contract types
+     * Note: ContractType model doesn't have isActive field, so returning all types
+     * @return list of all contract types
      */
     public List<ContractTypeDTO> getActiveTypes() {
-        log.debug("Getting all active contract types");
-        return contractTypeRepository.findAll().stream()
-                .filter(type -> type.getIsActive() != null && type.getIsActive())
-                .map(ContractTypeDTO::fromEntity)
-                .collect(Collectors.toList());
+        log.debug("Getting all contract types (no isActive field in model)");
+        return getAll();
     }
 
     public Page<ContractTypeDTO> globalSearch(String searchTerm, Pageable pageable) {
