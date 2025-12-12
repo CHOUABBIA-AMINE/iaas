@@ -4,7 +4,7 @@
  *
  *	@Name		: CurrencyController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-10-2025
+ *	@Updated	: 12-12-2025
  *
  *	@Type		: Controller
  *	@Layer		: Business / Core
@@ -17,10 +17,12 @@ package dz.mdn.iaas.business.core.controller;
 import dz.mdn.iaas.business.core.dto.CurrencyDTO;
 import dz.mdn.iaas.business.core.service.CurrencyService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,6 +54,71 @@ public class CurrencyController extends GenericController<CurrencyDTO, Long> {
         this.currencyService = currencyService;
     }
 
+    // ========== SECURED CRUD OPERATIONS ==========
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
+    public ResponseEntity<CurrencyDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
+    public ResponseEntity<Page<CurrencyDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
+    public ResponseEntity<List<CurrencyDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:ADMIN')")
+    public ResponseEntity<CurrencyDTO> create(@Valid @RequestBody CurrencyDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:ADMIN')")
+    public ResponseEntity<CurrencyDTO> update(@PathVariable Long id, @Valid @RequestBody CurrencyDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
+    public ResponseEntity<Page<CurrencyDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     // ========== IMPLEMENT SEARCH ==========
 
     @Override
@@ -69,6 +136,7 @@ public class CurrencyController extends GenericController<CurrencyDTO, Long> {
      * GET /currency/list
      */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
     public ResponseEntity<List<CurrencyDTO>> getAllList() {
         log.debug("GET /currency/list - Getting all currencies as list");
         List<CurrencyDTO> currencies = currencyService.getAll();
@@ -80,6 +148,7 @@ public class CurrencyController extends GenericController<CurrencyDTO, Long> {
      * GET /currency/search/designation?q=...
      */
     @GetMapping("/search/designation")
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
     public ResponseEntity<Page<CurrencyDTO>> searchByDesignation(
             @RequestParam String q,
             @RequestParam(defaultValue = "0") int page,
@@ -100,6 +169,7 @@ public class CurrencyController extends GenericController<CurrencyDTO, Long> {
      * GET /currency/search/acronym?q=...
      */
     @GetMapping("/search/acronym")
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
     public ResponseEntity<Page<CurrencyDTO>> searchByAcronym(
             @RequestParam String q,
             @RequestParam(defaultValue = "0") int page,
@@ -122,6 +192,7 @@ public class CurrencyController extends GenericController<CurrencyDTO, Long> {
      * GET /currency/exists/code/{code}
      */
     @GetMapping("/exists/code/{code}")
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
     public ResponseEntity<Boolean> existsByCode(@PathVariable String code) {
         log.debug("GET /currency/exists/code/{} - Checking code existence", code);
         boolean exists = currencyService.existsByCode(code);
@@ -133,6 +204,7 @@ public class CurrencyController extends GenericController<CurrencyDTO, Long> {
      * GET /currency/exists/designation-ar/{designationAr}
      */
     @GetMapping("/exists/designation-ar/{designationAr}")
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
     public ResponseEntity<Boolean> existsByDesignationAr(@PathVariable String designationAr) {
         log.debug("GET /currency/exists/designation-ar/{}", designationAr);
         boolean exists = currencyService.existsByDesignationAr(designationAr);
@@ -144,6 +216,7 @@ public class CurrencyController extends GenericController<CurrencyDTO, Long> {
      * GET /currency/exists/designation-en/{designationEn}
      */
     @GetMapping("/exists/designation-en/{designationEn}")
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
     public ResponseEntity<Boolean> existsByDesignationEn(@PathVariable String designationEn) {
         log.debug("GET /currency/exists/designation-en/{}", designationEn);
         boolean exists = currencyService.existsByDesignationEn(designationEn);
@@ -155,6 +228,7 @@ public class CurrencyController extends GenericController<CurrencyDTO, Long> {
      * GET /currency/exists/designation-fr/{designationFr}
      */
     @GetMapping("/exists/designation-fr/{designationFr}")
+    @PreAuthorize("hasAuthority('CURRENCY:READ')")
     public ResponseEntity<Boolean> existsByDesignationFr(@PathVariable String designationFr) {
         log.debug("GET /currency/exists/designation-fr/{}", designationFr);
         boolean exists = currencyService.existsByDesignationFr(designationFr);
