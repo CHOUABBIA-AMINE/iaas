@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus employee-specific operations
  */
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/common/employee")
 @Slf4j
 public class EmployeeController extends GenericController<EmployeeDTO, Long> {
 

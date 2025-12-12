@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Country management
  */
 @RestController
-@RequestMapping("/country")
+@RequestMapping("/common/country")
 @Slf4j
 public class CountryController extends GenericController<CountryDTO, Long> {
 

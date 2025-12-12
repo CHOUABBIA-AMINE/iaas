@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus state-specific operations
  */
 @RestController
-@RequestMapping("/state")
+@RequestMapping("/common/state")
 @Slf4j
 public class StateController extends GenericController<StateDTO, Long> {
 

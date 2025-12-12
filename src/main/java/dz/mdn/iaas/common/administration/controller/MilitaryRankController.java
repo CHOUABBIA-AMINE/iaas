@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus military rank-specific operations
  */
 @RestController
-@RequestMapping("/militaryRank")
+@RequestMapping("/common/militaryRank")
 @Slf4j
 public class MilitaryRankController extends GenericController<MilitaryRankDTO, Long> {
 

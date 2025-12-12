@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Person management
  */
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/common/person")
 @Slf4j
 public class PersonController extends GenericController<PersonDTO, Long> {
 
