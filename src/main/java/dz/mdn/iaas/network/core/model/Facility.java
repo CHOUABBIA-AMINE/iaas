@@ -52,7 +52,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Facility")
-@Table(name="T_20_08", uniqueConstraints = { @UniqueConstraint(name="T_20_08_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_02_03", uniqueConstraints = { @UniqueConstraint(name="T_03_02_03_UK_01", columnNames={"F_02"}) })
 public class Facility extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)
@@ -62,14 +62,14 @@ public class Facility extends GenericModel {
     private String code;
 
     @ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_20_08_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable=false)
     private OperationalStatus operationalStatus;
 
     @ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_20_08_FK_02"), nullable=false)
+    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_03_02_03_FK_02"), nullable=false)
     private Location location;
 
     @ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_20_08_FK_03"), nullable=false)
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_02_03_FK_03"), nullable=false)
     private FacilityType facilityType;
 }

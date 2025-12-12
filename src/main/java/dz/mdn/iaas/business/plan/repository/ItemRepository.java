@@ -41,13 +41,13 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
      * Find items by parent item ID
      * Used by ItemService.getByParentItemId()
      */
-    @Query("SELECT i FROM Item i WHERE i.parentItem.id = :parentItemId")
-    List<Item> findByParentItemId(@Param("parentItemId") Long parentItemId);
+    //@Query("SELECT i FROM Item i WHERE i.parentItem.id = :parentItemId")
+    //List<Item> findByParentItemId(@Param("parentItemId") Long parentItemId);
     
     /**
      * Find root items (no parent)
      * Used by ItemService.getRootItems()
      */
-    @Query("SELECT i FROM Item i WHERE i.parentItem IS NULL")
-    List<Item> findRootItems();
+    //@Query("SELECT i FROM Item i WHERE i.parentItem IS NULL")
+    //List<Item> findRootItems();
 }

@@ -43,7 +43,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="EquipmentType")
-@Table(name="T_20_10")
+@Table(name="T_03_02_02")
 public class EquipmentType extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)

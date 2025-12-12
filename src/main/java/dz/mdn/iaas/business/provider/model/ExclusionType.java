@@ -33,7 +33,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ExclusionType")
-@Table(name="T_02_03_05", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_05_UK_01", columnNames = { "F_03" })})
+@Table(name="T_02_03_03", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_03_UK_01", columnNames = { "F_03" })})
 public class ExclusionType extends GenericModel {
 	
 	@Column(name="F_01", length=200)

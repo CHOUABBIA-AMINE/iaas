@@ -146,7 +146,7 @@ public class FileController extends GenericController<FileDTO, Long> {
      * Check if physical file exists
      * GET /system/file/{id}/exists
      */
-    @GetMapping("/{id}/exists")
+    @GetMapping("/{id}/physical/exists")
     public ResponseEntity<Map<String, Boolean>> checkPhysicalFileExists(@PathVariable Long id) {
         log.info("REST request to check if physical file exists with id: {}", id);
         

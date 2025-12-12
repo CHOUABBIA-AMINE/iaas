@@ -21,7 +21,6 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,7 +35,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ProviderRepresentator")
-@Table(name="T_02_03_07", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_07_UK_01", columnNames = { "F_02", "F_03", "F_04" })})
+@Table(name="T_02_03_05")
 public class ProviderRepresentator extends GenericModel {
 	
 	@Column(name="F_01", length=50, nullable=false)

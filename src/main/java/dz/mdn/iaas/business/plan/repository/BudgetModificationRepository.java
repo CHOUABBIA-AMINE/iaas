@@ -33,13 +33,7 @@ public interface BudgetModificationRepository extends JpaRepository<BudgetModifi
      * Find budget modifications by planned item ID
      * Used by BudgetModificationService.getByPlannedItemId()
      */
-    @Query("SELECT bm FROM BudgetModification bm WHERE bm.plannedItem.id = :plannedItemId")
-    List<BudgetModification> findByPlannedItemId(@Param("plannedItemId") Long plannedItemId);
+    @Query("SELECT bm FROM BudgetModification bm JOIN bm.plannedItems pi WHERE pi.id = :plannedItemId")
+	List<BudgetModification> findByPlannedItemId(@Param("plannedItemId") Long plannedItemId);
     
-    /**
-     * Find budget modifications by budget type ID
-     * Used by BudgetModificationService.getByBudgetTypeId()
-     */
-    @Query("SELECT bm FROM BudgetModification bm WHERE bm.budgetType.id = :budgetTypeId")
-    List<BudgetModification> findByBudgetTypeId(@Param("budgetTypeId") Long budgetTypeId);
 }

@@ -31,7 +31,7 @@ import lombok.ToString;
 /**
  * PipelineSegment Entity - Extends GenericModel
  * 
- * Database table: T_20_13
+ * Database table: T_03_02_07
  * Primary key: F_00 (id) - inherited from GenericModel
  * 
  * Fields:
@@ -46,13 +46,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="PipelineSegment")
-@Table(name="T_20_13")
+@Table(name="T_03_02_07")
 public class PipelineSegment extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)
     private String code;
 
     @ManyToOne
-    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_20_13_FK_01"), nullable=false)
+    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_03_02_07_FK_01"), nullable=false)
     private Pipeline pipeline;
 }

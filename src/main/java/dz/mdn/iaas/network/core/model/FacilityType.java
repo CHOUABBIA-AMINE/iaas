@@ -28,7 +28,7 @@ import lombok.ToString;
 /**
  * FacilityType Entity - Extends GenericModel
  * 
- * Database table: T_20_07
+ * Database table: T_03_02_01
  * Primary key: F_00 (id) - inherited from GenericModel
  * 
  * Fields:
@@ -43,7 +43,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="FacilityType")
-@Table(name="T_20_07")
+@Table(name="T_03_02_01")
 public class FacilityType extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)

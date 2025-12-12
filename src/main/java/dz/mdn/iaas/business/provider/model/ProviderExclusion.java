@@ -39,7 +39,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="ProviderExclusion")
-@Table(name="T_02_03_06", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_06_UK_01", columnNames = { "F_01", "F_05" })})
+@Table(name="T_02_03_07", uniqueConstraints = { @UniqueConstraint(name = "T_02_03_07_UK_01", columnNames = { "F_01", "F_05" })})
 public class ProviderExclusion extends GenericModel {
 	
 	@Column(name="F_01", nullable=false)

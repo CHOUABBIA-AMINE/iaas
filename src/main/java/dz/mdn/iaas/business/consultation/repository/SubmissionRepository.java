@@ -40,6 +40,6 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
      * Find submissions by provider ID
      * Used by SubmissionService.getByProviderId()
      */
-    @Query("SELECT s FROM Submission s WHERE s.provider.id = :providerId")
+    @Query("SELECT s FROM Submission s WHERE s.tender.id = :providerId")
     List<Submission> findByProviderId(@Param("providerId") Long providerId);
 }

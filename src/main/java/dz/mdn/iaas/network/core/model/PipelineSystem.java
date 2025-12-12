@@ -33,7 +33,7 @@ import lombok.ToString;
 /**
  * PipelineSystem Entity - Extends GenericModel
  * 
- * Database table: T_20_12
+ * Database table: T_03_02_05
  * Primary key: F_00 (id) - inherited from GenericModel
  * 
  * Fields:
@@ -51,7 +51,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="PipelineSystem")
-@Table(name="T_20_12", uniqueConstraints = { @UniqueConstraint(name="T_20_12_UK_01", columnNames={"F_01"}) })
+@Table(name="T_03_02_05", uniqueConstraints = { @UniqueConstraint(name="T_03_02_05_UK_01", columnNames={"F_01"}) })
 public class PipelineSystem extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)
@@ -67,6 +67,6 @@ public class PipelineSystem extends GenericModel {
     private String designationFr;
 
     @ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_20_12_FK_01"), nullable=false)
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_02_05_FK_01"), nullable=false)
     private Product product;
 }

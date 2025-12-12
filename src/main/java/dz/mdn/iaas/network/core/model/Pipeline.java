@@ -35,7 +35,7 @@ import lombok.ToString;
 /**
  * Pipeline Entity - Extends GenericModel
  * 
- * Database table: T_20_11
+ * Database table: T_03_02_06
  * Primary key: F_00 (id) - inherited from GenericModel
  * 
  * Fields:
@@ -58,7 +58,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Pipeline")
-@Table(name="T_20_11", uniqueConstraints = { @UniqueConstraint(name="T_20_11_UK_01", columnNames={"F_01"}) })
+@Table(name="T_03_02_06", uniqueConstraints = { @UniqueConstraint(name="T_03_02_06_UK_01", columnNames={"F_01"}) })
 public class Pipeline extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)
@@ -80,18 +80,18 @@ public class Pipeline extends GenericModel {
     private LocalDate commissioningDate;
 
     @ManyToOne
-    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_20_11_FK_01"), nullable=false)
+    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_03_02_06_FK_01"), nullable=false)
     private OperationalStatus operationalStatus;
 
     @ManyToOne
-    @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_20_11_FK_02"), nullable=false)
+    @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_02_06_FK_02"), nullable=false)
     private PipelineSystem pipelineSystem;
 
     @ManyToOne
-    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_20_11_FK_03"), nullable=false)
+    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_02_06_FK_03"), nullable=false)
     private Facility departureTerminal;
 
     @ManyToOne
-    @JoinColumn(name="F_10", foreignKey=@ForeignKey(name="T_20_11_FK_04"), nullable=false)
+    @JoinColumn(name="F_10", foreignKey=@ForeignKey(name="T_03_02_06_FK_04"), nullable=false)
     private Facility arrivalTerminal;
 }

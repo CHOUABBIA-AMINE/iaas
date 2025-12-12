@@ -58,7 +58,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Equipment")
-@Table(name="T_20_09")
+@Table(name="T_03_02_04")
 public class Equipment extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)
@@ -86,11 +86,11 @@ public class Equipment extends GenericModel {
     private LocalDate lastMaintenanceDate;
 
     @ManyToOne
-    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_20_09_FK_01"), nullable=false)
+    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_02_04_FK_01"), nullable=false)
     private OperationalStatus operationalStatus;
 
     @ManyToOne
-    @JoinColumn(name="F_10", foreignKey=@ForeignKey(name="T_20_09_FK_02"), nullable=false)
+    @JoinColumn(name="F_10", foreignKey=@ForeignKey(name="T_03_02_04_FK_02"), nullable=false)
     private EquipmentType equipmentType;
 
     @ManyToOne

@@ -17,10 +17,10 @@ package dz.mdn.iaas.business.provider.model;
 import java.util.Date;
 import java.util.List;
 
-import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.business.consultation.model.Submission;
 import dz.mdn.iaas.common.administration.model.Country;
 import dz.mdn.iaas.common.administration.model.State;
+import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.system.utility.model.File;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,12 +33,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Setter
 @Getter

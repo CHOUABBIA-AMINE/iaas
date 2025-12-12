@@ -151,7 +151,7 @@ public class ProviderDTO extends GenericDTO<Provider> {
                 .faxNumbers(entity.getFaxNumbers())
                 .mail(entity.getMail())
                 .website(entity.getWebsite())
-                .logoId(entity.getLogo() != null ? entity.getLogo().getId() : null)
+                //.logoId(entity.getLogo() != null ? entity.getLogo().getId() : null)
                 .economicNatureId(entity.getEconomicNature() != null ? entity.getEconomicNature().getId() : null)
                 .countryId(entity.getCountry() != null ? entity.getCountry().getId() : null)
                 .stateId(entity.getState() != null ? entity.getState().getId() : null)
