@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Job management
  */
 @RestController
-@RequestMapping("/common/job")
+@RequestMapping("/common/administration/job")
 @Slf4j
 public class JobController extends GenericController<JobDTO, Long> {
 
