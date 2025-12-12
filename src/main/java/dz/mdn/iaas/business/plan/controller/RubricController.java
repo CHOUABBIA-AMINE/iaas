@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: RubricController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Plan
  *	@Package	: Business / Plan / Controller
@@ -15,29 +15,15 @@ package dz.mdn.iaas.business.plan.controller;
 import dz.mdn.iaas.business.plan.dto.RubricDTO;
 import dz.mdn.iaas.business.plan.service.RubricService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Rubric REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus rubric-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /rubric                 Create rubric
- * - GET    /rubric/{id}            Get by ID
- * - GET    /rubric                 Get all (paginated)
- * - GET    /rubric/all             Get all (non-paginated)
- * - PUT    /rubric/{id}            Update rubric
- * - DELETE /rubric/{id}            Delete rubric
- * - GET    /rubric/search?q=...    Global search
- * - GET    /rubric/{id}/exists     Check existence
- * - GET    /rubric/count           Total count
- */
 @RestController
 @RequestMapping("/rubric")
 @Slf4j
@@ -50,26 +36,73 @@ public class RubricController extends GenericController<RubricDTO, Long> {
         this.rubricService = rubricService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<RubricDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return rubricService.getAll(pageable);
-        }
-        return rubricService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('RUBRIC:READ')")
+    public ResponseEntity<RubricDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('RUBRIC:READ')")
+    public ResponseEntity<Page<RubricDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all rubrics without pagination (custom implementation)
-     * GET /rubric/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('RUBRIC:READ')")
+    public ResponseEntity<List<RubricDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('RUBRIC:ADMIN')")
+    public ResponseEntity<RubricDTO> create(@Valid @RequestBody RubricDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('RUBRIC:ADMIN')")
+    public ResponseEntity<RubricDTO> update(@PathVariable Long id, @Valid @RequestBody RubricDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('RUBRIC:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('RUBRIC:READ')")
+    public ResponseEntity<Page<RubricDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('RUBRIC:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('RUBRIC:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('RUBRIC:READ')")
     public ResponseEntity<List<RubricDTO>> getAllList() {
-        log.debug("GET /rubric/list - Getting all rubrics as list");
-        List<RubricDTO> rubrics = rubricService.getAll();
-        return success(rubrics);
+        log.debug("GET /rubric/list");
+        return success(rubricService.getAll());
     }
 }
