@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-15-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Environment
- *	@Package	: Common / Environment / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Environment
  *
  **/
 
@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus room-specific operations
  */
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/common/environment/room")
 @Slf4j
 public class RoomController extends GenericController<RoomDTO, Long> {
 

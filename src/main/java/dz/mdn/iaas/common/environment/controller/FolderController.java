@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-15-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Environment
- *	@Package	: Common / Environment / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Environment
  *
  **/
 
@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus folder-specific operations
  */
 @RestController
-@RequestMapping("/folder")
+@RequestMapping("/common/environment/folder")
 @Slf4j
 public class FolderController extends GenericController<FolderDTO, Long> {
 
@@ -132,7 +132,7 @@ public class FolderController extends GenericController<FolderDTO, Long> {
      * Get folders by archive box ID
      * GET /folder/archive-box/{archiveBoxId}
      */
-    @GetMapping("/archive-box/{archiveBoxId}")
+    @GetMapping("/archiveBox/{archiveBoxId}")
     @PreAuthorize("hasAuthority('FOLDER:READ')")
     public ResponseEntity<List<FolderDTO>> getByArchiveBoxId(@PathVariable Long archiveBoxId) {
         log.debug("GET /folder/archive-box/{} - Getting folders by archive box ID", archiveBoxId);

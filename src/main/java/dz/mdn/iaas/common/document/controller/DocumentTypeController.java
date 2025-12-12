@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-15-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Document
- *	@Package	: Common / Document / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Document
  *
  **/
 
@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Document Type management
  */
 @RestController
-@RequestMapping("/document-type")
+@RequestMapping("/common/document/documentType")
 @Slf4j
 public class DocumentTypeController extends GenericController<DocumentTypeDTO, Long> {
 

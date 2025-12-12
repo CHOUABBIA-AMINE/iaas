@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-15-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Communication
- *	@Package	: Common / Communication / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Communication
  *
  **/
 
@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Mail Type management
  */
 @RestController
-@RequestMapping("/mail-type")
+@RequestMapping("/common/communication/mailType")
 @Slf4j
 public class MailTypeController extends GenericController<MailTypeDTO, Long> {
 

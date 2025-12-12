@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-15-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Environment
- *	@Package	: Common / Environment / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Environment
  *
  **/
 
@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus archive box-specific operations
  */
 @RestController
-@RequestMapping("/archive-box")
+@RequestMapping("/common/environment/archiveBox")
 @Slf4j
 public class ArchiveBoxController extends GenericController<ArchiveBoxDTO, Long> {
 
@@ -132,7 +132,7 @@ public class ArchiveBoxController extends GenericController<ArchiveBoxDTO, Long>
      * Get archive boxes by shelf floor ID
      * GET /archive-box/shelf-floor/{shelfFloorId}
      */
-    @GetMapping("/shelf-floor/{shelfFloorId}")
+    @GetMapping("/shelfFloor/{shelfFloorId}")
     @PreAuthorize("hasAuthority('ARCHIVE_BOX:READ')")
     public ResponseEntity<List<ArchiveBoxDTO>> getByShelfFloorId(@PathVariable Long shelfFloorId) {
         log.debug("GET /archive-box/shelf-floor/{} - Getting archive boxes by shelf floor ID", shelfFloorId);

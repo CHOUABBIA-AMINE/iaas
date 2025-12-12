@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-15-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Environment
- *	@Package	: Common / Environment / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Environment
  *
  **/
 
@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus shelf floor-specific operations
  */
 @RestController
-@RequestMapping("/shelf-floor")
+@RequestMapping("/common/environment/shelfFloor")
 @Slf4j
 public class ShelfFloorController extends GenericController<ShelfFloorDTO, Long> {
 
