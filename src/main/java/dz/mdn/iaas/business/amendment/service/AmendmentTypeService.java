@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: AmendmentTypeService
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-12-2025
+ *	@Updated	: 12-13-2025
  *	@Type		: Service
  *	@Layer		: Business / Amendment
  *	@Package	: Business / Amendment / Service
@@ -86,14 +86,12 @@ public class AmendmentTypeService extends GenericService<AmendmentType, Amendmen
 
     /**
      * Get all active amendment types
-     * @return list of active amendment types
+     * Note: AmendmentType model doesn't have isActive field, so returning all types
+     * @return list of all amendment types
      */
     public List<AmendmentTypeDTO> getActiveTypes() {
-        log.debug("Getting all active amendment types");
-        return amendmentTypeRepository.findAll().stream()
-                .filter(type -> type.getIsActive() != null && type.getIsActive())
-                .map(AmendmentTypeDTO::fromEntity)
-                .collect(Collectors.toList());
+        log.debug("Getting all amendment types (no isActive field in model)");
+        return getAll();
     }
 
     public Page<AmendmentTypeDTO> globalSearch(String searchTerm, Pageable pageable) {
