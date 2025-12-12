@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: AwardMethodController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Consultation
  *	@Package	: Business / Consultation / Controller
@@ -15,31 +15,17 @@ package dz.mdn.iaas.business.consultation.controller;
 import dz.mdn.iaas.business.consultation.dto.AwardMethodDTO;
 import dz.mdn.iaas.business.consultation.service.AwardMethodService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * AwardMethod REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus award-method-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /awardMethod                 Create award method
- * - GET    /awardMethod/{id}            Get by ID
- * - GET    /awardMethod                 Get all (paginated)
- * - GET    /awardMethod/all             Get all (non-paginated)
- * - PUT    /awardMethod/{id}            Update award method
- * - DELETE /awardMethod/{id}            Delete award method
- * - GET    /awardMethod/search?q=...    Global search
- * - GET    /awardMethod/{id}/exists     Check existence
- * - GET    /awardMethod/count           Total count
- */
 @RestController
-@RequestMapping("/awardMethod")
+@RequestMapping("/award-method")
 @Slf4j
 public class AwardMethodController extends GenericController<AwardMethodDTO, Long> {
 
@@ -50,26 +36,80 @@ public class AwardMethodController extends GenericController<AwardMethodDTO, Lon
         this.awardMethodService = awardMethodService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<AwardMethodDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return awardMethodService.getAll(pageable);
-        }
-        return awardMethodService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('AWARD_METHOD:READ')")
+    public ResponseEntity<AwardMethodDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('AWARD_METHOD:READ')")
+    public ResponseEntity<Page<AwardMethodDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all award methods without pagination (custom implementation)
-     * GET /awardMethod/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('AWARD_METHOD:READ')")
+    public ResponseEntity<List<AwardMethodDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AWARD_METHOD:ADMIN')")
+    public ResponseEntity<AwardMethodDTO> create(@Valid @RequestBody AwardMethodDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AWARD_METHOD:ADMIN')")
+    public ResponseEntity<AwardMethodDTO> update(@PathVariable Long id, @Valid @RequestBody AwardMethodDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AWARD_METHOD:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AWARD_METHOD:READ')")
+    public ResponseEntity<Page<AwardMethodDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AWARD_METHOD:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AWARD_METHOD:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('AWARD_METHOD:READ')")
     public ResponseEntity<List<AwardMethodDTO>> getAllList() {
-        log.debug("GET /awardMethod/list - Getting all award methods as list");
-        List<AwardMethodDTO> awardMethods = awardMethodService.getAll();
-        return success(awardMethods);
+        log.debug("GET /award-method/list");
+        return success(awardMethodService.getAll());
+    }
+
+    @GetMapping("/active")
+    @PreAuthorize("hasAuthority('AWARD_METHOD:READ')")
+    public ResponseEntity<List<AwardMethodDTO>> getActiveMethods() {
+        log.debug("GET /award-method/active");
+        return success(awardMethodService.getActiveMethods());
     }
 }

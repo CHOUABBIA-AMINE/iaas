@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: ConsultationController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Consultation
  *	@Package	: Business / Consultation / Controller
@@ -15,29 +15,16 @@ package dz.mdn.iaas.business.consultation.controller;
 import dz.mdn.iaas.business.consultation.dto.ConsultationDTO;
 import dz.mdn.iaas.business.consultation.service.ConsultationService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Consultation REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus consultation-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /consultation                 Create consultation
- * - GET    /consultation/{id}            Get by ID
- * - GET    /consultation                 Get all (paginated)
- * - GET    /consultation/all             Get all (non-paginated)
- * - PUT    /consultation/{id}            Update consultation
- * - DELETE /consultation/{id}            Delete consultation
- * - GET    /consultation/search?q=...    Global search
- * - GET    /consultation/{id}/exists     Check existence
- * - GET    /consultation/count           Total count
- */
 @RestController
 @RequestMapping("/consultation")
 @Slf4j
@@ -50,7 +37,68 @@ public class ConsultationController extends GenericController<ConsultationDTO, L
         this.consultationService = consultationService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:READ')")
+    public ResponseEntity<ConsultationDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:READ')")
+    public ResponseEntity<Page<ConsultationDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:READ')")
+    public ResponseEntity<List<ConsultationDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:ADMIN')")
+    public ResponseEntity<ConsultationDTO> create(@Valid @RequestBody ConsultationDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:ADMIN')")
+    public ResponseEntity<ConsultationDTO> update(@PathVariable Long id, @Valid @RequestBody ConsultationDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:READ')")
+    public ResponseEntity<Page<ConsultationDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('CONSULTATION:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
 
     @Override
     protected Page<ConsultationDTO> searchByQuery(String query, Pageable pageable) {
@@ -60,16 +108,10 @@ public class ConsultationController extends GenericController<ConsultationDTO, L
         return consultationService.globalSearch(query, pageable);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
-
-    /**
-     * Get all consultations without pagination (custom implementation)
-     * GET /consultation/list
-     */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('CONSULTATION:READ')")
     public ResponseEntity<List<ConsultationDTO>> getAllList() {
-        log.debug("GET /consultation/list - Getting all consultations as list");
-        List<ConsultationDTO> consultations = consultationService.getAll();
-        return success(consultations);
+        log.debug("GET /consultation/list");
+        return success(consultationService.getAll());
     }
 }
