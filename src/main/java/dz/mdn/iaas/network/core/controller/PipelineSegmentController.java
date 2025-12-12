@@ -6,9 +6,9 @@
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Network / Controller
- *	@Package	: Network / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/pipeline-segment")
+@RequestMapping("/network/pipelineSegment")
 @Slf4j
 public class PipelineSegmentController extends GenericController<PipelineSegmentDTO, Long> {
 
@@ -105,7 +105,7 @@ public class PipelineSegmentController extends GenericController<PipelineSegment
 
     // ========== CUSTOM ENDPOINTS ==========
 
-    @GetMapping("/by-pipeline/{pipelineId}")
+    @GetMapping("/pipeline/{pipelineId}")
     @PreAuthorize("hasAuthority('PIPELINE_SEGMENT:READ')")
     public ResponseEntity<List<PipelineSegmentDTO>> getByPipeline(@PathVariable Long pipelineId) {
         log.info("REST request to get PipelineSegment by pipeline id: {}", pipelineId);

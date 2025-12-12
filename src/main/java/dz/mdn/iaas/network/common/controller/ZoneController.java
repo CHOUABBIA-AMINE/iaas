@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: ZoneController
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Network / Common
- *	@Package	: Network / Common / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common
  *
  **/
 
@@ -29,7 +31,8 @@ import java.util.List;
 @Slf4j
 public class ZoneController extends GenericController<ZoneDTO, Long> {
 
-    private final ZoneService zoneService;
+    @SuppressWarnings("unused")
+	private final ZoneService zoneService;
 
     public ZoneController(ZoneService zoneService) {
         super(zoneService, "Zone");

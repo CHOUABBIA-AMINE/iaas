@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-14-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Administration
- *	@Package	: Common / Administration / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Administration
  *
  **/
 
@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus military rank-specific operations
  */
 @RestController
-@RequestMapping("/military-rank")
+@RequestMapping("/militaryRank")
 @Slf4j
 public class MilitaryRankController extends GenericController<MilitaryRankDTO, Long> {
 

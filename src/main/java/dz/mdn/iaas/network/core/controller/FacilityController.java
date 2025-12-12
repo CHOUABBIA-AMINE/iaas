@@ -6,9 +6,9 @@
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Network / Controller
- *	@Package	: Network / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
@@ -105,7 +105,7 @@ public class FacilityController extends GenericController<FacilityDTO, Long> {
 
     // ========== CUSTOM ENDPOINTS ==========
 
-    @GetMapping("/by-facility-type/{typeId}")
+    @GetMapping("/type/{typeId}")
     @PreAuthorize("hasAuthority('FACILITY:READ')")
     public ResponseEntity<List<FacilityDTO>> getByFacilityType(@PathVariable Long typeId) {
         log.info("REST request to get Facility by facility type id: {}", typeId);

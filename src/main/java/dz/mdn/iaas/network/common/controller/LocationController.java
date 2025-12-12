@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: LocationController
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Network / Common
- *	@Package	: Network / Common / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
@@ -99,7 +101,7 @@ public class LocationController extends GenericController<LocationDTO, Long> {
         return super.count();
     }
 
-    @GetMapping("/by-region/{regionId}")
+    @GetMapping("/region/{regionId}")
     @PreAuthorize("hasAuthority('LOCATION:READ')")
     public ResponseEntity<List<LocationDTO>> getByRegion(@PathVariable Long regionId) {
         log.info("GET /network/location/by-region/{} - Getting locations by region", regionId);

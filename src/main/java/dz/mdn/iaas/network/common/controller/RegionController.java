@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: RegionController
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Network / Common
- *	@Package	: Network / Common / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
@@ -99,7 +101,7 @@ public class RegionController extends GenericController<RegionDTO, Long> {
         return super.count();
     }
 
-    @GetMapping("/by-zone/{zoneId}")
+    @GetMapping("/zone/{zoneId}")
     @PreAuthorize("hasAuthority('REGION:READ')")
     public ResponseEntity<List<RegionDTO>> getByZone(@PathVariable Long zoneId) {
         log.info("GET /network/region/by-zone/{} - Getting regions by zone", zoneId);

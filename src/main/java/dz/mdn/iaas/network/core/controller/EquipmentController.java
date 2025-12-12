@@ -6,9 +6,9 @@
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Network / Controller
- *	@Package	: Network / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
@@ -105,14 +105,14 @@ public class EquipmentController extends GenericController<EquipmentDTO, Long> {
 
     // ========== CUSTOM ENDPOINTS ==========
 
-    @GetMapping("/by-facility/{facilityId}")
+    @GetMapping("/facility/{facilityId}")
     @PreAuthorize("hasAuthority('EQUIPMENT:READ')")
     public ResponseEntity<List<EquipmentDTO>> getByFacility(@PathVariable Long facilityId) {
         log.info("REST request to get Equipment by facility id: {}", facilityId);
         return ResponseEntity.ok(equipmentService.findByFacility(facilityId));
     }
 
-    @GetMapping("/by-equipment-type/{typeId}")
+    @GetMapping("/type/{typeId}")
     @PreAuthorize("hasAuthority('EQUIPMENT:READ')")
     public ResponseEntity<List<EquipmentDTO>> getByEquipmentType(@PathVariable Long typeId) {
         log.info("REST request to get Equipment by equipment type id: {}", typeId);

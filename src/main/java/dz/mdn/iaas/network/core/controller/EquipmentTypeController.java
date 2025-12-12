@@ -6,32 +6,38 @@
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Network / Controller
- *	@Package	: Network / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
 package dz.mdn.iaas.network.core.controller;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.network.core.dto.EquipmentTypeDTO;
 import dz.mdn.iaas.network.core.service.EquipmentTypeService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
-@RequestMapping("/network/equipment-type")
+@RequestMapping("/network/equipmentType")
 @Slf4j
 public class EquipmentTypeController extends GenericController<EquipmentTypeDTO, Long> {
 
-    private final EquipmentTypeService equipmentTypeService;
+    @SuppressWarnings("unused")
+	private final EquipmentTypeService equipmentTypeService;
 
     public EquipmentTypeController(EquipmentTypeService equipmentTypeService) {
         super(equipmentTypeService, "EquipmentType");

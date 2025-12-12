@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-14-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Administration
- *	@Package	: Common / Administration / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Administration
  *
  **/
 

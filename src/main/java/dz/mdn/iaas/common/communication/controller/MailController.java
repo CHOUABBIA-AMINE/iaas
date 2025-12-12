@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-15-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Controller
- *	@Layer		: Common / Communication
- *	@Package	: Common / Communication / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Common / Communication
  *
  **/
 

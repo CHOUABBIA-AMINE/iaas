@@ -6,9 +6,9 @@
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Network / Controller
- *	@Package	: Network / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
@@ -105,7 +105,7 @@ public class PipelineController extends GenericController<PipelineDTO, Long> {
 
     // ========== CUSTOM ENDPOINTS ==========
 
-    @GetMapping("/by-pipeline-system/{systemId}")
+    @GetMapping("/system/{systemId}")
     @PreAuthorize("hasAuthority('PIPELINE:READ')")
     public ResponseEntity<List<PipelineDTO>> getByPipelineSystem(@PathVariable Long systemId) {
         log.info("REST request to get Pipeline by pipeline system id: {}", systemId);

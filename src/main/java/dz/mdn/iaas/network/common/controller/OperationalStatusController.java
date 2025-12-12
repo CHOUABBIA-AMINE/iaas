@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: OperationalStatusController
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Network / Common
- *	@Package	: Network / Common / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
@@ -25,11 +27,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/operational-status")
+@RequestMapping("/network/operationalStatus")
 @Slf4j
 public class OperationalStatusController extends GenericController<OperationalStatusDTO, Long> {
 
-    private final OperationalStatusService operationalStatusService;
+    @SuppressWarnings("unused")
+	private final OperationalStatusService operationalStatusService;
 
     public OperationalStatusController(OperationalStatusService operationalStatusService) {
         super(operationalStatusService, "OperationalStatus");

@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: ProductController
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Network / Common
- *	@Package	: Network / Common / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Network / Common 
  *
  **/
 
@@ -29,7 +31,8 @@ import java.util.List;
 @Slf4j
 public class ProductController extends GenericController<ProductDTO, Long> {
 
-    private final ProductService productService;
+    @SuppressWarnings("unused")
+	private final ProductService productService;
 
     public ProductController(ProductService productService) {
         super(productService, "Product");
