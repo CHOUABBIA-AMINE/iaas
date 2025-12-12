@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: AmendmentPhaseController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Amendment
  *	@Package	: Business / Amendment / Controller
@@ -15,31 +15,18 @@ package dz.mdn.iaas.business.amendment.controller;
 import dz.mdn.iaas.business.amendment.dto.AmendmentPhaseDTO;
 import dz.mdn.iaas.business.amendment.service.AmendmentPhaseService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * AmendmentPhase REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus amendment-phase-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /amendmentPhase                 Create amendment phase
- * - GET    /amendmentPhase/{id}            Get by ID
- * - GET    /amendmentPhase                 Get all (paginated)
- * - GET    /amendmentPhase/all             Get all (non-paginated)
- * - PUT    /amendmentPhase/{id}            Update amendment phase
- * - DELETE /amendmentPhase/{id}            Delete amendment phase
- * - GET    /amendmentPhase/search?q=...    Global search
- * - GET    /amendmentPhase/{id}/exists     Check existence
- * - GET    /amendmentPhase/count           Total count
- */
 @RestController
-@RequestMapping("/amendmentPhase")
+@RequestMapping("/amendment-phase")
 @Slf4j
 public class AmendmentPhaseController extends GenericController<AmendmentPhaseDTO, Long> {
 
@@ -50,26 +37,80 @@ public class AmendmentPhaseController extends GenericController<AmendmentPhaseDT
         this.amendmentPhaseService = amendmentPhaseService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<AmendmentPhaseDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return amendmentPhaseService.getAll(pageable);
-        }
-        return amendmentPhaseService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
+    public ResponseEntity<AmendmentPhaseDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
+    public ResponseEntity<Page<AmendmentPhaseDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all amendment phases without pagination (custom implementation)
-     * GET /amendmentPhase/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
+    public ResponseEntity<List<AmendmentPhaseDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:ADMIN')")
+    public ResponseEntity<AmendmentPhaseDTO> create(@Valid @RequestBody AmendmentPhaseDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:ADMIN')")
+    public ResponseEntity<AmendmentPhaseDTO> update(@PathVariable Long id, @Valid @RequestBody AmendmentPhaseDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
+    public ResponseEntity<Page<AmendmentPhaseDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
     public ResponseEntity<List<AmendmentPhaseDTO>> getAllList() {
-        log.debug("GET /amendmentPhase/list - Getting all amendment phases as list");
-        List<AmendmentPhaseDTO> amendmentPhases = amendmentPhaseService.getAll();
-        return success(amendmentPhases);
+        log.debug("GET /amendment-phase/list");
+        return success(amendmentPhaseService.getAll());
+    }
+
+    @GetMapping("/amendment/{amendmentId}")
+    @PreAuthorize("hasAuthority('AMENDMENT_PHASE:READ')")
+    public ResponseEntity<List<AmendmentPhaseDTO>> getByAmendment(@PathVariable Long amendmentId) {
+        log.debug("GET /amendment-phase/amendment/{}", amendmentId);
+        return success(amendmentPhaseService.getByAmendmentId(amendmentId));
     }
 }

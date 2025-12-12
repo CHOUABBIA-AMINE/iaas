@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *	@Name		: AmendmentTypeController
  *	@CreatedOn	: 10-16-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-12-2025
  *	@Type		: Controller
  *	@Layer		: Business / Amendment
  *	@Package	: Business / Amendment / Controller
@@ -15,31 +15,18 @@ package dz.mdn.iaas.business.amendment.controller;
 import dz.mdn.iaas.business.amendment.dto.AmendmentTypeDTO;
 import dz.mdn.iaas.business.amendment.service.AmendmentTypeService;
 import dz.mdn.iaas.configuration.template.GenericController;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * AmendmentType REST Controller - Extends GenericController
- * Provides standard CRUD endpoints plus amendment-type-specific operations
- * 
- * Inherited Endpoints:
- * - POST   /amendmentType                 Create amendment type
- * - GET    /amendmentType/{id}            Get by ID
- * - GET    /amendmentType                 Get all (paginated)
- * - GET    /amendmentType/all             Get all (non-paginated)
- * - PUT    /amendmentType/{id}            Update amendment type
- * - DELETE /amendmentType/{id}            Delete amendment type
- * - GET    /amendmentType/search?q=...    Global search
- * - GET    /amendmentType/{id}/exists     Check existence
- * - GET    /amendmentType/count           Total count
- */
 @RestController
-@RequestMapping("/amendmentType")
+@RequestMapping("/amendment-type")
 @Slf4j
 public class AmendmentTypeController extends GenericController<AmendmentTypeDTO, Long> {
 
@@ -50,26 +37,80 @@ public class AmendmentTypeController extends GenericController<AmendmentTypeDTO,
         this.amendmentTypeService = amendmentTypeService;
     }
 
-    // ========== IMPLEMENT SEARCH ==========
-
     @Override
-    protected Page<AmendmentTypeDTO> searchByQuery(String query, Pageable pageable) {
-        if (query == null || query.trim().isEmpty()) {
-            return amendmentTypeService.getAll(pageable);
-        }
-        return amendmentTypeService.globalSearch(query, pageable);
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:READ')")
+    public ResponseEntity<AmendmentTypeDTO> getById(@PathVariable Long id) {
+        return super.getById(id);
     }
 
-    // ========== CUSTOM ENDPOINTS ==========
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:READ')")
+    public ResponseEntity<Page<AmendmentTypeDTO>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.getAll(page, size, sortBy, sortDir);
+    }
 
-    /**
-     * Get all amendment types without pagination (custom implementation)
-     * GET /amendmentType/list
-     */
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:READ')")
+    public ResponseEntity<List<AmendmentTypeDTO>> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:ADMIN')")
+    public ResponseEntity<AmendmentTypeDTO> create(@Valid @RequestBody AmendmentTypeDTO dto) {
+        return super.create(dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:ADMIN')")
+    public ResponseEntity<AmendmentTypeDTO> update(@PathVariable Long id, @Valid @RequestBody AmendmentTypeDTO dto) {
+        return super.update(id, dto);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:ADMIN')")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        return super.delete(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:READ')")
+    public ResponseEntity<Page<AmendmentTypeDTO>> search(
+            @RequestParam(required = false) String q,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return super.search(q, page, size, sortBy, sortDir);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:READ')")
+    public ResponseEntity<Boolean> exists(@PathVariable Long id) {
+        return super.exists(id);
+    }
+
+    @Override
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:READ')")
+    public ResponseEntity<Long> count() {
+        return super.count();
+    }
+
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:READ')")
     public ResponseEntity<List<AmendmentTypeDTO>> getAllList() {
-        log.debug("GET /amendmentType/list - Getting all amendment types as list");
-        List<AmendmentTypeDTO> amendmentTypes = amendmentTypeService.getAll();
-        return success(amendmentTypes);
+        log.debug("GET /amendment-type/list");
+        return success(amendmentTypeService.getAll());
+    }
+
+    @GetMapping("/active")
+    @PreAuthorize("hasAuthority('AMENDMENT_TYPE:READ')")
+    public ResponseEntity<List<AmendmentTypeDTO>> getActiveTypes() {
+        log.debug("GET /amendment-type/active");
+        return success(amendmentTypeService.getActiveTypes());
     }
 }
