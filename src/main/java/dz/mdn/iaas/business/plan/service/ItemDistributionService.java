@@ -89,9 +89,9 @@ public class ItemDistributionService extends GenericService<ItemDistribution, It
      * @param itemId the item ID
      * @return list of item distributions
      */
-    public List<ItemDistributionDTO> getByItemId(Long itemId) {
-        log.debug("Getting item distributions by item ID: {}", itemId);
-        return itemDistributionRepository.findByItemId(itemId).stream()
+    public List<ItemDistributionDTO> getByItemId(Long plannedItemId) {
+        log.debug("Getting item distributions by planned item ID: {}", plannedItemId);
+        return itemDistributionRepository.findByPlannedItemId(plannedItemId).stream()
                 .map(ItemDistributionDTO::fromEntity)
                 .collect(Collectors.toList());
     }

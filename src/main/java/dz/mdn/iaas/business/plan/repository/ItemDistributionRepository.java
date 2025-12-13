@@ -32,5 +32,5 @@ public interface ItemDistributionRepository extends JpaRepository<ItemDistributi
      * @param itemId the item ID
      * @return list of item distributions
      */
-    List<ItemDistribution> findByItemId(Long itemId);
+    List<ItemDistribution> findByPlannedItemId(Long itemId);
 }

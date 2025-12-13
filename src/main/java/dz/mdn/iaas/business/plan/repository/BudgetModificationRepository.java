@@ -14,11 +14,13 @@
 
 package dz.mdn.iaas.business.plan.repository;
 
-import dz.mdn.iaas.business.plan.model.BudgetModification;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import dz.mdn.iaas.business.plan.model.BudgetModification;
 
 /**
  * BudgetModification Repository
@@ -32,5 +34,5 @@ public interface BudgetModificationRepository extends JpaRepository<BudgetModifi
      * @param year the year
      * @return list of budget modifications
      */
-    List<BudgetModification> findByYear(Integer year);
+    List<BudgetModification> findByApprovalDateBetween(LocalDate start, LocalDate end);
 }

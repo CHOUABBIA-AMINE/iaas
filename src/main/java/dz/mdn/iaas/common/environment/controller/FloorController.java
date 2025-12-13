@@ -127,16 +127,4 @@ public class FloorController extends GenericController<FloorDTO, Long> {
         List<FloorDTO> floors = floorService.getAll();
         return success(floors);
     }
-
-    /**
-     * Get floors by bloc ID
-     * GET /floor/bloc/{blocId}
-     */
-    @GetMapping("/bloc/{blocId}")
-    @PreAuthorize("hasAuthority('FLOOR:READ')")
-    public ResponseEntity<List<FloorDTO>> getByBlocId(@PathVariable Long blocId) {
-        log.debug("GET /floor/bloc/{} - Getting floors by bloc ID", blocId);
-        List<FloorDTO> floors = floorService.getByBlocId(blocId);
-        return success(floors);
-    }
 }

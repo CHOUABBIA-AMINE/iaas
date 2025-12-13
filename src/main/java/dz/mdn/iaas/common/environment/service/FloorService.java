@@ -99,11 +99,4 @@ public class FloorService extends GenericService<Floor, FloorDTO, Long> {
         
         return getAll(pageable);
     }
-
-    public List<FloorDTO> getByBlocId(Long blocId) {
-        log.debug("Getting floors by bloc ID: {}", blocId);
-        return floorRepository.findByBlocId(blocId).stream()
-                .map(FloorDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
 }

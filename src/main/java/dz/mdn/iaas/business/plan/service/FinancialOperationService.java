@@ -91,7 +91,7 @@ public class FinancialOperationService extends GenericService<FinancialOperation
      */
     public List<FinancialOperationDTO> getByYear(Integer year) {
         log.debug("Getting financial operations by year: {}", year);
-        return financialOperationRepository.findByYear(year).stream()
+        return financialOperationRepository.findByBudgetYear(year).stream()
                 .map(FinancialOperationDTO::fromEntity)
                 .collect(Collectors.toList());
     }

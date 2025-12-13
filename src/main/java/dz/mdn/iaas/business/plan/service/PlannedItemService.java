@@ -89,21 +89,21 @@ public class PlannedItemService extends GenericService<PlannedItem, PlannedItemD
      * @param year the year
      * @return list of planned items
      */
-    public List<PlannedItemDTO> getByYear(Integer year) {
+    public List<PlannedItemDTO> getByYear(String year) {
         log.debug("Getting planned items by year: {}", year);
-        return plannedItemRepository.findByYear(year).stream()
+        return plannedItemRepository.findByFinancialOperation_BudgetYear(year).stream()
                 .map(PlannedItemDTO::fromEntity)
                 .collect(Collectors.toList());
     }
 
     /**
-     * Get all planned items by structure ID
-     * @param structureId the structure ID
+     * Get all planned items by financialOperation ID
+     * @param financialOperationId the financial operation ID
      * @return list of planned items
      */
-    public List<PlannedItemDTO> getByStructureId(Long structureId) {
-        log.debug("Getting planned items by structure ID: {}", structureId);
-        return plannedItemRepository.findByStructureId(structureId).stream()
+    public List<PlannedItemDTO> getByFinancialOperationId(Long financialOperationId) {
+        log.debug("Getting planned items by structure ID: {}", financialOperationId);
+        return plannedItemRepository.findByFinancialOperationId(financialOperationId).stream()
                 .map(PlannedItemDTO::fromEntity)
                 .collect(Collectors.toList());
     }

@@ -12,20 +12,22 @@
 
 package dz.mdn.iaas.business.plan.service;
 
-import dz.mdn.iaas.business.plan.dto.BudgetModificationDTO;
-import dz.mdn.iaas.business.plan.model.BudgetModification;
-import dz.mdn.iaas.business.plan.repository.BudgetModificationRepository;
-import dz.mdn.iaas.configuration.template.GenericService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.business.plan.dto.BudgetModificationDTO;
+import dz.mdn.iaas.business.plan.model.BudgetModification;
+import dz.mdn.iaas.business.plan.repository.BudgetModificationRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * BudgetModification Service - Extends GenericService
@@ -91,7 +93,7 @@ public class BudgetModificationService extends GenericService<BudgetModification
      */
     public List<BudgetModificationDTO> getByYear(Integer year) {
         log.debug("Getting budget modifications by year: {}", year);
-        return budgetModificationRepository.findByYear(year).stream()
+        return budgetModificationRepository.findByApprovalDateBetween(LocalDate.of(year, 1, 1), LocalDate.of(year, 12, 31)).stream()
                 .map(BudgetModificationDTO::fromEntity)
                 .collect(Collectors.toList());
     }

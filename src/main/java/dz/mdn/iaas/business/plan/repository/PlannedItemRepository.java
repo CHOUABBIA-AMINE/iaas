@@ -14,11 +14,12 @@
 
 package dz.mdn.iaas.business.plan.repository;
 
-import dz.mdn.iaas.business.plan.model.PlannedItem;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import dz.mdn.iaas.business.plan.model.PlannedItem;
 
 /**
  * PlannedItem Repository
@@ -32,12 +33,12 @@ public interface PlannedItemRepository extends JpaRepository<PlannedItem, Long> 
      * @param year the year
      * @return list of planned items
      */
-    List<PlannedItem> findByYear(Integer year);
+    List<PlannedItem> findByFinancialOperation_BudgetYear(String year);
     
     /**
-     * Find all planned items by structure ID
-     * @param structureId the structure ID
+     * Find all planned items by Financial Operation ID
+     * @param financialOperationId the Financial Operation ID
      * @return list of planned items
      */
-    List<PlannedItem> findByStructureId(Long structureId);
+    List<PlannedItem> findByFinancialOperationId(Long financialOperationId);
 }

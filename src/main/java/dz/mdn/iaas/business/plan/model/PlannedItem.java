@@ -57,5 +57,9 @@ public class PlannedItem extends GenericModel {
 	@ManyToOne
     @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_02_02_08_FK_02"), nullable=false)
     private Item item;
+	
+	@ManyToOne
+    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_02_02_08_FK_03"), nullable=false)
+    private FinancialOperation financialOperation;
 
 }

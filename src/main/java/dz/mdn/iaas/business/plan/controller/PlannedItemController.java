@@ -110,15 +110,8 @@ public class PlannedItemController extends GenericController<PlannedItemDTO, Lon
 
     @GetMapping("/year/{year}")
     @PreAuthorize("hasAuthority('PLANNED_ITEM:READ')")
-    public ResponseEntity<List<PlannedItemDTO>> getByYear(@PathVariable Integer year) {
+    public ResponseEntity<List<PlannedItemDTO>> getByYear(@PathVariable String year) {
         log.debug("GET /planned-item/year/{}", year);
         return success(plannedItemService.getByYear(year));
-    }
-
-    @GetMapping("/structure/{structureId}")
-    @PreAuthorize("hasAuthority('PLANNED_ITEM:READ')")
-    public ResponseEntity<List<PlannedItemDTO>> getByStructure(@PathVariable Long structureId) {
-        log.debug("GET /planned-item/structure/{}", structureId);
-        return success(plannedItemService.getByStructureId(structureId));
     }
 }

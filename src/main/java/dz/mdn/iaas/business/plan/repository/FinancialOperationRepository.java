@@ -32,5 +32,5 @@ public interface FinancialOperationRepository extends JpaRepository<FinancialOpe
      * @param year the year
      * @return list of financial operations
      */
-    List<FinancialOperation> findByYear(Integer year);
+    List<FinancialOperation> findByBudgetYear(Integer year);
 }

@@ -51,6 +51,9 @@ public class PlannedItemDTO extends GenericDTO<PlannedItem> {
     
     @NotNull(message = "Item is required")
     private Long itemId;
+    
+    @NotNull(message = "Financial Operation Id is required")
+    private Long financialOperationId;
 
     @Override
     public PlannedItem toEntity() {
@@ -81,6 +84,7 @@ public class PlannedItemDTO extends GenericDTO<PlannedItem> {
                 .allocatedAmount(entity.getAllocatedAmount())
                 .itemStatusId(entity.getItemStatus() != null ? entity.getItemStatus().getId() : null)
                 .itemId(entity.getItem() != null ? entity.getItem().getId() : null)
+                .financialOperationId(entity.getFinancialOperation() != null ? entity.getFinancialOperation().getId() : null)
                 .build();
     }
 }
