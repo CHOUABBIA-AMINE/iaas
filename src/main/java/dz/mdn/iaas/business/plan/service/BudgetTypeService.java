@@ -94,18 +94,6 @@ public class BudgetTypeService extends GenericService<BudgetType, BudgetTypeDTO,
         return getAll();
     }
 
-    /**
-     * Get all budget types by category
-     * @param category the category
-     * @return list of budget types
-     */
-    public List<BudgetTypeDTO> getByCategory(String category) {
-        log.debug("Getting budget types by category: {}", category);
-        return budgetTypeRepository.findByCategory(category).stream()
-                .map(BudgetTypeDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
-
     public Page<BudgetTypeDTO> globalSearch(String searchTerm, Pageable pageable) {
         log.debug("Global search for budget types with term: {}", searchTerm);
         

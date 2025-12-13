@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: AwardMethodController
  *	@CreatedOn	: 10-16-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Business / Consultation
- *	@Package	: Business / Consultation / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Business / Consultation
  *
  **/
 
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/award-method")
+@RequestMapping("/business/awardMethod")
 @Slf4j
 public class AwardMethodController extends GenericController<AwardMethodDTO, Long> {
 

@@ -21,6 +21,195 @@ SET time_zone = "+00:00";
 -- Database: `iaas_db`
 --
 
+
+
+Insert into T_01_01_01 (F_00,F_01,F_02) values
+(1,"س","S");
+
+Insert into T_01_01_02 (F_00, F_01, F_02, F_03) values
+(1, "60", 1, 6),
+(2, "61", 1, 6),
+(3, "62", 1, 6),
+(4, "63", 1, 6),
+(5, "64", 1, 6),
+(6, "65", 1, 6),
+(7, "66", 1, 6),
+(8, "67", 1, 6),
+(9, "68", 1, 6);
+
+Insert into T_01_01_03 (F_00, F_01, F_02, F_03, F_04) values
+(1, "-2°", "الطابق السفلي الثاني", "Second Floor Underground", "Deuxième Etage Sous Sol"),
+(2, "-1°", "الطابق السفلي الأول", "First Floor Underground", "Premier Etage Sous Sol"),
+(3, "0", "الطابق الأرضي", "Ground Floor", "Riz de Chaussé"),
+(4, "1°", "الطابق الأول", "First Floor", "Premier Etage"),
+(5, "2°", "الطابق الأول", "Second Floor", "Deuxième Etage"),
+(6, "3°", "الطابق الأول", "Third Floor", "Troisième Etage"),
+(7, "4°", "الطابق الأول", "Fourth Floor", "Quatrième Etage"),
+(8, "5°", "الطابق الأول", "Fifth Floor", "Cinquième Etage"),
+(9, "6°", "الطابق الأول", "Sixth Floor", "Siesième Etage"),
+(10, "7°", "الطابق الأول", "Seventh Floor", "Septième Etage"),
+(11, "8°", "الطابق الأول", "Eigth Floor", "Huitième Etage"),
+(12, "9°", "الطابق الأول", "Nineth Floor", "Neuvième Etage");
+
+
+
+INSERT INTO T_01_02_01 (F_00, F_01, F_02, F_03) VALUES
+(1, 'الصادر', 'Outgoing', 'Départ'),
+(2, 'الوارد', 'Arriving', 'Arrivé'); 
+
+INSERT INTO T_01_02_02 (F_00, F_01, F_02, F_03) VALUES
+(1, 'مرسوم', 'Decree', 'Décret'),
+(2, 'قرار', 'Administrative Decree', 'Arrété'),
+(3, 'أمر﻿', 'Order', 'Ordonnance'),
+(4, 'منشور﻿', 'Circular', 'Circulaire'),
+(5, 'توجيهة', 'Directive', 'Directive'),
+(6, 'تعليمة', 'Instruction', 'Instruction'),
+(7, 'لائحة', 'Note', 'Note'),
+(8, 'مقرر', 'Decision', 'Décision'),
+(9, 'إرسالية', 'Dispatch', 'Envoi'),
+(10, 'فاكس', 'Fax', 'Fax'),
+(11, 'جدول إرسال', 'Dispatch Sheet', 'Bordereau d\'Envoi'),
+(12, 'برقية', 'Telegram', 'Message');
+
+INSERT INTO T_01_03_01 (F_00, F_01, F_02, F_03, F_04) VALUES
+(1,'بطاقة اقتراح','Proposal Form','Fiche de Proposition',100),
+(2,'بطاقة تقنية وصفية','Descriptive Technical Sheet','Fiche Technique Descriptive',100),
+(3,'بطاقة تقنية','Technical Sheet','Fiche Technique',100),
+(4,'تقرير تقديم','Presentation Report','Rapport de Présentation',111),
+(5,'تقرير تقديم تكميلي','Supplementary Presentation Report','Rapport de Présentation Complémentaire',111),
+(6,'بطاقة تحليلية','Analytical Sheet','Fiche Analytique',011),
+(7,'بطاقة الإقتطاع الميزانياتي','Budget Allocation Sheet','Fiche d\'Imputation Budgétaire',111),
+(8,'تأشيرة اللجنة القطاعية للصفقات','CSM Visa','Visa CSM',111),
+(9,'لوحة إعلانية','Advertising Board','Placard publicitaire',100),
+(10,'دفتر الشروط','Terms of Reference','Cahier des Charges',100),
+(11,'عقد / صفقة','Contract','Contrat / Marché',010),
+(12,'ملحق عقد','Amendment','Avenant',001),
+(13,'أمر شراء','Purchase Order','Bon de Commande',010),
+(14,'بطاقة تمديد الآجال','Deadline Extension Form','Fiche de Prorogation des Délais',100),
+(15,'لوحة إعلانية (تمديد الآجال)','Advertising Board (Deadline Extension)','Placard publicitaire (Prorogation Délai)',100),
+(16,'محضر فتح الأظرف الإدارية','Minutes of Administrative Bid Opening','PV Ouverture Administratif des plis',100),
+(17,'محضر فتح الأظرف التقنية','Minutes of Technical Bid Opening','PV Ouverture Technique',100),
+(18,'محضر التقييم التقني','Technical Evaluation Minutes','PV Evaluation Technique',100),
+(19,'محضر فتح الأظرف المالية','Minutes of Financial Bid Opening','PV Ouverture Financière',100),
+(20,'محضر التقييم المالي','Financial Evaluation Minutes','PV Evaluation Financière',100),
+(21,'محضر الإغلاق','Closing Minutes','PV de Cloture',100),
+(22,'مداولة الاختيار المؤقت','Provisional Selection Deliberation','Délibération du choix Provisoire',100),
+(23,'محضر لجنة فتح الأظرفة وتقييم العروض','COPEO Minutes','PV COPEO',011),
+(24,'محضر لجنة فتح الأظرفة وتقييم العروض التكميلي','Supplementary COPEO Minutes','PV COPEO Complémentaire',111),
+(25,'أمر خدمة','Service Order','Ordre de Service',011),
+(26,'كفالة التعهد','Bid Bond','Caution de Soumission',100),
+(27,'كفالة حسن التنفيذ','Performance Bond','Caution de Bonne Exécution',100),
+(28,'كفالة الضمان','Guarantee Bond','Caution de Garantie',100),
+(29,'الملف الإداري','Administrative File','Dossier Administratif',100),
+(30,'العرض المالي','Financial Offer','Offre Financière',100),
+(31,'العرض الفني','Technical Offer','Offre Technique',100);
+
+Insert into T_01_01_04 (F_00, F_01, F_02, F_03, F_04) values
+(1, "1°", "الطابق الأول", "First Floor", "Premier Etage"),
+(2, "2°", "الطابق الأول", "Second Floor", "Deuxième Etage"),
+(3, "3°", "الطابق الأول", "Third Floor", "Troisième Etage"),
+(4, "4°", "الطابق الأول", "Fourth Floor", "Quatrième Etage"),
+(5, "5°", "الطابق الأول", "Fifth Floor", "Cinquième Etage"),
+(6, "6°", "الطابق الأول", "Sixth Floor", "Siesième Etage"),
+(7, "7°", "الطابق الأول", "Seventh Floor", "Septième Etage"),
+(8, "8°", "الطابق الأول", "Eigth Floor", "Huitième Etage"),
+(9, "9°", "الطابق الأول", "Nineth Floor", "Neuvième Etage");
+
+Insert into T_01_01_05 (F_00, F_01, F_02) values
+(1, "SDR-01", 2),
+(2, "SDR-02", 2),
+(3, "SDR-03", 2),
+(4, "SDR-04", 3),
+(5, "SDR-05", 3),
+(6, "SDR-06", 4),
+(7, "SDR-07", 4),
+(8, "SDR-08", 7),
+(9, "SDR-09", 7),
+(10, "SDR-10", 7),
+(11, "SDR-11", 8),
+(12, "SDR-12", 8),
+(13, "SDR-13", 8),
+(14, "SDR-14", 8),
+(15, "SDR-15", 8),
+(16, "SDR-16", 8),
+(17, "SDR-17", 8),
+(18, "SDR-18", 8),
+(19, "SDR-19", 8),
+(20, "SDR-20", 8);
+
+INSERT INTO T_01_04_04 (f_00, F_01, F_02, F_03) VALUES
+(1,'الضباط العامون','General Officers','Officiers Généraux'),
+(2,'الضباط السامون','Senior Officers','Officiers Supérieurs'),
+(3,'الضباط المرؤوسون','Junior Officers','Officiers Subalternes'),
+(4,'ضباط صف','Non-Commissioned Officers (NCOs)','Sous-Officiers'),
+(5,'رجال الصف','Enlisted Personnel','Hommes du Rang'),
+(6,'مستخدمون مدنيون','Civilian Personnel','Personnel Civile');
+
+INSERT INTO T_01_04_05 (F_00, F_01, F_02, F_03, F_07) VALUES
+(1, 'General', 'فريق أول', 'Général d\'Armée', 1),
+(2, 'Lieutenant General', 'فريق', 'Général de Corps d\'Armée', 1),
+(3, 'Major General', 'لواء', 'Général Major', 1),
+(4, 'Brigadier General', 'عميد', 'Général', 1),
+(5, 'Colonel', 'عقيد', 'Colonel', 2),
+(6, 'Lieutenant Colonel', 'مقدم', 'Lieutenant Colonel', 2),
+(7, 'Major', 'رائد', 'Commandant', 2),
+(8, 'Captain', 'نقيب', 'Capitaine', 3),
+(9, 'Lieutenant', 'ملازم أول', 'Lieutenant', 3),
+(10, 'Second Lieutenant', 'ملازم', 'Sous Lieutenant', 3),
+(11, 'Aspirant', 'مرشح', 'Aspirant', 3),
+(12, 'Major Sergeant', 'مساعد رئيسي', 'Adjudant Major', 4),
+(13, 'Master Sergeant', 'مساعد أول', 'Adjudant Chef', 4),
+(14, 'First Class Sergeant', 'مساعد', 'Adjudant', 4),
+(15, 'Staff Sergeant', 'رقيب أول', 'Sergent Chef', 4),
+(16, 'Sergeant', 'رقيب', 'Sergent', 4),
+(17, 'Corporal', 'عريف أول', 'Caporal Chef', 5),
+(18, 'Lance Corporal', 'عريف', 'Caporal', 5),
+(19, 'Private Soldier', 'جندي', 'Djoundi', 5),
+(20, 'Assimilated Civilian Personnel', 'مستخدم مدني شبيه', 'Personnel Civile Assimilé', 6),
+(21, 'Contractual Civilian Personnel', 'مستخدم مدني متعاقد', 'Personnel Civile Contractuel', 6);
+
+Insert into T_01_04_06 (F_00, F_01, F_02, F_03) values
+(1,'وزارة','Ministry','Ministère'),
+(2,' أركان الجيش','Army General Staff','Etat Major de l\'Armée'),
+(3,'مديرية عامة','General Directorate','Direction Générale'),
+(4,'الأمانة العامة لوزارة','Ministry General Secretariat','Secretariat Générale du Ministère'),
+(5,'ديوان','Cabinet','Cabinet'),
+(6,'قيادة قوات','Force Command','Commandement de Forces'),
+(7,'ناحية عسكرية','Military Region','Région Militaire'),
+(8,' أركان ناحية عسكرية','Military Region Staff','Etat Major d\'une Région Militaire'),
+(9,'دائرة','Department','Département'),
+(10,'مديرية مركزية','Central Directorate','Direction Centrale'),
+(11,'مديرية','Directorate','Direction'),
+(12,'مصلحة مركزية','Central Service','Service Central'),
+(13,'مصلحة','Service','Service'),
+(14,'مركز','Center','Centre'),
+(15,'مديرية دائرة','Department Directorate','Direction de Département'),
+(16,'مصلحة دائرة','Department Service','Service de Département'),
+(17,'مكتب دائرة','Department Office','Bureau de Département'),
+(18,'فصيلة','Section','Section'),
+(19,'مديرية جهوية','Regional Directorate','Direction Régionale'),
+(20,'مصلحة جهوية','Regional Service','Service Régional'),
+(21,'مكتب جهوي','Regional Office','Bureau Régional'),
+(22,'مركز جهوي','Regional Center','Centre Régional'),
+(23,'مديرية فرعية','Sub-Directorate','Sous Direction'),
+(24,'خلية','Cell','Cellule'),
+(25,'فصيلة فرعية','Subsection','Sous Section'),
+(26,'مكتب','Office','Bureau'),
+(27,'فصيلة مكتب','Office Section','Section de Bureau'),
+(28,'مدرسة وطنية','National School','Ecole Nationale'),
+(29,'مدرسة عليا','Higher School','Ecole Supérieure'),
+(30,'مدرسة تطبيقية','Application School','Ecole d\'Application'),
+(31,'مركز تدريب','Training Center','Centre d\'instruction'),
+(32,'مؤسسة وزارية','Ministerial Establishment','Etablissement Ministèriel'),
+(33,'مؤسسة مركزية','Central Establishment','Etablissement Centrale'),
+(34,'مؤسسة جهوية','Regional Establishment','Etablissement Régional'),
+(35,'فرقة','Division','Division'),
+(36,'لواء','Brigade','Brigade'),
+(37,'فوج','Regiment','Régiment'),
+(38,'فوج جهوي','Regional Regiment','Régiment Régional'),
+(39,'كتيبة','Battalion','Bataillon'),
+(40,'سرية','Company','Compagnie');
+
 INSERT INTO T_02_01_02 (F_00, F_01, F_02, F_03) VALUES
 (1,'غير قابل للتطبيق','Not Applicabale','Non applicable'),
 (2,'قيد التحضير','Under Preparation','En cours de préparation'),
@@ -90,19 +279,19 @@ INSERT INTO T_02_04_02 (F_00, F_01, F_02, F_03) VALUES
 (5,'قيد التقييم','Under Evaluation','En cours d\'évaluation');
 
 INSERT INTO T_02_04_03 (F_00, F_01, F_02, F_03, F_04) VALUES
-(1,'مرحلة إعداد المخطط الميزانياتي','Budget Plan Maturation Stage','Instance de maturation de plan budgétaire'),
-(2,'مرحلة تحديد الإحتياجات','Needs Identification Stage','Instance du besoin'),
-(3,'مرحلة إعداد البطاقة التقنية','Technical Data Sheet Preparation Stage','Instance de la fiche technique'),
-(4,'مرحلة موافقة القيادة العليا','High Command Approval Stage','Instance Accord du Haut Commandement'),
-(5,'مرحلة إبداء الرأي','Opinion Stage','Instance d\'avis'),
-(6,'إعداد ملف اللجنة القطاعية للصفقات (CSM)','Preparation of CSM File','Préparation du dossier CSM'),
-(7,'مرحلة دراسة اللجنة القطاعية للصفقات (CSM)','CSM Review Stage','Instance Examen de la CSM'),
-(8,'رفع التحفظات جارية','Lifting of Ongoing Reservations','Leveé des réserves en cours'),
-(9,'رفع التحفظات، في إنتظار مداولة اللجنة القطاعية للصفقات (CSM)','Reservations Removed, CSM Deliberation Stage','Réserves leveés, instance délibiration de la CSM'),
-(10,'إعداد ملف النشر','Preparation of Publish File','Préparation du dossier de publication'),
-(11,'مرحلة النشر','Publish Stage','Instance publication'),
-(12,'مرحلة إيداع العروض','Submission of Offers Stage','Instance dépôt des offres'),
-(13,'تحويل الملف إلى لجنة فتح الأظرفة وتقييم العروض (COPEO)','File Transmitted to COPEO','Dossier transmis à la COPEO');
+(1,'مرحلة إعداد المخطط الميزانياتي','Budget Plan Maturation Stage','Instance de maturation de plan budgétaire', 1),
+(2,'مرحلة تحديد الإحتياجات','Needs Identification Stage','Instance du besoin', 1),
+(3,'مرحلة إعداد البطاقة التقنية','Technical Data Sheet Preparation Stage','Instance de la fiche technique', 1),
+(4,'مرحلة موافقة القيادة العليا','High Command Approval Stage','Instance Accord du Haut Commandement', 1),
+(5,'مرحلة إبداء الرأي','Opinion Stage','Instance d\'avis', 1),
+(6,'إعداد ملف اللجنة القطاعية للصفقات (CSM)','Preparation of CSM File','Préparation du dossier CSM', 2),
+(7,'مرحلة دراسة اللجنة القطاعية للصفقات (CSM)','CSM Review Stage','Instance Examen de la CSM', 3),
+(8,'رفع التحفظات جارية','Lifting of Ongoing Reservations','Leveé des réserves en cours', 3),
+(9,'رفع التحفظات، في إنتظار مداولة اللجنة القطاعية للصفقات (CSM)','Reservations Removed, CSM Deliberation Stage','Réserves leveés, instance délibiration de la CSM', 3),
+(10,'إعداد ملف النشر','Preparation of Publish File','Préparation du dossier de publication', 3),
+(11,'مرحلة النشر','Publish Stage','Instance publication', 4),
+(12,'مرحلة إيداع العروض','Submission of Offers Stage','Instance dépôt des offres', 4),
+(13,'تحويل الملف إلى لجنة فتح الأظرفة وتقييم العروض (COPEO)','File Transmitted to COPEO','Dossier transmis à la COPEO', 5);
 
 INSERT INTO T_02_05_01 (F_00, F_01, F_02, F_03) VALUES
 (1,'اتفاقية','Convention','Convention'),

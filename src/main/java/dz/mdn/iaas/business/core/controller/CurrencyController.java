@@ -6,9 +6,9 @@
  *	@CreatedOn	: 10-16-2025
  *	@Updated	: 12-12-2025
  *
- *	@Type		: Controller
- *	@Layer		: Business / Core
- *	@Package	: Business / Core / Controller
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Business / Core
  *
  **/
 
@@ -43,7 +43,7 @@ import java.util.List;
  * - GET    /currency/count           Total count
  */
 @RestController
-@RequestMapping("/currency")
+@RequestMapping("/business/currency")
 @Slf4j
 public class CurrencyController extends GenericController<CurrencyDTO, Long> {
 

@@ -68,8 +68,7 @@ public class DocumentTypeService extends GenericService<DocumentType, DocumentTy
     @Override
     @Transactional
     public DocumentTypeDTO create(DocumentTypeDTO dto) {
-        log.info("Creating document type: code={}, acronymFr={}", 
-                dto.getCode(), dto.getAcronymFr());
+        log.info("Creating document type: code={}", dto.getCode());
         return super.create(dto);
     }
 

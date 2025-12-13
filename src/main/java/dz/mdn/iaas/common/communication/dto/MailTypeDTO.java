@@ -47,10 +47,6 @@ public class MailTypeDTO extends GenericDTO<MailType> {
     @Size(max = 100, message = "French designation must not exceed 100 characters")
     private String designationFr;
 
-    @NotBlank(message = "Code is required")
-    @Size(max = 10, message = "Code must not exceed 10 characters")
-    private String code;
-
     @Override
     public MailType toEntity() {
         MailType entity = new MailType();
@@ -58,7 +54,6 @@ public class MailTypeDTO extends GenericDTO<MailType> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
-        entity.setCode(this.code);
         return entity;
     }
 
@@ -67,7 +62,6 @@ public class MailTypeDTO extends GenericDTO<MailType> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
-        if (this.code != null) entity.setCode(this.code);
     }
 
     public static MailTypeDTO fromEntity(MailType entity) {
@@ -77,7 +71,6 @@ public class MailTypeDTO extends GenericDTO<MailType> {
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
-                .code(entity.getCode())
                 .build();
     }
 }

@@ -36,9 +36,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class EconomicNatureDTO extends GenericDTO<EconomicNature> {
-
-    @Size(max = 20, message = "Code must not exceed 20 characters")
-    private String code;
     
     @Size(max = 200, message = "Arabic designation must not exceed 200 characters")
     private String designationAr;
@@ -64,7 +61,6 @@ public class EconomicNatureDTO extends GenericDTO<EconomicNature> {
     public EconomicNature toEntity() {
         EconomicNature entity = new EconomicNature();
         entity.setId(this.getId());
-        entity.setCode(this.code);
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
@@ -76,7 +72,6 @@ public class EconomicNatureDTO extends GenericDTO<EconomicNature> {
 
     @Override
     public void updateEntity(EconomicNature entity) {
-        if (this.code != null) entity.setCode(this.code);
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
@@ -89,7 +84,6 @@ public class EconomicNatureDTO extends GenericDTO<EconomicNature> {
         if (entity == null) return null;
         return EconomicNatureDTO.builder()
                 .id(entity.getId())
-                .code(entity.getCode())
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())

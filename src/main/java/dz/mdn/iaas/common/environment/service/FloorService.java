@@ -14,21 +14,21 @@
 
 package dz.mdn.iaas.common.environment.service;
 
-import dz.mdn.iaas.common.environment.dto.FloorDTO;
-import dz.mdn.iaas.common.environment.model.Bloc;
-import dz.mdn.iaas.common.environment.model.Floor;
-import dz.mdn.iaas.common.environment.repository.FloorRepository;
-import dz.mdn.iaas.configuration.template.GenericService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.common.environment.dto.FloorDTO;
+import dz.mdn.iaas.common.environment.model.Floor;
+import dz.mdn.iaas.common.environment.repository.FloorRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Floor Service - Extends GenericService
@@ -40,7 +40,6 @@ import java.util.stream.Collectors;
 public class FloorService extends GenericService<Floor, FloorDTO, Long> {
 
     private final FloorRepository floorRepository;
-    private final BlocService blocService;
 
     @Override
     protected JpaRepository<Floor, Long> getRepository() {
@@ -61,31 +60,19 @@ public class FloorService extends GenericService<Floor, FloorDTO, Long> {
     protected Floor toEntity(FloorDTO dto) {
         Floor entity = dto.toEntity();
         
-        // Set relationships
-        if (dto.getBlocId() != null) {
-            Bloc bloc = blocService.getEntityById(dto.getBlocId());
-            entity.setBloc(bloc);
-        }
-        
         return entity;
     }
 
     @Override
     protected void updateEntityFromDTO(Floor entity, FloorDTO dto) {
         dto.updateEntity(entity);
-        
-        // Update relationships
-        if (dto.getBlocId() != null) {
-            Bloc bloc = blocService.getEntityById(dto.getBlocId());
-            entity.setBloc(bloc);
-        }
     }
 
     @Override
     @Transactional
     public FloorDTO create(FloorDTO dto) {
-        log.info("Creating floor: designationFr={}, floorNumber={}, blocId={}", 
-                dto.getDesignationFr(), dto.getFloorNumber(), dto.getBlocId());
+        log.info("Creating floor: designationFr={}, code={}", 
+                dto.getDesignationFr(), dto.getCode());
         return super.create(dto);
     }
 

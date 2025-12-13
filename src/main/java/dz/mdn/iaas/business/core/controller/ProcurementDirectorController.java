@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: ProcurementDirectorController
  *	@CreatedOn	: 10-16-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Business / Core
- *	@Package	: Business / Core / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Business / Core
  *
  **/
 
@@ -41,7 +43,7 @@ import java.util.List;
  * - GET    /procurementDirector/count           Total count
  */
 @RestController
-@RequestMapping("/procurementDirector")
+@RequestMapping("/business/procurementDirector")
 @Slf4j
 public class ProcurementDirectorController extends GenericController<ProcurementDirectorDTO, Long> {
 

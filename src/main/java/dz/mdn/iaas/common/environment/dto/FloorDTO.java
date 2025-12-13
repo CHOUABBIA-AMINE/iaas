@@ -15,10 +15,10 @@
 package dz.mdn.iaas.common.environment.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.common.environment.model.Floor;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,10 +48,9 @@ public class FloorDTO extends GenericDTO<Floor> {
     @Size(max = 100, message = "French designation must not exceed 100 characters")
     private String designationFr;
 
-    private Integer floorNumber;
-
-    @NotNull(message = "Bloc ID is required")
-    private Long blocId;
+    @NotBlank(message = "Code is required")
+    @Size(max = 20, message = "Code must not exceed 20 characters")
+    private String code;
 
     @Override
     public Floor toEntity() {
@@ -60,7 +59,7 @@ public class FloorDTO extends GenericDTO<Floor> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
-        entity.setFloorNumber(this.floorNumber);
+        entity.setCode(this.code);
         return entity;
     }
 
@@ -69,7 +68,7 @@ public class FloorDTO extends GenericDTO<Floor> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
-        if (this.floorNumber != null) entity.setFloorNumber(this.floorNumber);
+        if (this.code != null) entity.setCode(this.code);
     }
 
     public static FloorDTO fromEntity(Floor entity) {
@@ -79,8 +78,7 @@ public class FloorDTO extends GenericDTO<Floor> {
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
-                .floorNumber(entity.getFloorNumber())
-                .blocId(entity.getBloc() != null ? entity.getBloc().getId() : null)
+                .code(entity.getCode())
                 .build();
     }
 }

@@ -35,8 +35,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="MailType")
-@Table(name="T_01_02_02", uniqueConstraints = { @UniqueConstraint(name = "T_01_02_02_UK_01", columnNames = { "F_03" }),
-												@UniqueConstraint(name = "T_01_02_02_UK_02", columnNames = { "F_04" })})
+@Table(name="T_01_02_02", uniqueConstraints = { @UniqueConstraint(name = "T_01_02_02_UK_01", columnNames = { "F_03" })})
 public class MailType extends GenericModel {
 	
 	@Column(name="F_01", length=100)
@@ -47,7 +46,4 @@ public class MailType extends GenericModel {
 	
 	@Column(name="F_03", length=100, nullable=false)
 	private String designationFr;
-	
-	@Column(name="F_04", length=10, nullable=false)
-	private String code;
 }

@@ -47,23 +47,9 @@ public class DocumentTypeDTO extends GenericDTO<DocumentType> {
     @Size(max = 100, message = "French designation must not exceed 100 characters")
     private String designationFr;
 
-    @Size(max = 100, message = "Arabic acronym must not exceed 100 characters")
-    private String acronymAr;
-
-    @Size(max = 100, message = "English acronym must not exceed 100 characters")
-    private String acronymEn;
-
-    @NotBlank(message = "French acronym is required")
-    @Size(max = 100, message = "French acronym must not exceed 100 characters")
-    private String acronymFr;
-
     @NotBlank(message = "Code is required")
     @Size(max = 10, message = "Code must not exceed 10 characters")
     private String code;
-
-    private Boolean requiresApproval;
-
-    private Boolean isConfidential;
 
     @Override
     public DocumentType toEntity() {
@@ -72,12 +58,7 @@ public class DocumentTypeDTO extends GenericDTO<DocumentType> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
-        entity.setAcronymAr(this.acronymAr);
-        entity.setAcronymEn(this.acronymEn);
-        entity.setAcronymFr(this.acronymFr);
         entity.setCode(this.code);
-        entity.setRequiresApproval(this.requiresApproval);
-        entity.setIsConfidential(this.isConfidential);
         return entity;
     }
 
@@ -86,12 +67,7 @@ public class DocumentTypeDTO extends GenericDTO<DocumentType> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
-        if (this.acronymAr != null) entity.setAcronymAr(this.acronymAr);
-        if (this.acronymEn != null) entity.setAcronymEn(this.acronymEn);
-        if (this.acronymFr != null) entity.setAcronymFr(this.acronymFr);
         if (this.code != null) entity.setCode(this.code);
-        if (this.requiresApproval != null) entity.setRequiresApproval(this.requiresApproval);
-        if (this.isConfidential != null) entity.setIsConfidential(this.isConfidential);
     }
 
     public static DocumentTypeDTO fromEntity(DocumentType entity) {
@@ -101,12 +77,7 @@ public class DocumentTypeDTO extends GenericDTO<DocumentType> {
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
-                .acronymAr(entity.getAcronymAr())
-                .acronymEn(entity.getAcronymEn())
-                .acronymFr(entity.getAcronymFr())
                 .code(entity.getCode())
-                .requiresApproval(entity.getRequiresApproval())
-                .isConfidential(entity.getIsConfidential())
                 .build();
     }
 }

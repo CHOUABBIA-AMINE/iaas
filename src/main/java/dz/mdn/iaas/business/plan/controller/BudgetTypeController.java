@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: BudgetTypeController
  *	@CreatedOn	: 10-16-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Business / Plan
- *	@Package	: Business / Plan / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Business / Plan
  *
  **/
 
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/budget-type")
+@RequestMapping("/business/budgetType")
 @Slf4j
 public class BudgetTypeController extends GenericController<BudgetTypeDTO, Long> {
 
@@ -113,10 +115,4 @@ public class BudgetTypeController extends GenericController<BudgetTypeDTO, Long>
         return success(budgetTypeService.getActiveTypes());
     }
 
-    @GetMapping("/category/{category}")
-    @PreAuthorize("hasAuthority('BUDGET_TYPE:READ')")
-    public ResponseEntity<List<BudgetTypeDTO>> getByCategory(@PathVariable String category) {
-        log.debug("GET /budget-type/category/{}", category);
-        return success(budgetTypeService.getByCategory(category));
-    }
 }

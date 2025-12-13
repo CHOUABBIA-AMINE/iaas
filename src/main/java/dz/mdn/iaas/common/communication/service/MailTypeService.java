@@ -68,8 +68,8 @@ public class MailTypeService extends GenericService<MailType, MailTypeDTO, Long>
     @Override
     @Transactional
     public MailTypeDTO create(MailTypeDTO dto) {
-        log.info("Creating mail type: code={}, designationFr={}", 
-                dto.getCode(), dto.getDesignationFr());
+        log.info("Creating mail type: designationFr={}", 
+                dto.getDesignationFr());
         return super.create(dto);
     }
 

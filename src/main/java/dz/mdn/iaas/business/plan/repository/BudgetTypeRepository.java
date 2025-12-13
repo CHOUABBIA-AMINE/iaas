@@ -14,11 +14,10 @@
 
 package dz.mdn.iaas.business.plan.repository;
 
-import dz.mdn.iaas.business.plan.model.BudgetType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import dz.mdn.iaas.business.plan.model.BudgetType;
 
 /**
  * BudgetType Repository
@@ -27,10 +26,5 @@ import java.util.List;
 @Repository
 public interface BudgetTypeRepository extends JpaRepository<BudgetType, Long> {
     
-    /**
-     * Find all budget types by category
-     * @param category the category
-     * @return list of budget types
-     */
-    List<BudgetType> findByCategory(String category);
+
 }

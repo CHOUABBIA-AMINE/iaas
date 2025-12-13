@@ -1,12 +1,14 @@
 /**
  *	
  *	@author		: CHOUABBIA Amine
+ *
  *	@Name		: ItemDistributionController
  *	@CreatedOn	: 10-16-2025
  *	@Updated	: 12-12-2025
- *	@Type		: Controller
- *	@Layer		: Business / Plan
- *	@Package	: Business / Plan / Controller
+ *
+ *	@Type		: Class
+ *	@Layer		: Controller
+ *	@Package	: Business / Plan
  *
  **/
 
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/item-distribution")
+@RequestMapping("/business/itemDistribution")
 @Slf4j
 public class ItemDistributionController extends GenericController<ItemDistributionDTO, Long> {
 
