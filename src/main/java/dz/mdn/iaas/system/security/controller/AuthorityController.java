@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/security/authority")
+@RequestMapping("/system/authority")
 @Slf4j
 public class AuthorityController extends GenericController<AuthorityDTO, Long> {
 

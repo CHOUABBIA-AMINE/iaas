@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus archive box-specific operations
  */
 @RestController
-@RequestMapping("/common/environment/archiveBox")
+@RequestMapping("/common/archiveBox")
 @Slf4j
 public class ArchiveBoxController extends GenericController<ArchiveBoxDTO, Long> {
 

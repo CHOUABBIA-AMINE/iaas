@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Document management
  */
 @RestController
-@RequestMapping("/common/document/document")
+@RequestMapping("/common/document")
 @Slf4j
 public class DocumentController extends GenericController<DocumentDTO, Long> {
 

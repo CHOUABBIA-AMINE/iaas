@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/security/user")
+@RequestMapping("/system/user")
 @Slf4j
 @Validated
 public class UserController extends GenericController<UserDTO, Long> {

@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Bloc management
  */
 @RestController
-@RequestMapping("/common/environment/bloc")
+@RequestMapping("/common/bloc")
 @Slf4j
 public class BlocController extends GenericController<BlocDTO, Long> {
 

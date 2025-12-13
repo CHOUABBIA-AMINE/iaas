@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/security/permission")
+@RequestMapping("/system/permission")
 @Slf4j
 public class PermissionController extends GenericController<PermissionDTO, Long> {
 

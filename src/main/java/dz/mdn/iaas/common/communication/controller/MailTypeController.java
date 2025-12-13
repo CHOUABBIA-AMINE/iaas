@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Mail Type management
  */
 @RestController
-@RequestMapping("/common/communication/mailType")
+@RequestMapping("/common/mailType")
 @Slf4j
 public class MailTypeController extends GenericController<MailTypeDTO, Long> {
 

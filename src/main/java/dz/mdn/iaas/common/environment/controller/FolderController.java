@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus folder-specific operations
  */
 @RestController
-@RequestMapping("/common/environment/folder")
+@RequestMapping("/common/folder")
 @Slf4j
 public class FolderController extends GenericController<FolderDTO, Long> {
 

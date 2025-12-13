@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/security/group")
+@RequestMapping("/system/group")
 @Slf4j
 public class GroupController extends GenericController<GroupDTO, Long> {
 

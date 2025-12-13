@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus room-specific operations
  */
 @RestController
-@RequestMapping("/common/environment/room")
+@RequestMapping("/common/room")
 @Slf4j
 public class RoomController extends GenericController<RoomDTO, Long> {
 
