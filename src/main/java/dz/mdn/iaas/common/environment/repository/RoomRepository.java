@@ -29,6 +29,13 @@ import java.util.List;
 public interface RoomRepository extends JpaRepository<Room, Long> {
     
     /**
+     * Find rooms by bloc ID
+     * Used by RoomService.getByBlocId()
+     */
+    @Query("SELECT r FROM Room r WHERE r.bloc.id = :blocId")
+    List<Room> findByBlocId(@Param("blocId") Long blocId);
+    
+    /**
      * Find rooms by floor ID
      * Used by RoomService.getByFloorId()
      */

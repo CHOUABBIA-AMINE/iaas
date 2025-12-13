@@ -14,21 +14,23 @@
 
 package dz.mdn.iaas.common.environment.service;
 
-import dz.mdn.iaas.common.environment.dto.RoomDTO;
-import dz.mdn.iaas.common.environment.model.Floor;
-import dz.mdn.iaas.common.environment.model.Room;
-import dz.mdn.iaas.common.environment.repository.RoomRepository;
-import dz.mdn.iaas.configuration.template.GenericService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.common.environment.dto.RoomDTO;
+import dz.mdn.iaas.common.environment.model.Bloc;
+import dz.mdn.iaas.common.environment.model.Floor;
+import dz.mdn.iaas.common.environment.model.Room;
+import dz.mdn.iaas.common.environment.repository.RoomRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Room Service - Extends GenericService
@@ -40,6 +42,7 @@ import java.util.stream.Collectors;
 public class RoomService extends GenericService<Room, RoomDTO, Long> {
 
     private final RoomRepository roomRepository;
+    private final BlocService blocService;
     private final FloorService floorService;
 
     @Override
@@ -62,6 +65,10 @@ public class RoomService extends GenericService<Room, RoomDTO, Long> {
         Room entity = dto.toEntity();
         
         // Set relationships
+        if (dto.getBlocId() != null) {
+            Bloc bloc = blocService.getEntityById(dto.getBlocId());
+            entity.setBloc(bloc);
+        }
         if (dto.getFloorId() != null) {
             Floor floor = floorService.getEntityById(dto.getFloorId());
             entity.setFloor(floor);
@@ -75,6 +82,10 @@ public class RoomService extends GenericService<Room, RoomDTO, Long> {
         dto.updateEntity(entity);
         
         // Update relationships
+        if (dto.getBlocId() != null) {
+            Bloc bloc = blocService.getEntityById(dto.getBlocId());
+            entity.setBloc(bloc);
+        }
         if (dto.getFloorId() != null) {
             Floor floor = floorService.getEntityById(dto.getFloorId());
             entity.setFloor(floor);
@@ -84,8 +95,8 @@ public class RoomService extends GenericService<Room, RoomDTO, Long> {
     @Override
     @Transactional
     public RoomDTO create(RoomDTO dto) {
-        log.info("Creating room: code={}, designationFr={}, floorId={}", 
-                dto.getCode(), dto.getDesignationFr(), dto.getFloorId());
+        log.info("Creating room: code={}, designationFr={}, blocId={}, floorId={}", 
+                dto.getCode(), dto.getDesignationFr(), dto.getBlocId(), dto.getFloorId());
         return super.create(dto);
     }
 
@@ -111,6 +122,13 @@ public class RoomService extends GenericService<Room, RoomDTO, Long> {
         }
         
         return getAll(pageable);
+    }
+
+    public List<RoomDTO> getByBlocId(Long blocId) {
+        log.debug("Getting rooms by bloc ID: {}", blocId);
+        return roomRepository.findByBlocId(blocId).stream()
+                .map(RoomDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<RoomDTO> getByFloorId(Long floorId) {

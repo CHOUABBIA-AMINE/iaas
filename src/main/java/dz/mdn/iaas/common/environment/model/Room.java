@@ -38,7 +38,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Room")
-@Table(name="T_01_01_03", uniqueConstraints = { @UniqueConstraint(name = "T_01_01_03_UK_01", columnNames = { "F_04" })})
+@Table(name="T_01_01_03", uniqueConstraints = { @UniqueConstraint(name = "T_01_01_03_UK_01", columnNames = { "F_05", "F_04" })})
 public class Room extends GenericModel {
 	
 	@Column(name="F_01", length=100)
@@ -55,5 +55,9 @@ public class Room extends GenericModel {
 	
 	@ManyToOne
     @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_01_01_03_FK_01"), nullable=false)
+    private Bloc bloc;
+	
+	@ManyToOne
+    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_01_01_03_FK_02"), nullable=false)
     private Floor floor;
 }

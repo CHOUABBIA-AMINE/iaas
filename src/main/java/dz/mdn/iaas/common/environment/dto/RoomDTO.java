@@ -52,6 +52,9 @@ public class RoomDTO extends GenericDTO<Room> {
     @Size(max = 50, message = "Code must not exceed 50 characters")
     private String code;
 
+    @NotNull(message = "Bloc ID is required")
+    private Long blocId;
+
     @NotNull(message = "Floor ID is required")
     private Long floorId;
 
@@ -82,6 +85,7 @@ public class RoomDTO extends GenericDTO<Room> {
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
                 .code(entity.getCode())
+                .blocId(entity.getBloc() != null ? entity.getBloc().getId() : null)
                 .floorId(entity.getFloor() != null ? entity.getFloor().getId() : null)
                 .build();
     }

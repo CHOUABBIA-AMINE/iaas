@@ -107,11 +107,4 @@ public class ConsultationPhaseController extends GenericController<ConsultationP
         log.debug("GET /consultation-phase/list");
         return success(consultationPhaseService.getAll());
     }
-
-    @GetMapping("/consultation/{consultationId}")
-    @PreAuthorize("hasAuthority('CONSULTATION_PHASE:READ')")
-    public ResponseEntity<List<ConsultationPhaseDTO>> getByConsultation(@PathVariable Long consultationId) {
-        log.debug("GET /consultation-phase/consultation/{}", consultationId);
-        return success(consultationPhaseService.getByConsultationId(consultationId));
-    }
 }

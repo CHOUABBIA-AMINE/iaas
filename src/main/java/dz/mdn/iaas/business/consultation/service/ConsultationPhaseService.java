@@ -84,18 +84,6 @@ public class ConsultationPhaseService extends GenericService<ConsultationPhase, 
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Get all consultation phases by consultation ID
-     * @param consultationId the consultation ID
-     * @return list of consultation phases
-     */
-    public List<ConsultationPhaseDTO> getByConsultationId(Long consultationId) {
-        log.debug("Getting consultation phases by consultation ID: {}", consultationId);
-        return consultationPhaseRepository.findByConsultationId(consultationId).stream()
-                .map(ConsultationPhaseDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
-
     public Page<ConsultationPhaseDTO> globalSearch(String searchTerm, Pageable pageable) {
         log.debug("Global search for consultation phases with term: {}", searchTerm);
         
