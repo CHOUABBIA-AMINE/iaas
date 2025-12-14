@@ -73,6 +73,10 @@ public class ZoneService extends GenericService<Zone, ZoneDTO, Long> {
             throw new BusinessValidationException("Zone with name '" + dto.getName() + "' already exists");
         }
         
+        if (zoneRepository.existsByCode(dto.getCode())) {
+            throw new BusinessValidationException("Zone with code '" + dto.getCode() + "' already exists");
+        }
+        
         return super.create(dto);
     }
 
@@ -83,6 +87,10 @@ public class ZoneService extends GenericService<Zone, ZoneDTO, Long> {
         
         if (zoneRepository.existsByNameAndIdNot(dto.getName(), id)) {
             throw new BusinessValidationException("Zone with name '" + dto.getName() + "' already exists");
+        }
+        
+        if (zoneRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
+            throw new BusinessValidationException("Zone with code '" + dto.getCode() + "' already exists");
         }
         
         return super.update(id, dto);
@@ -102,6 +110,6 @@ public class ZoneService extends GenericService<Zone, ZoneDTO, Long> {
             return getAll(pageable);
         }
         
-        return executeQuery(p -> zoneRepository.searchByName(searchTerm.trim(), p), pageable);
+        return executeQuery(p -> zoneRepository.search(searchTerm.trim(), p), pageable);
     }
 }

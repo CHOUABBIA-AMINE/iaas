@@ -15,7 +15,9 @@
 package dz.mdn.iaas.network.core.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Product;
+import dz.mdn.iaas.network.common.model.Region;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -58,15 +60,17 @@ public class PipelineSystem extends GenericModel {
     private String code;
 
     @Column(name="F_02", length=100, nullable=false)
-    private String designationAr;
-
-    @Column(name="F_03", length=100, nullable=false)
-    private String designationEn;
-
-    @Column(name="F_04", length=100, nullable=false)
-    private String designationFr;
+    private String designation;
 
     @ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_02_05_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_03_02_05_FK_01"), nullable=false)
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_03_02_05_FK_02"), nullable=false)
+    private OperationalStatus operationalStatus;
+
+    @ManyToOne
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_02_05_FK_03"), nullable=false)
+    private Region region;
 }

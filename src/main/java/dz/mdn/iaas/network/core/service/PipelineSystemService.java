@@ -25,8 +25,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.exception.BusinessValidationException;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Product;
+import dz.mdn.iaas.network.common.model.Region;
+import dz.mdn.iaas.network.common.repository.OperationalStatusRepository;
 import dz.mdn.iaas.network.common.repository.ProductRepository;
+import dz.mdn.iaas.network.common.repository.RegionRepository;
 import dz.mdn.iaas.network.core.dto.PipelineSystemDTO;
 import dz.mdn.iaas.network.core.model.PipelineSystem;
 import dz.mdn.iaas.network.core.repository.PipelineSystemRepository;
@@ -41,6 +45,8 @@ public class PipelineSystemService extends GenericService<PipelineSystem, Pipeli
 
     private final PipelineSystemRepository pipelineSystemRepository;
     private final ProductRepository productRepository;
+    private final OperationalStatusRepository operationalStatusRepository;
+    private final RegionRepository regionRepository;
 
     @Override
     protected JpaRepository<PipelineSystem, Long> getRepository() {
@@ -67,6 +73,18 @@ public class PipelineSystemService extends GenericService<PipelineSystem, Pipeli
             entity.setProduct(product);
         }
         
+        if (dto.getOperationalStatusId() != null) {
+        	OperationalStatus operationalStatus = operationalStatusRepository.findById(dto.getOperationalStatusId())
+                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + dto.getOperationalStatusId()));
+            entity.setOperationalStatus(operationalStatus);
+        }
+        
+        if (dto.getRegionId() != null) {
+        	Region region = regionRepository.findById(dto.getRegionId())
+                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + dto.getRegionId()));
+            entity.setRegion(region);
+        }
+        
         return entity;
     }
 
@@ -78,6 +96,18 @@ public class PipelineSystemService extends GenericService<PipelineSystem, Pipeli
             Product product = productRepository.findById(dto.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found with id: " + dto.getProductId()));
             entity.setProduct(product);
+        }
+        
+        if (dto.getOperationalStatusId() != null) {
+        	OperationalStatus operationalStatus = operationalStatusRepository.findById(dto.getOperationalStatusId())
+                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + dto.getOperationalStatusId()));
+            entity.setOperationalStatus(operationalStatus);
+        }
+        
+        if (dto.getRegionId() != null) {
+        	Region region = regionRepository.findById(dto.getRegionId())
+                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + dto.getRegionId()));
+            entity.setRegion(region);
         }
     }
 
@@ -125,6 +155,20 @@ public class PipelineSystemService extends GenericService<PipelineSystem, Pipeli
     public List<PipelineSystemDTO> findByProduct(Long productId) {
         log.debug("Finding pipeline systems by product id: {}", productId);
         return pipelineSystemRepository.findByProductId(productId).stream()
+                .map(PipelineSystemDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<PipelineSystemDTO> findByOperationalStatus(Long operationalStatusId) {
+        log.debug("Finding pipeline systems by operational status id: {}", operationalStatusId);
+        return pipelineSystemRepository.findByOperationalStatusId(operationalStatusId).stream()
+                .map(PipelineSystemDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<PipelineSystemDTO> findByRegion(Long regionId) {
+        log.debug("Finding pipeline systems by region id: {}", regionId);
+        return pipelineSystemRepository.findByRegionId(regionId).stream()
                 .map(PipelineSystemDTO::fromEntity)
                 .collect(Collectors.toList());
     }

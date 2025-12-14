@@ -19,6 +19,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -107,5 +108,26 @@ public class PipelineSystemController extends GenericController<PipelineSystemDT
     @PreAuthorize("hasAuthority('PIPELINE_SYSTEM:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
+    }
+
+    @GetMapping("/product/{productId}")
+    @PreAuthorize("hasAuthority('PIPELINE_SYSTEM:READ')")
+    public ResponseEntity<List<PipelineSystemDTO>> getByProduct(@PathVariable Long productId) {
+        log.info("REST request to get Pipeline System by product id: {}", productId);
+        return ResponseEntity.ok(pipelineSystemService.findByProduct(productId));
+    }
+
+    @GetMapping("/status/{operationalStatusId}")
+    @PreAuthorize("hasAuthority('PIPELINE_SYSTEM:READ')")
+    public ResponseEntity<List<PipelineSystemDTO>> getByOperationalStatus(@PathVariable Long operationalStatusId) {
+        log.info("REST request to get Pipeline System by operational status id: {}", operationalStatusId);
+        return ResponseEntity.ok(pipelineSystemService.findByOperationalStatus(operationalStatusId));
+    }
+
+    @GetMapping("/region/{regionId}")
+    @PreAuthorize("hasAuthority('PIPELINE_SYSTEM:READ')")
+    public ResponseEntity<List<PipelineSystemDTO>> getByRegion(@PathVariable Long regionId) {
+        log.info("REST request to get Pipeline System by region id: {}", regionId);
+        return ResponseEntity.ok(pipelineSystemService.findByRegion(regionId));
     }
 }

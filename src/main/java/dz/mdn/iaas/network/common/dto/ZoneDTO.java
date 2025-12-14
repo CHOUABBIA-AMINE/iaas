@@ -42,14 +42,24 @@ import lombok.experimental.SuperBuilder;
 public class ZoneDTO extends GenericDTO<Zone> {
 
     @NotBlank(message = "Name is required")
-    @Size(max = 100, message = "Name must not exceed 100 characters")
+    @Size(max = 50, message = "Name must not exceed 50 characters")
     private String name;
+    
+    @NotBlank(message = "Code is required")
+    @Size(max = 10, message = "Code must not exceed 10 characters")
+    private String code;
+    
+    @NotBlank(message = "Decsription is required")
+    @Size(max = 100, message = "Decsription must not exceed 100 characters")
+    private String decsription;
 
     @Override
     public Zone toEntity() {
         Zone zone = new Zone();
         zone.setId(getId());
         zone.setName(this.name);
+        zone.setCode(this.code);
+        zone.setDecsription(this.decsription);
         return zone;
     }
 
@@ -57,6 +67,12 @@ public class ZoneDTO extends GenericDTO<Zone> {
     public void updateEntity(Zone zone) {
         if (this.name != null) {
             zone.setName(this.name);
+        }
+        if (this.code != null) {
+            zone.setCode(this.code);
+        }
+        if (this.decsription != null) {
+            zone.setDecsription(this.decsription);
         }
     }
 
@@ -66,6 +82,8 @@ public class ZoneDTO extends GenericDTO<Zone> {
         return ZoneDTO.builder()
                 .id(zone.getId())
                 .name(zone.getName())
+                .code(zone.getCode())
+                .decsription(zone.getDecsription())
                 .build();
     }
 }

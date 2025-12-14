@@ -17,8 +17,9 @@ package dz.mdn.iaas.network.core.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import dz.mdn.iaas.network.common.dto.ProductDTO;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Product;
+import dz.mdn.iaas.network.common.model.Region;
 import dz.mdn.iaas.network.core.model.PipelineSystem;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -52,36 +53,42 @@ public class PipelineSystemDTO extends GenericDTO<PipelineSystem> {
     @Size(max = 50, message = "Code must not exceed 50 characters")
     private String code;
 
-    @NotBlank(message = "Arabic designation is required")
-    @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
-    private String designationAr;
-
-    @NotBlank(message = "English designation is required")
-    @Size(max = 100, message = "English designation must not exceed 100 characters")
-    private String designationEn;
-
-    @NotBlank(message = "French designation is required")
-    @Size(max = 100, message = "French designation must not exceed 100 characters")
-    private String designationFr;
+    @NotBlank(message = "Designation is required")
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designation;
 
     @NotNull(message = "Product is required")
     private Long productId;
 
-    private ProductDTO product;
+    @NotNull(message = "OperationalStatus is required")
+    private Long operationalStatusId;
+
+    @NotNull(message = "Region is required")
+    private Long regionId;
 
     @Override
     public PipelineSystem toEntity() {
         PipelineSystem system = new PipelineSystem();
         system.setId(getId());
         system.setCode(this.code);
-        system.setDesignationAr(this.designationAr);
-        system.setDesignationEn(this.designationEn);
-        system.setDesignationFr(this.designationFr);
+        system.setDesignation(this.designation);
         
         if (this.productId != null) {
             Product product = new Product();
             product.setId(this.productId);
             system.setProduct(product);
+        }
+        
+        if (this.operationalStatusId != null) {
+        	OperationalStatus operationalStatus = new OperationalStatus();
+        	operationalStatus.setId(this.operationalStatusId);
+            system.setOperationalStatus(operationalStatus);
+        }
+        
+        if (this.regionId != null) {
+        	Region region = new Region();
+        	region.setId(this.regionId);
+            system.setRegion(region);
         }
         
         return system;
@@ -90,14 +97,24 @@ public class PipelineSystemDTO extends GenericDTO<PipelineSystem> {
     @Override
     public void updateEntity(PipelineSystem system) {
         if (this.code != null) system.setCode(this.code);
-        if (this.designationAr != null) system.setDesignationAr(this.designationAr);
-        if (this.designationEn != null) system.setDesignationEn(this.designationEn);
-        if (this.designationFr != null) system.setDesignationFr(this.designationFr);
+        if (this.designation != null) system.setDesignation(this.designation);
         
         if (this.productId != null) {
             Product product = new Product();
             product.setId(this.productId);
             system.setProduct(product);
+        }
+        
+        if (this.operationalStatusId != null) {
+        	OperationalStatus operationalStatus = new OperationalStatus();
+        	operationalStatus.setId(this.operationalStatusId);
+            system.setOperationalStatus(operationalStatus);
+        }
+        
+        if (this.regionId != null) {
+        	Region region = new Region();
+        	region.setId(this.regionId);
+            system.setRegion(region);
         }
     }
 
@@ -107,11 +124,10 @@ public class PipelineSystemDTO extends GenericDTO<PipelineSystem> {
         return PipelineSystemDTO.builder()
                 .id(system.getId())
                 .code(system.getCode())
-                .designationAr(system.getDesignationAr())
-                .designationEn(system.getDesignationEn())
-                .designationFr(system.getDesignationFr())
+                .designation(system.getDesignation())
                 .productId(system.getProduct() != null ? system.getProduct().getId() : null)
-                .product(system.getProduct() != null ? ProductDTO.fromEntity(system.getProduct()) : null)
+                .operationalStatusId(system.getOperationalStatus() != null ? system.getOperationalStatus().getId() : null)
+                .regionId(system.getRegion() != null ? system.getRegion().getId() : null)
                 .build();
     }
 }
