@@ -14,14 +14,20 @@
 
 package dz.mdn.iaas.network.core.model;
 
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.network.common.model.Location;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -58,18 +64,39 @@ public class Facility extends GenericModel {
     @Column(name="F_01", length=100, nullable=false)
     private String name;
 
-    @Column(name="F_02", length=50, nullable=false)
+    @Column(name="F_02", length=20, nullable=false)
     private String code;
+    
+    @Column(name = "F_03", nullable = true)
+    private LocalDate installationDate;
+
+    @Column(name = "F_04", nullable = true)
+    private LocalDate commissioningDate;
+
+    @Column(name = "F_05", nullable = true)
+    private LocalDate retirementDate;
+
+    @Column(name = "F_06", nullable = true, length = 100)
+    private String provider;
 
     @ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable=false)
     private OperationalStatus operationalStatus;
 
     @ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_03_02_03_FK_02"), nullable=false)
+    @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_02_03_FK_02"), nullable=false)
     private Location location;
 
     @ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_02_03_FK_03"), nullable=false)
+    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_02_03_FK_03"), nullable=false)
     private FacilityType facilityType;
+
+    @OneToMany(mappedBy = "departureFacility", cascade = CascadeType.ALL)
+    private Set<Pipeline> departingPipelines = new HashSet<>();
+
+    @OneToMany(mappedBy = "arrivalFacility", cascade = CascadeType.ALL)
+    private Set<Pipeline> arrivingPipelines = new HashSet<>();
+
+    @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
+    private Set<Equipment> equipments = new HashSet<>();
 }

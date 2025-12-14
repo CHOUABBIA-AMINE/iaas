@@ -36,6 +36,12 @@ public interface FacilityRepository extends JpaRepository<Facility, Long> {
 
     @Query("SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END FROM Facility f WHERE f.code = :code AND f.id != :id")
     boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
+    
+    @Query("SELECT CASE WHEN COUNT(t) > 0 THEN true ELSE false END FROM Facility t WHERE t.designationFr = :designationFr")
+    boolean existsByDesignationFr(@Param("designationFr") String designationFr);
+
+    @Query("SELECT CASE WHEN COUNT(t) > 0 THEN true ELSE false END FROM Facility t WHERE t.designationFr = :designationFr AND t.id != :id")
+    boolean existsByDesignationFrAndIdNot(@Param("designationFr") String designationFr, @Param("id") Long id);
 
     @Query("SELECT f FROM Facility f WHERE LOWER(f.name) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(f.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Facility> searchByAnyField(@Param("search") String search, Pageable pageable);

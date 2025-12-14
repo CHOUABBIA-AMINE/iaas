@@ -14,6 +14,8 @@
 
 package dz.mdn.iaas.network.core.dto;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
@@ -56,8 +58,17 @@ public class FacilityDTO extends GenericDTO<Facility> {
     private String name;
 
     @NotBlank(message = "Code is required")
-    @Size(max = 50, message = "Code must not exceed 50 characters")
+    @Size(max = 20, message = "Code must not exceed 20 characters")
     private String code;
+    
+    private LocalDate installationDate;
+
+    private LocalDate commissioningDate;
+
+    private LocalDate retirementDate;
+
+    @Size(max = 100, message = "provider must not exceed 100 characters")
+    private String provider;
 
     @NotNull(message = "Operational status is required")
     private Long operationalStatusId;
@@ -79,6 +90,10 @@ public class FacilityDTO extends GenericDTO<Facility> {
         facility.setId(getId());
         facility.setName(this.name);
         facility.setCode(this.code);
+        facility.setInstallationDate(this.installationDate);
+        facility.setCommissioningDate(this.commissioningDate);
+        facility.setRetirementDate(this.retirementDate);
+        facility.setProvider(this.provider);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
@@ -105,6 +120,9 @@ public class FacilityDTO extends GenericDTO<Facility> {
     public void updateEntity(Facility facility) {
         if (this.name != null) facility.setName(this.name);
         if (this.code != null) facility.setCode(this.code);
+        if (this.installationDate != null) facility.setInstallationDate(this.installationDate);
+        if (this.commissioningDate != null) facility.setCommissioningDate(this.commissioningDate);
+        if (this.retirementDate != null) facility.setRetirementDate(this.retirementDate);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
@@ -132,6 +150,10 @@ public class FacilityDTO extends GenericDTO<Facility> {
                 .id(facility.getId())
                 .name(facility.getName())
                 .code(facility.getCode())
+                .installationDate(facility.getInstallationDate())
+                .commissioningDate(facility.getCommissioningDate())
+                .retirementDate(facility.getRetirementDate())
+                .provider(facility.getProvider())
                 .operationalStatusId(facility.getOperationalStatus() != null ? facility.getOperationalStatus().getId() : null)
                 .locationId(facility.getLocation() != null ? facility.getLocation().getId() : null)
                 .facilityTypeId(facility.getFacilityType() != null ? facility.getFacilityType().getId() : null)
