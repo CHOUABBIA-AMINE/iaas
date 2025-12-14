@@ -72,6 +72,10 @@ public class EquipmentTypeService extends GenericService<EquipmentType, Equipmen
         if (equipmentTypeRepository.existsByCode(dto.getCode())) {
             throw new BusinessValidationException("Equipment type with code '" + dto.getCode() + "' already exists");
         }
+
+        if (equipmentTypeRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Equipment type with designationFr '" + dto.getDesignationFr() + "' already exists");
+        }
         
         return super.create(dto);
     }
@@ -83,6 +87,10 @@ public class EquipmentTypeService extends GenericService<EquipmentType, Equipmen
         
         if (equipmentTypeRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
             throw new BusinessValidationException("Equipment type with code '" + dto.getCode() + "' already exists");
+        }
+
+        if (equipmentTypeRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
+            throw new BusinessValidationException("Equipment type with designationFr '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.update(id, dto);

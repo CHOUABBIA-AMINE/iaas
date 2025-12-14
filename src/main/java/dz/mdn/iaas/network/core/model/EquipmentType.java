@@ -18,6 +18,7 @@ import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -43,12 +44,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="EquipmentType")
-@Table(name="T_03_02_02")
+@Table(name="T_03_02_02", uniqueConstraints = { @UniqueConstraint(name="T_03_02_02_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_02_02_UK_02", columnNames={"F_02"})})
 public class EquipmentType extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)
     private String code;
 
+    @Column(name="F_02", length=100, nullable=true)
+    private String designationAr;
+
+    @Column(name="F_02", length=100, nullable=true)
+    private String designationEn;
+
     @Column(name="F_02", length=100, nullable=false)
-    private String designation;
+    private String designationFr;
 }

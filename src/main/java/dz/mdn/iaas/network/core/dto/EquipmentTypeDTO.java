@@ -46,23 +46,33 @@ public class EquipmentTypeDTO extends GenericDTO<EquipmentType> {
     @Size(max = 50, message = "Code must not exceed 50 characters")
     private String code;
 
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationAr;
+
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationEn;
+
     @NotBlank(message = "Designation is required")
     @Size(max = 100, message = "Designation must not exceed 100 characters")
-    private String designation;
+    private String designationFr;
 
     @Override
     public EquipmentType toEntity() {
         EquipmentType type = new EquipmentType();
         type.setId(getId());
         type.setCode(this.code);
-        type.setDesignation(this.designation);
+        type.setDesignationAr(this.designationAr);
+        type.setDesignationEn(this.designationEn);
+        type.setDesignationFr(this.designationFr);
         return type;
     }
 
     @Override
     public void updateEntity(EquipmentType type) {
         if (this.code != null) type.setCode(this.code);
-        if (this.designation != null) type.setDesignation(this.designation);
+        if (this.designationAr != null) type.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) type.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) type.setDesignationFr(this.designationFr);
     }
 
     public static EquipmentTypeDTO fromEntity(EquipmentType type) {
@@ -71,7 +81,9 @@ public class EquipmentTypeDTO extends GenericDTO<EquipmentType> {
         return EquipmentTypeDTO.builder()
                 .id(type.getId())
                 .code(type.getCode())
-                .designation(type.getDesignation())
+                .designationAr(type.getDesignationAr())
+                .designationEn(type.getDesignationEn())
+                .designationFr(type.getDesignationFr())
                 .build();
     }
 }

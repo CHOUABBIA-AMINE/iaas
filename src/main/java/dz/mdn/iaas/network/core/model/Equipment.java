@@ -24,6 +24,7 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -58,7 +59,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Equipment")
-@Table(name="T_03_02_04")
+@Table(name="T_03_02_04", uniqueConstraints = { @UniqueConstraint(name="T_03_02_04_UK_01", columnNames={"F_02"}) })
 public class Equipment extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)
@@ -70,19 +71,22 @@ public class Equipment extends GenericModel {
     @Column(name="F_03", length=100, nullable=false)
     private String manufacturer;
 
-    @Column(name="F_04", length=50, nullable=false)
+    @Column(name="F_04", length=50, nullable=true)
     private String modelNumber;
 
-    @Column(name="F_05", length=100, nullable=false)
+    @Column(name="F_05", length=100, nullable=true)
     private String serialNumber;
 
-    @Column(name="F_06", nullable=false)
+    @Column(name="F_06", nullable=true)
     private LocalDate manufacturingDate;
 
-    @Column(name="F_07", nullable=false)
+    @Column(name="F_07", nullable=true)
     private LocalDate installationDate;
 
-    @Column(name="F_08", nullable=false)
+    @Column(name="F_08", nullable=true)
+    private LocalDate commissioningDate;
+
+    @Column(name="F_08", nullable=true)
     private LocalDate lastMaintenanceDate;
 
     @ManyToOne
