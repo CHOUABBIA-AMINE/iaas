@@ -104,7 +104,7 @@ public class RegionController extends GenericController<RegionDTO, Long> {
     @GetMapping("/zone/{zoneId}")
     @PreAuthorize("hasAuthority('REGION:READ')")
     public ResponseEntity<List<RegionDTO>> getByZone(@PathVariable Long zoneId) {
-        log.info("GET /network/region/by-zone/{} - Getting regions by zone", zoneId);
+        log.info("GET /network/region/zone/{} - Getting regions by zone", zoneId);
         return ResponseEntity.ok(regionService.findByZone(zoneId));
     }
 }

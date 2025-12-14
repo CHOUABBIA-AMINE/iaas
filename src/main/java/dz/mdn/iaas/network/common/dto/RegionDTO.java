@@ -17,6 +17,7 @@ package dz.mdn.iaas.network.common.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.network.common.model.Location;
 import dz.mdn.iaas.network.common.model.Region;
 import dz.mdn.iaas.network.common.model.Zone;
 import jakarta.validation.constraints.NotBlank;
@@ -47,18 +48,28 @@ public class RegionDTO extends GenericDTO<Region> {
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must not exceed 100 characters")
     private String name;
+    
+    @NotBlank(message = "Name is required")
+    @Size(max = 10, message = "Name must not exceed 100 characters")
+    private String code;
+
+    @NotNull(message = "Location is required")
+    private Long locationId;
 
     @NotNull(message = "Zone is required")
     private Long zoneId;
-
-    // Nested zone for read operations
-    private ZoneDTO zone;
 
     @Override
     public Region toEntity() {
         Region region = new Region();
         region.setId(getId());
         region.setName(this.name);
+        region.setCode(this.code);
+        if (this.locationId != null) {
+        	Location location = new Location();
+        	location.setId(this.locationId);
+            region.setLocation(location);
+        }
         if (this.zoneId != null) {
             Zone zone = new Zone();
             zone.setId(this.zoneId);
@@ -71,6 +82,14 @@ public class RegionDTO extends GenericDTO<Region> {
     public void updateEntity(Region region) {
         if (this.name != null) {
             region.setName(this.name);
+        }        
+        if (this.code != null) {
+            region.setCode(this.code);
+        }
+        if (this.locationId != null) {
+        	Location location = new Location();
+        	location.setId(this.locationId);
+            region.setLocation(location);
         }
         if (this.zoneId != null) {
             Zone zone = new Zone();
@@ -85,8 +104,9 @@ public class RegionDTO extends GenericDTO<Region> {
         return RegionDTO.builder()
                 .id(region.getId())
                 .name(region.getName())
+                .code(region.getCode())
+                .locationId(region.getLocation() != null ? region.getLocation().getId() : null)
                 .zoneId(region.getZone() != null ? region.getZone().getId() : null)
-                .zone(region.getZone() != null ? ZoneDTO.fromEntity(region.getZone()) : null)
                 .build();
     }
 }

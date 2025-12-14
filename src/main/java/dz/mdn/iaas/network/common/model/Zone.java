@@ -14,9 +14,14 @@
 
 package dz.mdn.iaas.network.common.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import dz.mdn.iaas.configuration.template.GenericModel;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -56,4 +61,7 @@ public class Zone extends GenericModel {
     
     @Column(name="F_03", length=200, nullable=true)
     private String decsription;
+
+    @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL)
+    private Set<Region> regions = new HashSet<>();
 }
