@@ -45,18 +45,18 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity(name="EquipmentType")
 @Table(name="T_03_02_02", uniqueConstraints = { @UniqueConstraint(name="T_03_02_02_UK_01", columnNames={"F_01"}),
-												@UniqueConstraint(name="T_03_02_02_UK_02", columnNames={"F_02"})})
+												@UniqueConstraint(name="T_03_02_02_UK_02", columnNames={"F_04"})})
 public class EquipmentType extends GenericModel {
 
-    @Column(name="F_01", length=50, nullable=false)
+    @Column(name="F_01", length=20, nullable=false)
     private String code;
 
     @Column(name="F_02", length=100, nullable=true)
     private String designationAr;
 
-    @Column(name="F_02", length=100, nullable=true)
+    @Column(name="F_03", length=100, nullable=true)
     private String designationEn;
 
-    @Column(name="F_02", length=100, nullable=false)
+    @Column(name="F_04", length=100, nullable=false)
     private String designationFr;
 }

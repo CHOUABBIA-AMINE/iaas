@@ -43,7 +43,7 @@ import lombok.experimental.SuperBuilder;
 public class EquipmentTypeDTO extends GenericDTO<EquipmentType> {
 
     @NotBlank(message = "Code is required")
-    @Size(max = 50, message = "Code must not exceed 50 characters")
+    @Size(max = 20, message = "Code must not exceed 20 characters")
     private String code;
 
     @Size(max = 100, message = "Designation must not exceed 100 characters")

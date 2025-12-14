@@ -72,6 +72,10 @@ public class FacilityTypeService extends GenericService<FacilityType, FacilityTy
         if (facilityTypeRepository.existsByCode(dto.getCode())) {
             throw new BusinessValidationException("Facility type with code '" + dto.getCode() + "' already exists");
         }
+
+        if (facilityTypeRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Facility type with designationFr '" + dto.getDesignationFr() + "' already exists");
+        }
         
         return super.create(dto);
     }
@@ -83,6 +87,10 @@ public class FacilityTypeService extends GenericService<FacilityType, FacilityTy
         
         if (facilityTypeRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
             throw new BusinessValidationException("Facility type with code '" + dto.getCode() + "' already exists");
+        }
+
+        if (facilityTypeRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Facility type with designationFr '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.update(id, dto);
