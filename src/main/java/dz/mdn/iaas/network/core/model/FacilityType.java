@@ -54,9 +54,9 @@ public class FacilityType extends GenericModel {
     @Column(name="F_02", length=100, nullable=true)
     private String designationAr;
 
-    @Column(name="F_02", length=100, nullable=true)
+    @Column(name="F_03", length=100, nullable=true)
     private String designationEn;
 
-    @Column(name="F_02", length=100, nullable=false)
+    @Column(name="F_04", length=100, nullable=false)
     private String designationFr;
 }

@@ -72,6 +72,10 @@ public class OperationalStatusService extends GenericService<OperationalStatus, 
         if (operationalStatusRepository.existsByCode(dto.getCode())) {
             throw new BusinessValidationException("Operational status with code '" + dto.getCode() + "' already exists");
         }
+
+        if (operationalStatusRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Facility type with designationFr '" + dto.getDesignationFr() + "' already exists");
+        }
         
         return super.create(dto);
     }
@@ -83,6 +87,10 @@ public class OperationalStatusService extends GenericService<OperationalStatus, 
         
         if (operationalStatusRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
             throw new BusinessValidationException("Operational status with code '" + dto.getCode() + "' already exists");
+        }
+
+        if (operationalStatusRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Facility type with designationFr '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.update(id, dto);

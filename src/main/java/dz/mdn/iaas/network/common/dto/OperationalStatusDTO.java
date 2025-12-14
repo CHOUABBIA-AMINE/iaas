@@ -43,26 +43,36 @@ import lombok.experimental.SuperBuilder;
 public class OperationalStatusDTO extends GenericDTO<OperationalStatus> {
 
     @NotBlank(message = "Code is required")
-    @Size(max = 50, message = "Code must not exceed 50 characters")
+    @Size(max = 20, message = "Code must not exceed 20 characters")
     private String code;
+
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationAr;
+
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationEn;
 
     @NotBlank(message = "Designation is required")
     @Size(max = 100, message = "Designation must not exceed 100 characters")
-    private String designation;
+    private String designationFr;
 
     @Override
     public OperationalStatus toEntity() {
         OperationalStatus status = new OperationalStatus();
         status.setId(getId());
         status.setCode(this.code);
-        status.setDesignation(this.designation);
+        status.setDesignationAr(this.designationAr);
+        status.setDesignationEn(this.designationEn);
+        status.setDesignationFr(this.designationFr);
         return status;
     }
 
     @Override
     public void updateEntity(OperationalStatus status) {
         if (this.code != null) status.setCode(this.code);
-        if (this.designation != null) status.setDesignation(this.designation);
+        if (this.designationAr != null) status.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) status.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) status.setDesignationFr(this.designationFr);
     }
 
     public static OperationalStatusDTO fromEntity(OperationalStatus status) {
@@ -71,7 +81,9 @@ public class OperationalStatusDTO extends GenericDTO<OperationalStatus> {
         return OperationalStatusDTO.builder()
                 .id(status.getId())
                 .code(status.getCode())
-                .designation(status.getDesignation())
+                .designationAr(status.getDesignationAr())
+                .designationEn(status.getDesignationEn())
+                .designationFr(status.getDesignationFr())
                 .build();
     }
 }
