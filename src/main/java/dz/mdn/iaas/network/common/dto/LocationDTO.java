@@ -16,9 +16,9 @@ package dz.mdn.iaas.network.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.common.administration.model.Locality;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.common.model.Location;
-import dz.mdn.iaas.network.common.model.Region;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -61,10 +61,10 @@ public class LocationDTO extends GenericDTO<Location> {
     @NotNull(message = "Longitude is required")
     private Double longitude;
 
-    @NotNull(message = "Region is required")
-    private Long regionId;
+    private Double elevation;
 
-    private RegionDTO region;
+    @NotNull(message = "Locality is required")
+    private Long localityId;
 
     @Override
     public Location toEntity() {
@@ -74,10 +74,11 @@ public class LocationDTO extends GenericDTO<Location> {
         location.setCode(this.code);
         location.setLatitude(this.latitude);
         location.setLongitude(this.longitude);
-        if (this.regionId != null) {
-            Region region = new Region();
-            region.setId(this.regionId);
-            location.setRegion(region);
+        location.setElevation(this.elevation);
+        if (this.localityId != null) {
+        	Locality locality = new Locality();
+        	locality.setId(this.localityId);
+            location.setLocality(locality);
         }
         return location;
     }
@@ -88,10 +89,11 @@ public class LocationDTO extends GenericDTO<Location> {
         if (this.code != null) location.setCode(this.code);
         if (this.latitude != null) location.setLatitude(this.latitude);
         if (this.longitude != null) location.setLongitude(this.longitude);
-        if (this.regionId != null) {
-            Region region = new Region();
-            region.setId(this.regionId);
-            location.setRegion(region);
+        if (this.longitude != null) location.setElevation(this.elevation);        
+        if (this.localityId != null) {
+        	Locality locality = new Locality();
+        	locality.setId(this.localityId);
+            location.setLocality(locality);
         }
     }
 
@@ -104,8 +106,8 @@ public class LocationDTO extends GenericDTO<Location> {
                 .code(location.getCode())
                 .latitude(location.getLatitude())
                 .longitude(location.getLongitude())
-                .regionId(location.getRegion() != null ? location.getRegion().getId() : null)
-                .region(location.getRegion() != null ? RegionDTO.fromEntity(location.getRegion()) : null)
+                .elevation(location.getElevation())
+                .localityId(location.getLocality() != null ? location.getLocality().getId() : null)
                 .build();
     }
 }

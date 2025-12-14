@@ -23,13 +23,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import dz.mdn.iaas.common.administration.model.Locality;
+import dz.mdn.iaas.common.administration.repository.LocalityRepository;
 import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.exception.BusinessValidationException;
 import dz.mdn.iaas.network.common.dto.LocationDTO;
 import dz.mdn.iaas.network.common.model.Location;
-import dz.mdn.iaas.network.common.model.Region;
 import dz.mdn.iaas.network.common.repository.LocationRepository;
-import dz.mdn.iaas.network.common.repository.RegionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LocationService extends GenericService<Location, LocationDTO, Long> {
 
     private final LocationRepository locationRepository;
-    private final RegionRepository regionRepository;
+    private final LocalityRepository localityRepository;
 
     @Override
     protected JpaRepository<Location, Long> getRepository() {
@@ -60,10 +60,10 @@ public class LocationService extends GenericService<Location, LocationDTO, Long>
     @Override
     protected Location toEntity(LocationDTO dto) {
         Location entity = dto.toEntity();
-        if (dto.getRegionId() != null) {
-            Region region = regionRepository.findById(dto.getRegionId())
-                    .orElseThrow(() -> new RuntimeException("Region not found with id: " + dto.getRegionId()));
-            entity.setRegion(region);
+        if (dto.getLocalityId() != null) {
+            Locality locality = localityRepository.findById(dto.getLocalityId())
+                    .orElseThrow(() -> new RuntimeException("Locality not found with id: " + dto.getLocalityId()));
+            entity.setLocality(locality);
         }
         return entity;
     }
@@ -71,10 +71,10 @@ public class LocationService extends GenericService<Location, LocationDTO, Long>
     @Override
     protected void updateEntityFromDTO(Location entity, LocationDTO dto) {
         dto.updateEntity(entity);
-        if (dto.getRegionId() != null) {
-            Region region = regionRepository.findById(dto.getRegionId())
-                    .orElseThrow(() -> new RuntimeException("Region not found with id: " + dto.getRegionId()));
-            entity.setRegion(region);
+        if (dto.getLocalityId() != null) {
+            Locality locality = localityRepository.findById(dto.getLocalityId())
+                    .orElseThrow(() -> new RuntimeException("Locality not found with id: " + dto.getLocalityId()));
+            entity.setLocality(locality);
         }
     }
 
@@ -119,9 +119,9 @@ public class LocationService extends GenericService<Location, LocationDTO, Long>
         return executeQuery(p -> locationRepository.searchByAnyField(searchTerm.trim(), p), pageable);
     }
 
-    public List<LocationDTO> findByRegion(Long regionId) {
-        log.debug("Finding locations by region id: {}", regionId);
-        return locationRepository.findByRegionId(regionId).stream()
+    public List<LocationDTO> findByLocality(Long localityId) {
+        log.debug("Finding locations by locality id: {}", localityId);
+        return locationRepository.findByLocalityId(localityId).stream()
                 .map(LocationDTO::fromEntity)
                 .collect(Collectors.toList());
     }

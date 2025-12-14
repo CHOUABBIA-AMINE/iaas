@@ -6,8 +6,8 @@
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Repository
- *	@Layer		: Network / Repository
+ *	@Type		: Interface
+ *	@Layer		: Repository
  *	@Package	: Network / Repository
  *
  **/
@@ -23,8 +23,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import dz.mdn.iaas.common.administration.model.Locality;
 import dz.mdn.iaas.network.common.model.Location;
-import dz.mdn.iaas.network.common.model.Region;
 
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
@@ -38,7 +38,7 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
     @Query("SELECT l FROM Location l WHERE LOWER(l.name) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(l.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Location> searchByAnyField(@Param("search") String search, Pageable pageable);
 
-    List<Location> findByRegion(Region region);
+    List<Location> findByLocality(Locality locality);
 
-    List<Location> findByRegionId(Long regionId);
+    List<Location> findByLocalityId(Long localityId);
 }

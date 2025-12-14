@@ -101,10 +101,10 @@ public class LocationController extends GenericController<LocationDTO, Long> {
         return super.count();
     }
 
-    @GetMapping("/region/{regionId}")
+    @GetMapping("/locality/{localityId}")
     @PreAuthorize("hasAuthority('LOCATION:READ')")
-    public ResponseEntity<List<LocationDTO>> getByRegion(@PathVariable Long regionId) {
-        log.info("GET /network/location/by-region/{} - Getting locations by region", regionId);
-        return ResponseEntity.ok(locationService.findByRegion(regionId));
+    public ResponseEntity<List<LocationDTO>> getByLocality(@PathVariable Long localityId) {
+        log.info("GET /network/location/locality/{} - Getting locations by locality", localityId);
+        return ResponseEntity.ok(locationService.findByLocality(localityId));
     }
 }
