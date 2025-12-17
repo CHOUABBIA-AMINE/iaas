@@ -58,8 +58,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Pipeline")
-@Table(name="T_03_02_06", uniqueConstraints = { @UniqueConstraint(name="T_03_02_06_UK_01", columnNames={"F_01"}) })
-public class Pipeline extends GenericModel {
+@Table(name="T_03_02_09", uniqueConstraints = { @UniqueConstraint(name="T_03_02_09_UK_01", columnNames={"F_01"}) })
+public class Pipeline extends Infrastructure {
 
     @Column(name="F_01", length=50, nullable=false)
     private String code;
@@ -72,9 +72,6 @@ public class Pipeline extends GenericModel {
 
     @Column(name="F_04", nullable=false)
     private Double maxPressure;
-
-    @Column(name="F_05", length=50, nullable=false)
-    private String constructionMaterial;
 
     @Column(name="F_06", nullable=false)
     private LocalDate commissioningDate;

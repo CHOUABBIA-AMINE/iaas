@@ -1,6 +1,6 @@
 /**
  *	
- *	@author		: MEDJERAB ABIR
+ *	@author		: CHOUABBIA Amine
  *
  *	@Name		: EquipmentType
  *	@CreatedOn	: 06-26-2025

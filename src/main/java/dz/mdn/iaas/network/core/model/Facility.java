@@ -1,6 +1,6 @@
 /**
  *	
- *	@author		: MEDJERAB ABIR
+ *	@author		: CHOUABBIA Amine
  *
  *	@Name		: Facility
  *	@CreatedOn	: 06-26-2025
@@ -14,20 +14,14 @@
 
 package dz.mdn.iaas.network.core.model;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
-import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.network.common.model.Location;
-import dz.mdn.iaas.network.common.model.OperationalStatus;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -58,35 +52,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Facility")
-@Table(name="T_03_02_03", uniqueConstraints = { @UniqueConstraint(name="T_03_02_03_UK_01", columnNames={"F_02"}) })
-public class Facility extends GenericModel {
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="T_03_02_04", uniqueConstraints = { @UniqueConstraint(name="T_03_02_04_UK_01", columnNames={"F_02"}) })
+public class Facility extends Infrastructure {
 
-    @Column(name="F_01", length=100, nullable=false)
-    private String name;
-
-    @Column(name="F_02", length=20, nullable=false)
-    private String code;
-    
-    @Column(name = "F_03", nullable = true)
-    private LocalDate installationDate;
-
-    @Column(name = "F_04", nullable = true)
-    private LocalDate commissioningDate;
-
-    @Column(name = "F_05", nullable = true)
-    private LocalDate retirementDate;
-
-    @Column(name = "F_06", nullable = true, length = 100)
+    @Column(name = "F_07", nullable = true, length = 100)
     private String provider;
-
-    @ManyToOne
-    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable=false)
-    private OperationalStatus operationalStatus;
 
     @ManyToOne
     @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_02_03_FK_02"), nullable=false)
     private Location location;
-
+/*
     @ManyToOne
     @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_02_03_FK_03"), nullable=false)
     private FacilityType facilityType;
@@ -99,4 +75,5 @@ public class Facility extends GenericModel {
 
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
     private Set<Equipment> equipments = new HashSet<>();
+*/
 }
