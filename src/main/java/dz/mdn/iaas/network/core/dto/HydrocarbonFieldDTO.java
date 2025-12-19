@@ -31,10 +31,13 @@ import lombok.experimental.SuperBuilder;
  * HydrocarbonField Data Transfer Object - Extends FacilityDTO
  * Inherits all fields from parent Facility class
  * 
+ * Inheritance chain: GenericDTO -> FacilityDTO -> HydrocarbonFieldDTO
+ * Inherits from Facility: code, name, installationDate, commissioningDate, decommissioningDate,
+ *                        operationalStatusId, locationId, facilityTypeId, vendorId
+ * 
  * Additional Fields:
  * - stationTypeId - Type of hydrocarbon field (required)
  * - pipelineIds - Associated pipelines
- * - partnerIds - Associated partners
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -50,9 +53,6 @@ public class HydrocarbonFieldDTO extends FacilityDTO {
     @SuperBuilder.Default
     private Set<Long> pipelineIds = new HashSet<>();
 
-    @SuperBuilder.Default
-    private Set<Long> partnerIds = new HashSet<>();
-
     @Override
     public HydrocarbonField toEntity() {
         HydrocarbonField field = new HydrocarbonField();
@@ -61,18 +61,38 @@ public class HydrocarbonFieldDTO extends FacilityDTO {
         field.setName(getName());
         field.setInstallationDate(getInstallationDate());
         field.setCommissioningDate(getCommissioningDate());
-        field.setDecommissioningDate(getDecommissioningDate());
-        field.setLocationId(getLocationId());
-        field.setFacilityTypeId(getFacilityTypeId());
+        field.setRetirementDate(getRetirementDate());
+        field.setProvider(getProvider());
+        
+        // Set relationships from parent DTO
+        if (getOperationalStatusId() != null) {
+            dz.mdn.iaas.network.common.model.OperationalStatus status = 
+                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            status.setId(getOperationalStatusId());
+            field.setOperationalStatus(status);
+        }
+        
+        if (getLocationId() != null) {
+            dz.mdn.iaas.network.common.model.Location location = 
+                new dz.mdn.iaas.network.common.model.Location();
+            location.setId(getLocationId());
+            field.setLocation(location);
+        }
+        
+        if (getVendorId() != null) {
+            dz.mdn.iaas.network.common.model.Vendor vendor = 
+                new dz.mdn.iaas.network.common.model.Vendor();
+            vendor.setId(getVendorId());
+            field.setVendor(vendor);
+        }
+        
         return field;
     }
 
     @Override
     public void updateEntity(HydrocarbonField field) {
-        super.updateEntity((org.hibernate.mapping.Subclass) field);
-        if (this.stationTypeId != null) {
-            // Station type would be set via relationship
-        }
+        super.updateEntity((Facility) field);
+        // Additional update logic for HydrocarbonField-specific fields can go here
     }
 
     public static HydrocarbonFieldDTO fromEntity(HydrocarbonField field) {
@@ -83,24 +103,19 @@ public class HydrocarbonFieldDTO extends FacilityDTO {
             field.getPipelines().forEach(p -> pipelineIds.add(p.getId()));
         }
         
-        Set<Long> partnerIds = new HashSet<>();
-        if (field.getPartners() != null) {
-            field.getPartners().forEach(p -> partnerIds.add(p.getId()));
-        }
-        
         return HydrocarbonFieldDTO.builder()
                 .id(field.getId())
                 .code(field.getCode())
                 .name(field.getName())
                 .installationDate(field.getInstallationDate())
                 .commissioningDate(field.getCommissioningDate())
-                .decommissioningDate(field.getDecommissioningDate())
-                .locationId(field.getLocation() != null ? field.getLocation().getId() : null)
-                .facilityTypeId(field.getFacilityType() != null ? field.getFacilityType().getId() : null)
+                .retirementDate(field.getRetirementDate())
+                .provider(field.getProvider())
                 .operationalStatusId(field.getOperationalStatus() != null ? field.getOperationalStatus().getId() : null)
+                .locationId(field.getLocation() != null ? field.getLocation().getId() : null)
+                .vendorId(field.getVendor() != null ? field.getVendor().getId() : null)
                 .stationTypeId(field.getStationType() != null ? field.getStationType().getId() : null)
                 .pipelineIds(pipelineIds)
-                .partnerIds(partnerIds)
                 .build();
     }
 }
