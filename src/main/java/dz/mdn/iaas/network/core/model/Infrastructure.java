@@ -54,7 +54,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="Facility")
+@Entity(name="Infrastructure")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="T_03_03_01", uniqueConstraints = { @UniqueConstraint(name="T_03_03_01_UK_01", columnNames={"F_01"}) })
 public class Infrastructure extends GenericModel {

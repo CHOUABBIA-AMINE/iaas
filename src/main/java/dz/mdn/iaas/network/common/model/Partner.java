@@ -38,7 +38,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="Company")
+@Entity(name="Partner")
 @Table(name="T_03_02_07", uniqueConstraints = { @UniqueConstraint(name="T_03_02_07_UK_01", columnNames={"F_02"})})
 public class Partner extends GenericModel {
 

@@ -14,28 +14,30 @@
 
 package dz.mdn.iaas.network.core.controller;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import dz.mdn.iaas.configuration.template.GenericController;
 import dz.mdn.iaas.network.core.dto.FacilityDTO;
 import dz.mdn.iaas.network.core.service.FacilityService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/network/facility")
 @Slf4j
 public class FacilityController extends GenericController<FacilityDTO, Long> {
 
-    private final FacilityService facilityService;
-
     public FacilityController(FacilityService facilityService) {
         super(facilityService, "Facility");
-        this.facilityService = facilityService;
     }
 
     // ========== SECURED CRUD OPERATIONS ==========
@@ -101,14 +103,5 @@ public class FacilityController extends GenericController<FacilityDTO, Long> {
     @PreAuthorize("hasAuthority('FACILITY:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
-    }
-
-    // ========== CUSTOM ENDPOINTS ==========
-
-    @GetMapping("/type/{typeId}")
-    @PreAuthorize("hasAuthority('FACILITY:READ')")
-    public ResponseEntity<List<FacilityDTO>> getByFacilityType(@PathVariable Long typeId) {
-        log.info("REST request to get Facility by facility type id: {}", typeId);
-        return ResponseEntity.ok(facilityService.findByFacilityType(typeId));
     }
 }

@@ -36,15 +36,4 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
      */
     List<Item> findByRubricId(Long rubricId);
     
-    /**
-     * Find items by parent item ID
-     * Used by ItemService.getByParentItemId()
-     */
-    List<Item> findByParentItemId(Long parentItemId);
-    
-    /**
-     * Find root items (no parent)
-     * Used by ItemService.getRootItems()
-     */
-    List<Item> findByParentItemIsNull();
 }

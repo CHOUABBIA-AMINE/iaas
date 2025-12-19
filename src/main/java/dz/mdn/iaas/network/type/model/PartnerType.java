@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: CompanyType
+ *	@Name		: PartnerType
  *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
@@ -28,7 +28,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@Entity(name="CompanyType")
+@Entity(name="PartnerType")
 @Table(name="T_03_01_02")
 public class PartnerType extends CompanyType {
 

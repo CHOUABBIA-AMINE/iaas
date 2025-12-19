@@ -49,13 +49,13 @@ public class Alloy extends GenericModel {
     @Column(name = "F_02", nullable = true, length = 500)
     private String description;
 
-    @OneToMany(mappedBy = "constructionMetal", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "constructionMaterial", cascade = CascadeType.ALL)
     private Set<PipelineSegment> pipelineSegments = new HashSet<>();
 
-    @OneToMany(mappedBy = "innerCoating", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "interiorCoating", cascade = CascadeType.ALL)
     private Set<PipelineSegment> segmentsInnerCaoted = new HashSet<>();
 
-    @OneToMany(mappedBy = "outerCoating", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "exteriorCoating", cascade = CascadeType.ALL)
     private Set<PipelineSegment> segmentsOuterCaoted = new HashSet<>();
     
 }

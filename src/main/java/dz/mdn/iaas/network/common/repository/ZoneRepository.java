@@ -14,8 +14,6 @@
 
 package dz.mdn.iaas.network.common.repository;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,8 +36,6 @@ public interface ZoneRepository extends JpaRepository<Zone, Long> {
     
     boolean existsByNameAndIdNot(String name, Long id);
     
-    List<Zone> findByRegionId(Long regionId);
-
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
     @Query("SELECT z FROM Zone z WHERE "

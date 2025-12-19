@@ -143,11 +143,4 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
                 .map(FacilityDTO::fromEntity)
                 .collect(Collectors.toList());
     }
-
-    public List<FacilityDTO> findByFacilityType(Long typeId) {
-        log.debug("Finding facilities by facility type id: {}", typeId);
-        return facilityRepository.findByFacilityTypeId(typeId).stream()
-                .map(FacilityDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
 }
