@@ -4,7 +4,7 @@
  *
  *	@Name		: ProcurementStatusRepository
  *	@CreatedOn	: 06-26-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-19-2025
  *
  *	@Type		: Repository
  *	@Layer		: Business / Core
@@ -29,17 +29,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProcurementStatusRepository extends JpaRepository<ProcurementStatus, Long> {
     
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
     /**
      * Check if French designation exists
      */
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM ProcurementStatus p WHERE p.designationFr = :designationFr")
-    boolean existsByDesignationFr(@Param("designationFr") String designationFr);
+    boolean existsByDesignationFr(String designationFr);
     
     /**
      * Check if French designation exists excluding current ID (for updates)
      */
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM ProcurementStatus p WHERE p.designationFr = :designationFr AND p.id != :id")
-    boolean existsByDesignationFrAndIdNot(@Param("designationFr") String designationFr, @Param("id") Long id);
+    boolean existsByDesignationFrAndIdNot(String designationFr, Long id);
+    
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
     /**
      * Search by designation (all languages)
