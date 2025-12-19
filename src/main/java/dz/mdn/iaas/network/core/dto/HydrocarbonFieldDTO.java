@@ -14,13 +14,16 @@
 
 package dz.mdn.iaas.network.core.dto;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.network.core.model.HydrocarbonField;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,16 +31,17 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * HydrocarbonField Data Transfer Object - Extends FacilityDTO
- * Inherits all fields from parent Facility class
+ * HydrocarbonField Data Transfer Object - Extends GenericDTO
+ * Maps HydrocarbonField entity which extends Facility which extends Infrastructure
  * 
- * Inheritance chain: GenericDTO -> FacilityDTO -> HydrocarbonFieldDTO
- * Inherits from Facility: code, name, installationDate, commissioningDate, decommissioningDate,
- *                        operationalStatusId, locationId, facilityTypeId, vendorId
+ * Inherited from Infrastructure:
+ * - code, name, installationDate, commissioningDate, decommissioningDate, operationalStatusId
  * 
- * Additional Fields:
- * - stationTypeId - Type of hydrocarbon field (required)
- * - pipelineIds - Associated pipelines
+ * Inherited from Facility:
+ * - vendor, location (vendorId, locationId)
+ * 
+ * HydrocarbonField specific:
+ * - stationType, pipelines
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -45,8 +49,32 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class HydrocarbonFieldDTO extends FacilityDTO {
+public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
 
+    // Infrastructure fields
+    @NotBlank(message = "Code is required")
+    @Size(min = 2, max = 20, message = "Code must be between 2 and 20 characters")
+    private String code;
+
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
+    private String name;
+
+    private LocalDate installationDate;
+    private LocalDate commissioningDate;
+    private LocalDate decommissioningDate;
+
+    @NotNull(message = "Operational status ID is required")
+    private Long operationalStatusId;
+
+    // Facility fields
+    @NotNull(message = "Vendor ID is required")
+    private Long vendorId;
+
+    @NotNull(message = "Location ID is required")
+    private Long locationId;
+
+    // HydrocarbonField specific fields
     @NotNull(message = "Station type ID is required")
     private Long stationTypeId;
 
@@ -57,33 +85,38 @@ public class HydrocarbonFieldDTO extends FacilityDTO {
     public HydrocarbonField toEntity() {
         HydrocarbonField field = new HydrocarbonField();
         field.setId(getId());
-        field.setCode(getCode());
-        field.setName(getName());
-        field.setInstallationDate(getInstallationDate());
-        field.setCommissioningDate(getCommissioningDate());
-        field.setRetirementDate(getRetirementDate());
-        field.setProvider(getProvider());
+        field.setCode(this.code);
+        field.setName(this.name);
+        field.setInstallationDate(this.installationDate);
+        field.setCommissioningDate(this.commissioningDate);
+        field.setDecommissioningDate(this.decommissioningDate);
         
-        // Set relationships from parent DTO
-        if (getOperationalStatusId() != null) {
+        if (this.operationalStatusId != null) {
             dz.mdn.iaas.network.common.model.OperationalStatus status = 
                 new dz.mdn.iaas.network.common.model.OperationalStatus();
-            status.setId(getOperationalStatusId());
+            status.setId(this.operationalStatusId);
             field.setOperationalStatus(status);
         }
         
-        if (getLocationId() != null) {
+        if (this.vendorId != null) {
+            dz.mdn.iaas.network.common.model.Vendor vendor = 
+                new dz.mdn.iaas.network.common.model.Vendor();
+            vendor.setId(this.vendorId);
+            field.setVendor(vendor);
+        }
+        
+        if (this.locationId != null) {
             dz.mdn.iaas.network.common.model.Location location = 
                 new dz.mdn.iaas.network.common.model.Location();
-            location.setId(getLocationId());
+            location.setId(this.locationId);
             field.setLocation(location);
         }
         
-        if (getVendorId() != null) {
-            dz.mdn.iaas.network.common.model.Vendor vendor = 
-                new dz.mdn.iaas.network.common.model.Vendor();
-            vendor.setId(getVendorId());
-            field.setVendor(vendor);
+        if (this.stationTypeId != null) {
+            dz.mdn.iaas.network.type.model.StationType stationType = 
+                new dz.mdn.iaas.network.type.model.StationType();
+            stationType.setId(this.stationTypeId);
+            field.setStationType(stationType);
         }
         
         return field;
@@ -91,8 +124,39 @@ public class HydrocarbonFieldDTO extends FacilityDTO {
 
     @Override
     public void updateEntity(HydrocarbonField field) {
-        super.updateEntity((Facility) field);
-        // Additional update logic for HydrocarbonField-specific fields can go here
+        if (this.code != null) field.setCode(this.code);
+        if (this.name != null) field.setName(this.name);
+        if (this.installationDate != null) field.setInstallationDate(this.installationDate);
+        if (this.commissioningDate != null) field.setCommissioningDate(this.commissioningDate);
+        if (this.decommissioningDate != null) field.setDecommissioningDate(this.decommissioningDate);
+        
+        if (this.operationalStatusId != null) {
+            dz.mdn.iaas.network.common.model.OperationalStatus status = 
+                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            status.setId(this.operationalStatusId);
+            field.setOperationalStatus(status);
+        }
+        
+        if (this.vendorId != null) {
+            dz.mdn.iaas.network.common.model.Vendor vendor = 
+                new dz.mdn.iaas.network.common.model.Vendor();
+            vendor.setId(this.vendorId);
+            field.setVendor(vendor);
+        }
+        
+        if (this.locationId != null) {
+            dz.mdn.iaas.network.common.model.Location location = 
+                new dz.mdn.iaas.network.common.model.Location();
+            location.setId(this.locationId);
+            field.setLocation(location);
+        }
+        
+        if (this.stationTypeId != null) {
+            dz.mdn.iaas.network.type.model.StationType stationType = 
+                new dz.mdn.iaas.network.type.model.StationType();
+            stationType.setId(this.stationTypeId);
+            field.setStationType(stationType);
+        }
     }
 
     public static HydrocarbonFieldDTO fromEntity(HydrocarbonField field) {
@@ -109,11 +173,10 @@ public class HydrocarbonFieldDTO extends FacilityDTO {
                 .name(field.getName())
                 .installationDate(field.getInstallationDate())
                 .commissioningDate(field.getCommissioningDate())
-                .retirementDate(field.getRetirementDate())
-                .provider(field.getProvider())
+                .decommissioningDate(field.getDecommissioningDate())
                 .operationalStatusId(field.getOperationalStatus() != null ? field.getOperationalStatus().getId() : null)
-                .locationId(field.getLocation() != null ? field.getLocation().getId() : null)
                 .vendorId(field.getVendor() != null ? field.getVendor().getId() : null)
+                .locationId(field.getLocation() != null ? field.getLocation().getId() : null)
                 .stationTypeId(field.getStationType() != null ? field.getStationType().getId() : null)
                 .pipelineIds(pipelineIds)
                 .build();
