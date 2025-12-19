@@ -110,6 +110,6 @@ public class ZoneService extends GenericService<Zone, ZoneDTO, Long> {
             return getAll(pageable);
         }
         
-        return executeQuery(p -> zoneRepository.search(searchTerm.trim(), p), pageable);
+        return executeQuery(p -> zoneRepository.searchByAnyField(searchTerm.trim(), p), pageable);
     }
 }

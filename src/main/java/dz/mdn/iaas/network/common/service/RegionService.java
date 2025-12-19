@@ -116,7 +116,7 @@ public class RegionService extends GenericService<Region, RegionDTO, Long> {
             return getAll(pageable);
         }
         
-        return executeQuery(p -> regionRepository.searchByName(searchTerm.trim(), p), pageable);
+        return executeQuery(p -> regionRepository.searchByAnyField(searchTerm.trim(), p), pageable);
     }
 
     public List<RegionDTO> findByZone(Long zoneId) {
