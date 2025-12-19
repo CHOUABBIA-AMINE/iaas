@@ -55,35 +55,54 @@ public class OperationalStatusDTO extends GenericDTO<OperationalStatus> {
     @NotBlank(message = "Designation is required")
     @Size(max = 100, message = "Designation must not exceed 100 characters")
     private String designationFr;
+    
+    @Size(max = 100, message = "Arabic decsription must not exceed 100 characters")
+    private String descriptionAr;
+
+    @Size(max = 100, message = "English decsription must not exceed 100 characters")
+    private String descriptionEn;
+
+    @NotBlank(message = "French decsription is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String descriptionFr;
 
     @Override
     public OperationalStatus toEntity() {
-        OperationalStatus status = new OperationalStatus();
-        status.setId(getId());
-        status.setCode(this.code);
-        status.setDesignationAr(this.designationAr);
-        status.setDesignationEn(this.designationEn);
-        status.setDesignationFr(this.designationFr);
-        return status;
+        OperationalStatus entity = new OperationalStatus();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setDescriptionAr(this.descriptionAr);
+        entity.setDescriptionEn(this.descriptionEn);
+        entity.setDescriptionFr(this.descriptionFr);
+        return entity;
     }
 
     @Override
-    public void updateEntity(OperationalStatus status) {
-        if (this.code != null) status.setCode(this.code);
-        if (this.designationAr != null) status.setDesignationAr(this.designationAr);
-        if (this.designationEn != null) status.setDesignationEn(this.designationEn);
-        if (this.designationFr != null) status.setDesignationFr(this.designationFr);
+    public void updateEntity(OperationalStatus entity) {
+        if (this.code != null) { entity.setCode(this.code); }
+        if (this.designationAr != null) { entity.setDesignationAr(this.designationAr); }
+        if (this.designationEn != null) { entity.setDesignationEn(this.designationEn); }
+        if (this.designationFr != null) { entity.setDesignationFr(this.designationFr); }
+        if (this.descriptionAr != null) { entity.setDescriptionAr(this.descriptionAr); }
+        if (this.descriptionEn != null) { entity.setDescriptionEn(this.descriptionEn); }
+        if (this.descriptionFr != null) { entity.setDescriptionFr(this.descriptionFr); }
     }
 
-    public static OperationalStatusDTO fromEntity(OperationalStatus status) {
-        if (status == null) return null;
+    public static OperationalStatusDTO fromEntity(OperationalStatus entity) {
+        if (entity == null) return null;
         
         return OperationalStatusDTO.builder()
-                .id(status.getId())
-                .code(status.getCode())
-                .designationAr(status.getDesignationAr())
-                .designationEn(status.getDesignationEn())
-                .designationFr(status.getDesignationFr())
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .descriptionAr(entity.getDescriptionAr())
+                .descriptionEn(entity.getDescriptionEn())
+                .descriptionFr(entity.getDescriptionFr())
                 .build();
     }
 }

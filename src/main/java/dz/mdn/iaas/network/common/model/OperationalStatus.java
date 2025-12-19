@@ -51,12 +51,21 @@ public class OperationalStatus extends GenericModel {
     @Column(name="F_01", length=20, nullable=false)
     private String code;
 
-    @Column(name="F_02", length=100, nullable=true)
+    @Column(name="F_02", length=100)
     private String designationAr;
 
-    @Column(name="F_03", length=100, nullable=true)
+    @Column(name="F_03", length=100)
     private String designationEn;
 
     @Column(name="F_04", length=100, nullable=false)
     private String designationFr;
+    
+    @Column(name="F_05", length=200)
+    private String descriptionAr;
+    
+    @Column(name="F_06", length=200)
+    private String descriptionEn;
+    
+    @Column(name="F_07", length=200)
+    private String descriptionFr;
 }
