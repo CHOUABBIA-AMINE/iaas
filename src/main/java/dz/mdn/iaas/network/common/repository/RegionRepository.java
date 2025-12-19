@@ -28,20 +28,18 @@ import dz.mdn.iaas.network.common.model.Region;
 @Repository
 public interface RegionRepository extends JpaRepository<Region, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM Region r WHERE r.code = :code")
-    boolean existsByCode(@Param("code") String code);
-
-    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM Region r WHERE r.code = :code AND r.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
     
-    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM Region r WHERE r.name = :name")
-    boolean existsByName(@Param("name") String name);
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
+    
+    List<Region> findByCountryId(Long countryId);
 
-    @Query("SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END FROM Region r WHERE r.name = :name AND r.id != :id")
-    boolean existsByNameAndIdNot(@Param("name") String name, @Param("id") Long id);
-
-    @Query("SELECT r FROM Region r WHERE LOWER(r.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(r.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT r FROM Region r WHERE "
+         + "LOWER(r.code) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(r.name) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Region> searchByAnyField(@Param("search") String search, Pageable pageable);
-    
-    List<Region> findByZoneId(Long zoneId);
 }

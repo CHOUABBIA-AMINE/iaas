@@ -28,14 +28,18 @@ import dz.mdn.iaas.network.common.model.Location;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(l) > 0 THEN true ELSE false END FROM Location l WHERE l.code = :code")
-    boolean existsByCode(@Param("code") String code);
-
-    @Query("SELECT CASE WHEN COUNT(l) > 0 THEN true ELSE false END FROM Location l WHERE l.code = :code AND l.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT l FROM Location l WHERE LOWER(l.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(l.name) LIKE LOWER(CONCAT('%', :search, '%'))")
-    Page<Location> searchByAnyField(@Param("search") String search, Pageable pageable);
-
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
+    
     List<Location> findByLocalityId(Long localityId);
+
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT l FROM Location l WHERE "
+         + "LOWER(l.code) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(l.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<Location> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

@@ -8,7 +8,7 @@
  *
  *	@Type		: Repository
  *	@Layer		: Network / Repository
- *	@Package	: Network / Repository
+ *	@Package	: Network / Common
  *
  **/
 
@@ -26,12 +26,16 @@ import dz.mdn.iaas.network.common.model.Partner;
 @Repository
 public interface PartnerRepository extends JpaRepository<Partner, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Partner p WHERE p.shortName = :shortName")
-    boolean existsByShortName(@Param("shortName") String shortName);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByShortName(String shortName);
+    
+    boolean existsByShortNameAndIdNot(String shortName, Long id);
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Partner p WHERE p.shortName = :shortName AND p.id != :id")
-    boolean existsByShortNameAndIdNot(@Param("shortName") String shortName, @Param("id") Long id);
-
-    @Query("SELECT p FROM Partner p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(p.shortName) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT p FROM Partner p WHERE "
+         + "LOWER(p.name) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(p.shortName) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Partner> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

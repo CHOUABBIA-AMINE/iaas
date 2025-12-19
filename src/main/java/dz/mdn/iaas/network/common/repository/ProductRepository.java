@@ -3,7 +3,7 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: ProductRepository
- *	@CreatedOn	: 12-11-2025
+ *	@CreatedOn	: 12-19-2025
  *	@Updated	: 12-19-2025
  *
  *	@Type		: Repository
@@ -26,12 +26,15 @@ import dz.mdn.iaas.network.common.model.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Product p WHERE p.code = :code")
-    boolean existsByCode(@Param("code") String code);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Product p WHERE p.code = :code AND p.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT p FROM Product p WHERE LOWER(p.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(p.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT p FROM Product p WHERE "
+         + "LOWER(p.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Product> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

@@ -3,11 +3,11 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: AlloyRepository
- *	@CreatedOn	: 12-11-2025
- *	@Updated	: 12-11-2025
+ *	@CreatedOn	: 12-19-2025
+ *	@Updated	: 12-19-2025
  *
- *	@Type		: Interface
- *	@Layer		: Repository
+ *	@Type		: Repository
+ *	@Layer		: Network / Repository
  *	@Package	: Network / Common
  *
  **/
@@ -26,12 +26,15 @@ import dz.mdn.iaas.network.common.model.Alloy;
 @Repository
 public interface AlloyRepository extends JpaRepository<Alloy, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Alloy p WHERE p.code = :code")
-    boolean existsByCode(@Param("code") String code);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Alloy p WHERE p.code = :code AND p.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT p FROM Alloy p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(p.code) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT a FROM Alloy a WHERE "
+         + "LOWER(a.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Alloy> searchByAnyField(@Param("search") String search, Pageable pageable);
 }
