@@ -6,13 +6,13 @@
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Service
- *	@Layer		: Network / Service
- *	@Package	: Network / Service
+ *	@Type		: Class
+ *	@Layer		: Service
+ *	@Package	: Network / Type
  *
  **/
 
-package dz.mdn.iaas.network.core.service;
+package dz.mdn.iaas.network.type.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,9 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.exception.BusinessValidationException;
-import dz.mdn.iaas.network.core.dto.EquipmentTypeDTO;
-import dz.mdn.iaas.network.core.model.EquipmentType;
-import dz.mdn.iaas.network.core.repository.EquipmentTypeRepository;
+import dz.mdn.iaas.network.type.dto.EquipmentTypeDTO;
+import dz.mdn.iaas.network.type.model.EquipmentType;
+import dz.mdn.iaas.network.type.repository.EquipmentTypeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

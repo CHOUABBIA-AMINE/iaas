@@ -29,11 +29,11 @@ import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.repository.OperationalStatusRepository;
 import dz.mdn.iaas.network.core.dto.EquipmentDTO;
 import dz.mdn.iaas.network.core.model.Equipment;
-import dz.mdn.iaas.network.core.model.EquipmentType;
 import dz.mdn.iaas.network.core.model.Facility;
 import dz.mdn.iaas.network.core.repository.EquipmentRepository;
-import dz.mdn.iaas.network.core.repository.EquipmentTypeRepository;
 import dz.mdn.iaas.network.core.repository.FacilityRepository;
+import dz.mdn.iaas.network.type.model.EquipmentType;
+import dz.mdn.iaas.network.type.repository.EquipmentTypeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

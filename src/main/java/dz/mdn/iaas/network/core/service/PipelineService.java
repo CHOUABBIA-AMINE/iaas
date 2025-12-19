@@ -82,13 +82,13 @@ public class PipelineService extends GenericService<Pipeline, PipelineDTO, Long>
         if (dto.getDepartureTerminalId() != null) {
             Facility facility = facilityRepository.findById(dto.getDepartureTerminalId())
                     .orElseThrow(() -> new RuntimeException("Departure terminal not found with id: " + dto.getDepartureTerminalId()));
-            entity.setDepartureTerminal(facility);
+            entity.setDepartureFacility(facility);
         }
         
         if (dto.getArrivalTerminalId() != null) {
             Facility facility = facilityRepository.findById(dto.getArrivalTerminalId())
                     .orElseThrow(() -> new RuntimeException("Arrival terminal not found with id: " + dto.getArrivalTerminalId()));
-            entity.setArrivalTerminal(facility);
+            entity.setArrivalFacility(facility);
         }
         
         return entity;
@@ -113,13 +113,13 @@ public class PipelineService extends GenericService<Pipeline, PipelineDTO, Long>
         if (dto.getDepartureTerminalId() != null) {
             Facility facility = facilityRepository.findById(dto.getDepartureTerminalId())
                     .orElseThrow(() -> new RuntimeException("Departure terminal not found with id: " + dto.getDepartureTerminalId()));
-            entity.setDepartureTerminal(facility);
+            entity.setDepartureFacility(facility);
         }
         
         if (dto.getArrivalTerminalId() != null) {
             Facility facility = facilityRepository.findById(dto.getArrivalTerminalId())
                     .orElseThrow(() -> new RuntimeException("Arrival terminal not found with id: " + dto.getArrivalTerminalId()));
-            entity.setArrivalTerminal(facility);
+            entity.setArrivalFacility(facility);
         }
     }
 

@@ -57,7 +57,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Location")
-@Table(name="T_03_01_03", uniqueConstraints = { @UniqueConstraint(name="T_03_01_03_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_02_02", uniqueConstraints = { @UniqueConstraint(name="T_03_02_02_UK_01", columnNames={"F_02"}) })
 public class Location extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)
@@ -76,7 +76,7 @@ public class Location extends GenericModel {
     private Double elevation;
 
     @ManyToOne
-    @JoinColumn(name = "F_06", foreignKey=@ForeignKey(name="T_03_01_03_FK_01"), nullable = false)
+    @JoinColumn(name = "F_06", foreignKey=@ForeignKey(name="T_03_02_02_FK_01"), nullable = false)
     private Locality locality;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)

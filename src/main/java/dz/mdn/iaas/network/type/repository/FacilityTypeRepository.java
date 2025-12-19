@@ -6,13 +6,13 @@
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Repository
- *	@Layer		: Network / Repository
- *	@Package	: Network / Repository
+ *	@Type		: Interface
+ *	@Layer		: Repository
+ *	@Package	: Network / Type
  *
  **/
 
-package dz.mdn.iaas.network.core.repository;
+package dz.mdn.iaas.network.type.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +21,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import dz.mdn.iaas.network.core.model.FacilityType;
+import dz.mdn.iaas.network.type.model.FacilityType;
 
 @Repository
 public interface FacilityTypeRepository extends JpaRepository<FacilityType, Long> {

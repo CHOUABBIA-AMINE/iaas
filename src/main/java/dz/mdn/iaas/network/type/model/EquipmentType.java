@@ -12,7 +12,7 @@
  *
  **/
 
-package dz.mdn.iaas.network.core.model;
+package dz.mdn.iaas.network.type.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
@@ -44,8 +44,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="EquipmentType")
-@Table(name="T_03_02_02", uniqueConstraints = { @UniqueConstraint(name="T_03_02_02_UK_01", columnNames={"F_01"}),
-												@UniqueConstraint(name="T_03_02_02_UK_02", columnNames={"F_04"})})
+@Table(name="T_03_01_08", uniqueConstraints = { @UniqueConstraint(name="T_03_01_08_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_01_08_UK_02", columnNames={"F_04"})})
 public class EquipmentType extends GenericModel {
 
     @Column(name="F_01", length=20, nullable=false)

@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: VendorType
+ *	@Name		: CompanyType
  *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
@@ -13,11 +13,13 @@
  **/
 
 
-package dz.mdn.iaas.network.common.model;
+package dz.mdn.iaas.network.type.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -33,9 +35,10 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="VendorType")
-@Table(name="T_03_01_08", uniqueConstraints = { @UniqueConstraint(name="T_03_01_08_UK_01", columnNames={"F_03"})})
-public class VendorType extends GenericModel {
+@Entity(name="CompanyType")
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="T_03_01_01", uniqueConstraints = { @UniqueConstraint(name="T_03_01_01_UK_01", columnNames={"F_03"})})
+public class CompanyType extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=true)
     private String designationAr;

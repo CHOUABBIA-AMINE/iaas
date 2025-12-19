@@ -26,7 +26,7 @@ import org.springframework.stereotype.Repository;
 import dz.mdn.iaas.network.common.model.Location;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.core.model.Facility;
-import dz.mdn.iaas.network.core.model.FacilityType;
+import dz.mdn.iaas.network.type.model.FacilityType;
 
 @Repository
 public interface FacilityRepository extends JpaRepository<Facility, Long> {

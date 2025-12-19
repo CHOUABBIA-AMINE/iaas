@@ -56,7 +56,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity(name="Facility")
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="T_03_01_03", uniqueConstraints = { @UniqueConstraint(name="T_03_02_03_UK_01", columnNames={"F_01"}) })
+@Table(name="T_03_03_01", uniqueConstraints = { @UniqueConstraint(name="T_03_03_01_UK_01", columnNames={"F_01"}) })
 public class Infrastructure extends GenericModel {
 
 	@Column(name="F_01", length=20, nullable=false)
@@ -75,7 +75,7 @@ public class Infrastructure extends GenericModel {
     private LocalDate decommissioningDate;
     
     @ManyToOne
-    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_03_03_01_FK_01"), nullable=false)
     private OperationalStatus operationalStatus;
     
 }

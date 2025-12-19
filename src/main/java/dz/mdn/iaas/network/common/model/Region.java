@@ -47,8 +47,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Region")
-@Table(name="T_03_01_02", uniqueConstraints = { @UniqueConstraint(name="T_03_01_02_UK_01", columnNames={"F_01"}),
-												@UniqueConstraint(name="T_03_01_02_UK_02", columnNames={"F_02"})})
+@Table(name="T_03_02_03", uniqueConstraints = { @UniqueConstraint(name="T_03_02_03_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_02_03_UK_02", columnNames={"F_02"})})
 public class Region extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)
@@ -58,10 +58,10 @@ public class Region extends GenericModel {
     private String code;
 
 	@ManyToOne
-    @JoinColumn(name = "F_03", foreignKey=@ForeignKey(name="T_03_01_02_FK_01"), nullable = false)
+    @JoinColumn(name = "F_03", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable = false)
     private Location location;
 	
 	@ManyToOne
-    @JoinColumn(name = "F_04", foreignKey=@ForeignKey(name="T_03_01_02_FK_02"), nullable = false)
+    @JoinColumn(name = "F_04", foreignKey=@ForeignKey(name="T_03_02_03_FK_02"), nullable = false)
     private Zone zone;
 }

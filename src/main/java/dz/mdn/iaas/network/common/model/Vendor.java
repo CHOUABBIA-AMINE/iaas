@@ -17,6 +17,7 @@ package dz.mdn.iaas.network.common.model;
 
 import dz.mdn.iaas.common.administration.model.Country;
 import dz.mdn.iaas.configuration.template.GenericModel;
+import dz.mdn.iaas.network.type.model.VendorType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -38,7 +39,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Vendor")
-@Table(name="T_03_10_09", uniqueConstraints = { @UniqueConstraint(name="T_03_01_10_UK_01", columnNames={"F_03"})})
+@Table(name="T_03_02_08", uniqueConstraints = { @UniqueConstraint(name="T_03_02_08_UK_01", columnNames={"F_03"})})
 public class Vendor extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=true)
@@ -48,10 +49,10 @@ public class Vendor extends GenericModel {
     private String shortName;
 
 	@ManyToOne
-    @JoinColumn(name = "F_03", foreignKey=@ForeignKey(name="T_03_01_10_FK_01"), nullable = false)
+    @JoinColumn(name = "F_03", foreignKey=@ForeignKey(name="T_03_02_08_FK_01"), nullable = false)
     private VendorType vendorType;
 	
 	@ManyToOne
-    @JoinColumn(name = "F_04", foreignKey=@ForeignKey(name="T_03_01_10_FK_02"), nullable = false)
+    @JoinColumn(name = "F_04", foreignKey=@ForeignKey(name="T_03_02_08_FK_02"), nullable = false)
     private Country country;
 }

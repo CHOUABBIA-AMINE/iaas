@@ -48,8 +48,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Zone")
-@Table(name="T_03_01_01", uniqueConstraints = { @UniqueConstraint(name="T_03_01_01_UK_01", columnNames={"F_01"}),
-												@UniqueConstraint(name="T_03_01_01_UK_02", columnNames={"F_02"})})
+@Table(name="T_03_02_01", uniqueConstraints = { @UniqueConstraint(name="T_03_01_02_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_01_02_UK_02", columnNames={"F_02"})})
 
 public class Zone extends GenericModel {
 

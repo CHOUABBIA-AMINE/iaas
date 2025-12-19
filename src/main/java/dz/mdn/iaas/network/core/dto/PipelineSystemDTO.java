@@ -53,9 +53,9 @@ public class PipelineSystemDTO extends GenericDTO<PipelineSystem> {
     @Size(max = 50, message = "Code must not exceed 50 characters")
     private String code;
 
-    @NotBlank(message = "Designation is required")
-    @Size(max = 100, message = "Designation must not exceed 100 characters")
-    private String designation;
+    @NotBlank(message = "Name is required")
+    @Size(max = 100, message = "Name must not exceed 100 characters")
+    private String name;
 
     @NotNull(message = "Product is required")
     private Long productId;
@@ -71,7 +71,7 @@ public class PipelineSystemDTO extends GenericDTO<PipelineSystem> {
         PipelineSystem system = new PipelineSystem();
         system.setId(getId());
         system.setCode(this.code);
-        system.setDesignation(this.designation);
+        system.setName(this.name);
         
         if (this.productId != null) {
             Product product = new Product();
@@ -97,7 +97,7 @@ public class PipelineSystemDTO extends GenericDTO<PipelineSystem> {
     @Override
     public void updateEntity(PipelineSystem system) {
         if (this.code != null) system.setCode(this.code);
-        if (this.designation != null) system.setDesignation(this.designation);
+        if (this.name != null) system.setName(this.name);
         
         if (this.productId != null) {
             Product product = new Product();
@@ -124,7 +124,7 @@ public class PipelineSystemDTO extends GenericDTO<PipelineSystem> {
         return PipelineSystemDTO.builder()
                 .id(system.getId())
                 .code(system.getCode())
-                .designation(system.getDesignation())
+                .name(system.getName())
                 .productId(system.getProduct() != null ? system.getProduct().getId() : null)
                 .operationalStatusId(system.getOperationalStatus() != null ? system.getOperationalStatus().getId() : null)
                 .regionId(system.getRegion() != null ? system.getRegion().getId() : null)

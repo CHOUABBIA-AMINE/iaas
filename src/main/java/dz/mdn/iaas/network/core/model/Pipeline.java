@@ -14,17 +14,14 @@
 
 package dz.mdn.iaas.network.core.model;
 
-import java.time.LocalDate;
-
-import dz.mdn.iaas.configuration.template.GenericModel;
-import dz.mdn.iaas.network.common.model.OperationalStatus;
+import dz.mdn.iaas.network.common.model.Alloy;
+import dz.mdn.iaas.network.common.model.Vendor;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,7 +32,7 @@ import lombok.ToString;
 /**
  * Pipeline Entity - Extends GenericModel
  * 
- * Database table: T_03_02_06
+ * Database table: T_03_03_07
  * Primary key: F_00 (id) - inherited from GenericModel
  * 
  * Fields:
@@ -58,37 +55,64 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Pipeline")
-@Table(name="T_03_02_09", uniqueConstraints = { @UniqueConstraint(name="T_03_02_09_UK_01", columnNames={"F_01"}) })
-public class Pipeline extends Infrastructure {
+@Table(name="T_03_03_07")
+public class Pipeline extends Infrastructure {  
+    
+    @Column(name="F_07", nullable=false)
+    private Double nominalDiameter;
 
-    @Column(name="F_01", length=50, nullable=false)
-    private String code;
-
-    @Column(name="F_02", nullable=false)
-    private Double diameter;
-
-    @Column(name="F_03", nullable=false)
+    @Column(name="F_08", nullable=false)
     private Double length;
 
-    @Column(name="F_04", nullable=false)
-    private Double maxPressure;
+    @Column(name="F_09", nullable=false)
+    private Double nominalThikness;
 
-    @Column(name="F_06", nullable=false)
-    private LocalDate commissioningDate;
+    @Column(name="F_10", nullable=false)
+    private Double nominalRoughness;
+
+    @Column(name="F_11", nullable=false)
+    private Double designMaxServicePressure;
+
+    @Column(name="F_12", nullable=false)
+    private Double realMaxServicePressure;
+
+    @Column(name="F_13", nullable=false)
+    private Double designMinServicePressure;
+
+    @Column(name="F_14", nullable=false)
+    private Double realMinServicePressure;
+
+    @Column(name="F_15", nullable=false)
+    private Double designCapacity;
+
+    @Column(name="F_16", nullable=false)
+    private Double realCapacity;
 
     @ManyToOne
-    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_03_02_06_FK_01"), nullable=false)
-    private OperationalStatus operationalStatus;
+    @JoinColumn(name="F_17", foreignKey=@ForeignKey(name="T_03_03_07_FK_01"), nullable=false)
+    private Alloy nominalConstructionMaterial;
 
     @ManyToOne
-    @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_02_06_FK_02"), nullable=false)
+    @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_03_03_07_FK_02"), nullable=false)
+    private Alloy nominalExteriorCoating;
+
+    @ManyToOne
+    @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_03_03_07_FK_03"), nullable=false)
+    private Alloy nominalInteriorCoating;
+
+	@ManyToOne
+    @JoinColumn(name="F_20", foreignKey=@ForeignKey(name="T_03_03_07_FK_04"), nullable=false)
+    private Vendor vendor;
+	
+    @ManyToOne
+    @JoinColumn(name="F_21", foreignKey=@ForeignKey(name="T_03_03_07_FK_05"), nullable=false)
     private PipelineSystem pipelineSystem;
 
     @ManyToOne
-    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_02_06_FK_03"), nullable=false)
-    private Facility departureTerminal;
+    @JoinColumn(name="F_22", foreignKey=@ForeignKey(name="T_03_03_07_FK_06"), nullable=false)
+    private Facility departureFacility;
 
     @ManyToOne
-    @JoinColumn(name="F_10", foreignKey=@ForeignKey(name="T_03_02_06_FK_04"), nullable=false)
-    private Facility arrivalTerminal;
+    @JoinColumn(name="F_23", foreignKey=@ForeignKey(name="T_03_03_07_FK_07"), nullable=false)
+    private Facility arrivalFacility;
 }

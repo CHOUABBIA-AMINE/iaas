@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: Facility
+ *	@Name		: Station
  *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
@@ -17,20 +17,17 @@ package dz.mdn.iaas.network.core.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import dz.mdn.iaas.network.common.model.Location;
-import dz.mdn.iaas.network.common.model.Vendor;
-import jakarta.persistence.CascadeType;
+import dz.mdn.iaas.network.type.model.StationType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,24 +52,23 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="Facility")
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="T_03_03_02", uniqueConstraints = { @UniqueConstraint(name="T_03_03_02_UK_01", columnNames={"F_02"}) })
-public class Facility extends Infrastructure {
+@Entity(name="Station")
+@Table(name="T_03_03_03", uniqueConstraints = { @UniqueConstraint(name="T_03_03_03_UK_01", columnNames={"F_02"}) })
+public class Station extends Facility {
 
-	@ManyToOne
-    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable=false)
-    private Vendor vendor;
-    
     @ManyToOne
-    @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable=false)
-    private Location location;
-    
-    @Builder.Default
-    @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
-    private Set<Equipment> equipments = new HashSet<>();
+    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_03_03_FK_01"), nullable=false)
+    private StationType stationType;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "R_T030303_T030307",
+        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T030303_T030307_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T030303_T030307_FK_02")),
+        uniqueConstraints = @UniqueConstraint(name = "R_T030303_T030307_UK_01", columnNames = {"F_01", "F_02"})
+    )
+    private Set<Pipeline> pipelines = new HashSet<>();
+    
 }

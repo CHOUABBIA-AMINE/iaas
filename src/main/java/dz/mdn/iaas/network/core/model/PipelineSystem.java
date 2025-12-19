@@ -53,24 +53,24 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="PipelineSystem")
-@Table(name="T_03_02_05", uniqueConstraints = { @UniqueConstraint(name="T_03_02_05_UK_01", columnNames={"F_01"}) })
+@Table(name="T_03_03_06", uniqueConstraints = { @UniqueConstraint(name="T_03_03_06_UK_01", columnNames={"F_01"}) })
 public class PipelineSystem extends GenericModel {
 
     @Column(name="F_01", length=50, nullable=false)
     private String code;
 
     @Column(name="F_02", length=100, nullable=false)
-    private String designation;
+    private String name;
 
     @ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_03_02_05_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_03_03_06_FK_01"), nullable=false)
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_03_02_05_FK_02"), nullable=false)
+    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_03_03_06_FK_02"), nullable=false)
     private OperationalStatus operationalStatus;
 
     @ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_02_05_FK_03"), nullable=false)
+    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_03_06_FK_03"), nullable=false)
     private Region region;
 }

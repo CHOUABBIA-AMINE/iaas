@@ -31,9 +31,7 @@ import dz.mdn.iaas.network.common.repository.LocationRepository;
 import dz.mdn.iaas.network.common.repository.OperationalStatusRepository;
 import dz.mdn.iaas.network.core.dto.FacilityDTO;
 import dz.mdn.iaas.network.core.model.Facility;
-import dz.mdn.iaas.network.core.model.FacilityType;
 import dz.mdn.iaas.network.core.repository.FacilityRepository;
-import dz.mdn.iaas.network.core.repository.FacilityTypeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,7 +44,6 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
     private final FacilityRepository facilityRepository;
     private final OperationalStatusRepository operationalStatusRepository;
     private final LocationRepository locationRepository;
-    private final FacilityTypeRepository facilityTypeRepository;
 
     @Override
     protected JpaRepository<Facility, Long> getRepository() {
@@ -79,12 +76,6 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
             entity.setLocation(location);
         }
         
-        if (dto.getFacilityTypeId() != null) {
-            FacilityType type = facilityTypeRepository.findById(dto.getFacilityTypeId())
-                    .orElseThrow(() -> new RuntimeException("Facility type not found with id: " + dto.getFacilityTypeId()));
-            entity.setFacilityType(type);
-        }
-        
         return entity;
     }
 
@@ -102,12 +93,6 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
             Location location = locationRepository.findById(dto.getLocationId())
                     .orElseThrow(() -> new RuntimeException("Location not found with id: " + dto.getLocationId()));
             entity.setLocation(location);
-        }
-        
-        if (dto.getFacilityTypeId() != null) {
-            FacilityType type = facilityTypeRepository.findById(dto.getFacilityTypeId())
-                    .orElseThrow(() -> new RuntimeException("Facility type not found with id: " + dto.getFacilityTypeId()));
-            entity.setFacilityType(type);
         }
     }
 

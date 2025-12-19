@@ -50,7 +50,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Product")
-@Table(name="T_03_01_04", uniqueConstraints = { @UniqueConstraint(name="T_03_01_04_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_02_04", uniqueConstraints = { @UniqueConstraint(name="T_03_02_04_UK_01", columnNames={"F_02"}) })
 public class Product extends GenericModel {
 
     @Column(name="F_01", length=100, nullable=false)

@@ -12,11 +12,13 @@
  *
  **/
 
-package dz.mdn.iaas.network.core.model;
+package dz.mdn.iaas.network.type.model;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -44,8 +46,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="FacilityType")
-@Table(name="T_03_02_01", uniqueConstraints = { @UniqueConstraint(name="T_03_02_01_UK_01", columnNames={"F_01"}),
-												@UniqueConstraint(name="T_03_02_01_UK_02", columnNames={"F_04"})})
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="T_03_01_04", uniqueConstraints = { @UniqueConstraint(name="T_03_01_04_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_01_04_UK_02", columnNames={"F_04"})})
 public class FacilityType extends GenericModel {
 
     @Column(name="F_01", length=20, nullable=false)

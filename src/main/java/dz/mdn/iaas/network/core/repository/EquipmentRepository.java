@@ -25,8 +25,8 @@ import org.springframework.stereotype.Repository;
 
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.core.model.Equipment;
-import dz.mdn.iaas.network.core.model.EquipmentType;
 import dz.mdn.iaas.network.core.model.Facility;
+import dz.mdn.iaas.network.type.model.EquipmentType;
 
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long> {

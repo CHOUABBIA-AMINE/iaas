@@ -40,7 +40,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Alloy")
-@Table(name="T_03_01_06", uniqueConstraints = {@UniqueConstraint(name="T_03_01_06_UK_01", columnNames = "F_01")})
+@Table(name="T_03_02_06", uniqueConstraints = {@UniqueConstraint(name="T_03_02_06_UK_01", columnNames = "F_01")})
 public class Alloy extends GenericModel {
 
 	@Column(name = "F_01", nullable = false, unique = true, length = 20)
@@ -53,9 +53,9 @@ public class Alloy extends GenericModel {
     private Set<PipelineSegment> pipelineSegments = new HashSet<>();
 
     @OneToMany(mappedBy = "innerCoating", cascade = CascadeType.ALL)
-    private Set<PipelineSegment> segmentsInnerCaoting = new HashSet<>();
+    private Set<PipelineSegment> segmentsInnerCaoted = new HashSet<>();
 
     @OneToMany(mappedBy = "outerCoating", cascade = CascadeType.ALL)
-    private Set<PipelineSegment> segmentsOuterCaoting = new HashSet<>();
+    private Set<PipelineSegment> segmentsOuterCaoted = new HashSet<>();
     
 }

@@ -2,17 +2,17 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: EquipmentTypeController
+ *	@Name		: FacilityTypeController
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-12-2025
  *
  *	@Type		: Class
  *	@Layer		: Controller
- *	@Package	: Network / Common 
+ *	@Package	: Network / Type 
  *
  **/
 
-package dz.mdn.iaas.network.core.controller;
+package dz.mdn.iaas.network.type.controller;
 
 import java.util.List;
 
@@ -26,35 +26,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dz.mdn.iaas.configuration.template.GenericController;
-import dz.mdn.iaas.network.core.dto.EquipmentTypeDTO;
-import dz.mdn.iaas.network.core.service.EquipmentTypeService;
+import dz.mdn.iaas.network.type.dto.FacilityTypeDTO;
+import dz.mdn.iaas.network.type.service.FacilityTypeService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/network/equipmentType")
+@RequestMapping("/network/facilityType")
 @Slf4j
-public class EquipmentTypeController extends GenericController<EquipmentTypeDTO, Long> {
+public class FacilityTypeController extends GenericController<FacilityTypeDTO, Long> {
 
     @SuppressWarnings("unused")
-	private final EquipmentTypeService equipmentTypeService;
+	private final FacilityTypeService facilityTypeService;
 
-    public EquipmentTypeController(EquipmentTypeService equipmentTypeService) {
-        super(equipmentTypeService, "EquipmentType");
-        this.equipmentTypeService = equipmentTypeService;
+    public FacilityTypeController(FacilityTypeService facilityTypeService) {
+        super(facilityTypeService, "FacilityType");
+        this.facilityTypeService = facilityTypeService;
     }
 
     // ========== SECURED CRUD OPERATIONS ==========
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:READ')")
-    public ResponseEntity<EquipmentTypeDTO> getById(@PathVariable Long id) {
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:READ')")
+    public ResponseEntity<FacilityTypeDTO> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:READ')")
-    public ResponseEntity<Page<EquipmentTypeDTO>> getAll(
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:READ')")
+    public ResponseEntity<Page<FacilityTypeDTO>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(defaultValue = "id") String sortBy,
@@ -63,32 +63,32 @@ public class EquipmentTypeController extends GenericController<EquipmentTypeDTO,
     }
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:READ')")
-    public ResponseEntity<List<EquipmentTypeDTO>> getAll() {
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:READ')")
+    public ResponseEntity<List<FacilityTypeDTO>> getAll() {
         return super.getAll();
     }
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:ADMIN')")
-    public ResponseEntity<EquipmentTypeDTO> create(@Valid @RequestBody EquipmentTypeDTO dto) {
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:ADMIN')")
+    public ResponseEntity<FacilityTypeDTO> create(@Valid @RequestBody FacilityTypeDTO dto) {
         return super.create(dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:ADMIN')")
-    public ResponseEntity<EquipmentTypeDTO> update(@PathVariable Long id, @Valid @RequestBody EquipmentTypeDTO dto) {
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:ADMIN')")
+    public ResponseEntity<FacilityTypeDTO> update(@PathVariable Long id, @Valid @RequestBody FacilityTypeDTO dto) {
         return super.update(id, dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         return super.delete(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:READ')")
-    public ResponseEntity<Page<EquipmentTypeDTO>> search(
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:READ')")
+    public ResponseEntity<Page<FacilityTypeDTO>> search(
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -98,13 +98,13 @@ public class EquipmentTypeController extends GenericController<EquipmentTypeDTO,
     }
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:READ')")
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:READ')")
     public ResponseEntity<Boolean> exists(@PathVariable Long id) {
         return super.exists(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('EQUIPMENT_TYPE:READ')")
+    @PreAuthorize("hasAuthority('FACILITY_TYPE:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
     }
