@@ -28,22 +28,24 @@ import dz.mdn.iaas.network.core.model.Equipment;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM Equipment e WHERE e.code = :code")
-    boolean existsByCode(@Param("code") String code);
-
-    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM Equipment e WHERE e.code = :code AND e.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
     
-    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM Equipment e WHERE e.serialNumber = :serialNumber")
-    boolean existsBySerialNumber(@Param("serialNumber") String serialNumber);
-
-    @Query("SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM Equipment e WHERE e.serialNumber = :serialNumber AND e.id != :id")
-    boolean existsBySerialNumberAndIdNot(@Param("serialNumber") String serialNumber, @Param("id") Long id);
-
-    @Query("SELECT e FROM Equipment e WHERE LOWER(e.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(e.name) LIKE LOWER(CONCAT('%', :search, '%'))")
-    Page<Equipment> searchByAnyField(@Param("search") String search, Pageable pageable);
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
+    
+    boolean existsBySerialNumber(String serialNumber);
+    
+    boolean existsBySerialNumberAndIdNot(String serialNumber, Long id);
     
     List<Equipment> findByFacilityId(Long facilityId);
     
     List<Equipment> findByEquipmentTypeId(Long equipmentTypeId);
+
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT e FROM Equipment e WHERE "
+         + "LOWER(e.code) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(e.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<Equipment> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

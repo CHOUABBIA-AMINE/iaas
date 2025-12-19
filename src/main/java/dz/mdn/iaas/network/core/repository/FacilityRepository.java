@@ -28,16 +28,20 @@ import dz.mdn.iaas.network.core.model.Facility;
 @Repository
 public interface FacilityRepository extends JpaRepository<Facility, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END FROM Facility f WHERE f.code = :code")
-    boolean existsByCode(@Param("code") String code);
-
-    @Query("SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END FROM Facility f WHERE f.code = :code AND f.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT f FROM Facility f WHERE LOWER(f.name) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(f.code) LIKE LOWER(CONCAT('%', :search, '%'))")
-    Page<Facility> searchByAnyField(@Param("search") String search, Pageable pageable);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
     
     List<Facility> findByLocationId(Long locationId);
     
     List<Facility> findByFacilityTypeId(Long facilityTypeId);
+
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT f FROM Facility f WHERE "
+         + "LOWER(f.name) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(f.code) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<Facility> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

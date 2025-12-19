@@ -8,7 +8,7 @@
  *
  *	@Type		: Repository
  *	@Layer		: Network / Repository
- *	@Package	: Network / Repository
+ *	@Package	: Network / Core
  *
  **/
 
@@ -26,12 +26,15 @@ import dz.mdn.iaas.network.core.model.HydrocarbonField;
 @Repository
 public interface HydrocarbonFieldRepository extends JpaRepository<HydrocarbonField, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(h) > 0 THEN true ELSE false END FROM HydrocarbonField h WHERE h.code = :code")
-    boolean existsByCode(@Param("code") String code);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
 
-    @Query("SELECT CASE WHEN COUNT(h) > 0 THEN true ELSE false END FROM HydrocarbonField h WHERE h.code = :code AND h.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT h FROM HydrocarbonField h WHERE LOWER(h.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(h.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT h FROM HydrocarbonField h WHERE "
+         + "LOWER(h.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<HydrocarbonField> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

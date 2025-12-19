@@ -8,7 +8,7 @@
  *
  *	@Type		: Repository
  *	@Layer		: Network / Repository
- *	@Package	: Network / Repository
+ *	@Package	: Network / Core
  *
  **/
 
@@ -26,12 +26,15 @@ import dz.mdn.iaas.network.core.model.Terminal;
 @Repository
 public interface TerminalRepository extends JpaRepository<Terminal, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(t) > 0 THEN true ELSE false END FROM Terminal t WHERE t.code = :code")
-    boolean existsByCode(@Param("code") String code);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
 
-    @Query("SELECT CASE WHEN COUNT(t) > 0 THEN true ELSE false END FROM Terminal t WHERE t.code = :code AND t.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT t FROM Terminal t WHERE LOWER(t.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(t.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT t FROM Terminal t WHERE "
+         + "LOWER(t.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Terminal> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

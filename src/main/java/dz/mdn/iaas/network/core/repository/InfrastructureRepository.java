@@ -8,7 +8,7 @@
  *
  *	@Type		: Repository
  *	@Layer		: Network / Repository
- *	@Package	: Network / Repository
+ *	@Package	: Network / Core
  *
  **/
 
@@ -26,12 +26,15 @@ import dz.mdn.iaas.network.core.model.Infrastructure;
 @Repository
 public interface InfrastructureRepository extends JpaRepository<Infrastructure, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(i) > 0 THEN true ELSE false END FROM Infrastructure i WHERE i.code = :code")
-    boolean existsByCode(@Param("code") String code);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
 
-    @Query("SELECT CASE WHEN COUNT(i) > 0 THEN true ELSE false END FROM Infrastructure i WHERE i.code = :code AND i.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT i FROM Infrastructure i WHERE LOWER(i.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(i.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT i FROM Infrastructure i WHERE "
+         + "LOWER(i.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Infrastructure> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

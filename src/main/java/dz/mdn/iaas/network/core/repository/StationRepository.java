@@ -8,7 +8,7 @@
  *
  *	@Type		: Repository
  *	@Layer		: Network / Repository
- *	@Package	: Network / Repository
+ *	@Package	: Network / Core
  *
  **/
 
@@ -26,12 +26,15 @@ import dz.mdn.iaas.network.core.model.Station;
 @Repository
 public interface StationRepository extends JpaRepository<Station, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END FROM Station s WHERE s.code = :code")
-    boolean existsByCode(@Param("code") String code);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
 
-    @Query("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END FROM Station s WHERE s.code = :code AND s.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT s FROM Station s WHERE LOWER(s.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(s.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT s FROM Station s WHERE "
+         + "LOWER(s.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Station> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

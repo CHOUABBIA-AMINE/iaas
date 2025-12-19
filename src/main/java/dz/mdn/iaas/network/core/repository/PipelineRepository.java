@@ -28,14 +28,17 @@ import dz.mdn.iaas.network.core.model.Pipeline;
 @Repository
 public interface PipelineRepository extends JpaRepository<Pipeline, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Pipeline p WHERE p.code = :code")
-    boolean existsByCode(@Param("code") String code);
-
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Pipeline p WHERE p.code = :code AND p.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
-
-    @Query("SELECT p FROM Pipeline p WHERE LOWER(p.code) LIKE LOWER(CONCAT('%', :search, '%'))")
-    Page<Pipeline> searchByAnyField(@Param("search") String search, Pageable pageable);
-
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    boolean existsByCode(String code);
+    
+    boolean existsByCodeAndIdNot(String code, Long id);
+    
     List<Pipeline> findByPipelineSystemId(Long pipelineSystemId);
+
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT p FROM Pipeline p WHERE "
+         + "LOWER(p.code) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<Pipeline> searchByAnyField(@Param("search") String search, Pageable pageable);
 }
