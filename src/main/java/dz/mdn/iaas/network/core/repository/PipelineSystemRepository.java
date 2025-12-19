@@ -14,6 +14,8 @@
 
 package dz.mdn.iaas.network.core.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,6 +33,12 @@ public interface PipelineSystemRepository extends JpaRepository<PipelineSystem, 
     boolean existsByCode(String code);
     
     boolean existsByCodeAndIdNot(String code, Long id);
+    
+    List<PipelineSystem> findByProductId(Long productId);
+
+    List<PipelineSystem> findByOperationalStatusId(Long operationalStatusId);
+
+    List<PipelineSystem> findByRegionId(Long regionId);
 
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
