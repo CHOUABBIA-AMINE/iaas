@@ -52,31 +52,63 @@ public class AlloyDTO extends GenericDTO<Alloy> {
     @Size(max = 20, message = "Code must not exceed 20 characters")
     private String code;
 
-    @Size(max = 500, message = "Description must not exceed 500 characters")
-    private String description;
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationAr;
+
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationEn;
+
+    @NotBlank(message = "Designation is required")
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationFr;
+    
+    @Size(max = 100, message = "Arabic decsription must not exceed 100 characters")
+    private String descriptionAr;
+
+    @Size(max = 100, message = "English decsription must not exceed 100 characters")
+    private String descriptionEn;
+
+    @NotBlank(message = "French decsription is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String descriptionFr;
 
     @Override
     public Alloy toEntity() {
-        Alloy alloy = new Alloy();
-        alloy.setId(getId());
-        alloy.setCode(this.code);
-        alloy.setDescription(this.description);
-        return alloy;
+        Alloy entity = new Alloy();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setDescriptionAr(this.descriptionAr);
+        entity.setDescriptionEn(this.descriptionEn);
+        entity.setDescriptionFr(this.descriptionFr);
+        return entity;
     }
 
     @Override
-    public void updateEntity(Alloy alloy) {
-        if (this.code != null) alloy.setCode(this.code);
-        if (this.description != null) alloy.setDescription(this.description);
+    public void updateEntity(Alloy entity) {
+        if (this.code != null) { entity.setCode(this.code); }
+        if (this.designationAr != null) { entity.setDesignationAr(this.designationAr); }
+        if (this.designationEn != null) { entity.setDesignationEn(this.designationEn); }
+        if (this.designationFr != null) { entity.setDesignationFr(this.designationFr); }
+        if (this.descriptionAr != null) { entity.setDescriptionAr(this.descriptionAr); }
+        if (this.descriptionEn != null) { entity.setDescriptionEn(this.descriptionEn); }
+        if (this.descriptionFr != null) { entity.setDescriptionFr(this.descriptionFr); }
     }
 
-    public static AlloyDTO fromEntity(Alloy alloy) {
-        if (alloy == null) return null;
+    public static AlloyDTO fromEntity(Alloy entity) {
+        if (entity == null) return null;
         
         return AlloyDTO.builder()
-                .id(alloy.getId())
-                .code(alloy.getCode())
-                .description(alloy.getDescription())
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .descriptionAr(entity.getDescriptionAr())
+                .descriptionEn(entity.getDescriptionEn())
+                .descriptionFr(entity.getDescriptionFr())
                 .build();
     }
 }

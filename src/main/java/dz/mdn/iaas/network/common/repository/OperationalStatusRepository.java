@@ -26,18 +26,18 @@ import dz.mdn.iaas.network.common.model.OperationalStatus;
 @Repository
 public interface OperationalStatusRepository extends JpaRepository<OperationalStatus, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM OperationalStatus p WHERE p.code = :code")
-    boolean existsByCode(@Param("code") String code);
-
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM OperationalStatus p WHERE p.code = :code AND p.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
+	// ========== SPRING DERIVED QUERIES (Optimized) ==========
     
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM OperationalStatus p WHERE p.designationFr = :designationFr")
-    boolean existsByDesignationFr(@Param("designationFr") String designationFr);
-
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM OperationalStatus p WHERE p.designationFr = :designationFr AND p.id != :id")
-    boolean existsByDesignationFrAndIdNot(@Param("designationFr") String designationFr, @Param("id") Long id);
+    boolean existsByCode(String code);
     
+    boolean existsByCodeAndIdNot(String code, Long id);
+    
+    boolean existsByDesignationFr(String designationFr);
+    
+    boolean existsByDesignationFrAndIdNot(String designationFr, Long id);
+    
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+
     @Query("SELECT t FROM OperationalStatus t WHERE LOWER(t.code) LIKE LOWER(CONCAT('%', :search, '%'))"
             + " OR LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%'))"
             + " OR LOWER(t.designationEn) LIKE LOWER(CONCAT('%', :search, '%'))"

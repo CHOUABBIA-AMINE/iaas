@@ -31,10 +31,16 @@ public interface AlloyRepository extends JpaRepository<Alloy, Long> {
     boolean existsByCode(String code);
     
     boolean existsByCodeAndIdNot(String code, Long id);
+    
+    boolean existsByDesignationFr(String designationFr);
+    
+    boolean existsByDesignationFrAndIdNot(String designationFr, Long id);
 
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
-    @Query("SELECT a FROM Alloy a WHERE "
-         + "LOWER(a.code) LIKE LOWER(CONCAT('%', :search, '%'))")
+    @Query("SELECT a FROM Alloy a WHERE LOWER(a.code) LIKE LOWER(CONCAT('%', :search, '%'))"
+    		+ " OR LOWER(a.designationAr) LIKE LOWER(CONCAT('%', :search, '%'))"
+    		+ " OR LOWER(a.designationEn) LIKE LOWER(CONCAT('%', :search, '%'))"
+    		+ " OR LOWER(a.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Alloy> searchByAnyField(@Param("search") String search, Pageable pageable);
 }
