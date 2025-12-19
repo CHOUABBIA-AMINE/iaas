@@ -4,7 +4,7 @@
  *
  *	@Name		: ClearanceRepository
  *	@CreatedOn	: 06-26-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-19-2025
  *
  *	@Type		: Repository
  *	@Layer		: Business / Provider
@@ -16,8 +16,6 @@ package dz.mdn.iaas.business.provider.repository;
 
 import dz.mdn.iaas.business.provider.model.Clearance;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,10 +27,11 @@ import java.util.List;
 @Repository
 public interface ClearanceRepository extends JpaRepository<Clearance, Long> {
     
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
     /**
      * Find clearances by provider ID
      * Used by ClearanceService.getByProviderId()
      */
-    @Query("SELECT c FROM Clearance c WHERE c.provider.id = :providerId")
-    List<Clearance> findByProviderId(@Param("providerId") Long providerId);
+    List<Clearance> findByProviderId(Long providerId);
 }
