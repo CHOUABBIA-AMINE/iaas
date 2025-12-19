@@ -26,6 +26,11 @@ import dz.mdn.iaas.network.type.model.StationType;
 @Repository
 public interface StationTypeRepository extends JpaRepository<StationType, Long> {
 
-    @Query("SELECT t FROM StationType t WHERE LOWER(t.designation) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT t FROM StationType t WHERE "
+         + "LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationEn) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<StationType> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

@@ -26,6 +26,11 @@ import dz.mdn.iaas.network.type.model.HydrocarbonFieldType;
 @Repository
 public interface HydrocarbonFieldTypeRepository extends JpaRepository<HydrocarbonFieldType, Long> {
 
-    @Query("SELECT t FROM HydrocarbonFieldType t WHERE LOWER(t.designation) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT t FROM HydrocarbonFieldType t WHERE "
+         + "LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationEn) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<HydrocarbonFieldType> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

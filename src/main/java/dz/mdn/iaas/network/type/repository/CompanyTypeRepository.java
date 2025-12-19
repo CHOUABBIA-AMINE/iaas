@@ -26,8 +26,11 @@ import dz.mdn.iaas.network.type.model.CompanyType;
 @Repository
 public interface CompanyTypeRepository extends JpaRepository<CompanyType, Long> {
 
-    @Query("SELECT t FROM CompanyType t WHERE LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%'))"
-            + " OR LOWER(t.designationEn) LIKE LOWER(CONCAT('%', :search, '%'))"
-            + " OR LOWER(t.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT t FROM CompanyType t WHERE "
+         + "LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationEn) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<CompanyType> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

@@ -26,21 +26,22 @@ import dz.mdn.iaas.network.type.model.FacilityType;
 @Repository
 public interface FacilityTypeRepository extends JpaRepository<FacilityType, Long> {
 
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM FacilityType p WHERE p.code = :code")
-    boolean existsByCode(@Param("code") String code);
-
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM FacilityType p WHERE p.code = :code AND p.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
     
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM FacilityType p WHERE p.designationFr = :designationFr")
-    boolean existsByDesignationFr(@Param("designationFr") String designationFr);
-
-    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM FacilityType p WHERE p.designationFr = :designationFr AND p.id != :id")
-    boolean existsByDesignationFrAndIdNot(@Param("designationFr") String designationFr, @Param("id") Long id);
+    boolean existsByCode(String code);
     
-    @Query("SELECT t FROM FacilityType t WHERE LOWER(t.code) LIKE LOWER(CONCAT('%', :search, '%'))"
-            + " OR LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%'))"
-            + " OR LOWER(t.designationEn) LIKE LOWER(CONCAT('%', :search, '%'))"
-            + " OR LOWER(t.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
+    boolean existsByCodeAndIdNot(String code, Long id);
+    
+    boolean existsByDesignationFr(String designationFr);
+    
+    boolean existsByDesignationFrAndIdNot(String designationFr, Long id);
+
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
+    
+    @Query("SELECT t FROM FacilityType t WHERE "
+         + "LOWER(t.code) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationEn) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(t.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<FacilityType> searchByAnyField(@Param("search") String search, Pageable pageable);
 }
