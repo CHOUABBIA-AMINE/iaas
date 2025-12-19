@@ -29,13 +29,14 @@ import lombok.experimental.SuperBuilder;
 
 /**
  * Partner Data Transfer Object - Extends GenericDTO
+ * Maps Partner entity extending GenericModel
  * 
  * Fields:
  * - id (F_00) - inherited from GenericDTO
- * - name (F_01) - optional
- * - shortName (F_02) - unique, required
- * - partnerTypeId (F_03) - required
- * - countryId (F_04) - required
+ * - name (F_01) - optional name
+ * - shortName (F_02) - unique, required identifier
+ * - partnerTypeId (F_03) - required foreign key to PartnerType
+ * - countryId (F_04) - required foreign key to Country
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -64,6 +65,21 @@ public class PartnerDTO extends GenericDTO<Partner> {
         partner.setId(getId());
         partner.setName(this.name);
         partner.setShortName(this.shortName);
+        
+        if (this.partnerTypeId != null) {
+            dz.mdn.iaas.network.type.model.PartnerType type = 
+                new dz.mdn.iaas.network.type.model.PartnerType();
+            type.setId(this.partnerTypeId);
+            partner.setPartnerType(type);
+        }
+        
+        if (this.countryId != null) {
+            dz.mdn.iaas.common.administration.model.Country country = 
+                new dz.mdn.iaas.common.administration.model.Country();
+            country.setId(this.countryId);
+            partner.setCountry(country);
+        }
+        
         return partner;
     }
 
@@ -71,6 +87,20 @@ public class PartnerDTO extends GenericDTO<Partner> {
     public void updateEntity(Partner partner) {
         if (this.name != null) partner.setName(this.name);
         if (this.shortName != null) partner.setShortName(this.shortName);
+        
+        if (this.partnerTypeId != null) {
+            dz.mdn.iaas.network.type.model.PartnerType type = 
+                new dz.mdn.iaas.network.type.model.PartnerType();
+            type.setId(this.partnerTypeId);
+            partner.setPartnerType(type);
+        }
+        
+        if (this.countryId != null) {
+            dz.mdn.iaas.common.administration.model.Country country = 
+                new dz.mdn.iaas.common.administration.model.Country();
+            country.setId(this.countryId);
+            partner.setCountry(country);
+        }
     }
 
     public static PartnerDTO fromEntity(Partner partner) {
