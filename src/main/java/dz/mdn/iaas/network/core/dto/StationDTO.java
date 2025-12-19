@@ -21,11 +21,16 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.network.common.model.Location;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
+import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.Station;
+import dz.mdn.iaas.network.type.model.StationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -79,7 +84,7 @@ public class StationDTO extends GenericDTO<Station> {
     @NotNull(message = "Station type ID is required")
     private Long stationTypeId;
 
-    @SuperBuilder.Default
+    @Builder.Default
     private Set<Long> pipelineIds = new HashSet<>();
 
     @Override
@@ -93,29 +98,25 @@ public class StationDTO extends GenericDTO<Station> {
         station.setDecommissioningDate(this.decommissioningDate);
         
         if (this.operationalStatusId != null) {
-            dz.mdn.iaas.network.common.model.OperationalStatus status = 
-                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
             station.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
-            dz.mdn.iaas.network.common.model.Vendor vendor = 
-                new dz.mdn.iaas.network.common.model.Vendor();
+            Vendor vendor = new Vendor();
             vendor.setId(this.vendorId);
             station.setVendor(vendor);
         }
         
         if (this.locationId != null) {
-            dz.mdn.iaas.network.common.model.Location location = 
-                new dz.mdn.iaas.network.common.model.Location();
+            Location location = new Location();
             location.setId(this.locationId);
             station.setLocation(location);
         }
         
         if (this.stationTypeId != null) {
-            dz.mdn.iaas.network.type.model.StationType stationType = 
-                new dz.mdn.iaas.network.type.model.StationType();
+            StationType stationType = new StationType();
             stationType.setId(this.stationTypeId);
             station.setStationType(stationType);
         }
@@ -132,29 +133,25 @@ public class StationDTO extends GenericDTO<Station> {
         if (this.decommissioningDate != null) station.setDecommissioningDate(this.decommissioningDate);
         
         if (this.operationalStatusId != null) {
-            dz.mdn.iaas.network.common.model.OperationalStatus status = 
-                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
             station.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
-            dz.mdn.iaas.network.common.model.Vendor vendor = 
-                new dz.mdn.iaas.network.common.model.Vendor();
+            Vendor vendor = new Vendor();
             vendor.setId(this.vendorId);
             station.setVendor(vendor);
         }
         
         if (this.locationId != null) {
-            dz.mdn.iaas.network.common.model.Location location = 
-                new dz.mdn.iaas.network.common.model.Location();
+            Location location = new Location();
             location.setId(this.locationId);
             station.setLocation(location);
         }
         
         if (this.stationTypeId != null) {
-            dz.mdn.iaas.network.type.model.StationType stationType = 
-                new dz.mdn.iaas.network.type.model.StationType();
+            StationType stationType = new StationType();
             stationType.setId(this.stationTypeId);
             station.setStationType(stationType);
         }
