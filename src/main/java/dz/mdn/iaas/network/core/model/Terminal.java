@@ -17,7 +17,7 @@ package dz.mdn.iaas.network.core.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import dz.mdn.iaas.network.type.model.StationType;
+import dz.mdn.iaas.network.type.model.TerminalType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
@@ -68,7 +68,7 @@ public class Terminal extends Facility {
 
     @ManyToOne
     @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_03_04_FK_01"), nullable=false)
-    private StationType stationType;
+    private TerminalType terminalType;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

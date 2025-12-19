@@ -41,21 +41,31 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PartnerTypeDTO extends GenericDTO<PartnerType> {
 
-    @NotBlank(message = "Designation is required")
-    @Size(min = 2, max = 100, message = "Designation must be between 2 and 100 characters")
-    private String designation;
+	@Size(max = 100, message = "Arabic designation must not exceed 100 characters")
+    private String designationAr;
+
+    @Size(max = 100, message = "English designation must not exceed 100 characters")
+    private String designationEn;
+
+    @NotBlank(message = "French designation is required")
+    @Size(min = 2, max = 100, message = "French designation must be between 2 and 100 characters")
+    private String designationFr;
 
     @Override
     public PartnerType toEntity() {
         PartnerType type = new PartnerType();
         type.setId(getId());
-        type.setDesignation(this.designation);
+        type.setDesignationAr(this.designationAr);
+        type.setDesignationEn(this.designationEn);
+        type.setDesignationFr(this.designationFr);
         return type;
     }
 
     @Override
     public void updateEntity(PartnerType type) {
-        if (this.designation != null) type.setDesignation(this.designation);
+        if (this.designationAr != null) type.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) type.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) type.setDesignationFr(this.designationFr);
     }
 
     public static PartnerTypeDTO fromEntity(PartnerType type) {
@@ -63,7 +73,9 @@ public class PartnerTypeDTO extends GenericDTO<PartnerType> {
         
         return PartnerTypeDTO.builder()
                 .id(type.getId())
-                .designation(type.getDesignation())
+                .designationAr(type.getDesignationAr())
+                .designationEn(type.getDesignationEn())
+                .designationFr(type.getDesignationFr())
                 .build();
     }
 }

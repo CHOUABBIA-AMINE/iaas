@@ -20,7 +20,12 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.network.common.model.Location;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
+import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.HydrocarbonField;
+import dz.mdn.iaas.network.type.model.HydrocarbonFieldType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -75,11 +80,14 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
     private Long locationId;
 
     // HydrocarbonField specific fields
-    @NotNull(message = "Station type ID is required")
-    private Long stationTypeId;
+    @NotNull(message = "HydrocarbonField type ID is required")
+    private Long hydrocarbonFieldTypeId;
 
     @SuperBuilder.Default
     private Set<Long> pipelineIds = new HashSet<>();
+
+    @SuperBuilder.Default
+    private Set<Long> partnerIds = new HashSet<>();
 
     @Override
     public HydrocarbonField toEntity() {
@@ -92,31 +100,27 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
         field.setDecommissioningDate(this.decommissioningDate);
         
         if (this.operationalStatusId != null) {
-            dz.mdn.iaas.network.common.model.OperationalStatus status = 
-                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
             field.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
-            dz.mdn.iaas.network.common.model.Vendor vendor = 
-                new dz.mdn.iaas.network.common.model.Vendor();
+            Vendor vendor = new Vendor();
             vendor.setId(this.vendorId);
             field.setVendor(vendor);
         }
         
         if (this.locationId != null) {
-            dz.mdn.iaas.network.common.model.Location location = 
-                new dz.mdn.iaas.network.common.model.Location();
+            Location location = new Location();
             location.setId(this.locationId);
             field.setLocation(location);
         }
         
-        if (this.stationTypeId != null) {
-            dz.mdn.iaas.network.type.model.StationType stationType = 
-                new dz.mdn.iaas.network.type.model.StationType();
-            stationType.setId(this.stationTypeId);
-            field.setStationType(stationType);
+        if (this.hydrocarbonFieldTypeId != null) {
+        	HydrocarbonFieldType hydrocarbonFieldType = new HydrocarbonFieldType();
+        	hydrocarbonFieldType.setId(this.hydrocarbonFieldTypeId);
+            field.setHydrocarbonFieldType(hydrocarbonFieldType);
         }
         
         return field;
@@ -131,31 +135,27 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
         if (this.decommissioningDate != null) field.setDecommissioningDate(this.decommissioningDate);
         
         if (this.operationalStatusId != null) {
-            dz.mdn.iaas.network.common.model.OperationalStatus status = 
-                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
             field.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
-            dz.mdn.iaas.network.common.model.Vendor vendor = 
-                new dz.mdn.iaas.network.common.model.Vendor();
+            Vendor vendor = new Vendor();
             vendor.setId(this.vendorId);
             field.setVendor(vendor);
         }
         
         if (this.locationId != null) {
-            dz.mdn.iaas.network.common.model.Location location = 
-                new dz.mdn.iaas.network.common.model.Location();
+            Location location = new Location();
             location.setId(this.locationId);
             field.setLocation(location);
         }
         
-        if (this.stationTypeId != null) {
-            dz.mdn.iaas.network.type.model.StationType stationType = 
-                new dz.mdn.iaas.network.type.model.StationType();
-            stationType.setId(this.stationTypeId);
-            field.setStationType(stationType);
+        if (this.hydrocarbonFieldTypeId != null) {
+        	HydrocarbonFieldType hydrocarbonFieldType = new HydrocarbonFieldType();
+        	hydrocarbonFieldType.setId(this.hydrocarbonFieldTypeId);
+            field.setHydrocarbonFieldType(hydrocarbonFieldType);
         }
     }
 
@@ -177,7 +177,7 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
                 .operationalStatusId(field.getOperationalStatus() != null ? field.getOperationalStatus().getId() : null)
                 .vendorId(field.getVendor() != null ? field.getVendor().getId() : null)
                 .locationId(field.getLocation() != null ? field.getLocation().getId() : null)
-                .stationTypeId(field.getStationType() != null ? field.getStationType().getId() : null)
+                .hydrocarbonFieldTypeId(field.getHydrocarbonFieldType() != null ? field.getHydrocarbonFieldType().getId() : null)
                 .pipelineIds(pipelineIds)
                 .build();
     }

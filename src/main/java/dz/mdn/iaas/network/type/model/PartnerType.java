@@ -15,7 +15,6 @@
 
 package dz.mdn.iaas.network.type.model;
 
-import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -31,6 +30,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity(name="CompanyType")
 @Table(name="T_03_01_02")
-public class PartnerType extends GenericModel {
+public class PartnerType extends CompanyType {
 
 }

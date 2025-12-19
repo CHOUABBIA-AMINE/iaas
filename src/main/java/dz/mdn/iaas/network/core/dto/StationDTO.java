@@ -20,6 +20,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.core.model.Station;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

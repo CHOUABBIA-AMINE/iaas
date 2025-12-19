@@ -41,21 +41,37 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TerminalTypeDTO extends GenericDTO<TerminalType> {
 
+	@NotBlank(message = "Code is required")
+    @Size(max = 20, message = "Code must not exceed 20 characters")
+    private String code;
+
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationAr;
+
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationEn;
+
     @NotBlank(message = "Designation is required")
-    @Size(min = 2, max = 100, message = "Designation must be between 2 and 100 characters")
-    private String designation;
+    @Size(max = 100, message = "Designation must not exceed 100 characters")
+    private String designationFr;
 
     @Override
     public TerminalType toEntity() {
         TerminalType type = new TerminalType();
         type.setId(getId());
-        type.setDesignation(this.designation);
+        type.setCode(this.code);
+        type.setDesignationAr(this.designationAr);
+        type.setDesignationEn(this.designationEn);
+        type.setDesignationFr(this.designationFr);
         return type;
     }
 
     @Override
     public void updateEntity(TerminalType type) {
-        if (this.designation != null) type.setDesignation(this.designation);
+        if (this.code != null) type.setCode(this.code);
+        if (this.designationAr != null) type.setDesignationAr(this.designationAr);
+        if (this.designationEn != null) type.setDesignationEn(this.designationEn);
+        if (this.designationFr != null) type.setDesignationFr(this.designationFr);
     }
 
     public static TerminalTypeDTO fromEntity(TerminalType type) {
@@ -63,7 +79,10 @@ public class TerminalTypeDTO extends GenericDTO<TerminalType> {
         
         return TerminalTypeDTO.builder()
                 .id(type.getId())
-                .designation(type.getDesignation())
+                .code(type.getCode())
+                .designationAr(type.getDesignationAr())
+                .designationEn(type.getDesignationEn())
+                .designationFr(type.getDesignationFr())
                 .build();
     }
 }
