@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.common.administration.model.Job;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,6 +51,9 @@ public class JobDTO extends GenericDTO<Job> {
     @NotBlank(message = "Code is required")
     @Size(max = 10, message = "Code must not exceed 10 characters")
     private String code;
+    
+    @NotNull(message = "Structure ID is required")
+    private Long structureId;
 
     @Override
     public Job toEntity() {
@@ -78,6 +82,7 @@ public class JobDTO extends GenericDTO<Job> {
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
                 .code(entity.getCode())
+                .structureId(entity.getStructure() != null ? entity.getStructure().getId() : null)
                 .build();
     }
 }

@@ -14,9 +14,12 @@
 
 package dz.mdn.iaas.common.administration.repository;
 
-import dz.mdn.iaas.common.administration.model.Job;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import dz.mdn.iaas.common.administration.model.Job;
 
 /**
  * Job Repository
@@ -25,4 +28,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long> {
     // All basic CRUD operations inherited from JpaRepository
+	
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
+    
+    /**
+     * Find Jobs by structure ID
+     * Used by JobService.getByStructureId()
+     */
+    List<Job> findByStructureId(Long structureId);
 }

@@ -35,9 +35,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="MilitaryCategory")
-@Table(name="T_01_04_05", uniqueConstraints = { @UniqueConstraint(name = "T_01_04_05_UK_01", columnNames = { "F_04" }),
-											    @UniqueConstraint(name = "T_01_04_05_UK_02", columnNames = { "F_05" }),
-											    @UniqueConstraint(name = "T_01_04_05_UK_03", columnNames = { "F_06" })})
+@Table(name="T_01_04_04", uniqueConstraints = { @UniqueConstraint(name = "T_01_04_04_UK_01", columnNames = { "F_03" })})
 public class MilitaryCategory extends GenericModel {
 	
 	@Column(name="F_01", length=100)
@@ -48,13 +46,4 @@ public class MilitaryCategory extends GenericModel {
 	
 	@Column(name="F_03", length=100, nullable=false)
 	private String designationFr;
-	
-	@Column(name="F_04", length=100)
-	private String acronymAr;
-
-	@Column(name="F_05", length=100)
-	private String acronymEn;
-	
-	@Column(name="F_06", length=100, nullable=false)
-	private String acronymFr;
 }

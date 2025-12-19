@@ -15,9 +15,6 @@ package dz.mdn.iaas.common.administration.model;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ForeignKey;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -53,8 +50,5 @@ public class State extends GenericModel {
 	
 	@Column(name="F_04", length=100, nullable=false)
 	private String designationFr;
-	
-	@ManyToOne
-	@JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_01_04_02_FK_01"), nullable=false)
-	private Country country;
+
 }

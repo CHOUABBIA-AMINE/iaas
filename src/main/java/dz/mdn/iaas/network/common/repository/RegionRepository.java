@@ -34,16 +34,18 @@ public interface RegionRepository extends JpaRepository<Region, Long> {
     
     boolean existsByCodeAndIdNot(String code, Long id);
     
-    boolean existsByName(String name);
+    boolean existsByDesignationFr(String designationFr);
     
-    boolean existsByNameAndIdNot(String name, Long id);
+    boolean existsByDesignationFrAndIdNot(String designationFr, Long id);
     
     List<Region> findByZoneId(Long zoneId);
     
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
     @Query("SELECT r FROM Region r WHERE "
-         + "LOWER(r.code) LIKE LOWER(CONCAT('%', :search, '%')) OR "
-         + "LOWER(r.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+            + "LOWER(r.code) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(r.designationAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(r.designationEn) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(r.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Region> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

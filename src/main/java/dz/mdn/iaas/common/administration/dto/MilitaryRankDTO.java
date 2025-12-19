@@ -58,13 +58,8 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
     @Size(max = 100, message = "French acronym must not exceed 100 characters")
     private String acronymFr;
 
-    @NotNull(message = "Category ID is required")
-    private Long categoryId;
-
-    @NotNull(message = "Hierarchy level is required")
-    private Integer hierarchyLevel;
-
-    private Integer displayOrder;
+    @NotNull(message = "Military Category ID is required")
+    private Long militaryCategoryId;
 
     @Override
     public MilitaryRank toEntity() {
@@ -76,8 +71,6 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
         entity.setAcronymAr(this.acronymAr);
         entity.setAcronymEn(this.acronymEn);
         entity.setAcronymFr(this.acronymFr);
-        entity.setHierarchyLevel(this.hierarchyLevel);
-        entity.setDisplayOrder(this.displayOrder);
         return entity;
     }
 
@@ -89,8 +82,6 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
         if (this.acronymAr != null) entity.setAcronymAr(this.acronymAr);
         if (this.acronymEn != null) entity.setAcronymEn(this.acronymEn);
         if (this.acronymFr != null) entity.setAcronymFr(this.acronymFr);
-        if (this.hierarchyLevel != null) entity.setHierarchyLevel(this.hierarchyLevel);
-        if (this.displayOrder != null) entity.setDisplayOrder(this.displayOrder);
     }
 
     public static MilitaryRankDTO fromEntity(MilitaryRank entity) {
@@ -103,9 +94,7 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
                 .acronymAr(entity.getAcronymAr())
                 .acronymEn(entity.getAcronymEn())
                 .acronymFr(entity.getAcronymFr())
-                .categoryId(entity.getCategory() != null ? entity.getCategory().getId() : null)
-                .hierarchyLevel(entity.getHierarchyLevel())
-                .displayOrder(entity.getDisplayOrder())
+                .militaryCategoryId(entity.getMilitaryCategory() != null ? entity.getMilitaryCategory().getId() : null)
                 .build();
     }
 }

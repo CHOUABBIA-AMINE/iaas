@@ -47,21 +47,32 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Region")
-@Table(name="T_03_02_03", uniqueConstraints = { @UniqueConstraint(name="T_03_02_03_UK_01", columnNames={"F_01"}),
-												@UniqueConstraint(name="T_03_02_03_UK_02", columnNames={"F_02"})})
+@Table(name="T_03_02_02", uniqueConstraints = { @UniqueConstraint(name="T_03_02_02_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_02_02_UK_02", columnNames={"F_04"})})
 public class Region extends GenericModel {
 
-    @Column(name="F_01", length=100, nullable=false)
-    private String name;
-
-	@Column(name="F_02", length=10, nullable=false)
+    @Column(name="F_01", length=10, nullable=false)
     private String code;
 
-	@ManyToOne
-    @JoinColumn(name = "F_03", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable = false)
-    private Location location;
+	@Column(name="F_02", length=100)
+	private String designationAr;
+
+	@Column(name="F_03", length=100)
+	private String designationEn;
+	
+	@Column(name="F_04", length=100, nullable=false)
+	private String designationFr;
+    
+    @Column(name="F_05", length=200)
+    private String descriptionAr;
+    
+    @Column(name="F_06", length=200)
+    private String descriptionEn;
+    
+    @Column(name="F_07", length=200)
+    private String descriptionFr;
 	
 	@ManyToOne
-    @JoinColumn(name = "F_04", foreignKey=@ForeignKey(name="T_03_02_03_FK_02"), nullable = false)
+    @JoinColumn(name = "F_08", foreignKey=@ForeignKey(name="T_03_02_02_FK_01"), nullable = false)
     private Zone zone;
 }

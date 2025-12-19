@@ -50,30 +50,34 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Product")
-@Table(name="T_03_02_04", uniqueConstraints = { @UniqueConstraint(name="T_03_02_04_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_02_04", uniqueConstraints = { @UniqueConstraint(name="T_03_02_04_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_02_04_UK_01", columnNames={"F_04"})})
 public class Product extends GenericModel {
 
-    @Column(name="F_01", length=100, nullable=false)
-    private String name;
-
-    @Column(name="F_02", length=50, nullable=false)
+    @Column(name="F_01", length=20, nullable=false)
     private String code;
 
-    @Column(name="F_03", nullable=false)
-    private Double density;
+    @Column(name="F_02", length=100, nullable=true)
+    private String designationAr;
 
-    @Column(name="F_04", nullable=false)
-    private Double viscosity;
+    @Column(name="F_03", length=100, nullable=true)
+    private String designationEn;
+
+    @Column(name="F_04", length=100, nullable=false)
+    private String designationFr;
 
     @Column(name="F_05", nullable=false)
-    private Double flashPoint;
+    private Double density;
 
     @Column(name="F_06", nullable=false)
-    private Double sulfurContent;
+    private Double viscosity;
 
     @Column(name="F_07", nullable=false)
-    private Boolean isHazardous;
+    private Double flashPoint;
 
-    @Column(name="F_08", length=500, nullable=false)
-    private String description;
+    @Column(name="F_08", nullable=false)
+    private Double sulfurContent;
+
+    @Column(name="F_09", nullable=false)
+    private Boolean isHazardous;
 }

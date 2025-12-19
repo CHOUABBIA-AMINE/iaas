@@ -38,20 +38,20 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Shelf")
-@Table(name="T_01_01_04", uniqueConstraints = { @UniqueConstraint(name = "T_01_01_04_UK_01", columnNames = { "F_04" })})
+@Table(name="T_01_01_04", uniqueConstraints = { @UniqueConstraint(name = "T_01_01_04_UK_01", columnNames = { "F_01" })})
 public class Shelf extends GenericModel {
 	
-	@Column(name="F_01", length=100)
-	private String designationAr;
-
+	@Column(name="F_01", length=20, nullable=false)
+	private String code;
+	
 	@Column(name="F_02", length=100)
+	private String designationAr;
+	
+	@Column(name="F_03", length=100)
 	private String designationEn;
 	
-	@Column(name="F_03", length=100, nullable=false)
+	@Column(name="F_04", length=100, nullable=false)
 	private String designationFr;
-	
-	@Column(name="F_04", length=50, nullable=false)
-	private String code;
 	
 	@ManyToOne
     @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_01_01_04_FK_01"), nullable=false)

@@ -81,10 +81,10 @@ public class RegionService extends GenericService<Region, RegionDTO, Long> {
     @Override
     @Transactional
     public RegionDTO create(RegionDTO dto) {
-        log.info("Creating region: name={}", dto.getName());
+        log.info("Creating region: name={}", dto.getDesignationFr());
         
-        if (regionRepository.existsByName(dto.getName())) {
-            throw new BusinessValidationException("Region with name '" + dto.getName() + "' already exists");
+        if (regionRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Region with name '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.create(dto);
@@ -95,8 +95,8 @@ public class RegionService extends GenericService<Region, RegionDTO, Long> {
     public RegionDTO update(Long id, RegionDTO dto) {
         log.info("Updating region with ID: {}", id);
         
-        if (regionRepository.existsByNameAndIdNot(dto.getName(), id)) {
-            throw new BusinessValidationException("Region with name '" + dto.getName() + "' already exists");
+        if (regionRepository.existsByDesignationFrAndIdNot(dto.getDesignationFr(), id)) {
+            throw new BusinessValidationException("Region with name '" + dto.getDesignationFr() + "' already exists");
         }
         
         return super.update(id, dto);

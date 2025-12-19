@@ -14,18 +14,24 @@
 
 package dz.mdn.iaas.common.administration.controller;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import dz.mdn.iaas.common.administration.dto.JobDTO;
 import dz.mdn.iaas.common.administration.service.JobService;
 import dz.mdn.iaas.configuration.template.GenericController;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Job REST Controller - Extends GenericController
@@ -129,6 +135,18 @@ public class JobController extends GenericController<JobDTO, Long> {
     public ResponseEntity<List<JobDTO>> getAllList() {
         log.debug("GET /job/list - Getting all jobs as list");
         List<JobDTO> jobs = jobService.getAll();
+        return success(jobs);
+    }
+
+    /**
+     * Get jobs by structure ID
+     * GET /job/structure/{structureId}
+     */
+    @GetMapping("/structure/{structureId}")
+    @PreAuthorize("hasAuthority('JOB:READ')")
+    public ResponseEntity<List<JobDTO>> getByStructureId(@PathVariable Long structureId) {
+        log.debug("GET /job/structure/{} - Getting jobs by structure ID", structureId);
+        List<JobDTO> jobs = jobService.getByStructureId(structureId);
         return success(jobs);
     }
 }

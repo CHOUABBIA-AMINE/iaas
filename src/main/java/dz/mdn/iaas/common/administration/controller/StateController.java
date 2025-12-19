@@ -14,18 +14,24 @@
 
 package dz.mdn.iaas.common.administration.controller;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import dz.mdn.iaas.common.administration.dto.StateDTO;
 import dz.mdn.iaas.common.administration.service.StateService;
 import dz.mdn.iaas.configuration.template.GenericController;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * State REST Controller - Extends GenericController
@@ -129,18 +135,6 @@ public class StateController extends GenericController<StateDTO, Long> {
     public ResponseEntity<List<StateDTO>> getAllList() {
         log.debug("GET /state/list - Getting all states as list");
         List<StateDTO> states = stateService.getAll();
-        return success(states);
-    }
-
-    /**
-     * Get states by country ID
-     * GET /state/country/{countryId}
-     */
-    @GetMapping("/country/{countryId}")
-    @PreAuthorize("hasAuthority('STATE:READ')")
-    public ResponseEntity<List<StateDTO>> getByCountryId(@PathVariable Long countryId) {
-        log.debug("GET /state/country/{} - Getting states by country ID", countryId);
-        List<StateDTO> states = stateService.getByCountryId(countryId);
         return success(states);
     }
 }

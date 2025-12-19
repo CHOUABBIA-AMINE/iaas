@@ -35,6 +35,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
     @Query("SELECT p FROM Product p WHERE "
-         + "LOWER(p.code) LIKE LOWER(CONCAT('%', :search, '%'))")
+            + "LOWER(p.code) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(p.designationAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(p.designationEn) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(p.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Product> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

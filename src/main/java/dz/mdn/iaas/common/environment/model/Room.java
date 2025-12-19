@@ -41,17 +41,17 @@ import lombok.ToString;
 @Table(name="T_01_01_03", uniqueConstraints = { @UniqueConstraint(name = "T_01_01_03_UK_01", columnNames = { "F_05", "F_04" })})
 public class Room extends GenericModel {
 	
-	@Column(name="F_01", length=100)
-	private String designationAr;
-
+	@Column(name="F_01", length=20, nullable=false)
+	private String code;
+	
 	@Column(name="F_02", length=100)
+	private String designationAr;
+	
+	@Column(name="F_03", length=100)
 	private String designationEn;
 	
-	@Column(name="F_03", length=100, nullable=false)
+	@Column(name="F_04", length=100, nullable=false)
 	private String designationFr;
-	
-	@Column(name="F_04", length=50, nullable=false)
-	private String code;
 	
 	@ManyToOne
     @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_01_01_03_FK_01"), nullable=false)

@@ -15,10 +15,10 @@
 package dz.mdn.iaas.common.administration.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.common.administration.model.State;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -52,9 +52,6 @@ public class StateDTO extends GenericDTO<State> {
     @Size(max = 10, message = "Code must not exceed 10 characters")
     private String code;
 
-    @NotNull(message = "Country ID is required")
-    private Long countryId;
-
     @Override
     public State toEntity() {
         State entity = new State();
@@ -82,7 +79,6 @@ public class StateDTO extends GenericDTO<State> {
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
                 .code(entity.getCode())
-                .countryId(entity.getCountry() != null ? entity.getCountry().getId() : null)
                 .build();
     }
 }

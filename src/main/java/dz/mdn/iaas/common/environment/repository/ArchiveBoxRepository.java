@@ -30,6 +30,12 @@ public interface ArchiveBoxRepository extends JpaRepository<ArchiveBox, Long> {
     
     /**
      * Find archive boxes by shelf floor ID
+     * Used by ArchiveBoxService.getByShelfId()
+     */
+    List<ArchiveBox> findByShelfId(Long shelfId);
+    
+    /**
+     * Find archive boxes by shelf floor ID
      * Used by ArchiveBoxService.getByShelfFloorId()
      */
     List<ArchiveBox> findByShelfFloorId(Long shelfFloorId);

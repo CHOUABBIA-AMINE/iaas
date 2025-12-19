@@ -127,16 +127,4 @@ public class ShelfFloorController extends GenericController<ShelfFloorDTO, Long>
         List<ShelfFloorDTO> shelfFloors = shelfFloorService.getAll();
         return success(shelfFloors);
     }
-
-    /**
-     * Get shelf floors by shelf ID
-     * GET /shelf-floor/shelf/{shelfId}
-     */
-    @GetMapping("/shelf/{shelfId}")
-    @PreAuthorize("hasAuthority('SHELF_FLOOR:READ')")
-    public ResponseEntity<List<ShelfFloorDTO>> getByShelfId(@PathVariable Long shelfId) {
-        log.debug("GET /shelf-floor/shelf/{} - Getting shelf floors by shelf ID", shelfId);
-        List<ShelfFloorDTO> shelfFloors = shelfFloorService.getByShelfId(shelfId);
-        return success(shelfFloors);
-    }
 }

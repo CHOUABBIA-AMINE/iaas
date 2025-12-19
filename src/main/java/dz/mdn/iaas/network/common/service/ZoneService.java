@@ -67,10 +67,10 @@ public class ZoneService extends GenericService<Zone, ZoneDTO, Long> {
     @Override
     @Transactional
     public ZoneDTO create(ZoneDTO dto) {
-        log.info("Creating zone: name={}", dto.getName());
+        log.info("Creating zone: designationFr={}", dto.getDesignationFr());
         
-        if (zoneRepository.existsByName(dto.getName())) {
-            throw new BusinessValidationException("Zone with name '" + dto.getName() + "' already exists");
+        if (zoneRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Zone with name '" + dto.getDesignationFr() + "' already exists");
         }
         
         if (zoneRepository.existsByCode(dto.getCode())) {
@@ -85,11 +85,11 @@ public class ZoneService extends GenericService<Zone, ZoneDTO, Long> {
     public ZoneDTO update(Long id, ZoneDTO dto) {
         log.info("Updating zone with ID: {}", id);
         
-        if (zoneRepository.existsByNameAndIdNot(dto.getName(), id)) {
-            throw new BusinessValidationException("Zone with name '" + dto.getName() + "' already exists");
+        if (zoneRepository.existsByDesignationFr(dto.getDesignationFr())) {
+            throw new BusinessValidationException("Zone with name '" + dto.getDesignationFr() + "' already exists");
         }
         
-        if (zoneRepository.existsByCodeAndIdNot(dto.getCode(), id)) {
+        if (zoneRepository.existsByCode(dto.getCode())) {
             throw new BusinessValidationException("Zone with code '" + dto.getCode() + "' already exists");
         }
         

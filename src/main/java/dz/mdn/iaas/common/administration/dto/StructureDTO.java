@@ -54,7 +54,7 @@ public class StructureDTO extends GenericDTO<Structure> {
     private Long structureTypeId;
 
     @NotBlank(message = "Code is required")
-    @Size(max = 50, message = "Code must not exceed 50 characters")
+    @Size(max = 10, message = "Code must not exceed 50 characters")
     private String code;
 
     @Override

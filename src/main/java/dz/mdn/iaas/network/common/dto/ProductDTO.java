@@ -49,13 +49,19 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDTO extends GenericDTO<Product> {
 
-    @NotBlank(message = "Name is required")
-    @Size(max = 100, message = "Name must not exceed 100 characters")
-    private String name;
-
-    @NotBlank(message = "Code is required")
-    @Size(max = 50, message = "Code must not exceed 50 characters")
+	@NotBlank(message = "Code is required")
+    @Size(max = 10, message = "Code must not exceed 10 characters")
     private String code;
+    
+    @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
+    private String designationAr;
+
+    @Size(max = 100, message = "English designation must not exceed 100 characters")
+    private String designationEn;
+
+    @NotBlank(message = "French designation is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String designationFr;
 
     @NotNull(message = "Density is required")
     private Double density;
@@ -72,50 +78,49 @@ public class ProductDTO extends GenericDTO<Product> {
     @NotNull(message = "Hazardous flag is required")
     private Boolean isHazardous;
 
-    @NotBlank(message = "Description is required")
-    @Size(max = 500, message = "Description must not exceed 500 characters")
-    private String description;
-
     @Override
     public Product toEntity() {
-        Product product = new Product();
-        product.setId(getId());
-        product.setName(this.name);
-        product.setCode(this.code);
-        product.setDensity(this.density);
-        product.setViscosity(this.viscosity);
-        product.setFlashPoint(this.flashPoint);
-        product.setSulfurContent(this.sulfurContent);
-        product.setIsHazardous(this.isHazardous);
-        product.setDescription(this.description);
-        return product;
+        Product entity = new Product();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setDensity(this.density);
+        entity.setViscosity(this.viscosity);
+        entity.setFlashPoint(this.flashPoint);
+        entity.setSulfurContent(this.sulfurContent);
+        entity.setIsHazardous(this.isHazardous);
+        return entity;
     }
 
     @Override
-    public void updateEntity(Product product) {
-        if (this.name != null) product.setName(this.name);
-        if (this.code != null) product.setCode(this.code);
-        if (this.density != null) product.setDensity(this.density);
-        if (this.viscosity != null) product.setViscosity(this.viscosity);
-        if (this.flashPoint != null) product.setFlashPoint(this.flashPoint);
-        if (this.sulfurContent != null) product.setSulfurContent(this.sulfurContent);
-        if (this.isHazardous != null) product.setIsHazardous(this.isHazardous);
-        if (this.description != null) product.setDescription(this.description);
+    public void updateEntity(Product entity) {
+    	if (this.code != null) { entity.setCode(this.code); }
+        if (this.designationAr != null) { entity.setDesignationAr(this.designationAr); }
+        if (this.designationEn != null) { entity.setDesignationEn(this.designationEn); }
+        if (this.designationFr != null) { entity.setDesignationFr(this.designationFr); }
+        if (this.density != null) entity.setDensity(this.density);
+        if (this.viscosity != null) entity.setViscosity(this.viscosity);
+        if (this.flashPoint != null) entity.setFlashPoint(this.flashPoint);
+        if (this.sulfurContent != null) entity.setSulfurContent(this.sulfurContent);
+        if (this.isHazardous != null) entity.setIsHazardous(this.isHazardous);
     }
 
-    public static ProductDTO fromEntity(Product product) {
-        if (product == null) return null;
+    public static ProductDTO fromEntity(Product entity) {
+        if (entity == null) return null;
         
         return ProductDTO.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .code(product.getCode())
-                .density(product.getDensity())
-                .viscosity(product.getViscosity())
-                .flashPoint(product.getFlashPoint())
-                .sulfurContent(product.getSulfurContent())
-                .isHazardous(product.getIsHazardous())
-                .description(product.getDescription())
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .density(entity.getDensity())
+                .viscosity(entity.getViscosity())
+                .flashPoint(entity.getFlashPoint())
+                .sulfurContent(entity.getSulfurContent())
+                .isHazardous(entity.getIsHazardous())
                 .build();
     }
 }

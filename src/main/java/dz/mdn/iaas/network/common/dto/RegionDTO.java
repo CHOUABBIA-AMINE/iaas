@@ -17,7 +17,6 @@ package dz.mdn.iaas.network.common.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import dz.mdn.iaas.network.common.model.Location;
 import dz.mdn.iaas.network.common.model.Region;
 import dz.mdn.iaas.network.common.model.Zone;
 import jakarta.validation.constraints.NotBlank;
@@ -45,68 +44,83 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RegionDTO extends GenericDTO<Region> {
 
-    @NotBlank(message = "Name is required")
-    @Size(max = 100, message = "Name must not exceed 100 characters")
-    private String name;
-    
-    @NotBlank(message = "Name is required")
-    @Size(max = 10, message = "Name must not exceed 100 characters")
+    @NotBlank(message = "Code is required")
+    @Size(max = 10, message = "Code must not exceed 10 characters")
     private String code;
+    
+    @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
+    private String designationAr;
 
-    @NotNull(message = "Location is required")
-    private Long locationId;
+    @Size(max = 100, message = "English designation must not exceed 100 characters")
+    private String designationEn;
+
+    @NotBlank(message = "French designation is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String designationFr;
+    
+    @Size(max = 100, message = "Arabic decsription must not exceed 100 characters")
+    private String descriptionAr;
+
+    @Size(max = 100, message = "English decsription must not exceed 100 characters")
+    private String descriptionEn;
+
+    @NotBlank(message = "French decsription is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String descriptionFr;
 
     @NotNull(message = "Zone is required")
     private Long zoneId;
 
     @Override
     public Region toEntity() {
-        Region region = new Region();
-        region.setId(getId());
-        region.setName(this.name);
-        region.setCode(this.code);
-        if (this.locationId != null) {
-        	Location location = new Location();
-        	location.setId(this.locationId);
-            region.setLocation(location);
-        }
+        Region entity = new Region();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setDescriptionAr(this.descriptionAr);
+        entity.setDescriptionEn(this.descriptionEn);
+        entity.setDescriptionFr(this.descriptionFr);
+
         if (this.zoneId != null) {
             Zone zone = new Zone();
             zone.setId(this.zoneId);
-            region.setZone(zone);
+            entity.setZone(zone);
         }
-        return region;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Region region) {
-        if (this.name != null) {
-            region.setName(this.name);
-        }        
-        if (this.code != null) {
-            region.setCode(this.code);
-        }
-        if (this.locationId != null) {
-        	Location location = new Location();
-        	location.setId(this.locationId);
-            region.setLocation(location);
-        }
+    public void updateEntity(Region entity) {
+    	if (this.code != null) { entity.setCode(this.code); }
+        if (this.designationAr != null) { entity.setDesignationAr(this.designationAr); }
+        if (this.designationEn != null) { entity.setDesignationEn(this.designationEn); }
+        if (this.designationFr != null) { entity.setDesignationFr(this.designationFr); }
+        if (this.descriptionAr != null) { entity.setDescriptionAr(this.descriptionAr); }
+        if (this.descriptionEn != null) { entity.setDescriptionEn(this.descriptionEn); }
+        if (this.descriptionFr != null) { entity.setDescriptionFr(this.descriptionFr); }
+
         if (this.zoneId != null) {
             Zone zone = new Zone();
             zone.setId(this.zoneId);
-            region.setZone(zone);
+            entity.setZone(zone);
         }
     }
 
-    public static RegionDTO fromEntity(Region region) {
-        if (region == null) return null;
+    public static RegionDTO fromEntity(Region entity) {
+        if (entity == null) return null;
         
         return RegionDTO.builder()
-                .id(region.getId())
-                .name(region.getName())
-                .code(region.getCode())
-                .locationId(region.getLocation() != null ? region.getLocation().getId() : null)
-                .zoneId(region.getZone() != null ? region.getZone().getId() : null)
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .descriptionAr(entity.getDescriptionAr())
+                .descriptionEn(entity.getDescriptionEn())
+                .descriptionFr(entity.getDescriptionFr())
+                .zoneId(entity.getZone() != null ? entity.getZone().getId() : null)
                 .build();
     }
 }

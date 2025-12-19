@@ -14,11 +14,10 @@
 
 package dz.mdn.iaas.common.administration.repository;
 
-import dz.mdn.iaas.common.administration.model.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import dz.mdn.iaas.common.administration.model.State;
 
 /**
  * State Repository
@@ -29,9 +28,4 @@ public interface StateRepository extends JpaRepository<State, Long> {
     
     // ========== SPRING DERIVED QUERIES (Optimized) ==========
     
-    /**
-     * Find states by country ID
-     * Used by StateService.getByCountryId()
-     */
-    List<State> findByCountryId(Long countryId);
 }

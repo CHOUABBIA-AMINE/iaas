@@ -62,9 +62,9 @@ public class MilitaryRankService extends GenericService<MilitaryRank, MilitaryRa
         MilitaryRank entity = dto.toEntity();
         
         // Set relationships
-        if (dto.getCategoryId() != null) {
-            MilitaryCategory category = militaryCategoryService.getEntityById(dto.getCategoryId());
-            entity.setCategory(category);
+        if (dto.getMilitaryCategoryId() != null) {
+            MilitaryCategory militaryCategory = militaryCategoryService.getEntityById(dto.getMilitaryCategoryId());
+            entity.setMilitaryCategory(militaryCategory);
         }
         
         return entity;
@@ -74,18 +74,18 @@ public class MilitaryRankService extends GenericService<MilitaryRank, MilitaryRa
     protected void updateEntityFromDTO(MilitaryRank entity, MilitaryRankDTO dto) {
         dto.updateEntity(entity);
         
-        // Update relationships
-        if (dto.getCategoryId() != null) {
-            MilitaryCategory category = militaryCategoryService.getEntityById(dto.getCategoryId());
-            entity.setCategory(category);
+        // Set relationships
+        if (dto.getMilitaryCategoryId() != null) {
+            MilitaryCategory militaryCategory = militaryCategoryService.getEntityById(dto.getMilitaryCategoryId());
+            entity.setMilitaryCategory(militaryCategory);
         }
     }
 
     @Override
     @Transactional
     public MilitaryRankDTO create(MilitaryRankDTO dto) {
-        log.info("Creating military rank: acronymFr={}, categoryId={}, hierarchyLevel={}", 
-                dto.getAcronymFr(), dto.getCategoryId(), dto.getHierarchyLevel());
+        log.info("Creating military rank: acronymFr={}, categoryId={}", 
+                dto.getAcronymFr(), dto.getMilitaryCategoryId());
         return super.create(dto);
     }
 
@@ -113,16 +113,9 @@ public class MilitaryRankService extends GenericService<MilitaryRank, MilitaryRa
         return getAll(pageable);
     }
 
-    public List<MilitaryRankDTO> getByCategoryId(Long categoryId) {
-        log.debug("Getting military ranks by category ID: {}", categoryId);
-        return militaryRankRepository.findByCategoryId(categoryId).stream()
-                .map(MilitaryRankDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
-
-    public List<MilitaryRankDTO> getByHierarchyLevel(Integer hierarchyLevel) {
-        log.debug("Getting military ranks by hierarchy level: {}", hierarchyLevel);
-        return militaryRankRepository.findByHierarchyLevel(hierarchyLevel).stream()
+    public List<MilitaryRankDTO> getByMilitaryCategoryId(Long militaryCategoryId) {
+        log.debug("Getting military ranks by Military category ID: {}", militaryCategoryId);
+        return militaryRankRepository.findByMilitaryCategoryId(militaryCategoryId).stream()
                 .map(MilitaryRankDTO::fromEntity)
                 .collect(Collectors.toList());
     }

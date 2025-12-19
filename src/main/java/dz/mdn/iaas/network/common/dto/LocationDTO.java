@@ -47,13 +47,19 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LocationDTO extends GenericDTO<Location> {
 
-    @NotBlank(message = "Name is required")
-    @Size(max = 100, message = "Name must not exceed 100 characters")
-    private String name;
-
-    @NotBlank(message = "Code is required")
-    @Size(max = 50, message = "Code must not exceed 50 characters")
+	@NotBlank(message = "Code is required")
+    @Size(max = 10, message = "Code must not exceed 10 characters")
     private String code;
+    
+    @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
+    private String designationAr;
+
+    @Size(max = 100, message = "English designation must not exceed 100 characters")
+    private String designationEn;
+
+    @NotBlank(message = "French designation is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String designationFr;
 
     @NotNull(message = "Latitude is required")
     private Double latitude;
@@ -68,46 +74,52 @@ public class LocationDTO extends GenericDTO<Location> {
 
     @Override
     public Location toEntity() {
-        Location location = new Location();
-        location.setId(getId());
-        location.setName(this.name);
-        location.setCode(this.code);
-        location.setLatitude(this.latitude);
-        location.setLongitude(this.longitude);
-        location.setElevation(this.elevation);
+        Location entity = new Location();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setLatitude(this.latitude);
+        entity.setLongitude(this.longitude);
+        entity.setElevation(this.elevation);
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-            location.setLocality(locality);
+        	entity.setLocality(locality);
         }
-        return location;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Location location) {
-        if (this.name != null) location.setName(this.name);
-        if (this.code != null) location.setCode(this.code);
-        if (this.latitude != null) location.setLatitude(this.latitude);
-        if (this.longitude != null) location.setLongitude(this.longitude);
-        if (this.longitude != null) location.setElevation(this.elevation);        
+    public void updateEntity(Location entity) {
+    	if (this.code != null) { entity.setCode(this.code); }
+        if (this.designationAr != null) { entity.setDesignationAr(this.designationAr); }
+        if (this.designationEn != null) { entity.setDesignationEn(this.designationEn); }
+        if (this.designationFr != null) { entity.setDesignationFr(this.designationFr); }
+        if (this.latitude != null) entity.setLatitude(this.latitude);
+        if (this.longitude != null) entity.setLongitude(this.longitude);
+        if (this.longitude != null) entity.setElevation(this.elevation);        
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-            location.setLocality(locality);
+        	entity.setLocality(locality);
         }
     }
 
-    public static LocationDTO fromEntity(Location location) {
-        if (location == null) return null;
+    public static LocationDTO fromEntity(Location entity) {
+        if (entity == null) return null;
         
         return LocationDTO.builder()
-                .id(location.getId())
-                .name(location.getName())
-                .code(location.getCode())
-                .latitude(location.getLatitude())
-                .longitude(location.getLongitude())
-                .elevation(location.getElevation())
-                .localityId(location.getLocality() != null ? location.getLocality().getId() : null)
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .latitude(entity.getLatitude())
+                .longitude(entity.getLongitude())
+                .elevation(entity.getElevation())
+                .localityId(entity.getLocality() != null ? entity.getLocality().getId() : null)
                 .build();
     }
 }

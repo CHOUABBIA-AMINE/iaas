@@ -38,7 +38,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Folder")
-@Table(name="T_01_01_08", uniqueConstraints = { @UniqueConstraint(name = "T_01_01_08_UK_01", columnNames = { "F_01" })})
+@Table(name="T_01_01_07", uniqueConstraints = { @UniqueConstraint(name = "T_01_01_07_UK_01", columnNames = { "F_01" })})
 public class Folder extends GenericModel {
 	
 	@Column(name="F_01", length=50, nullable=false)
@@ -48,7 +48,7 @@ public class Folder extends GenericModel {
 	private String description;
 	
 	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_01_01_08_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_01_01_07_FK_01"), nullable=false)
     private ArchiveBox archiveBox;
 	
 	@Column(name="F_04")

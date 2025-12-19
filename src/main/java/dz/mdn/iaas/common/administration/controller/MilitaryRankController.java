@@ -138,21 +138,9 @@ public class MilitaryRankController extends GenericController<MilitaryRankDTO, L
      */
     @GetMapping("/category/{categoryId}")
     @PreAuthorize("hasAuthority('MILITARY_RANK:READ')")
-    public ResponseEntity<List<MilitaryRankDTO>> getByCategoryId(@PathVariable Long categoryId) {
-        log.debug("GET /military-rank/category/{} - Getting military ranks by category ID", categoryId);
-        List<MilitaryRankDTO> ranks = militaryRankService.getByCategoryId(categoryId);
-        return success(ranks);
-    }
-
-    /**
-     * Get military ranks by hierarchy level
-     * GET /military-rank/hierarchy/{hierarchyLevel}
-     */
-    @GetMapping("/hierarchy/{hierarchyLevel}")
-    @PreAuthorize("hasAuthority('MILITARY_RANK:READ')")
-    public ResponseEntity<List<MilitaryRankDTO>> getByHierarchyLevel(@PathVariable Integer hierarchyLevel) {
-        log.debug("GET /military-rank/hierarchy/{} - Getting military ranks by hierarchy level", hierarchyLevel);
-        List<MilitaryRankDTO> ranks = militaryRankService.getByHierarchyLevel(hierarchyLevel);
-        return success(ranks);
+    public ResponseEntity<List<MilitaryRankDTO>> getByMilitaryCategoryId(@PathVariable Long militaryCategoryId) {
+        log.debug("GET /military-rank/category/{} - Getting military ranks by military category ID", militaryCategoryId);
+        List<MilitaryRankDTO> militaryRanks = militaryRankService.getByMilitaryCategoryId(militaryCategoryId);
+        return success(militaryRanks);
     }
 }

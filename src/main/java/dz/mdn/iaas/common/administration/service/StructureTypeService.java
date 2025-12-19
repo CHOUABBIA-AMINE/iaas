@@ -68,8 +68,7 @@ public class StructureTypeService extends GenericService<StructureType, Structur
     @Override
     @Transactional
     public StructureTypeDTO create(StructureTypeDTO dto) {
-        log.info("Creating structure type: acronymFr={}, hierarchyLevel={}", 
-                dto.getAcronymFr(), dto.getHierarchyLevel());
+        log.info("Creating structure type: acronymFr={}", dto.getAcronymFr());
         return super.create(dto);
     }
 
@@ -95,19 +94,5 @@ public class StructureTypeService extends GenericService<StructureType, Structur
         }
         
         return getAll(pageable);
-    }
-
-    public List<StructureTypeDTO> getOperationalTypes() {
-        log.debug("Getting operational structure types");
-        return structureTypeRepository.findByIsOperationalTrue().stream()
-                .map(StructureTypeDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
-
-    public List<StructureTypeDTO> getByHierarchyLevel(Integer hierarchyLevel) {
-        log.debug("Getting structure types by hierarchy level: {}", hierarchyLevel);
-        return structureTypeRepository.findByHierarchyLevel(hierarchyLevel).stream()
-                .map(StructureTypeDTO::fromEntity)
-                .collect(Collectors.toList());
     }
 }

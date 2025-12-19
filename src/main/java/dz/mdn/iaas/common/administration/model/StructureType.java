@@ -35,9 +35,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="StructureType")
-@Table(name="T_01_04_10", uniqueConstraints = { @UniqueConstraint(name = "T_01_04_10_UK_01", columnNames = { "F_04" }),
-											    @UniqueConstraint(name = "T_01_04_10_UK_02", columnNames = { "F_05" }),
-											    @UniqueConstraint(name = "T_01_04_10_UK_03", columnNames = { "F_06" })})
+@Table(name="T_01_04_06", uniqueConstraints = { @UniqueConstraint(name = "T_01_04_06_UK_01", columnNames = { "F_03" })})
 public class StructureType extends GenericModel {
 	
 	@Column(name="F_01", length=100)
@@ -49,21 +47,12 @@ public class StructureType extends GenericModel {
 	@Column(name="F_03", length=100, nullable=false)
 	private String designationFr;
 	
-	@Column(name="F_04", length=100)
+	@Column(name="F_04", length=10)
 	private String acronymAr;
 
-	@Column(name="F_05", length=100)
+	@Column(name="F_05", length=10)
 	private String acronymEn;
 	
-	@Column(name="F_06", length=100, nullable=false)
+	@Column(name="F_06", length=10)
 	private String acronymFr;
-	
-	@Column(name="F_07")
-	private Integer hierarchyLevel;
-	
-	@Column(name="F_08")
-	private Boolean isOperational;
-	
-	@Column(name="F_09")
-	private Boolean canHaveSubStructures;
 }

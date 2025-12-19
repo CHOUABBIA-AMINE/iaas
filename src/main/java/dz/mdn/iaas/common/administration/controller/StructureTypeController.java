@@ -131,28 +131,4 @@ public class StructureTypeController extends GenericController<StructureTypeDTO,
         List<StructureTypeDTO> types = structureTypeService.getAll();
         return success(types);
     }
-
-    /**
-     * Get operational structure types
-     * GET /structure-type/operational
-     */
-    @GetMapping("/operational")
-    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
-    public ResponseEntity<List<StructureTypeDTO>> getOperationalTypes() {
-        log.debug("GET /structure-type/operational - Getting operational structure types");
-        List<StructureTypeDTO> types = structureTypeService.getOperationalTypes();
-        return success(types);
-    }
-
-    /**
-     * Get structure types by hierarchy level
-     * GET /structure-type/hierarchy/{hierarchyLevel}
-     */
-    @GetMapping("/hierarchy/{hierarchyLevel}")
-    @PreAuthorize("hasAuthority('STRUCTURE_TYPE:READ')")
-    public ResponseEntity<List<StructureTypeDTO>> getByHierarchyLevel(@PathVariable Integer hierarchyLevel) {
-        log.debug("GET /structure-type/hierarchy/{} - Getting structure types by hierarchy level", hierarchyLevel);
-        List<StructureTypeDTO> types = structureTypeService.getByHierarchyLevel(hierarchyLevel);
-        return success(types);
-    }
 }

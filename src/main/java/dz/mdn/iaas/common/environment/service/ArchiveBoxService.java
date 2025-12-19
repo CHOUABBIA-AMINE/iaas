@@ -119,4 +119,11 @@ public class ArchiveBoxService extends GenericService<ArchiveBox, ArchiveBoxDTO,
                 .map(ArchiveBoxDTO::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    public List<ArchiveBoxDTO> getByShelfId(Long shelfId) {
+        log.debug("Getting archive boxes by shelf ID: {}", shelfId);
+        return archiveBoxRepository.findByShelfId(shelfId).stream()
+                .map(ArchiveBoxDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

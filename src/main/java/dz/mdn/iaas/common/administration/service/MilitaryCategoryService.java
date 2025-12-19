@@ -68,8 +68,7 @@ public class MilitaryCategoryService extends GenericService<MilitaryCategory, Mi
     @Override
     @Transactional
     public MilitaryCategoryDTO create(MilitaryCategoryDTO dto) {
-        log.info("Creating military category: acronymFr={}, designationFr={}", 
-                dto.getAcronymFr(), dto.getDesignationFr());
+        log.info("Creating military category: designationFr={}", dto.getDesignationFr());
         return super.create(dto);
     }
 

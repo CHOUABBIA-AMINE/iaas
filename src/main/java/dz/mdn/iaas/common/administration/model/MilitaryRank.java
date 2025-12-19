@@ -15,6 +15,7 @@ package dz.mdn.iaas.common.administration.model;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -37,9 +38,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="MilitaryRank")
-@Table(name="T_01_04_06", uniqueConstraints = { @UniqueConstraint(name = "T_01_04_06_UK_01", columnNames = { "F_04" }),
-											    @UniqueConstraint(name = "T_01_04_06_UK_02", columnNames = { "F_05" }),
-											    @UniqueConstraint(name = "T_01_04_06_UK_03", columnNames = { "F_06" })})
+@Table(name="T_01_04_05", uniqueConstraints = { @UniqueConstraint(name = "T_01_04_05_UK_01", columnNames = { "F_03" })})
 public class MilitaryRank extends GenericModel {
 	
 	@Column(name="F_01", length=100)
@@ -57,16 +56,11 @@ public class MilitaryRank extends GenericModel {
 	@Column(name="F_05", length=100)
 	private String acronymEn;
 	
-	@Column(name="F_06", length=100, nullable=false)
+	@Column(name="F_06", length=100)
 	private String acronymFr;
 	
 	@ManyToOne
-	@JoinColumn(name="F_07", nullable=false)
-	private MilitaryCategory category;
+	@JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_01_04_05_FK_01"), nullable=false)
+	private MilitaryCategory militaryCategory;
 	
-	@Column(name="F_08", nullable=false)
-	private Integer hierarchyLevel;
-	
-	@Column(name="F_09")
-	private Integer displayOrder;
 }

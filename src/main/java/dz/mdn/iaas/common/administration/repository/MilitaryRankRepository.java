@@ -32,11 +32,6 @@ public interface MilitaryRankRepository extends JpaRepository<MilitaryRank, Long
      * Find military ranks by category ID
      * Used by MilitaryRankService.getByCategoryId()
      */
-    List<MilitaryRank> findByCategoryId(Long categoryId);
-    
-    /**
-     * Find military ranks by hierarchy level
-     * Used by MilitaryRankService.getByHierarchyLevel()
-     */
-    List<MilitaryRank> findByHierarchyLevel(Integer hierarchyLevel);
+    List<MilitaryRank> findByMilitaryCategoryId(Long categoryId);
+
 }

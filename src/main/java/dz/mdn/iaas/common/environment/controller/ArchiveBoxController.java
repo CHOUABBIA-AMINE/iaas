@@ -14,18 +14,24 @@
 
 package dz.mdn.iaas.common.environment.controller;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import dz.mdn.iaas.common.environment.dto.ArchiveBoxDTO;
 import dz.mdn.iaas.common.environment.service.ArchiveBoxService;
 import dz.mdn.iaas.configuration.template.GenericController;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * ArchiveBox REST Controller - Extends GenericController
@@ -137,6 +143,18 @@ public class ArchiveBoxController extends GenericController<ArchiveBoxDTO, Long>
     public ResponseEntity<List<ArchiveBoxDTO>> getByShelfFloorId(@PathVariable Long shelfFloorId) {
         log.debug("GET /archive-box/shelf-floor/{} - Getting archive boxes by shelf floor ID", shelfFloorId);
         List<ArchiveBoxDTO> archiveBoxes = archiveBoxService.getByShelfFloorId(shelfFloorId);
+        return success(archiveBoxes);
+    }
+
+    /**
+     * Get shelf floors by shelf ID
+     * GET /shelf-floor/shelf/{shelfId}
+     */
+    @GetMapping("/shelf/{shelfId}")
+    @PreAuthorize("hasAuthority('ARCHIVE_BOX:READ')")
+    public ResponseEntity<List<ArchiveBoxDTO>> getByShelfId(@PathVariable Long shelfId) {
+        log.debug("GET /archive-box/shelf/{} - Getting archive boxs by shelf ID", shelfId);
+        List<ArchiveBoxDTO> archiveBoxes = archiveBoxService.getByShelfId(shelfId);
         return success(archiveBoxes);
     }
 }

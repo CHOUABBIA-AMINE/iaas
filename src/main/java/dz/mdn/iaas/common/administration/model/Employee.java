@@ -36,7 +36,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Employee")
-@Table(name="T_01_04_08")
+@Table(name="T_01_04_10")
 public class Employee extends GenericModel {
 	
 	@ManyToOne

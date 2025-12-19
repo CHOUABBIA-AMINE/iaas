@@ -38,7 +38,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Person")
-@Table(name="T_01_04_07")
+@Table(name="T_01_04_09")
 public class Person extends GenericModel {
 	
 	@Column(name="F_01", length=100, nullable=false)

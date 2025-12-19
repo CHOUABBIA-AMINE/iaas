@@ -14,20 +14,21 @@
 
 package dz.mdn.iaas.common.administration.service;
 
-import dz.mdn.iaas.common.administration.dto.JobDTO;
-import dz.mdn.iaas.common.administration.model.Job;
-import dz.mdn.iaas.common.administration.repository.JobRepository;
-import dz.mdn.iaas.configuration.template.GenericService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.common.administration.dto.JobDTO;
+import dz.mdn.iaas.common.administration.model.Job;
+import dz.mdn.iaas.common.administration.repository.JobRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Job Service - Extends GenericService
@@ -94,5 +95,12 @@ public class JobService extends GenericService<Job, JobDTO, Long> {
         }
         
         return getAll(pageable);
+    }
+
+    public List<JobDTO> getByStructureId(Long structureId) {
+        log.debug("Getting localities by structure ID: {}", structureId);
+        return jobRepository.findByStructureId(structureId).stream()
+                .map(JobDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 }

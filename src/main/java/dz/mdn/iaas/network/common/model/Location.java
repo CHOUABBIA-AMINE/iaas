@@ -57,26 +57,33 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Location")
-@Table(name="T_03_02_02", uniqueConstraints = { @UniqueConstraint(name="T_03_02_02_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_02_03", uniqueConstraints = { @UniqueConstraint(name="T_03_02_03_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_02_03_UK_02", columnNames={"F_01"})})
 public class Location extends GenericModel {
 
-    @Column(name="F_01", length=100, nullable=false)
-    private String name;
-
-    @Column(name="F_02", length=50, nullable=false)
+    @Column(name="F_01", length=10, nullable=false)
     private String code;
 
-    @Column(name="F_03", nullable=false)
+	@Column(name="F_02", length=100)
+	private String designationAr;
+
+	@Column(name="F_03", length=100)
+	private String designationEn;
+	
+	@Column(name="F_04", length=100, nullable=false)
+	private String designationFr;
+
+    @Column(name="F_05", nullable=false)
     private Double latitude;
 
-    @Column(name="F_04", nullable=false)
+    @Column(name="F_06", nullable=false)
     private Double longitude;
 
-	@Column(name = "F_05")
+	@Column(name = "F_07")
     private Double elevation;
 
     @ManyToOne
-    @JoinColumn(name = "F_06", foreignKey=@ForeignKey(name="T_03_02_02_FK_01"), nullable = false)
+    @JoinColumn(name = "F_08", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable = false)
     private Locality locality;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)

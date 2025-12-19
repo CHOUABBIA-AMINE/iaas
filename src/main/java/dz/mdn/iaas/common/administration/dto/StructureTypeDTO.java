@@ -57,12 +57,6 @@ public class StructureTypeDTO extends GenericDTO<StructureType> {
     @Size(max = 100, message = "French acronym must not exceed 100 characters")
     private String acronymFr;
 
-    private Integer hierarchyLevel;
-
-    private Boolean isOperational;
-
-    private Boolean canHaveSubStructures;
-
     @Override
     public StructureType toEntity() {
         StructureType entity = new StructureType();
@@ -73,9 +67,6 @@ public class StructureTypeDTO extends GenericDTO<StructureType> {
         entity.setAcronymAr(this.acronymAr);
         entity.setAcronymEn(this.acronymEn);
         entity.setAcronymFr(this.acronymFr);
-        entity.setHierarchyLevel(this.hierarchyLevel);
-        entity.setIsOperational(this.isOperational);
-        entity.setCanHaveSubStructures(this.canHaveSubStructures);
         return entity;
     }
 
@@ -87,9 +78,6 @@ public class StructureTypeDTO extends GenericDTO<StructureType> {
         if (this.acronymAr != null) entity.setAcronymAr(this.acronymAr);
         if (this.acronymEn != null) entity.setAcronymEn(this.acronymEn);
         if (this.acronymFr != null) entity.setAcronymFr(this.acronymFr);
-        if (this.hierarchyLevel != null) entity.setHierarchyLevel(this.hierarchyLevel);
-        if (this.isOperational != null) entity.setIsOperational(this.isOperational);
-        if (this.canHaveSubStructures != null) entity.setCanHaveSubStructures(this.canHaveSubStructures);
     }
 
     public static StructureTypeDTO fromEntity(StructureType entity) {
@@ -102,9 +90,6 @@ public class StructureTypeDTO extends GenericDTO<StructureType> {
                 .acronymAr(entity.getAcronymAr())
                 .acronymEn(entity.getAcronymEn())
                 .acronymFr(entity.getAcronymFr())
-                .hierarchyLevel(entity.getHierarchyLevel())
-                .isOperational(entity.getIsOperational())
-                .canHaveSubStructures(entity.getCanHaveSubStructures())
                 .build();
     }
 }

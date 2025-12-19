@@ -32,14 +32,16 @@ public interface ZoneRepository extends JpaRepository<Zone, Long> {
     
     boolean existsByCodeAndIdNot(String code, Long id);
     
-    boolean existsByName(String name);
+    boolean existsByDesignationFr(String designationFr);
     
-    boolean existsByNameAndIdNot(String name, Long id);
+    boolean existsByDesignationFrAndIdNot(String designationFr, Long id);
     
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
     @Query("SELECT z FROM Zone z WHERE "
          + "LOWER(z.code) LIKE LOWER(CONCAT('%', :search, '%')) OR "
-         + "LOWER(z.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+         + "LOWER(z.designationAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(z.designationEn) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+         + "LOWER(z.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Zone> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

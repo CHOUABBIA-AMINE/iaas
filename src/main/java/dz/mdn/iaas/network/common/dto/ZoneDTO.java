@@ -40,50 +40,68 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ZoneDTO extends GenericDTO<Zone> {
-
-    @NotBlank(message = "Name is required")
-    @Size(max = 50, message = "Name must not exceed 50 characters")
-    private String name;
     
     @NotBlank(message = "Code is required")
     @Size(max = 10, message = "Code must not exceed 10 characters")
     private String code;
     
-    @NotBlank(message = "Decsription is required")
-    @Size(max = 100, message = "Decsription must not exceed 100 characters")
-    private String decsription;
+    @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
+    private String designationAr;
+
+    @Size(max = 100, message = "English designation must not exceed 100 characters")
+    private String designationEn;
+
+    @NotBlank(message = "French designation is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String designationFr;
+    
+    @Size(max = 100, message = "Arabic decsription must not exceed 100 characters")
+    private String descriptionAr;
+
+    @Size(max = 100, message = "English decsription must not exceed 100 characters")
+    private String descriptionEn;
+
+    @NotBlank(message = "French decsription is required")
+    @Size(max = 100, message = "French designation must not exceed 100 characters")
+    private String descriptionFr;
 
     @Override
     public Zone toEntity() {
-        Zone zone = new Zone();
-        zone.setId(getId());
-        zone.setName(this.name);
-        zone.setCode(this.code);
-        zone.setDecsription(this.decsription);
-        return zone;
+        Zone entity = new Zone();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setDesignationAr(this.designationAr);
+        entity.setDesignationEn(this.designationEn);
+        entity.setDesignationFr(this.designationFr);
+        entity.setDescriptionAr(this.descriptionAr);
+        entity.setDescriptionEn(this.descriptionEn);
+        entity.setDescriptionFr(this.descriptionFr);
+        return entity;
     }
 
     @Override
-    public void updateEntity(Zone zone) {
-        if (this.name != null) {
-            zone.setName(this.name);
-        }
-        if (this.code != null) {
-            zone.setCode(this.code);
-        }
-        if (this.decsription != null) {
-            zone.setDecsription(this.decsription);
-        }
+    public void updateEntity(Zone entity) {
+        if (this.code != null) { entity.setCode(this.code); }
+        if (this.designationAr != null) { entity.setDesignationAr(this.designationAr); }
+        if (this.designationEn != null) { entity.setDesignationEn(this.designationEn); }
+        if (this.designationFr != null) { entity.setDesignationFr(this.designationFr); }
+        if (this.descriptionAr != null) { entity.setDescriptionAr(this.descriptionAr); }
+        if (this.descriptionEn != null) { entity.setDescriptionEn(this.descriptionEn); }
+        if (this.descriptionFr != null) { entity.setDescriptionFr(this.descriptionFr); }
     }
 
-    public static ZoneDTO fromEntity(Zone zone) {
-        if (zone == null) return null;
+    public static ZoneDTO fromEntity(Zone entity) {
+        if (entity == null) return null;
         
         return ZoneDTO.builder()
-                .id(zone.getId())
-                .name(zone.getName())
-                .code(zone.getCode())
-                .decsription(zone.getDecsription())
+                .id(entity.getId())
+                .code(entity.getCode())
+                .designationAr(entity.getDesignationAr())
+                .designationEn(entity.getDesignationEn())
+                .designationFr(entity.getDesignationFr())
+                .descriptionAr(entity.getDescriptionAr())
+                .descriptionEn(entity.getDescriptionEn())
+                .descriptionFr(entity.getDescriptionFr())
                 .build();
     }
 }

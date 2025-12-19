@@ -15,10 +15,10 @@
 package dz.mdn.iaas.common.environment.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.common.environment.model.ShelfFloor;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,6 +38,12 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ShelfFloorDTO extends GenericDTO<ShelfFloor> {
 
+    private Integer floorLevel;
+
+    @NotBlank(message = "Code is required")
+    @Size(max = 50, message = "Code must not exceed 50 characters")
+    private String code;
+
     @Size(max = 100, message = "Arabic designation must not exceed 100 characters")
     private String designationAr;
 
@@ -48,46 +54,36 @@ public class ShelfFloorDTO extends GenericDTO<ShelfFloor> {
     @Size(max = 100, message = "French designation must not exceed 100 characters")
     private String designationFr;
 
-    @NotBlank(message = "Code is required")
-    @Size(max = 50, message = "Code must not exceed 50 characters")
-    private String code;
-
-    @NotNull(message = "Shelf ID is required")
-    private Long shelfId;
-
-    private Integer floorLevel;
-
     @Override
     public ShelfFloor toEntity() {
         ShelfFloor entity = new ShelfFloor();
         entity.setId(this.getId());
+        entity.setFloorLevel(this.floorLevel);
+        entity.setCode(this.code);
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
-        entity.setCode(this.code);
-        entity.setFloorLevel(this.floorLevel);
         return entity;
     }
 
     @Override
     public void updateEntity(ShelfFloor entity) {
+        if (this.floorLevel != null) entity.setFloorLevel(this.floorLevel);
+        if (this.code != null) entity.setCode(this.code);
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
-        if (this.code != null) entity.setCode(this.code);
-        if (this.floorLevel != null) entity.setFloorLevel(this.floorLevel);
     }
 
     public static ShelfFloorDTO fromEntity(ShelfFloor entity) {
         if (entity == null) return null;
         return ShelfFloorDTO.builder()
                 .id(entity.getId())
+                .floorLevel(entity.getFloorLevel())
+                .code(entity.getCode())
                 .designationAr(entity.getDesignationAr())
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
-                .code(entity.getCode())
-                .shelfId(entity.getShelf() != null ? entity.getShelf().getId() : null)
-                .floorLevel(entity.getFloorLevel())
                 .build();
     }
 }
