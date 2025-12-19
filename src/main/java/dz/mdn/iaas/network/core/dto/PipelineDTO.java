@@ -14,18 +14,22 @@
 
 package dz.mdn.iaas.network.core.dto;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.common.model.Alloy;
+import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.Facility;
 import dz.mdn.iaas.network.core.model.Pipeline;
 import dz.mdn.iaas.network.core.model.PipelineSystem;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -62,8 +66,22 @@ import lombok.experimental.SuperBuilder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PipelineDTO extends GenericDTO<Pipeline> {
 
-    // Inherited from Infrastructure
-    // code, name, installationDate, commissioningDate, decommissioningDate, operationalStatusId
+	@NotBlank(message = "Code is required")
+    @Size(min = 2, max = 20, message = "Code must be between 2 and 20 characters")
+    private String code;
+
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
+    private String name;
+
+    private LocalDate installationDate;
+
+    private LocalDate commissioningDate;
+
+    private LocalDate decommissioningDate;
+
+    @NotNull(message = "Operational status ID is required")
+    private Long operationalStatusId;
 
     @NotNull(message = "Nominal diameter is required")
     @Positive(message = "Nominal diameter must be positive")
@@ -130,6 +148,11 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
     public Pipeline toEntity() {
         Pipeline pipeline = new Pipeline();
         pipeline.setId(getId());
+        pipeline.setCode(this.code);
+        pipeline.setName(this.name);
+        pipeline.setInstallationDate(this.installationDate);
+        pipeline.setCommissioningDate(this.commissioningDate);
+        pipeline.setDecommissioningDate(this.decommissioningDate);
         pipeline.setNominalDiameter(this.nominalDiameter);
         pipeline.setLength(this.length);
         pipeline.setNominalThikness(this.nominalThikness);
@@ -140,6 +163,12 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
         pipeline.setRealMinServicePressure(this.realMinServicePressure);
         pipeline.setDesignCapacity(this.designCapacity);
         pipeline.setRealCapacity(this.realCapacity);
+        
+        if (this.operationalStatusId != null) {
+            OperationalStatus status = new OperationalStatus();
+            status.setId(this.operationalStatusId);
+            pipeline.setOperationalStatus(status);
+        }
         
         if (this.nominalConstructionMaterialId != null) {
             Alloy material = new Alloy();
@@ -188,6 +217,12 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
 
     @Override
     public void updateEntity(Pipeline pipeline) {
+
+    	if (this.code != null) pipeline.setCode(this.code);
+    	if (this.name != null) pipeline.setName(this.name);
+    	if (this.installationDate != null) pipeline.setInstallationDate(this.installationDate);
+    	if (this.commissioningDate != null) pipeline.setCommissioningDate(this.commissioningDate);
+    	if (this.decommissioningDate != null) pipeline.setDecommissioningDate(this.decommissioningDate);
         if (this.nominalDiameter != null) pipeline.setNominalDiameter(this.nominalDiameter);
         if (this.length != null) pipeline.setLength(this.length);
         if (this.nominalThikness != null) pipeline.setNominalThikness(this.nominalThikness);
@@ -198,6 +233,12 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
         if (this.realMinServicePressure != null) pipeline.setRealMinServicePressure(this.realMinServicePressure);
         if (this.designCapacity != null) pipeline.setDesignCapacity(this.designCapacity);
         if (this.realCapacity != null) pipeline.setRealCapacity(this.realCapacity);
+        
+        if (this.operationalStatusId != null) {
+            OperationalStatus status = new OperationalStatus();
+            status.setId(this.operationalStatusId);
+            pipeline.setOperationalStatus(status);
+        }
         
         if (this.nominalConstructionMaterialId != null) {
             Alloy material = new Alloy();
@@ -247,6 +288,11 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
         
         return PipelineDTO.builder()
                 .id(pipeline.getId())
+                .code(pipeline.getCode())
+                .name(pipeline.getName())
+                .installationDate(pipeline.getInstallationDate())
+                .commissioningDate(pipeline.getCommissioningDate())
+                .decommissioningDate(pipeline.getDecommissioningDate())
                 .nominalDiameter(pipeline.getNominalDiameter())
                 .length(pipeline.getLength())
                 .nominalThikness(pipeline.getNominalThikness())
@@ -257,6 +303,7 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
                 .realMinServicePressure(pipeline.getRealMinServicePressure())
                 .designCapacity(pipeline.getDesignCapacity())
                 .realCapacity(pipeline.getRealCapacity())
+                .operationalStatusId(pipeline.getOperationalStatus() != null ? pipeline.getOperationalStatus().getId() : null)
                 .nominalConstructionMaterialId(pipeline.getNominalConstructionMaterial() != null ? pipeline.getNominalConstructionMaterial().getId() : null)
                 .nominalExteriorCoatingId(pipeline.getNominalExteriorCoating() != null ? pipeline.getNominalExteriorCoating().getId() : null)
                 .nominalInteriorCoatingId(pipeline.getNominalInteriorCoating() != null ? pipeline.getNominalInteriorCoating().getId() : null)
