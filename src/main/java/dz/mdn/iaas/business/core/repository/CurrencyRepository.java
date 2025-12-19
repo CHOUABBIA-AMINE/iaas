@@ -4,7 +4,7 @@
  *
  *	@Name		: CurrencyRepository
  *	@CreatedOn	: 06-26-2025
- *	@Updated	: 12-11-2025
+ *	@Updated	: 12-19-2025
  *
  *	@Type		: Repository
  *	@Layer		: Business / Core
@@ -29,55 +29,26 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CurrencyRepository extends JpaRepository<Currency, Long> {
     
-    // ========== CODE VALIDATIONS ==========
+    // ========== SPRING DERIVED QUERIES (Optimized) ==========
     
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.code = :code")
-    boolean existsByCode(@Param("code") String code);
+    boolean existsByCode(String code);
+    boolean existsByCodeAndIdNot(String code, Long id);
     
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.code = :code AND c.id != :id")
-    boolean existsByCodeAndIdNot(@Param("code") String code, @Param("id") Long id);
+    boolean existsByDesignationAr(String designationAr);
+    boolean existsByDesignationArAndIdNot(String designationAr, Long id);
+    boolean existsByDesignationEn(String designationEn);
+    boolean existsByDesignationEnAndIdNot(String designationEn, Long id);
+    boolean existsByDesignationFr(String designationFr);
+    boolean existsByDesignationFrAndIdNot(String designationFr, Long id);
     
-    // ========== DESIGNATION VALIDATIONS ==========
+    boolean existsByAcronymAr(String acronymAr);
+    boolean existsByAcronymArAndIdNot(String acronymAr, Long id);
+    boolean existsByAcronymEn(String acronymEn);
+    boolean existsByAcronymEnAndIdNot(String acronymEn, Long id);
+    boolean existsByAcronymFr(String acronymFr);
+    boolean existsByAcronymFrAndIdNot(String acronymFr, Long id);
     
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.designationAr = :designationAr")
-    boolean existsByDesignationAr(@Param("designationAr") String designationAr);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.designationAr = :designationAr AND c.id != :id")
-    boolean existsByDesignationArAndIdNot(@Param("designationAr") String designationAr, @Param("id") Long id);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.designationEn = :designationEn")
-    boolean existsByDesignationEn(@Param("designationEn") String designationEn);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.designationEn = :designationEn AND c.id != :id")
-    boolean existsByDesignationEnAndIdNot(@Param("designationEn") String designationEn, @Param("id") Long id);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.designationFr = :designationFr")
-    boolean existsByDesignationFr(@Param("designationFr") String designationFr);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.designationFr = :designationFr AND c.id != :id")
-    boolean existsByDesignationFrAndIdNot(@Param("designationFr") String designationFr, @Param("id") Long id);
-    
-    // ========== ACRONYM VALIDATIONS ==========
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.acronymAr = :acronymAr")
-    boolean existsByAcronymAr(@Param("acronymAr") String acronymAr);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.acronymAr = :acronymAr AND c.id != :id")
-    boolean existsByAcronymArAndIdNot(@Param("acronymAr") String acronymAr, @Param("id") Long id);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.acronymEn = :acronymEn")
-    boolean existsByAcronymEn(@Param("acronymEn") String acronymEn);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.acronymEn = :acronymEn AND c.id != :id")
-    boolean existsByAcronymEnAndIdNot(@Param("acronymEn") String acronymEn, @Param("id") Long id);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.acronymFr = :acronymFr")
-    boolean existsByAcronymFr(@Param("acronymFr") String acronymFr);
-    
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Currency c WHERE c.acronymFr = :acronymFr AND c.id != :id")
-    boolean existsByAcronymFrAndIdNot(@Param("acronymFr") String acronymFr, @Param("id") Long id);
-    
-    // ========== SEARCH METHODS ==========
+    // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
     /**
      * Search across all fields (code, designations, acronyms)
