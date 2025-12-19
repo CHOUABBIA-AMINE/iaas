@@ -34,6 +34,10 @@ public interface ZoneRepository extends JpaRepository<Zone, Long> {
     
     boolean existsByCodeAndIdNot(String code, Long id);
     
+    boolean existsByName(String name);
+    
+    boolean existsByNameAndIdNot(String name, Long id);
+    
     List<Zone> findByRegionId(Long regionId);
 
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========

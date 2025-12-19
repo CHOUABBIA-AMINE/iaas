@@ -34,8 +34,12 @@ public interface RegionRepository extends JpaRepository<Region, Long> {
     
     boolean existsByCodeAndIdNot(String code, Long id);
     
-    List<Region> findByCountryId(Long countryId);
-
+    boolean existsByName(String name);
+    
+    boolean existsByNameAndIdNot(String name, Long id);
+    
+    List<Region> findByZoneId(Long zoneId);
+    
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     
     @Query("SELECT r FROM Region r WHERE "
