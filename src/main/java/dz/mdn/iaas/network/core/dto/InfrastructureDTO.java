@@ -31,15 +31,17 @@ import lombok.experimental.SuperBuilder;
 
 /**
  * Infrastructure Data Transfer Object - Extends GenericDTO
+ * Base infrastructure class with operational status tracking
+ * This is the base class for Facility hierarchy
  * 
  * Fields:
  * - id (F_00) - inherited from GenericDTO
- * - code (F_01) - unique, required
+ * - code (F_01) - unique, required identifier
  * - name (F_02) - required
  * - installationDate (F_03) - optional
  * - commissioningDate (F_04) - optional
  * - decommissioningDate (F_05) - optional
- * - operationalStatusId (F_06) - required
+ * - operationalStatusId (F_06) - required foreign key
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -75,6 +77,14 @@ public class InfrastructureDTO extends GenericDTO<Infrastructure> {
         infrastructure.setInstallationDate(this.installationDate);
         infrastructure.setCommissioningDate(this.commissioningDate);
         infrastructure.setDecommissioningDate(this.decommissioningDate);
+        
+        if (this.operationalStatusId != null) {
+            dz.mdn.iaas.network.common.model.OperationalStatus status = 
+                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            status.setId(this.operationalStatusId);
+            infrastructure.setOperationalStatus(status);
+        }
+        
         return infrastructure;
     }
 
@@ -85,6 +95,13 @@ public class InfrastructureDTO extends GenericDTO<Infrastructure> {
         if (this.installationDate != null) infrastructure.setInstallationDate(this.installationDate);
         if (this.commissioningDate != null) infrastructure.setCommissioningDate(this.commissioningDate);
         if (this.decommissioningDate != null) infrastructure.setDecommissioningDate(this.decommissioningDate);
+        
+        if (this.operationalStatusId != null) {
+            dz.mdn.iaas.network.common.model.OperationalStatus status = 
+                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            status.setId(this.operationalStatusId);
+            infrastructure.setOperationalStatus(status);
+        }
     }
 
     public static InfrastructureDTO fromEntity(Infrastructure infrastructure) {
