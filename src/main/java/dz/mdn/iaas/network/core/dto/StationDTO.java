@@ -31,6 +31,10 @@ import lombok.experimental.SuperBuilder;
  * Station Data Transfer Object - Extends FacilityDTO
  * Inherits all fields from parent Facility class
  * 
+ * Inheritance chain: GenericDTO -> FacilityDTO -> StationDTO
+ * Inherits from Facility: code, name, installationDate, commissioningDate, decommissioningDate,
+ *                        operationalStatusId, locationId, facilityTypeId, vendorId
+ * 
  * Additional Fields:
  * - stationTypeId - Type of station (required)
  * - pipelineIds - Associated pipelines
@@ -57,18 +61,38 @@ public class StationDTO extends FacilityDTO {
         station.setName(getName());
         station.setInstallationDate(getInstallationDate());
         station.setCommissioningDate(getCommissioningDate());
-        station.setDecommissioningDate(getDecommissioningDate());
-        station.setLocationId(getLocationId());
-        station.setFacilityTypeId(getFacilityTypeId());
+        station.setRetirementDate(getRetirementDate());
+        station.setProvider(getProvider());
+        
+        // Set relationships from parent DTO
+        if (getOperationalStatusId() != null) {
+            dz.mdn.iaas.network.common.model.OperationalStatus status = 
+                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            status.setId(getOperationalStatusId());
+            station.setOperationalStatus(status);
+        }
+        
+        if (getLocationId() != null) {
+            dz.mdn.iaas.network.common.model.Location location = 
+                new dz.mdn.iaas.network.common.model.Location();
+            location.setId(getLocationId());
+            station.setLocation(location);
+        }
+        
+        if (getVendorId() != null) {
+            dz.mdn.iaas.network.common.model.Vendor vendor = 
+                new dz.mdn.iaas.network.common.model.Vendor();
+            vendor.setId(getVendorId());
+            station.setVendor(vendor);
+        }
+        
         return station;
     }
 
     @Override
     public void updateEntity(Station station) {
-        super.updateEntity((org.hibernate.mapping.Subclass) station);
-        if (this.stationTypeId != null) {
-            // Station type would be set via relationship
-        }
+        super.updateEntity((Facility) station);
+        // Additional update logic for Station-specific fields can go here
     }
 
     public static StationDTO fromEntity(Station station) {
@@ -85,10 +109,11 @@ public class StationDTO extends FacilityDTO {
                 .name(station.getName())
                 .installationDate(station.getInstallationDate())
                 .commissioningDate(station.getCommissioningDate())
-                .decommissioningDate(station.getDecommissioningDate())
-                .locationId(station.getLocation() != null ? station.getLocation().getId() : null)
-                .facilityTypeId(station.getFacilityType() != null ? station.getFacilityType().getId() : null)
+                .retirementDate(station.getRetirementDate())
+                .provider(station.getProvider())
                 .operationalStatusId(station.getOperationalStatus() != null ? station.getOperationalStatus().getId() : null)
+                .locationId(station.getLocation() != null ? station.getLocation().getId() : null)
+                .vendorId(station.getVendor() != null ? station.getVendor().getId() : null)
                 .stationTypeId(station.getStationType() != null ? station.getStationType().getId() : null)
                 .pipelineIds(pipelineIds)
                 .build();
