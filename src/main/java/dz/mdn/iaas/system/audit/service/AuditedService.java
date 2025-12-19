@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: AuditService
+ *	@Name		: AuditedService
  *	@CreatedOn	: 10-27-2025
  *
  *	@Type		: Class
@@ -22,11 +22,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import dz.mdn.iaas.system.audit.dto.AuditLogDTO;
-import dz.mdn.iaas.system.audit.model.AuditLog;
-import dz.mdn.iaas.system.audit.model.AuditLog.AuditAction;
-import dz.mdn.iaas.system.audit.model.AuditLog.AuditStatus;
-import dz.mdn.iaas.system.audit.repository.AuditLogRepository;
+import dz.mdn.iaas.system.audit.dto.AuditedDTO;
+import dz.mdn.iaas.system.audit.model.Audited;
+import dz.mdn.iaas.system.audit.model.Audited.AuditAction;
+import dz.mdn.iaas.system.audit.model.Audited.AuditStatus;
+import dz.mdn.iaas.system.audit.repository.AuditedRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import tools.jackson.databind.ObjectMapper;
@@ -37,9 +37,9 @@ import tools.jackson.databind.ObjectMapper;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AuditService {
+public class AuditedService {
 
-    private final AuditLogRepository auditLogRepository;
+    private final AuditedRepository auditLogRepository;
 
     /**
      * Log an audit event (using separate transaction to ensure logging even if main transaction fails)
@@ -47,7 +47,7 @@ public class AuditService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void logAuditEvent(AuditEventBuilder eventBuilder) {
         try {
-            AuditLog auditLog = eventBuilder.build();
+        	Audited auditLog = eventBuilder.build();
             auditLogRepository.save(auditLog);
             log.debug("Audit event saved: {} {} for entity {}:{}", 
                      auditLog.getAction(), auditLog.getStatus(), 
@@ -62,7 +62,7 @@ public class AuditService {
      * Get audit logs for a specific entity
      */
     @Transactional(readOnly = true)
-    public List<AuditLogDTO> getEntityAuditHistory(String entityName, Long entityId) {
+    public List<AuditedDTO> getEntityAuditHistory(String entityName, Long entityId) {
         return auditLogRepository
                 .findByEntityNameAndEntityIdOrderByTimestampDesc(entityName, entityId)
                 .stream()
@@ -74,7 +74,7 @@ public class AuditService {
      * Get audit logs by user
      */
     @Transactional(readOnly = true)
-    public Page<AuditLogDTO> getUserAuditHistory(String username, Pageable pageable) {
+    public Page<AuditedDTO> getUserAuditHistory(String username, Pageable pageable) {
         return auditLogRepository
                 .findByUsernameOrderByTimestampDesc(username, pageable)
                 .map(this::convertToDTO);
@@ -84,7 +84,7 @@ public class AuditService {
      * Get audit logs by date range
      */
     @Transactional(readOnly = true)
-    public Page<AuditLogDTO> getAuditLogsByDateRange(Date startDate, Date endDate, Pageable pageable) {
+    public Page<AuditedDTO> getAuditLogsByDateRange(Date startDate, Date endDate, Pageable pageable) {
         return auditLogRepository
                 .findByTimestampBetween(startDate, endDate, pageable)
                 .map(this::convertToDTO);
@@ -94,7 +94,7 @@ public class AuditService {
      * Get failed operations
      */
     @Transactional(readOnly = true)
-    public Page<AuditLogDTO> getFailedOperations(Pageable pageable) {
+    public Page<AuditedDTO> getFailedOperations(Pageable pageable) {
         return auditLogRepository
                 .findByStatusOrderByTimestampDesc(AuditStatus.FAILED, pageable)
                 .map(this::convertToDTO);
@@ -125,8 +125,8 @@ public class AuditService {
     /**
      * Convert entity to DTO
      */
-    private AuditLogDTO convertToDTO(AuditLog auditLog) {
-        return AuditLogDTO.builder()
+    private AuditedDTO convertToDTO(Audited auditLog) {
+        return AuditedDTO.builder()
                 .id(auditLog.getId())
                 .entityName(auditLog.getEntityName())
                 .entityId(auditLog.getEntityId())
@@ -147,50 +147,50 @@ public class AuditService {
      * Builder class for creating audit events
      */
     public static class AuditEventBuilder {
-        private AuditLog auditLog = new AuditLog();
+        private Audited audited = new Audited();
 
         public static AuditEventBuilder create() {
             return new AuditEventBuilder();
         }
 
         public AuditEventBuilder entityName(String entityName) {
-            auditLog.setEntityName(entityName);
+        	audited.setEntityName(entityName);
             return this;
         }
 
         public AuditEventBuilder entityId(Long entityId) {
-            auditLog.setEntityId(entityId);
+        	audited.setEntityId(entityId);
             return this;
         }
 
         public AuditEventBuilder action(AuditAction action) {
-            auditLog.setAction(action);
+        	audited.setAction(action);
             return this;
         }
 
         public AuditEventBuilder username(String username) {
-            auditLog.setUsername(username);
+        	audited.setUsername(username);
             return this;
         }
 
         public AuditEventBuilder ipAddress(String ipAddress) {
-            auditLog.setIpAddress(ipAddress);
+        	audited.setIpAddress(ipAddress);
             return this;
         }
 
         public AuditEventBuilder userAgent(String userAgent) {
-            auditLog.setUserAgent(userAgent);
+        	audited.setUserAgent(userAgent);
             return this;
         }
 
         public AuditEventBuilder methodName(String methodName) {
-            auditLog.setMethodName(methodName);
+        	audited.setMethodName(methodName);
             return this;
         }
 
         public AuditEventBuilder oldValues(Object oldValues) {
             try {
-                auditLog.setOldValues(new ObjectMapper().writeValueAsString(oldValues));
+            	audited.setOldValues(new ObjectMapper().writeValueAsString(oldValues));
             } catch (Exception e) {
                 log.warn("Failed to serialize old values", e);
             }
@@ -199,7 +199,7 @@ public class AuditService {
 
         public AuditEventBuilder newValues(Object newValues) {
             try {
-                auditLog.setNewValues(new ObjectMapper().writeValueAsString(newValues));
+            	audited.setNewValues(new ObjectMapper().writeValueAsString(newValues));
             } catch (Exception e) {
                 log.warn("Failed to serialize new values", e);
             }
@@ -208,7 +208,7 @@ public class AuditService {
 
         public AuditEventBuilder parameters(Object parameters) {
             try {
-                auditLog.setParameters(new ObjectMapper().writeValueAsString(parameters));
+            	audited.setParameters(new ObjectMapper().writeValueAsString(parameters));
             } catch (Exception e) {
                 log.warn("Failed to serialize parameters", e);
             }
@@ -216,43 +216,43 @@ public class AuditService {
         }
 
         public AuditEventBuilder description(String description) {
-            auditLog.setDescription(description);
+        	audited.setDescription(description);
             return this;
         }
 
         public AuditEventBuilder status(AuditStatus status) {
-            auditLog.setStatus(status);
+        	audited.setStatus(status);
             return this;
         }
 
         public AuditEventBuilder errorMessage(String errorMessage) {
-            auditLog.setErrorMessage(errorMessage);
+        	audited.setErrorMessage(errorMessage);
             return this;
         }
 
         public AuditEventBuilder duration(Long duration) {
-            auditLog.setDuration(duration);
+        	audited.setDuration(duration);
             return this;
         }
 
         public AuditEventBuilder module(String module) {
-            auditLog.setModule(module);
+        	audited.setModule(module);
             return this;
         }
 
         public AuditEventBuilder businessProcess(String businessProcess) {
-            auditLog.setBusinessProcess(businessProcess);
+        	audited.setBusinessProcess(businessProcess);
             return this;
         }
 
         public AuditEventBuilder sessionId(String sessionId) {
-            auditLog.setSessionId(sessionId);
+        	audited.setSessionId(sessionId);
             return this;
         }
 
-        public AuditLog build() {
-            auditLog.setTimestamp(new Date());
-            return auditLog;
+        public Audited build() {
+        	audited.setTimestamp(new Date());
+            return audited;
         }
     }
 

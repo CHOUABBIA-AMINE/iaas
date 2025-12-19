@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dz.mdn.iaas.system.audit.dto.AuditLogDTO;
-import dz.mdn.iaas.system.audit.service.AuditService;
-import dz.mdn.iaas.system.audit.service.AuditService.UserActivitySummary;
+import dz.mdn.iaas.system.audit.dto.AuditedDTO;
+import dz.mdn.iaas.system.audit.service.AuditedService;
+import dz.mdn.iaas.system.audit.service.AuditedService.UserActivitySummary;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,24 +36,24 @@ import lombok.extern.slf4j.Slf4j;
  * REST Controller for audit log management
  */
 @RestController
-@RequestMapping("/audit")
+@RequestMapping("/audited")
 @RequiredArgsConstructor
 @Slf4j
-public class AuditController {
+public class AuditedController {
 
-    private final AuditService auditService;
+    private final AuditedService auditedService;
 
     /**
      * Get audit history for specific entity
      */
     @GetMapping("/entity/{entityName}/{entityId}")
-    public ResponseEntity<List<AuditLogDTO>> getEntityAuditHistory(
+    public ResponseEntity<List<AuditedDTO>> getEntityAuditHistory(
             @PathVariable String entityName,
             @PathVariable Long entityId) {
         
         log.debug("Getting audit history for entity {}:{}", entityName, entityId);
         
-        List<AuditLogDTO> auditHistory = auditService.getEntityAuditHistory(entityName, entityId);
+        List<AuditedDTO> auditHistory = auditedService.getEntityAuditHistory(entityName, entityId);
         return ResponseEntity.ok(auditHistory);
     }
 
@@ -61,13 +61,13 @@ public class AuditController {
      * Get user audit history
      */
     @GetMapping("/user/{username}")
-    public ResponseEntity<Page<AuditLogDTO>> getUserAuditHistory(
+    public ResponseEntity<Page<AuditedDTO>> getUserAuditHistory(
             @PathVariable String username,
             Pageable pageable) {
         
         log.debug("Getting audit history for user: {}", username);
         
-        Page<AuditLogDTO> auditHistory = auditService.getUserAuditHistory(username, pageable);
+        Page<AuditedDTO> auditHistory = auditedService.getUserAuditHistory(username, pageable);
         return ResponseEntity.ok(auditHistory);
     }
 
@@ -75,14 +75,14 @@ public class AuditController {
      * Get audit logs by date range
      */
     @GetMapping("/date-range")
-    public ResponseEntity<Page<AuditLogDTO>> getAuditLogsByDateRange(
+    public ResponseEntity<Page<AuditedDTO>> getAuditLogsByDateRange(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
             Pageable pageable) {
         
         log.debug("Getting audit logs between {} and {}", startDate, endDate);
         
-        Page<AuditLogDTO> auditLogs = auditService.getAuditLogsByDateRange(startDate, endDate, pageable);
+        Page<AuditedDTO> auditLogs = auditedService.getAuditLogsByDateRange(startDate, endDate, pageable);
         return ResponseEntity.ok(auditLogs);
     }
 
@@ -90,10 +90,10 @@ public class AuditController {
      * Get failed operations
      */
     @GetMapping("/failed")
-    public ResponseEntity<Page<AuditLogDTO>> getFailedOperations(Pageable pageable) {
+    public ResponseEntity<Page<AuditedDTO>> getFailedOperations(Pageable pageable) {
         log.debug("Getting failed operations");
         
-        Page<AuditLogDTO> failedOperations = auditService.getFailedOperations(pageable);
+        Page<AuditedDTO> failedOperations = auditedService.getFailedOperations(pageable);
         return ResponseEntity.ok(failedOperations);
     }
 
@@ -107,7 +107,7 @@ public class AuditController {
         
         log.debug("Getting activity summary for user {} over {} days", username, days);
         
-        UserActivitySummary summary = auditService.getUserActivitySummary(username, days);
+        UserActivitySummary summary = auditedService.getUserActivitySummary(username, days);
         return ResponseEntity.ok(summary);
     }
 }

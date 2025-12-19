@@ -23,45 +23,45 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import dz.mdn.iaas.system.audit.model.AuditLog;
-import dz.mdn.iaas.system.audit.model.AuditLog.AuditAction;
-import dz.mdn.iaas.system.audit.model.AuditLog.AuditStatus;
+import dz.mdn.iaas.system.audit.model.Audited;
+import dz.mdn.iaas.system.audit.model.Audited.AuditAction;
+import dz.mdn.iaas.system.audit.model.Audited.AuditStatus;
 
 @Repository
-public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
+public interface AuditedRepository extends JpaRepository<Audited, Long> {
 
     /**
      * Find audit logs by entity name and ID
      */
-    List<AuditLog> findByEntityNameAndEntityIdOrderByTimestampDesc(String entityName, Long entityId);
+    List<Audited> findByEntityNameAndEntityIdOrderByTimestampDesc(String entityName, Long entityId);
 
     /**
      * Find audit logs by username
      */
-    Page<AuditLog> findByUsernameOrderByTimestampDesc(String username, Pageable pageable);
+    Page<Audited> findByUsernameOrderByTimestampDesc(String username, Pageable pageable);
 
     /**
      * Find audit logs by action type
      */
-    Page<AuditLog> findByActionOrderByTimestampDesc(AuditAction action, Pageable pageable);
+    Page<Audited> findByActionOrderByTimestampDesc(AuditAction action, Pageable pageable);
 
     /**
      * Find audit logs by date range
      */
-    @Query("SELECT a FROM AuditLog a WHERE a.timestamp BETWEEN :startDate AND :endDate ORDER BY a.timestamp DESC")
-    Page<AuditLog> findByTimestampBetween(@Param("startDate") Date startDate, 
+    @Query("SELECT a FROM Audited a WHERE a.timestamp BETWEEN :startDate AND :endDate ORDER BY a.timestamp DESC")
+    Page<Audited> findByTimestampBetween(@Param("startDate") Date startDate, 
                                          @Param("endDate") Date endDate, 
                                          Pageable pageable);
 
     /**
      * Find audit logs by module
      */
-    Page<AuditLog> findByModuleOrderByTimestampDesc(String module, Pageable pageable);
+    Page<Audited> findByModuleOrderByTimestampDesc(String module, Pageable pageable);
 
     /**
      * Find failed operations
      */
-    Page<AuditLog> findByStatusOrderByTimestampDesc(AuditStatus status, Pageable pageable);
+    Page<Audited> findByStatusOrderByTimestampDesc(AuditStatus status, Pageable pageable);
 
     /**
      * Count operations by user

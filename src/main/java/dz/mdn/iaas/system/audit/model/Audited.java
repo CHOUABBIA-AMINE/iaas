@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: AuditLog
+ *	@Name		: Audited
  *	@CreatedOn	: 10-27-2025
  *
  *	@Type		: Class
@@ -42,9 +42,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="AuditLog")
+@Entity(name="Audited")
 @Table(name="T_00_03_01")
-public class AuditLog {
+public class Audited {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

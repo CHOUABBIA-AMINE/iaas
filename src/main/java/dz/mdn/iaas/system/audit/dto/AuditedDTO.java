@@ -23,9 +23,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dz.mdn.iaas.system.audit.model.AuditLog;
-import dz.mdn.iaas.system.audit.model.AuditLog.AuditAction;
-import dz.mdn.iaas.system.audit.model.AuditLog.AuditStatus;
+import dz.mdn.iaas.system.audit.model.Audited;
+import dz.mdn.iaas.system.audit.model.Audited.AuditAction;
+import dz.mdn.iaas.system.audit.model.Audited.AuditStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -46,7 +46,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuditLogDTO {
+public class AuditedDTO {
 
     /**
      * Shared ObjectMapper instance for JSON parsing
@@ -130,10 +130,10 @@ public class AuditLogDTO {
     /**
      * Create DTO from entity
      */
-    public static AuditLogDTO fromEntity(AuditLog auditLog) {
+    public static AuditedDTO fromEntity(Audited auditLog) {
         if (auditLog == null) return null;
 
-        AuditLogDTO.AuditLogDTOBuilder builder = AuditLogDTO.builder()
+        AuditedDTO.AuditedDTOBuilder builder = AuditedDTO.builder()
                 .id(auditLog.getId())
                 .entityName(auditLog.getEntityName())
                 .entityId(auditLog.getEntityId())
@@ -156,7 +156,7 @@ public class AuditLogDTO {
                 .parentAuditId(auditLog.getParentAuditId())
                 .metadata(auditLog.getMetadata());
 
-        AuditLogDTO dto = builder.build();
+        AuditedDTO dto = builder.build();
 
         // Set computed fields
         dto.setFormattedTimestamp(dto.getFormattedTimestamp());
@@ -173,10 +173,10 @@ public class AuditLogDTO {
     /**
      * Create DTO from entity with minimal fields (for list views)
      */
-    public static AuditLogDTO fromEntityMinimal(AuditLog auditLog) {
+    public static AuditedDTO fromEntityMinimal(Audited auditLog) {
         if (auditLog == null) return null;
 
-        return AuditLogDTO.builder()
+        return AuditedDTO.builder()
                 .id(auditLog.getId())
                 .entityName(auditLog.getEntityName())
                 .entityId(auditLog.getEntityId())
@@ -193,8 +193,8 @@ public class AuditLogDTO {
     /**
      * Convert to entity (for create/update operations)
      */
-    public AuditLog toEntity() {
-        AuditLog auditLog = new AuditLog();
+    public Audited toEntity() {
+    	Audited auditLog = new Audited();
 
         auditLog.setId(this.id);
         auditLog.setEntityName(this.entityName);
@@ -491,9 +491,9 @@ public class AuditLogDTO {
     /**
      * Create simplified DTO for dropdowns and lists
      */
-    public static AuditLogDTO createSimple(Long id, String entityName, Long entityId, 
+    public static AuditedDTO createSimple(Long id, String entityName, Long entityId, 
                                           AuditAction action, String username, Date timestamp) {
-        return AuditLogDTO.builder()
+        return AuditedDTO.builder()
                 .id(id)
                 .entityName(entityName)
                 .entityId(entityId)
