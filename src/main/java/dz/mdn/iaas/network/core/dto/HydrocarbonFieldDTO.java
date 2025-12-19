@@ -26,10 +26,12 @@ import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.HydrocarbonField;
 import dz.mdn.iaas.network.type.model.HydrocarbonFieldType;
+import dz.mdn.iaas.network.type.model.StationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -80,14 +82,11 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
     private Long locationId;
 
     // HydrocarbonField specific fields
-    @NotNull(message = "HydrocarbonField type ID is required")
-    private Long hydrocarbonFieldTypeId;
+    @NotNull(message = "Station type ID is required")
+    private Long stationTypeId;
 
-    @SuperBuilder.Default
+    @Builder.Default
     private Set<Long> pipelineIds = new HashSet<>();
-
-    @SuperBuilder.Default
-    private Set<Long> partnerIds = new HashSet<>();
 
     @Override
     public HydrocarbonField toEntity() {
@@ -117,10 +116,10 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
             field.setLocation(location);
         }
         
-        if (this.hydrocarbonFieldTypeId != null) {
-        	HydrocarbonFieldType hydrocarbonFieldType = new HydrocarbonFieldType();
-        	hydrocarbonFieldType.setId(this.hydrocarbonFieldTypeId);
-            field.setHydrocarbonFieldType(hydrocarbonFieldType);
+        if (this.stationTypeId != null) {
+            StationType stationType = new StationType();
+            stationType.setId(this.stationTypeId);
+            field.setStationType(stationType);
         }
         
         return field;
@@ -152,10 +151,10 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
             field.setLocation(location);
         }
         
-        if (this.hydrocarbonFieldTypeId != null) {
-        	HydrocarbonFieldType hydrocarbonFieldType = new HydrocarbonFieldType();
-        	hydrocarbonFieldType.setId(this.hydrocarbonFieldTypeId);
-            field.setHydrocarbonFieldType(hydrocarbonFieldType);
+        if (this.stationTypeId != null) {
+            StationType stationType = new StationType();
+            stationType.setId(this.stationTypeId);
+            field.setStationType(stationType);
         }
     }
 
@@ -177,7 +176,7 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
                 .operationalStatusId(field.getOperationalStatus() != null ? field.getOperationalStatus().getId() : null)
                 .vendorId(field.getVendor() != null ? field.getVendor().getId() : null)
                 .locationId(field.getLocation() != null ? field.getLocation().getId() : null)
-                .hydrocarbonFieldTypeId(field.getHydrocarbonFieldType() != null ? field.getHydrocarbonFieldType().getId() : null)
+                .stationTypeId(field.getStationType() != null ? field.getStationType().getId() : null)
                 .pipelineIds(pipelineIds)
                 .build();
     }
