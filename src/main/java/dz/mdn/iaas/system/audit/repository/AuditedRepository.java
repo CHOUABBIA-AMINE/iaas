@@ -2,8 +2,9 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: AuditLogRepository
+ *	@Name		: AuditedRepository
  *	@CreatedOn	: 10-27-2025
+ *	@Updated	: 12-19-2025 (Minimized custom queries)
  *
  *	@Type		: Interface
  *	@Layer		: Repository
@@ -30,56 +31,27 @@ import dz.mdn.iaas.system.audit.model.Audited.AuditStatus;
 @Repository
 public interface AuditedRepository extends JpaRepository<Audited, Long> {
 
-    /**
-     * Find audit logs by entity name and ID
-     */
-    List<Audited> findByEntityNameAndEntityIdOrderByTimestampDesc(String entityName, Long entityId);
+    // Spring Data derived queries (no custom implementation needed)
+    List<Audited> findByEntityNameAndEntityId(String entityName, Long entityId);
+    
+    Page<Audited> findByUsername(String username, Pageable pageable);
+    
+    Page<Audited> findByAction(AuditAction action, Pageable pageable);
+    
+    Page<Audited> findByModule(String module, Pageable pageable);
+    
+    Page<Audited> findByStatus(AuditStatus status, Pageable pageable);
 
-    /**
-     * Find audit logs by username
-     */
-    Page<Audited> findByUsernameOrderByTimestampDesc(String username, Pageable pageable);
+    // Only essential custom queries that cannot be derived
+    @Query("SELECT a FROM Audited a WHERE a.timestamp BETWEEN :startDate AND :endDate")
+    Page<Audited> findByDateRange(@Param("startDate") Date startDate, 
+                                   @Param("endDate") Date endDate, 
+                                   Pageable pageable);
 
-    /**
-     * Find audit logs by action type
-     */
-    Page<Audited> findByActionOrderByTimestampDesc(AuditAction action, Pageable pageable);
-
-    /**
-     * Find audit logs by date range
-     */
-    @Query("SELECT a FROM Audited a WHERE a.timestamp BETWEEN :startDate AND :endDate ORDER BY a.timestamp DESC")
-    Page<Audited> findByTimestampBetween(@Param("startDate") Date startDate, 
-                                         @Param("endDate") Date endDate, 
-                                         Pageable pageable);
-
-    /**
-     * Find audit logs by module
-     */
-    Page<Audited> findByModuleOrderByTimestampDesc(String module, Pageable pageable);
-
-    /**
-     * Find failed operations
-     */
-    Page<Audited> findByStatusOrderByTimestampDesc(AuditStatus status, Pageable pageable);
-
-    /**
-     * Count operations by user
-     */
-    @Query("SELECT COUNT(a) FROM AuditLog a WHERE a.username = :username AND a.timestamp >= :since")
+    @Query("SELECT COUNT(a) FROM Audited a WHERE a.username = :username AND a.timestamp >= :since")
     long countByUsernameAndTimestampAfter(@Param("username") String username, @Param("since") Date since);
 
-    /**
-     * Get user activity summary
-     */
-    @Query("SELECT a.action, COUNT(a) FROM AuditLog a WHERE a.username = :username " +
+    @Query("SELECT a.action, COUNT(a) FROM Audited a WHERE a.username = :username " +
            "AND a.timestamp >= :since GROUP BY a.action")
     List<Object[]> getUserActivitySummary(@Param("username") String username, @Param("since") Date since);
-
-    /**
-     * Get system activity statistics
-     */
-    @Query("SELECT a.entityName, a.action, COUNT(a) FROM AuditLog a " +
-           "WHERE a.timestamp >= :since GROUP BY a.entityName, a.action")
-    List<Object[]> getSystemActivityStatistics(@Param("since") Date since);
 }

@@ -4,6 +4,7 @@
  *
  *	@Name		: AuditedService
  *	@CreatedOn	: 10-27-2025
+ *	@Updated	: 12-19-2025 (Extended GenericService)
  *
  *	@Type		: Class
  *	@Layer		: Service
@@ -15,13 +16,18 @@ package dz.mdn.iaas.system.audit.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.system.audit.dto.AuditedDTO;
 import dz.mdn.iaas.system.audit.model.Audited;
 import dz.mdn.iaas.system.audit.model.Audited.AuditAction;
@@ -29,17 +35,43 @@ import dz.mdn.iaas.system.audit.model.Audited.AuditStatus;
 import dz.mdn.iaas.system.audit.repository.AuditedRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import tools.jackson.databind.ObjectMapper;
 
 /**
  * Service for managing audit logs
+ * Extends GenericService for standard CRUD operations
  */
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AuditedService {
+public class AuditedService extends GenericService<Audited, AuditedDTO, Long> {
 
-    private final AuditedRepository auditLogRepository;
+    private final AuditedRepository auditedRepository;
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    protected JpaRepository<Audited, Long> getRepository() {
+        return auditedRepository;
+    }
+
+    @Override
+    protected String getEntityName() {
+        return "Audited";
+    }
+
+    @Override
+    protected AuditedDTO toDTO(Audited entity) {
+        return AuditedDTO.fromEntity(entity);
+    }
+
+    @Override
+    protected Audited toEntity(AuditedDTO dto) {
+        return dto.toEntity();
+    }
+
+    @Override
+    protected void updateEntityFromDTO(Audited entity, AuditedDTO dto) {
+        dto.updateEntity(entity);
+    }
 
     /**
      * Log an audit event (using separate transaction to ensure logging even if main transaction fails)
@@ -47,14 +79,13 @@ public class AuditedService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void logAuditEvent(AuditEventBuilder eventBuilder) {
         try {
-        	Audited auditLog = eventBuilder.build();
-            auditLogRepository.save(auditLog);
+            Audited audited = eventBuilder.build();
+            auditedRepository.save(audited);
             log.debug("Audit event saved: {} {} for entity {}:{}", 
-                     auditLog.getAction(), auditLog.getStatus(), 
-                     auditLog.getEntityName(), auditLog.getEntityId());
+                     audited.getAction(), audited.getStatus(), 
+                     audited.getEntityName(), audited.getEntityId());
         } catch (Exception e) {
             log.error("Failed to save audit log", e);
-            // Don't throw exception to avoid breaking the main business flow
         }
     }
 
@@ -63,11 +94,10 @@ public class AuditedService {
      */
     @Transactional(readOnly = true)
     public List<AuditedDTO> getEntityAuditHistory(String entityName, Long entityId) {
-        return auditLogRepository
-                .findByEntityNameAndEntityIdOrderByTimestampDesc(entityName, entityId)
+        return auditedRepository.findByEntityNameAndEntityId(entityName, entityId)
                 .stream()
-                .map(this::convertToDTO)
-                .toList();
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -75,9 +105,8 @@ public class AuditedService {
      */
     @Transactional(readOnly = true)
     public Page<AuditedDTO> getUserAuditHistory(String username, Pageable pageable) {
-        return auditLogRepository
-                .findByUsernameOrderByTimestampDesc(username, pageable)
-                .map(this::convertToDTO);
+        return auditedRepository.findByUsername(username, pageable)
+                .map(this::toDTO);
     }
 
     /**
@@ -85,9 +114,8 @@ public class AuditedService {
      */
     @Transactional(readOnly = true)
     public Page<AuditedDTO> getAuditLogsByDateRange(Date startDate, Date endDate, Pageable pageable) {
-        return auditLogRepository
-                .findByTimestampBetween(startDate, endDate, pageable)
-                .map(this::convertToDTO);
+        return auditedRepository.findByDateRange(startDate, endDate, pageable)
+                .map(this::toDTO);
     }
 
     /**
@@ -95,9 +123,8 @@ public class AuditedService {
      */
     @Transactional(readOnly = true)
     public Page<AuditedDTO> getFailedOperations(Pageable pageable) {
-        return auditLogRepository
-                .findByStatusOrderByTimestampDesc(AuditStatus.FAILED, pageable)
-                .map(this::convertToDTO);
+        return auditedRepository.findByStatus(AuditStatus.FAILED, pageable)
+                .map(this::toDTO);
     }
 
     /**
@@ -107,39 +134,18 @@ public class AuditedService {
     public UserActivitySummary getUserActivitySummary(String username, int days) {
         Date since = new Date(System.currentTimeMillis() - (long) days * 24 * 60 * 60 * 1000);
         
-        long totalOperations = auditLogRepository.countByUsernameAndTimestampAfter(username, since);
-        List<Object[]> activityData = auditLogRepository.getUserActivitySummary(username, since);
+        long totalOperations = auditedRepository.countByUsernameAndTimestampAfter(username, since);
+        List<Object[]> activityData = auditedRepository.getUserActivitySummary(username, since);
         
         return UserActivitySummary.builder()
                 .username(username)
                 .periodDays(days)
                 .totalOperations(totalOperations)
                 .activityBreakdown(activityData.stream()
-                        .collect(java.util.stream.Collectors.toMap(
+                        .collect(Collectors.toMap(
                                 row -> (AuditAction) row[0],
                                 row -> (Long) row[1]
                         )))
-                .build();
-    }
-
-    /**
-     * Convert entity to DTO
-     */
-    private AuditedDTO convertToDTO(Audited auditLog) {
-        return AuditedDTO.builder()
-                .id(auditLog.getId())
-                .entityName(auditLog.getEntityName())
-                .entityId(auditLog.getEntityId())
-                .action(auditLog.getAction())
-                .username(auditLog.getUsername())
-                .timestamp(auditLog.getTimestamp())
-                .ipAddress(auditLog.getIpAddress())
-                .methodName(auditLog.getMethodName())
-                .description(auditLog.getDescription())
-                .status(auditLog.getStatus())
-                .duration(auditLog.getDuration())
-                .module(auditLog.getModule())
-                .businessProcess(auditLog.getBusinessProcess())
                 .build();
     }
 
@@ -154,43 +160,43 @@ public class AuditedService {
         }
 
         public AuditEventBuilder entityName(String entityName) {
-        	audited.setEntityName(entityName);
+            audited.setEntityName(entityName);
             return this;
         }
 
         public AuditEventBuilder entityId(Long entityId) {
-        	audited.setEntityId(entityId);
+            audited.setEntityId(entityId);
             return this;
         }
 
         public AuditEventBuilder action(AuditAction action) {
-        	audited.setAction(action);
+            audited.setAction(action);
             return this;
         }
 
         public AuditEventBuilder username(String username) {
-        	audited.setUsername(username);
+            audited.setUsername(username);
             return this;
         }
 
         public AuditEventBuilder ipAddress(String ipAddress) {
-        	audited.setIpAddress(ipAddress);
+            audited.setIpAddress(ipAddress);
             return this;
         }
 
         public AuditEventBuilder userAgent(String userAgent) {
-        	audited.setUserAgent(userAgent);
+            audited.setUserAgent(userAgent);
             return this;
         }
 
         public AuditEventBuilder methodName(String methodName) {
-        	audited.setMethodName(methodName);
+            audited.setMethodName(methodName);
             return this;
         }
 
         public AuditEventBuilder oldValues(Object oldValues) {
             try {
-            	audited.setOldValues(new ObjectMapper().writeValueAsString(oldValues));
+                audited.setOldValues(objectMapper.writeValueAsString(oldValues));
             } catch (Exception e) {
                 log.warn("Failed to serialize old values", e);
             }
@@ -199,7 +205,7 @@ public class AuditedService {
 
         public AuditEventBuilder newValues(Object newValues) {
             try {
-            	audited.setNewValues(new ObjectMapper().writeValueAsString(newValues));
+                audited.setNewValues(objectMapper.writeValueAsString(newValues));
             } catch (Exception e) {
                 log.warn("Failed to serialize new values", e);
             }
@@ -208,7 +214,7 @@ public class AuditedService {
 
         public AuditEventBuilder parameters(Object parameters) {
             try {
-            	audited.setParameters(new ObjectMapper().writeValueAsString(parameters));
+                audited.setParameters(objectMapper.writeValueAsString(parameters));
             } catch (Exception e) {
                 log.warn("Failed to serialize parameters", e);
             }
@@ -216,42 +222,42 @@ public class AuditedService {
         }
 
         public AuditEventBuilder description(String description) {
-        	audited.setDescription(description);
+            audited.setDescription(description);
             return this;
         }
 
         public AuditEventBuilder status(AuditStatus status) {
-        	audited.setStatus(status);
+            audited.setStatus(status);
             return this;
         }
 
         public AuditEventBuilder errorMessage(String errorMessage) {
-        	audited.setErrorMessage(errorMessage);
+            audited.setErrorMessage(errorMessage);
             return this;
         }
 
         public AuditEventBuilder duration(Long duration) {
-        	audited.setDuration(duration);
+            audited.setDuration(duration);
             return this;
         }
 
         public AuditEventBuilder module(String module) {
-        	audited.setModule(module);
+            audited.setModule(module);
             return this;
         }
 
         public AuditEventBuilder businessProcess(String businessProcess) {
-        	audited.setBusinessProcess(businessProcess);
+            audited.setBusinessProcess(businessProcess);
             return this;
         }
 
         public AuditEventBuilder sessionId(String sessionId) {
-        	audited.setSessionId(sessionId);
+            audited.setSessionId(sessionId);
             return this;
         }
 
         public Audited build() {
-        	audited.setTimestamp(new Date());
+            audited.setTimestamp(new Date());
             return audited;
         }
     }
