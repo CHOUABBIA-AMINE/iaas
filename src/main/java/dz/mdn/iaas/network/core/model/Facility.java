@@ -65,14 +65,14 @@ public class Facility extends Infrastructure {
 
 	@ManyToOne
     @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable=false)
-    private Vendor vendor;
+    protected Vendor vendor;
     
     @ManyToOne
     @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable=false)
-    private Location location;
+    protected Location location;
     
     @Builder.Default
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)
-    private Set<Equipment> equipments = new HashSet<>();
+    protected Set<Equipment> equipments = new HashSet<>();
 
 }

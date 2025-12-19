@@ -60,22 +60,22 @@ import lombok.ToString;
 public class Infrastructure extends GenericModel {
 
 	@Column(name="F_01", length=20, nullable=false)
-    private String code;
+	protected String code;
 
 	@Column(name="F_02", length=100, nullable=false)
-    private String name;
+	protected String name;
     
     @Column(name = "F_03", nullable = true)
-    private LocalDate installationDate;
+    protected LocalDate installationDate;
 
     @Column(name = "F_04", nullable = true)
-    private LocalDate commissioningDate;
+    protected LocalDate commissioningDate;
 
     @Column(name = "F_05", nullable = true)
-    private LocalDate decommissioningDate;
+    protected LocalDate decommissioningDate;
     
     @ManyToOne
     @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_03_03_01_FK_01"), nullable=false)
-    private OperationalStatus operationalStatus;
+    protected OperationalStatus operationalStatus;
     
 }
