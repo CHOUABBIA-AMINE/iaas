@@ -25,7 +25,7 @@ import dz.mdn.iaas.network.common.model.Location;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.Terminal;
-import dz.mdn.iaas.network.type.model.StationType;
+import dz.mdn.iaas.network.type.model.TerminalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -82,7 +82,7 @@ public class TerminalDTO extends GenericDTO<Terminal> {
 
     // Terminal specific fields
     @NotNull(message = "Station type ID is required")
-    private Long stationTypeId;
+    private Long terminalTypeId;
 
     @Builder.Default
     private Set<Long> pipelineIds = new HashSet<>();
@@ -115,10 +115,10 @@ public class TerminalDTO extends GenericDTO<Terminal> {
             terminal.setLocation(location);
         }
         
-        if (this.stationTypeId != null) {
-            StationType stationType = new StationType();
-            stationType.setId(this.stationTypeId);
-            terminal.setStationType(stationType);
+        if (this.terminalTypeId != null) {
+        	TerminalType terminalType = new TerminalType();
+            terminalType.setId(this.terminalTypeId);
+            terminal.setTerminalType(terminalType);
         }
         
         return terminal;
@@ -150,10 +150,10 @@ public class TerminalDTO extends GenericDTO<Terminal> {
             terminal.setLocation(location);
         }
         
-        if (this.stationTypeId != null) {
-            StationType stationType = new StationType();
-            stationType.setId(this.stationTypeId);
-            terminal.setStationType(stationType);
+        if (this.terminalTypeId != null) {
+        	TerminalType terminalType = new TerminalType();
+            terminalType.setId(this.terminalTypeId);
+            terminal.setTerminalType(terminalType);
         }
     }
 
@@ -175,7 +175,7 @@ public class TerminalDTO extends GenericDTO<Terminal> {
                 .operationalStatusId(terminal.getOperationalStatus() != null ? terminal.getOperationalStatus().getId() : null)
                 .vendorId(terminal.getVendor() != null ? terminal.getVendor().getId() : null)
                 .locationId(terminal.getLocation() != null ? terminal.getLocation().getId() : null)
-                .stationTypeId(terminal.getStationType() != null ? terminal.getStationType().getId() : null)
+                .terminalTypeId(terminal.getTerminalType() != null ? terminal.getTerminalType().getId() : null)
                 .pipelineIds(pipelineIds)
                 .build();
     }
