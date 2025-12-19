@@ -31,6 +31,10 @@ import lombok.experimental.SuperBuilder;
  * Terminal Data Transfer Object - Extends FacilityDTO
  * Inherits all fields from parent Facility class
  * 
+ * Inheritance chain: GenericDTO -> FacilityDTO -> TerminalDTO
+ * Inherits from Facility: code, name, installationDate, commissioningDate, decommissioningDate,
+ *                        operationalStatusId, locationId, facilityTypeId, vendorId
+ * 
  * Additional Fields:
  * - stationTypeId - Type of terminal (required)
  * - pipelineIds - Associated pipelines
@@ -57,18 +61,38 @@ public class TerminalDTO extends FacilityDTO {
         terminal.setName(getName());
         terminal.setInstallationDate(getInstallationDate());
         terminal.setCommissioningDate(getCommissioningDate());
-        terminal.setDecommissioningDate(getDecommissioningDate());
-        terminal.setLocationId(getLocationId());
-        terminal.setFacilityTypeId(getFacilityTypeId());
+        terminal.setRetirementDate(getRetirementDate());
+        terminal.setProvider(getProvider());
+        
+        // Set relationships from parent DTO
+        if (getOperationalStatusId() != null) {
+            dz.mdn.iaas.network.common.model.OperationalStatus status = 
+                new dz.mdn.iaas.network.common.model.OperationalStatus();
+            status.setId(getOperationalStatusId());
+            terminal.setOperationalStatus(status);
+        }
+        
+        if (getLocationId() != null) {
+            dz.mdn.iaas.network.common.model.Location location = 
+                new dz.mdn.iaas.network.common.model.Location();
+            location.setId(getLocationId());
+            terminal.setLocation(location);
+        }
+        
+        if (getVendorId() != null) {
+            dz.mdn.iaas.network.common.model.Vendor vendor = 
+                new dz.mdn.iaas.network.common.model.Vendor();
+            vendor.setId(getVendorId());
+            terminal.setVendor(vendor);
+        }
+        
         return terminal;
     }
 
     @Override
     public void updateEntity(Terminal terminal) {
-        super.updateEntity((org.hibernate.mapping.Subclass) terminal);
-        if (this.stationTypeId != null) {
-            // Station type would be set via relationship
-        }
+        super.updateEntity((Facility) terminal);
+        // Additional update logic for Terminal-specific fields can go here
     }
 
     public static TerminalDTO fromEntity(Terminal terminal) {
@@ -85,10 +109,11 @@ public class TerminalDTO extends FacilityDTO {
                 .name(terminal.getName())
                 .installationDate(terminal.getInstallationDate())
                 .commissioningDate(terminal.getCommissioningDate())
-                .decommissioningDate(terminal.getDecommissioningDate())
-                .locationId(terminal.getLocation() != null ? terminal.getLocation().getId() : null)
-                .facilityTypeId(terminal.getFacilityType() != null ? terminal.getFacilityType().getId() : null)
+                .retirementDate(terminal.getRetirementDate())
+                .provider(terminal.getProvider())
                 .operationalStatusId(terminal.getOperationalStatus() != null ? terminal.getOperationalStatus().getId() : null)
+                .locationId(terminal.getLocation() != null ? terminal.getLocation().getId() : null)
+                .vendorId(terminal.getVendor() != null ? terminal.getVendor().getId() : null)
                 .stationTypeId(terminal.getStationType() != null ? terminal.getStationType().getId() : null)
                 .pipelineIds(pipelineIds)
                 .build();
