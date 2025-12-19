@@ -2,8 +2,8 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: EquipmentTypeRepository
- *	@CreatedOn	: 12-11-2025
+ *	@Name		: CompanyTypeRepository
+ *	@CreatedOn	: 12-19-2025
  *	@Updated	: 12-19-2025
  *
  *	@Type		: Repository
@@ -21,14 +21,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import dz.mdn.iaas.network.type.model.EquipmentType;
+import dz.mdn.iaas.network.type.model.CompanyType;
 
 @Repository
-public interface EquipmentTypeRepository extends JpaRepository<EquipmentType, Long> {
+public interface CompanyTypeRepository extends JpaRepository<CompanyType, Long> {
 
-    @Query("SELECT t FROM EquipmentType t WHERE LOWER(t.code) LIKE LOWER(CONCAT('%', :search, '%'))"
-            + " OR LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%'))"
+    @Query("SELECT t FROM CompanyType t WHERE LOWER(t.designationAr) LIKE LOWER(CONCAT('%', :search, '%'))"
             + " OR LOWER(t.designationEn) LIKE LOWER(CONCAT('%', :search, '%'))"
             + " OR LOWER(t.designationFr) LIKE LOWER(CONCAT('%', :search, '%'))")
-    Page<EquipmentType> searchByAnyField(@Param("search") String search, Pageable pageable);
+    Page<CompanyType> searchByAnyField(@Param("search") String search, Pageable pageable);
 }
