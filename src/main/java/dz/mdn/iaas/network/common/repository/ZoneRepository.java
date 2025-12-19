@@ -14,6 +14,8 @@
 
 package dz.mdn.iaas.network.common.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,4 +36,6 @@ public interface ZoneRepository extends JpaRepository<Zone, Long> {
 
     @Query("SELECT z FROM Zone z WHERE LOWER(z.code) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(z.name) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Zone> searchByAnyField(@Param("search") String search, Pageable pageable);
+
+    List<Zone> findByRegionId(Long regionId);
 }

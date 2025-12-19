@@ -14,6 +14,8 @@
 
 package dz.mdn.iaas.network.core.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,4 +36,6 @@ public interface PipelineRepository extends JpaRepository<Pipeline, Long> {
 
     @Query("SELECT p FROM Pipeline p WHERE LOWER(p.code) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Pipeline> searchByAnyField(@Param("search") String search, Pageable pageable);
+
+    List<Pipeline> findByPipelineSystemId(Long pipelineSystemId);
 }
