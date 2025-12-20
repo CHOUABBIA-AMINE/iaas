@@ -20,8 +20,11 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.common.administration.dto.LocalityDTO;
+import dz.mdn.iaas.common.administration.model.Locality;
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import dz.mdn.iaas.network.common.model.Location;
+import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
+import dz.mdn.iaas.network.common.dto.VendorDTO;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.Terminal;
@@ -69,20 +72,35 @@ public class TerminalDTO extends GenericDTO<Terminal> {
     private LocalDate installationDate;
     private LocalDate commissioningDate;
     private LocalDate decommissioningDate;
+    
+    @NotBlank(message = "Place name is required")
+    @Size(max = 100, message = "PlaceName must not exceed 100 characters")
+    private String placeName;
+    
+    @NotNull(message = "Latitude thickness is required")
+    private Double latitude;
+    
+    @NotNull(message = "Longitude thickness is required")
+    private Double longitude;
+    
+    @NotNull(message = "Elevation is required")
+    private Double elevation;
 
     @NotNull(message = "Operational status ID is required")
     private Long operationalStatusId;
 
-    // Facility fields
-    @NotNull(message = "Vendor ID is required")
+    @Size(max = 100, message = "provider must not exceed 100 characters")
     private Long vendorId;
 
-    @NotNull(message = "Location ID is required")
-    private Long locationId;
+    @NotNull(message = "Locality is required")
+    private Long localityId;
 
-    // Terminal specific fields
     @NotNull(message = "Station type ID is required")
     private Long terminalTypeId;
+    
+    private OperationalStatusDTO operationalStatus;
+    private VendorDTO vendor;
+    private LocalityDTO locality;
 
     @Builder.Default
     private Set<Long> pipelineIds = new HashSet<>();
@@ -103,16 +121,21 @@ public class TerminalDTO extends GenericDTO<Terminal> {
             terminal.setOperationalStatus(status);
         }
         
+        terminal.setPlaceName(this.placeName);
+        terminal.setLatitude(this.latitude);
+        terminal.setLongitude(this.longitude);
+        terminal.setElevation(this.elevation);
+        
         if (this.vendorId != null) {
-            Vendor vendor = new Vendor();
-            vendor.setId(this.vendorId);
-            terminal.setVendor(vendor);
+        	Vendor vendor = new Vendor();
+        	vendor.setId(this.vendorId);
+        	terminal.setVendor(vendor);
         }
         
-        if (this.locationId != null) {
-            Location location = new Location();
-            location.setId(this.locationId);
-            terminal.setLocation(location);
+        if (this.localityId != null) {
+        	Locality locality = new Locality();
+        	locality.setId(this.localityId);
+        	terminal.setLocality(locality);
         }
         
         if (this.terminalTypeId != null) {
@@ -138,16 +161,21 @@ public class TerminalDTO extends GenericDTO<Terminal> {
             terminal.setOperationalStatus(status);
         }
         
+        if (this.placeName != null) terminal.setPlaceName(this.placeName);
+        if (this.latitude != null) terminal.setLatitude(this.latitude);
+        if (this.longitude != null) terminal.setLongitude(this.longitude);
+        if (this.elevation != null) terminal.setElevation(this.elevation);
+        
         if (this.vendorId != null) {
-            Vendor vendor = new Vendor();
-            vendor.setId(this.vendorId);
-            terminal.setVendor(vendor);
+        	Vendor vendor = new Vendor();
+        	vendor.setId(this.vendorId);
+        	terminal.setVendor(vendor);
         }
         
-        if (this.locationId != null) {
-            Location location = new Location();
-            location.setId(this.locationId);
-            terminal.setLocation(location);
+        if (this.localityId != null) {
+        	Locality locality = new Locality();
+        	locality.setId(this.localityId);
+        	terminal.setLocality(locality);
         }
         
         if (this.terminalTypeId != null) {
@@ -172,11 +200,19 @@ public class TerminalDTO extends GenericDTO<Terminal> {
                 .installationDate(terminal.getInstallationDate())
                 .commissioningDate(terminal.getCommissioningDate())
                 .decommissioningDate(terminal.getDecommissioningDate())
+                .placeName(terminal.getPlaceName())
+                .latitude(terminal.getLatitude())
+                .longitude(terminal.getLongitude())
+                .elevation(terminal.getElevation())
                 .operationalStatusId(terminal.getOperationalStatus() != null ? terminal.getOperationalStatus().getId() : null)
                 .vendorId(terminal.getVendor() != null ? terminal.getVendor().getId() : null)
-                .locationId(terminal.getLocation() != null ? terminal.getLocation().getId() : null)
+                .localityId(terminal.getLocality() != null ? terminal.getLocality().getId() : null)
                 .terminalTypeId(terminal.getTerminalType() != null ? terminal.getTerminalType().getId() : null)
                 .pipelineIds(pipelineIds)
+                
+                .operationalStatus(terminal.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(terminal.getOperationalStatus()) : null)
+                .vendor(terminal.getVendor() != null ? VendorDTO.fromEntity(terminal.getVendor()) : null)
+                .locality(terminal.getLocality() != null ? LocalityDTO.fromEntity(terminal.getLocality()) : null)
                 .build();
     }
 }

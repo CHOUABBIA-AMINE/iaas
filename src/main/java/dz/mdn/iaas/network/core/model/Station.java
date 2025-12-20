@@ -59,7 +59,7 @@ import lombok.ToString;
 public class Station extends Facility {
 
     @ManyToOne
-    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_03_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_13", foreignKey=@ForeignKey(name="T_03_03_03_FK_01"), nullable=false)
     private StationType stationType;
 
     @ManyToMany(fetch = FetchType.LAZY)

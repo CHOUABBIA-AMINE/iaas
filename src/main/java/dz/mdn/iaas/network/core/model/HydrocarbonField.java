@@ -59,7 +59,7 @@ import lombok.ToString;
 public class HydrocarbonField extends Facility {
 
     @ManyToOne
-    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_03_03_05_FK_01"), nullable=false)
+    @JoinColumn(name="F_13", foreignKey=@ForeignKey(name="T_03_03_05_FK_01"), nullable=false)
     private HydrocarbonFieldType hydrocarbonFieldType;
 
     @ManyToMany(fetch = FetchType.LAZY)

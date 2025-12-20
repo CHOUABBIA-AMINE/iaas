@@ -105,7 +105,7 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
 
     @NotNull(message = "Real max service pressure is required")
     @Positive(message = "Real max service pressure must be positive")
-    private Double realMaxServicePressure;
+    private Double operationalMaxServicePressure;
 
     @NotNull(message = "Design min service pressure is required")
     @Positive(message = "Design min service pressure must be positive")
@@ -113,7 +113,7 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
 
     @NotNull(message = "Real min service pressure is required")
     @Positive(message = "Real min service pressure must be positive")
-    private Double realMinServicePressure;
+    private Double operationalMinServicePressure;
 
     @NotNull(message = "Design capacity is required")
     @Positive(message = "Design capacity must be positive")
@@ -121,7 +121,7 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
 
     @NotNull(message = "Real capacity is required")
     @Positive(message = "Real capacity must be positive")
-    private Double realCapacity;
+    private Double operationalCapacity;
 
     @NotNull(message = "Nominal construction material ID is required")
     private Long nominalConstructionMaterialId;
@@ -158,11 +158,11 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
         pipeline.setNominalThikness(this.nominalThikness);
         pipeline.setNominalRoughness(this.nominalRoughness);
         pipeline.setDesignMaxServicePressure(this.designMaxServicePressure);
-        pipeline.setRealMaxServicePressure(this.realMaxServicePressure);
+        pipeline.setOperationalMaxServicePressure(this.operationalMaxServicePressure);
         pipeline.setDesignMinServicePressure(this.designMinServicePressure);
-        pipeline.setRealMinServicePressure(this.realMinServicePressure);
+        pipeline.setOperationalMinServicePressure(this.operationalMinServicePressure);
         pipeline.setDesignCapacity(this.designCapacity);
-        pipeline.setRealCapacity(this.realCapacity);
+        pipeline.setOperationalCapacity(this.operationalCapacity);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
@@ -228,11 +228,11 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
         if (this.nominalThikness != null) pipeline.setNominalThikness(this.nominalThikness);
         if (this.nominalRoughness != null) pipeline.setNominalRoughness(this.nominalRoughness);
         if (this.designMaxServicePressure != null) pipeline.setDesignMaxServicePressure(this.designMaxServicePressure);
-        if (this.realMaxServicePressure != null) pipeline.setRealMaxServicePressure(this.realMaxServicePressure);
+        if (this.operationalMaxServicePressure != null) pipeline.setOperationalMaxServicePressure(this.operationalMaxServicePressure);
         if (this.designMinServicePressure != null) pipeline.setDesignMinServicePressure(this.designMinServicePressure);
-        if (this.realMinServicePressure != null) pipeline.setRealMinServicePressure(this.realMinServicePressure);
+        if (this.operationalMinServicePressure != null) pipeline.setOperationalMinServicePressure(this.operationalMinServicePressure);
         if (this.designCapacity != null) pipeline.setDesignCapacity(this.designCapacity);
-        if (this.realCapacity != null) pipeline.setRealCapacity(this.realCapacity);
+        if (this.operationalCapacity != null) pipeline.setOperationalCapacity(this.operationalCapacity);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
@@ -298,11 +298,11 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
                 .nominalThikness(pipeline.getNominalThikness())
                 .nominalRoughness(pipeline.getNominalRoughness())
                 .designMaxServicePressure(pipeline.getDesignMaxServicePressure())
-                .realMaxServicePressure(pipeline.getRealMaxServicePressure())
+                .operationalMaxServicePressure(pipeline.getOperationalMaxServicePressure())
                 .designMinServicePressure(pipeline.getDesignMinServicePressure())
-                .realMinServicePressure(pipeline.getRealMinServicePressure())
+                .operationalMinServicePressure(pipeline.getOperationalMinServicePressure())
                 .designCapacity(pipeline.getDesignCapacity())
-                .realCapacity(pipeline.getRealCapacity())
+                .operationalCapacity(pipeline.getOperationalCapacity())
                 .operationalStatusId(pipeline.getOperationalStatus() != null ? pipeline.getOperationalStatus().getId() : null)
                 .nominalConstructionMaterialId(pipeline.getNominalConstructionMaterial() != null ? pipeline.getNominalConstructionMaterial().getId() : null)
                 .nominalExteriorCoatingId(pipeline.getNominalExteriorCoating() != null ? pipeline.getNominalExteriorCoating().getId() : null)

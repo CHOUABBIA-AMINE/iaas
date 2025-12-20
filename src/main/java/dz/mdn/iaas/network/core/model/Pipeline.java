@@ -74,19 +74,19 @@ public class Pipeline extends Infrastructure {
     private Double designMaxServicePressure;
 
     @Column(name="F_12", nullable=false)
-    private Double realMaxServicePressure;
+    private Double operationalMaxServicePressure;
 
     @Column(name="F_13", nullable=false)
     private Double designMinServicePressure;
 
     @Column(name="F_14", nullable=false)
-    private Double realMinServicePressure;
+    private Double operationalMinServicePressure;
 
     @Column(name="F_15", nullable=false)
     private Double designCapacity;
 
     @Column(name="F_16", nullable=false)
-    private Double realCapacity;
+    private Double operationalCapacity;
 
     @ManyToOne
     @JoinColumn(name="F_17", foreignKey=@ForeignKey(name="T_03_03_07_FK_01"), nullable=false)

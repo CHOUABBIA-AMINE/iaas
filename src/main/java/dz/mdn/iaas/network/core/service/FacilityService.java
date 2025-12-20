@@ -25,9 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dz.mdn.iaas.configuration.template.GenericService;
 import dz.mdn.iaas.exception.BusinessValidationException;
-import dz.mdn.iaas.network.common.model.Location;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
-import dz.mdn.iaas.network.common.repository.LocationRepository;
 import dz.mdn.iaas.network.common.repository.OperationalStatusRepository;
 import dz.mdn.iaas.network.core.dto.FacilityDTO;
 import dz.mdn.iaas.network.core.model.Facility;
@@ -43,7 +41,7 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
 
     private final FacilityRepository facilityRepository;
     private final OperationalStatusRepository operationalStatusRepository;
-    private final LocationRepository locationRepository;
+    //private final LocationRepository locationRepository;
 
     @Override
     protected JpaRepository<Facility, Long> getRepository() {
@@ -70,11 +68,11 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
             entity.setOperationalStatus(status);
         }
         
-        if (dto.getLocationId() != null) {
-            Location location = locationRepository.findById(dto.getLocationId())
-                    .orElseThrow(() -> new RuntimeException("Location not found with id: " + dto.getLocationId()));
-            entity.setLocation(location);
-        }
+        //if (dto.getLocationId() != null) {
+        //    Location location = locationRepository.findById(dto.getLocationId())
+        //            .orElseThrow(() -> new RuntimeException("Location not found with id: " + dto.getLocationId()));
+        //    entity.setLocation(location);
+        //}
         
         return entity;
     }
@@ -89,11 +87,11 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
             entity.setOperationalStatus(status);
         }
         
-        if (dto.getLocationId() != null) {
-            Location location = locationRepository.findById(dto.getLocationId())
-                    .orElseThrow(() -> new RuntimeException("Location not found with id: " + dto.getLocationId()));
-            entity.setLocation(location);
-        }
+        //if (dto.getLocationId() != null) {
+        //    Location location = locationRepository.findById(dto.getLocationId())
+        //            .orElseThrow(() -> new RuntimeException("Location not found with id: " + dto.getLocationId()));
+        //    entity.setLocation(location);
+        //}
     }
 
     @Override
@@ -137,10 +135,31 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
         return executeQuery(p -> facilityRepository.searchByAnyField(searchTerm.trim(), p), pageable);
     }
 
-    public List<FacilityDTO> findByLocation(Long locationId) {
-        log.debug("Finding facilities by location id: {}", locationId);
-        return facilityRepository.findByLocationId(locationId).stream()
+    public List<FacilityDTO> findByVendor(Long vendorId) {
+        log.debug("Finding locations by vendor id: {}", vendorId);
+        return facilityRepository.findByVendorId(vendorId).stream()
                 .map(FacilityDTO::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    public List<FacilityDTO> findByLocality(Long localityId) {
+        log.debug("Finding locations by locality id: {}", localityId);
+        return facilityRepository.findByLocalityId(localityId).stream()
+                .map(FacilityDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<FacilityDTO> findByOperationalStatus(Long operationalStatusId) {
+        log.debug("Finding locations by operational status id: {}", operationalStatusId);
+        return facilityRepository.findByOperationalStatusId(operationalStatusId).stream()
+                .map(FacilityDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    //public List<FacilityDTO> findByLocation(Long locationId) {
+    //    log.debug("Finding facilities by location id: {}", locationId);
+    //    return facilityRepository.findByLocationId(locationId).stream()
+    //            .map(FacilityDTO::fromEntity)
+    //            .collect(Collectors.toList());
+    //}
 }

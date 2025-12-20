@@ -19,6 +19,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +37,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FacilityController extends GenericController<FacilityDTO, Long> {
 
+	private final FacilityService facilityService;
+	
     public FacilityController(FacilityService facilityService) {
         super(facilityService, "Facility");
+        this.facilityService = facilityService;
     }
 
     // ========== SECURED CRUD OPERATIONS ==========
@@ -103,5 +107,26 @@ public class FacilityController extends GenericController<FacilityDTO, Long> {
     @PreAuthorize("hasAuthority('FACILITY:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
+    }
+
+    @GetMapping("/locality/{localityId}")
+    @PreAuthorize("hasAuthority('FACILITY:READ')")
+    public ResponseEntity<List<FacilityDTO>> getByLocality(@PathVariable Long localityId) {
+        log.info("GET /network/facility/locality/{} - Getting facilities by locality", localityId);
+        return ResponseEntity.ok(facilityService.findByLocality(localityId));
+    }
+
+    @GetMapping("/vendor/{vendorId}")
+    @PreAuthorize("hasAuthority('FACILITY:READ')")
+    public ResponseEntity<List<FacilityDTO>> getByVendor(@PathVariable Long vendorId) {
+        log.info("GET /network/facility/vendor/{} - Getting facilities by vendor", vendorId);
+        return ResponseEntity.ok(facilityService.findByVendor(vendorId));
+    }
+
+    @GetMapping("/operationalStatus/{operationalStatusId}")
+    @PreAuthorize("hasAuthority('FACILITY:READ')")
+    public ResponseEntity<List<FacilityDTO>> getByOperationalStatus(@PathVariable Long operationalStatusId) {
+        log.info("GET /network/facility/vendor/{} - Getting facilities by operational status", operationalStatusId);
+        return ResponseEntity.ok(facilityService.findByOperationalStatus(operationalStatusId));
     }
 }

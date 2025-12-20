@@ -17,9 +17,10 @@ package dz.mdn.iaas.network.core.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import dz.mdn.iaas.network.common.model.Location;
+import dz.mdn.iaas.common.administration.model.Locality;
 import dz.mdn.iaas.network.common.model.Vendor;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Inheritance;
@@ -28,7 +29,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -60,16 +60,33 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity(name="Facility")
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="T_03_03_02", uniqueConstraints = { @UniqueConstraint(name="T_03_03_02_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_03_02")
 public class Facility extends Infrastructure {
+	
+	@Column(name="F_07", length=100, nullable=false)
+	private String placeName;
+
+    @Column(name="F_08", nullable=false)
+    private Double latitude;
+
+    @Column(name="F_09", nullable=false)
+    private Double longitude;
+
+	@Column(name="F_10")
+    private Double elevation;
 
 	@ManyToOne
-    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable=false)
+    @JoinColumn(name="F_11", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable=false)
     protected Vendor vendor;
     
+    //@ManyToOne
+    //@JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable=true)
+    //protected Location location;
+
+
     @ManyToOne
-    @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable=false)
-    protected Location location;
+    @JoinColumn(name = "F_12", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable = false)
+    private Locality locality;
     
     @Builder.Default
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)

@@ -20,8 +20,11 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.common.administration.dto.LocalityDTO;
+import dz.mdn.iaas.common.administration.model.Locality;
 import dz.mdn.iaas.configuration.template.GenericDTO;
-import dz.mdn.iaas.network.common.model.Location;
+import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
+import dz.mdn.iaas.network.common.dto.VendorDTO;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.Station;
@@ -69,20 +72,35 @@ public class StationDTO extends GenericDTO<Station> {
     private LocalDate installationDate;
     private LocalDate commissioningDate;
     private LocalDate decommissioningDate;
+    
+    @NotBlank(message = "Place name is required")
+    @Size(max = 100, message = "PlaceName must not exceed 100 characters")
+    private String placeName;
+    
+    @NotNull(message = "Latitude thickness is required")
+    private Double latitude;
+    
+    @NotNull(message = "Longitude thickness is required")
+    private Double longitude;
+    
+    @NotNull(message = "Elevation is required")
+    private Double elevation;
 
     @NotNull(message = "Operational status ID is required")
     private Long operationalStatusId;
 
-    // Facility fields
-    @NotNull(message = "Vendor ID is required")
+    @Size(max = 100, message = "provider must not exceed 100 characters")
     private Long vendorId;
 
-    @NotNull(message = "Location ID is required")
-    private Long locationId;
+    @NotNull(message = "Locality is required")
+    private Long localityId;
 
-    // Station specific fields
     @NotNull(message = "Station type ID is required")
     private Long stationTypeId;
+    
+    private OperationalStatusDTO operationalStatus;
+    private VendorDTO vendor;
+    private LocalityDTO locality;
 
     @Builder.Default
     private Set<Long> pipelineIds = new HashSet<>();
@@ -103,16 +121,21 @@ public class StationDTO extends GenericDTO<Station> {
             station.setOperationalStatus(status);
         }
         
+        station.setPlaceName(this.placeName);
+        station.setLatitude(this.latitude);
+        station.setLongitude(this.longitude);
+        station.setElevation(this.elevation);
+        
         if (this.vendorId != null) {
-            Vendor vendor = new Vendor();
-            vendor.setId(this.vendorId);
-            station.setVendor(vendor);
+        	Vendor vendor = new Vendor();
+        	vendor.setId(this.vendorId);
+        	station.setVendor(vendor);
         }
         
-        if (this.locationId != null) {
-            Location location = new Location();
-            location.setId(this.locationId);
-            station.setLocation(location);
+        if (this.localityId != null) {
+        	Locality locality = new Locality();
+        	locality.setId(this.localityId);
+        	station.setLocality(locality);
         }
         
         if (this.stationTypeId != null) {
@@ -138,16 +161,21 @@ public class StationDTO extends GenericDTO<Station> {
             station.setOperationalStatus(status);
         }
         
+        if (this.placeName != null) station.setPlaceName(this.placeName);
+        if (this.latitude != null) station.setLatitude(this.latitude);
+        if (this.longitude != null) station.setLongitude(this.longitude);
+        if (this.elevation != null) station.setElevation(this.elevation);
+        
         if (this.vendorId != null) {
-            Vendor vendor = new Vendor();
-            vendor.setId(this.vendorId);
-            station.setVendor(vendor);
+        	Vendor vendor = new Vendor();
+        	vendor.setId(this.vendorId);
+        	station.setVendor(vendor);
         }
         
-        if (this.locationId != null) {
-            Location location = new Location();
-            location.setId(this.locationId);
-            station.setLocation(location);
+        if (this.localityId != null) {
+        	Locality locality = new Locality();
+        	locality.setId(this.localityId);
+        	station.setLocality(locality);
         }
         
         if (this.stationTypeId != null) {
@@ -172,11 +200,20 @@ public class StationDTO extends GenericDTO<Station> {
                 .installationDate(station.getInstallationDate())
                 .commissioningDate(station.getCommissioningDate())
                 .decommissioningDate(station.getDecommissioningDate())
+                .placeName(station.getPlaceName())
+                .latitude(station.getLatitude())
+                .longitude(station.getLongitude())
+                .elevation(station.getElevation())
+                
                 .operationalStatusId(station.getOperationalStatus() != null ? station.getOperationalStatus().getId() : null)
                 .vendorId(station.getVendor() != null ? station.getVendor().getId() : null)
-                .locationId(station.getLocation() != null ? station.getLocation().getId() : null)
+                .localityId(station.getLocality() != null ? station.getLocality().getId() : null)
                 .stationTypeId(station.getStationType() != null ? station.getStationType().getId() : null)
                 .pipelineIds(pipelineIds)
+                
+                .operationalStatus(station.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(station.getOperationalStatus()) : null)
+                .vendor(station.getVendor() != null ? VendorDTO.fromEntity(station.getVendor()) : null)
+                .locality(station.getLocality() != null ? LocalityDTO.fromEntity(station.getLocality()) : null)
                 .build();
     }
 }
