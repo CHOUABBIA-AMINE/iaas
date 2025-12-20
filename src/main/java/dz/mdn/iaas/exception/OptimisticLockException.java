@@ -23,8 +23,10 @@ import org.springframework.http.HttpStatus;
  * @created 2025-12-20
  */
 public class OptimisticLockException extends IaasException {
-    
-    public OptimisticLockException(String entityName, Object entityId) {
+
+	private static final long serialVersionUID = 7494356977546879685L;
+
+	public OptimisticLockException(String entityName, Object entityId) {
         super("OPTIMISTIC_LOCK_FAILURE",
               String.format("The %s with ID %s was modified by another user. Please refresh and try again.",
                           entityName, entityId),

@@ -23,7 +23,9 @@ import org.springframework.http.HttpStatus;
  */
 public class AuthenticationException extends IaasException {
     
-    public AuthenticationException(String message) {
+	private static final long serialVersionUID = 1170503594699323948L;
+
+	public AuthenticationException(String message) {
         super("AUTHENTICATION_FAILED", message, HttpStatus.UNAUTHORIZED);
     }
     

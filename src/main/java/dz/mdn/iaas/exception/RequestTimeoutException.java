@@ -23,7 +23,9 @@ import org.springframework.http.HttpStatus;
  */
 public class RequestTimeoutException extends IaasException {
     
-    public RequestTimeoutException(String operation) {
+	private static final long serialVersionUID = 1719756819850217324L;
+
+	public RequestTimeoutException(String operation) {
         super("REQUEST_TIMEOUT",
               String.format("Operation '%s' timed out. Please try again.", operation),
               HttpStatus.REQUEST_TIMEOUT);

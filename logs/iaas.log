@@ -984,3 +984,412 @@ Caused by: org.hibernate.MappingException: Column 'F_08' is duplicated in mappin
 	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:433)
 	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:416)
 	... 104 common frames omitted
+2025-12-20 16:41:19 [main] INFO  dz.mdn.iaas.IaasApi - Starting IaasApi using Java 21.0.7 with PID 28548 (C:\Developing\Workspace\Backend\iaas\target\classes started by Administrateur in C:\Developing\Workspace\Backend\iaas)
+2025-12-20 16:41:19 [main] DEBUG dz.mdn.iaas.IaasApi - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-20 16:41:19 [main] INFO  dz.mdn.iaas.IaasApi - No active profile set, falling back to 1 default profile: "default"
+2025-12-20 16:41:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-20 16:41:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 343 ms. Found 90 JPA repository interfaces.
+2025-12-20 16:41:21 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-20 16:41:21 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-20 16:41:21 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-20 16:41:21 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1956 ms
+2025-12-20 16:41:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-20 16:41:21 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@265287ec
+2025-12-20 16:41:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-20 16:41:21 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-20 16:41:21 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-20 16:41:22 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-20 16:41:22 [main] WARN  org.hibernate.orm.core - HHH000511: The 5.5.5 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly.The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2025-12-20 16:41:22 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-20 16:41:22 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/iaas_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 5.5.5
+	Default catalog/schema: iaas_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-20 16:41:23 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-20 16:41:23 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-20 16:41:24 [main] DEBUG org.hibernate.SQL - 
+    alter table T_00_03_01 
+       modify column F_03 enum ('APPROVE','ARCHIVE','CANCEL','CREATE','DELETE','READ','REJECT','RESTORE','SUBMIT','UPDATE') not null
+2025-12-20 16:41:24 [main] DEBUG org.hibernate.SQL - 
+    alter table T_00_03_01 
+       modify column F_13 enum ('FAILED','PARTIAL','SUCCESS') not null
+2025-12-20 16:41:24 [main] DEBUG org.hibernate.SQL - 
+    create table T_03_03_02 (
+        F_10 float(53),
+        F_08 float(53) not null,
+        F_09 float(53) not null,
+        F_07 varchar(100) not null,
+        F_00 bigint not null,
+        F_12 bigint not null,
+        F_11 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-20 16:41:24 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_03 
+       add column F_13 bigint not null
+2025-12-20 16:41:24 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_04 
+       add column F_13 bigint not null
+2025-12-20 16:41:24 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_05 
+       add column F_13 bigint not null
+2025-12-20 16:41:24 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_03_01 
+       drop index T_01_03_01_UK_02
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_03_01 
+       add constraint T_01_03_01_UK_02 unique (F_04)
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_03 
+       drop index T_03_03_03_UK_01
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_03 
+       add constraint T_03_03_03_UK_01 unique (F_02)
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_04 
+       drop index T_03_03_04_UK_01
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_04 
+       add constraint T_03_03_04_UK_01 unique (F_02)
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_05 
+       drop index T_03_03_05_UK_01
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_05 
+       add constraint T_03_03_05_UK_01 unique (F_02)
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_02 
+       add constraint T_03_03_02_FK_01 
+       foreign key (F_12) 
+       references T_01_04_03 (F_00)
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_02 
+       add constraint T_03_03_02_FK_01 
+       foreign key (F_11) 
+       references T_03_02_08 (F_00)
+2025-12-20 16:41:25 [main] WARN  o.h.t.s.i.ExceptionHandlerLoggedImpl - GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table T_03_03_02 
+       add constraint T_03_03_02_FK_01 
+       foreign key (F_11) 
+       references T_03_02_08 (F_00)" via JDBC [Duplicate key name 'T_03_03_02_FK_01']
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table T_03_03_02 
+       add constraint T_03_03_02_FK_01 
+       foreign key (F_11) 
+       references T_03_02_08 (F_00)" via JDBC [Duplicate key name 'T_03_03_02_FK_01']
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:81)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:566)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:506)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applyForeignKeys(AbstractSchemaMigrator.java:438)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:256)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:96)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:269)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$1(SchemaManagementToolCoordinator.java:101)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:100)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:35)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:33)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:323)
+	at org.hibernate.internal.SessionFactoryRegistry.instantiateSessionFactory(SessionFactoryRegistry.java:64)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:437)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1456)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:433)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:416)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:409)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:365)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveConstructorArguments(ConstructorResolver.java:691)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:513)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1362)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:356)
+	at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:135)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1712)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1461)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveBean(DefaultListableBeanFactory.java:1225)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1704)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:229)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1762)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1651)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:912)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1382)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1221)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:565)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.getOrderedBeansOfType(ServletContextInitializerBeans.java:231)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:185)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAsRegistrationBean(ServletContextInitializerBeans.java:180)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.addAdaptableBeans(ServletContextInitializerBeans.java:165)
+	at org.springframework.boot.web.servlet.ServletContextInitializerBeans.<init>(ServletContextInitializerBeans.java:97)
+	at org.springframework.boot.web.context.servlet.WebApplicationContextInitializer.initialize(WebApplicationContextInitializer.java:53)
+	at org.springframework.boot.tomcat.servlet.DeferredServletContainerInitializers.onStartup(DeferredServletContainerInitializers.java:55)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4416)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1162)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1158)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:714)
+	at org.apache.catalina.core.StandardHost.startInternal(StandardHost.java:780)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1162)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1158)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:81)
+	at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:145)
+	at org.apache.catalina.core.ContainerBase.startInternal(ContainerBase.java:714)
+	at org.apache.catalina.core.StandardEngine.startInternal(StandardEngine.java:201)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardService.startInternal(StandardService.java:410)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:864)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+	at org.apache.catalina.startup.Tomcat.start(Tomcat.java:435)
+	at org.springframework.boot.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:131)
+	at org.springframework.boot.tomcat.TomcatWebServer.<init>(TomcatWebServer.java:110)
+	at org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:408)
+	at org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:166)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:190)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:614)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at dz.mdn.iaas.IaasApi.main(IaasApi.java:23)
+Caused by: java.sql.SQLSyntaxErrorException: Duplicate key name 'T_03_03_02_FK_01'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:112)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:114)
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:837)
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:685)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:76)
+	... 122 common frames omitted
+2025-12-20 16:41:25 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_02 
+       add constraint FKm0u49vcytxoa5vkdyw3c2j7ct 
+       foreign key (F_00) 
+       references T_03_03_01 (F_00)
+2025-12-20 16:41:25 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-20 16:41:25 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-20 16:41:25 [main] DEBUG d.m.i.c.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-20 16:41:28 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Found 2 UserDetailsService beans, with names [customUserDetailsService, userService]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2025-12-20 16:41:28 [main] DEBUG o.s.s.c.a.a.c.AuthenticationConfiguration$DefaultPasswordEncoderAuthenticationManagerBuilder - No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2025-12-20 16:41:28 [main] INFO  d.m.i.s.utility.service.FileService - File storage location initialized: C:\Developing\Workspace\Backend\iaas\uploads
+2025-12-20 16:41:28 [main] INFO  d.m.i.s.utility.service.FileService - Max file size: 10485760 bytes (10.0 MB)
+2025-12-20 16:41:28 [main] INFO  d.m.i.s.utility.service.FileService - Allowed extensions: [jpg, zip, xlsx, rar, gif, csv, png, docx, pptx, txt, pdf, ppt, jpeg, doc, xls]
+2025-12-20 16:41:29 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-20 16:41:29 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoints beneath base path '/actuator'
+2025-12-20 16:41:29 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/iaas/api'
+2025-12-20 16:41:29 [main] INFO  dz.mdn.iaas.IaasApi - Started IaasApi in 10.66 seconds (process running for 11.486)
+2025-12-20 16:41:30 [RMI TCP Connection(4)-127.0.0.1] INFO  o.a.c.c.C.[.[localhost].[/iaas/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-20 16:41:30 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-20 16:41:30 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-12-20 16:42:57 [RMI TCP Connection(7)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-12-20 16:42:57 [RMI TCP Connection(7)-127.0.0.1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-12-20 16:42:57 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-12-20 16:42:57 [RMI TCP Connection(7)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-12-20 16:42:57 [RMI TCP Connection(7)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-20 16:42:57 [RMI TCP Connection(7)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-20 16:43:00 [main] INFO  dz.mdn.iaas.IaasApi - Starting IaasApi using Java 21.0.7 with PID 32256 (C:\Developing\Workspace\Backend\iaas\target\classes started by Administrateur in C:\Developing\Workspace\Backend\iaas)
+2025-12-20 16:43:00 [main] DEBUG dz.mdn.iaas.IaasApi - Running with Spring Boot v4.0.1, Spring v7.0.2
+2025-12-20 16:43:00 [main] INFO  dz.mdn.iaas.IaasApi - No active profile set, falling back to 1 default profile: "default"
+2025-12-20 16:43:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-12-20 16:43:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 364 ms. Found 90 JPA repository interfaces.
+2025-12-20 16:43:02 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-20 16:43:02 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-20 16:43:02 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2025-12-20 16:43:02 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2032 ms
+2025-12-20 16:43:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-20 16:43:03 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7809b43a
+2025-12-20 16:43:03 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-20 16:43:03 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2025-12-20 16:43:03 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.0.Final
+2025-12-20 16:43:03 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-12-20 16:43:03 [main] WARN  org.hibernate.orm.core - HHH000511: The 5.5.5 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly.The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2025-12-20 16:43:03 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-12-20 16:43:03 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/iaas_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 5.5.5
+	Default catalog/schema: iaas_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-12-20 16:43:04 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-12-20 16:43:04 [main] INFO  org.hibernate.orm.jdbc.batch - HHH100501: Automatic JDBC statement batching enabled (maximum batch size 20)
+2025-12-20 16:43:05 [main] DEBUG org.hibernate.SQL - 
+    alter table T_00_03_01 
+       modify column F_03 enum ('APPROVE','ARCHIVE','CANCEL','CREATE','DELETE','READ','REJECT','RESTORE','SUBMIT','UPDATE') not null
+2025-12-20 16:43:05 [main] DEBUG org.hibernate.SQL - 
+    alter table T_00_03_01 
+       modify column F_13 enum ('FAILED','PARTIAL','SUCCESS') not null
+2025-12-20 16:43:05 [main] DEBUG org.hibernate.SQL - 
+    create table T_03_03_02 (
+        F_10 float(53),
+        F_08 float(53) not null,
+        F_09 float(53) not null,
+        F_07 varchar(100) not null,
+        F_00 bigint not null,
+        F_12 bigint not null,
+        F_11 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-20 16:43:05 [main] DEBUG org.hibernate.SQL - 
+    create table T_03_03_03 (
+        F_00 bigint not null,
+        F_13 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-20 16:43:05 [main] DEBUG org.hibernate.SQL - 
+    create table T_03_03_04 (
+        F_00 bigint not null,
+        F_13 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-20 16:43:05 [main] DEBUG org.hibernate.SQL - 
+    create table T_03_03_05 (
+        F_00 bigint not null,
+        F_13 bigint not null,
+        primary key (F_00)
+    ) engine=InnoDB
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_03_01 
+       drop index T_01_03_01_UK_02
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_01_03_01 
+       add constraint T_01_03_01_UK_02 unique (F_04)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_03 
+       drop index T_03_03_03_UK_01
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_03 
+       add constraint T_03_03_03_UK_01 unique (F_02)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_04 
+       drop index T_03_03_04_UK_01
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_04 
+       add constraint T_03_03_04_UK_01 unique (F_02)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_05 
+       drop index T_03_03_05_UK_01
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_05 
+       add constraint T_03_03_05_UK_01 unique (F_02)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_02 
+       add constraint T_03_03_02_FK_02 
+       foreign key (F_12) 
+       references T_01_04_03 (F_00)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_02 
+       add constraint T_03_03_02_FK_01 
+       foreign key (F_11) 
+       references T_03_02_08 (F_00)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_02 
+       add constraint FKm0u49vcytxoa5vkdyw3c2j7ct 
+       foreign key (F_00) 
+       references T_03_03_01 (F_00)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_03 
+       add constraint T_03_03_03_FK_01 
+       foreign key (F_13) 
+       references T_03_01_05 (F_00)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_03 
+       add constraint FKdlyi8pcitn594pkyqvw7aia4l 
+       foreign key (F_00) 
+       references T_03_03_02 (F_00)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_04 
+       add constraint T_03_03_04_FK_01 
+       foreign key (F_13) 
+       references T_03_01_06 (F_00)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_04 
+       add constraint FKfbkrrnm1ngghdwl80nbkaob6d 
+       foreign key (F_00) 
+       references T_03_03_02 (F_00)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_05 
+       add constraint T_03_03_05_FK_01 
+       foreign key (F_13) 
+       references T_03_01_07 (F_00)
+2025-12-20 16:43:06 [main] DEBUG org.hibernate.SQL - 
+    alter table T_03_03_05 
+       add constraint FKaf2mrh81h9kterqpqa9fmb7nq 
+       foreign key (F_00) 
+       references T_03_03_02 (F_00)
+2025-12-20 16:43:06 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-12-20 16:43:06 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-12-20 16:43:06 [main] DEBUG d.m.i.c.jwt.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2025-12-20 16:43:09 [main] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Found 2 UserDetailsService beans, with names [customUserDetailsService, userService]. Global Authentication Manager will not use a UserDetailsService for username/password login. Consider publishing a single UserDetailsService bean.
+2025-12-20 16:43:09 [main] DEBUG o.s.s.c.a.a.c.AuthenticationConfiguration$DefaultPasswordEncoderAuthenticationManagerBuilder - No authenticationProviders and no parentAuthenticationManager defined. Returning null.
+2025-12-20 16:43:10 [main] INFO  d.m.i.s.utility.service.FileService - File storage location initialized: C:\Developing\Workspace\Backend\iaas\uploads
+2025-12-20 16:43:10 [main] INFO  d.m.i.s.utility.service.FileService - Max file size: 10485760 bytes (10.0 MB)
+2025-12-20 16:43:10 [main] INFO  d.m.i.s.utility.service.FileService - Allowed extensions: [jpg, zip, xlsx, rar, gif, csv, png, docx, pptx, txt, pdf, ppt, jpeg, doc, xls]
+2025-12-20 16:43:10 [main] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-12-20 16:43:11 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 6 endpoints beneath base path '/actuator'
+2025-12-20 16:43:11 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/iaas/api'
+2025-12-20 16:43:11 [main] INFO  dz.mdn.iaas.IaasApi - Started IaasApi in 10.797 seconds (process running for 11.599)
+2025-12-20 16:43:11 [RMI TCP Connection(4)-127.0.0.1] INFO  o.a.c.c.C.[.[localhost].[/iaas/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-20 16:43:11 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-20 16:43:11 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms

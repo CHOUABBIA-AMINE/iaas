@@ -85,7 +85,7 @@ public class Facility extends Infrastructure {
 
 
     @ManyToOne
-    @JoinColumn(name = "F_12", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable = false)
+    @JoinColumn(name = "F_12", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable = false)
     private Locality locality;
     
     @Builder.Default

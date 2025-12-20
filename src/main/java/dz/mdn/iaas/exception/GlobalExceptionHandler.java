@@ -500,7 +500,7 @@ public class GlobalExceptionHandler {
         );
         errorResponse.getDetails().put("maxSize", ex.getMaxUploadSize());
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.PAYLOAD_TOO_LARGE);
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONTENT_TOO_LARGE);
     }
 
     // ========================================

@@ -23,8 +23,10 @@ import org.springframework.http.HttpStatus;
  * @created 2025-12-20
  */
 public class DataIntegrityViolationException extends IaasException {
-    
-    public DataIntegrityViolationException(String message) {
+
+	private static final long serialVersionUID = -9118244388301995538L;
+
+	public DataIntegrityViolationException(String message) {
         super("DATA_INTEGRITY_VIOLATION", message, HttpStatus.CONFLICT);
     }
     

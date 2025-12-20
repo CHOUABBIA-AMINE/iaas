@@ -24,7 +24,9 @@ import org.springframework.http.HttpStatus;
  */
 public class DatabaseOperationException extends IaasException {
     
-    public DatabaseOperationException(String message) {
+	private static final long serialVersionUID = -3761122917852546359L;
+
+	public DatabaseOperationException(String message) {
         super("DATABASE_ERROR", message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     

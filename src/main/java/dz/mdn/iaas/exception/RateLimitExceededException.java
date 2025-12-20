@@ -22,8 +22,9 @@ import org.springframework.http.HttpStatus;
  * @created 2025-12-20
  */
 public class RateLimitExceededException extends IaasException {
-    
-    private final int retryAfterSeconds;
+
+	private static final long serialVersionUID = -4176756287457068691L;
+	private final int retryAfterSeconds;
     
     public RateLimitExceededException(int retryAfterSeconds) {
         super("RATE_LIMIT_EXCEEDED",

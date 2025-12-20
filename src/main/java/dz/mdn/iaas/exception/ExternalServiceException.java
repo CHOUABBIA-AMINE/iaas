@@ -23,8 +23,9 @@ import org.springframework.http.HttpStatus;
  * @created 2025-12-20
  */
 public class ExternalServiceException extends IaasException {
-    
-    private final String serviceName;
+ 
+	private static final long serialVersionUID = 3993001737249328862L;
+	private final String serviceName;
     
     public ExternalServiceException(String serviceName, String message) {
         super("EXTERNAL_SERVICE_ERROR",

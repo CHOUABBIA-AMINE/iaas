@@ -23,7 +23,9 @@ import org.springframework.http.HttpStatus;
  */
 public class AuthorizationException extends IaasException {
     
-    public AuthorizationException(String message) {
+	private static final long serialVersionUID = 2290049096512086346L;
+
+	public AuthorizationException(String message) {
         super("AUTHORIZATION_DENIED", message, HttpStatus.FORBIDDEN);
     }
     

@@ -23,8 +23,10 @@ import org.springframework.http.HttpStatus;
  * @created 2025-12-20
  */
 public class InvalidInputException extends IaasException {
-    
-    public InvalidInputException(String message) {
+
+	private static final long serialVersionUID = 133399249184414493L;
+
+	public InvalidInputException(String message) {
         super("INVALID_INPUT", message, HttpStatus.BAD_REQUEST);
     }
     
