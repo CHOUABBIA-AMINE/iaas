@@ -33,7 +33,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/business/amendmentPhase")
+@RequestMapping("/business/amendment/amendmentPhase")
 @Slf4j
 public class AmendmentPhaseController extends GenericController<AmendmentPhaseDTO, Long> {
 

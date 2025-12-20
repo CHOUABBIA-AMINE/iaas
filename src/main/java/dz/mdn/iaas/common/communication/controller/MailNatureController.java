@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Mail Nature management
  */
 @RestController
-@RequestMapping("/common/mailNature")
+@RequestMapping("/common/communication/mailNature")
 @Slf4j
 public class MailNatureController extends GenericController<MailNatureDTO, Long> {
 

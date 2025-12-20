@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/economic-domain")
+@RequestMapping("/business/provider/economicDomain")
 @Slf4j
 public class EconomicDomainController extends GenericController<EconomicDomainDTO, Long> {
 

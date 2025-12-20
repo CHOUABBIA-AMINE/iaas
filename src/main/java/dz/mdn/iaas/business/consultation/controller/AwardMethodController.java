@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/business/awardMethod")
+@RequestMapping("/business/consultation/awardMethod")
 @Slf4j
 public class AwardMethodController extends GenericController<AwardMethodDTO, Long> {
 

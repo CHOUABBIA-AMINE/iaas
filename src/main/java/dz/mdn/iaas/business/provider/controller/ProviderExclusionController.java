@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/provider-exclusion")
+@RequestMapping("/business/provider/providerExclusion")
 @Slf4j
 public class ProviderExclusionController extends GenericController<ProviderExclusionDTO, Long> {
 

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/business/consultation")
+@RequestMapping("/business/consultation/consultation")
 @Slf4j
 public class ConsultationController extends GenericController<ConsultationDTO, Long> {
 

@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/file")
+@RequestMapping("/system/utility/file")
 @Slf4j
 public class FileController extends GenericController<FileDTO, Long> {
 

@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/role")
+@RequestMapping("/system/security/role")
 @Slf4j
 public class RoleController extends GenericController<RoleDTO, Long> {
 

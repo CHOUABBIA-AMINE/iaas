@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/business/itemDistribution")
+@RequestMapping("/business/plan/itemDistribution")
 @Slf4j
 public class ItemDistributionController extends GenericController<ItemDistributionDTO, Long> {
 

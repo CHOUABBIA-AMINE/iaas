@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/terminal")
+@RequestMapping("/network/core/terminal")
 @Slf4j
 public class TerminalController extends GenericController<TerminalDTO, Long> {
 

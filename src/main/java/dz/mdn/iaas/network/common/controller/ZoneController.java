@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/zone")
+@RequestMapping("/network/common/zone")
 @Slf4j
 public class ZoneController extends GenericController<ZoneDTO, Long> {
 

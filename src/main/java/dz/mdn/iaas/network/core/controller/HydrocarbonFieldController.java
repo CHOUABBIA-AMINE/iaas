@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/hydrocarbon-field")
+@RequestMapping("/network/core/hydrocarbonField")
 @Slf4j
 public class HydrocarbonFieldController extends GenericController<HydrocarbonFieldDTO, Long> {
 

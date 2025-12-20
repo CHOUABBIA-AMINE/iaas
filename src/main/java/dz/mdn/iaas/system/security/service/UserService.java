@@ -18,9 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @Transactional
-public class UserService extends GenericService<User, UserDTO, Long> implements UserDetailsService {
+public class UserService extends GenericService<User, UserDTO, Long> {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -163,17 +160,6 @@ public class UserService extends GenericService<User, UserDTO, Long> implements 
         log.info("User updated successfully with ID: {}", id);
         
         return toDTO(savedUser);
-    }
-
-    // ========== USER DETAILS SERVICE IMPLEMENTATION ==========
-
-    @Override
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.debug("Loading user by username: {}", username);
-        
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
     }
 
     // ========== CUSTOM USER OPERATIONS ==========

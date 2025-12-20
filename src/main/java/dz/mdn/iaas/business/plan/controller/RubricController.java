@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/business/rubric")
+@RequestMapping("/business/plan/rubric")
 @Slf4j
 public class RubricController extends GenericController<RubricDTO, Long> {
 

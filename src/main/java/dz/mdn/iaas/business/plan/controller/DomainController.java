@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/business/domain")
+@RequestMapping("/business/plan/domain")
 @Slf4j
 public class DomainController extends GenericController<DomainDTO, Long> {
 

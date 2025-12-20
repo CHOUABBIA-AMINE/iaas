@@ -33,7 +33,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/network/facility")
+@RequestMapping("/network/core/facility")
 @Slf4j
 public class FacilityController extends GenericController<FacilityDTO, Long> {
 

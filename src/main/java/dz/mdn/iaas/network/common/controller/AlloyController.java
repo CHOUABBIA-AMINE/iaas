@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/alloy")
+@RequestMapping("/network/common/alloy")
 @Slf4j
 public class AlloyController extends GenericController<AlloyDTO, Long> {
 

@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints for Military Category management
  */
 @RestController
-@RequestMapping("/common/militaryCategory")
+@RequestMapping("/common/administration/militaryCategory")
 @Slf4j
 public class MilitaryCategoryController extends GenericController<MilitaryCategoryDTO, Long> {
 

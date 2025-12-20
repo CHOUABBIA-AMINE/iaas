@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/pipelineSegment")
+@RequestMapping("/network/core/pipelineSegment")
 @Slf4j
 public class PipelineSegmentController extends GenericController<PipelineSegmentDTO, Long> {
 

@@ -43,7 +43,7 @@ import java.util.List;
  * - GET    /procurementNature/count           Total count
  */
 @RestController
-@RequestMapping("/business/procurementNature")
+@RequestMapping("/business/core/procurementNature")
 @Slf4j
 public class ProcurementNatureController extends GenericController<ProcurementNatureDTO, Long> {
 

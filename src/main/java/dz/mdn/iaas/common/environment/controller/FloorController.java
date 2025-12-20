@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus floor-specific operations
  */
 @RestController
-@RequestMapping("/common/floor")
+@RequestMapping("/common/environment/floor")
 @Slf4j
 public class FloorController extends GenericController<FloorDTO, Long> {
 

@@ -33,7 +33,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/network/pipelineSystem")
+@RequestMapping("/network/core/pipelineSystem")
 @Slf4j
 public class PipelineSystemController extends GenericController<PipelineSystemDTO, Long> {
 

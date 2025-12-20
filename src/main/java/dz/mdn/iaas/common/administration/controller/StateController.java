@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
  * Provides standard CRUD endpoints plus state-specific operations
  */
 @RestController
-@RequestMapping("/common/state")
+@RequestMapping("/common/administration/state")
 @Slf4j
 public class StateController extends GenericController<StateDTO, Long> {
 

@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus structure-specific operations
  */
 @RestController
-@RequestMapping("/common/structure")
+@RequestMapping("/common/administration/structure")
 @Slf4j
 public class StructureController extends GenericController<StructureDTO, Long> {
 

@@ -41,7 +41,7 @@ import java.util.List;
  * - GET    /clearance/count           Total count
  */
 @RestController
-@RequestMapping("/clearance")
+@RequestMapping("/business/provider/clearance")
 @Slf4j
 public class ClearanceController extends GenericController<ClearanceDTO, Long> {
 

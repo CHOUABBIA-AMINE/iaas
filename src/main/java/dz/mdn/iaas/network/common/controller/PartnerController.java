@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/partner")
+@RequestMapping("/network/common/partner")
 @Slf4j
 public class PartnerController extends GenericController<PartnerDTO, Long> {
 

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/economic-nature")
+@RequestMapping("/business/provider/economicNature")
 @Slf4j
 public class EconomicNatureController extends GenericController<EconomicNatureDTO, Long> {
 

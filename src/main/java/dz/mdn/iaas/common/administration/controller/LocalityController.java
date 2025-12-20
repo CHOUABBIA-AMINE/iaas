@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus locality-specific operations
  */
 @RestController
-@RequestMapping("/common/locality")
+@RequestMapping("/common/administration/locality")
 @Slf4j
 public class LocalityController extends GenericController<LocalityDTO, Long> {
 

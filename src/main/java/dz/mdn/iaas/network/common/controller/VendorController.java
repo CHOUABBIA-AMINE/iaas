@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/vendor")
+@RequestMapping("/network/common/vendor")
 @Slf4j
 public class VendorController extends GenericController<VendorDTO, Long> {
 

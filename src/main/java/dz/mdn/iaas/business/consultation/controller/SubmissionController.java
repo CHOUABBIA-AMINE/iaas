@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/business/submission")
+@RequestMapping("/business/consultation/submission")
 @Slf4j
 public class SubmissionController extends GenericController<SubmissionDTO, Long> {
 

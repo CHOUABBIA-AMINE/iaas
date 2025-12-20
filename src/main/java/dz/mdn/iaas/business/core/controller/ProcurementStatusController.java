@@ -43,7 +43,7 @@ import java.util.List;
  * - GET    /procurementStatus/count           Total count
  */
 @RestController
-@RequestMapping("/business/procurementStatus")
+@RequestMapping("/business/core/procurementStatus")
 @Slf4j
 public class ProcurementStatusController extends GenericController<ProcurementStatusDTO, Long> {
 

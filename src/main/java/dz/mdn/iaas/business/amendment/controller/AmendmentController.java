@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus amendment-specific operations
  */
 @RestController
-@RequestMapping("/business/amendment")
+@RequestMapping("/business/amendment/amendment")
 @Slf4j
 public class AmendmentController extends GenericController<AmendmentDTO, Long> {
 

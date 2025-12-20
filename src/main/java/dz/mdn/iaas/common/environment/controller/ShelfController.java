@@ -32,7 +32,7 @@ import java.util.List;
  * Provides standard CRUD endpoints plus shelf-specific operations
  */
 @RestController
-@RequestMapping("/common/shelf")
+@RequestMapping("/common/environment/shelf")
 @Slf4j
 public class ShelfController extends GenericController<ShelfDTO, Long> {
 

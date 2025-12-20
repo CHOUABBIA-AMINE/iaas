@@ -43,7 +43,7 @@ import java.util.List;
  * - GET    /procurementDirector/count           Total count
  */
 @RestController
-@RequestMapping("/business/procurementDirector")
+@RequestMapping("/business/core/procurementDirector")
 @Slf4j
 public class ProcurementDirectorController extends GenericController<ProcurementDirectorDTO, Long> {
 

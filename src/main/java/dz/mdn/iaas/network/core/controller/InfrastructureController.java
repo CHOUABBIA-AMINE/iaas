@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/infrastructure")
+@RequestMapping("/network/core/infrastructure")
 @Slf4j
 public class InfrastructureController extends GenericController<InfrastructureDTO, Long> {
 

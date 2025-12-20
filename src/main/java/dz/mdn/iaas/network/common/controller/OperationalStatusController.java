@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/operationalStatus")
+@RequestMapping("/network/common/operationalStatus")
 @Slf4j
 public class OperationalStatusController extends GenericController<OperationalStatusDTO, Long> {
 

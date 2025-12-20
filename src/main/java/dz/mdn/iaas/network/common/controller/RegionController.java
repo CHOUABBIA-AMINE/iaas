@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/region")
+@RequestMapping("/network/common/region")
 @Slf4j
 public class RegionController extends GenericController<RegionDTO, Long> {
 

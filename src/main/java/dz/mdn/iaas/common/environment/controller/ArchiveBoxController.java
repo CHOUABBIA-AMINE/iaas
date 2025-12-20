@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
  * Provides standard CRUD endpoints plus archive box-specific operations
  */
 @RestController
-@RequestMapping("/common/archiveBox")
+@RequestMapping("/common/environment/archiveBox")
 @Slf4j
 public class ArchiveBoxController extends GenericController<ArchiveBoxDTO, Long> {
 

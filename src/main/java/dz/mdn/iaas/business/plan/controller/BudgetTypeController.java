@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/business/budgetType")
+@RequestMapping("/business/plan/budgetType")
 @Slf4j
 public class BudgetTypeController extends GenericController<BudgetTypeDTO, Long> {
 

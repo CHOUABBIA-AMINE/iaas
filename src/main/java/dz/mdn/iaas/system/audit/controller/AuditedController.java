@@ -39,7 +39,7 @@ import lombok.extern.slf4j.Slf4j;
  * Extends GenericController and adds PreAuthorize security
  */
 @RestController
-@RequestMapping("/system/audited")
+@RequestMapping("/system/audit/audited")
 @Slf4j
 public class AuditedController extends GenericController<AuditedDTO, Long> {
 

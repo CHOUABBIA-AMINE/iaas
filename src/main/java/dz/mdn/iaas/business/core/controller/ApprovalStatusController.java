@@ -43,7 +43,7 @@ import java.util.List;
  * - GET    /approvalStatus/count           Total count
  */
 @RestController
-@RequestMapping("/business/approvalStatus")
+@RequestMapping("/business/core/approvalStatus")
 @Slf4j
 public class ApprovalStatusController extends GenericController<ApprovalStatusDTO, Long> {
 

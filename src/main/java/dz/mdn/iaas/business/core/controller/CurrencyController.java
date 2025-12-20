@@ -43,7 +43,7 @@ import java.util.List;
  * - GET    /currency/count           Total count
  */
 @RestController
-@RequestMapping("/business/currency")
+@RequestMapping("/business/core/currency")
 @Slf4j
 public class CurrencyController extends GenericController<CurrencyDTO, Long> {
 
