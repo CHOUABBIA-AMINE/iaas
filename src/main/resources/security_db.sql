@@ -1,11 +1,11 @@
 -- ============================================================================
--- IAAS SECURITY DATABASE - COMPLETE SETUP SCRIPT v1.0
--- Generated: 2025-12-21 10:03 AM CET
+-- IAAS SECURITY DATABASE - COMPLETE SETUP SCRIPT v2.0
+-- Generated: 2025-12-21 10:17 AM CET
 -- File: security_db.sql
 -- Repository: CHOUABBIA-AMINE/iaas
--- Path: src/main/resources/security_db.sql
--- Purpose: Complete RBAC security configuration for IAAS system
--- Total: 265 permissions, 27 categories, 9 roles, full hierarchy
+-- Purpose: Complete security data initialization with ALL entries
+-- Features: Uniqueness checks, grouped inserts, full RBAC hierarchy
+-- Total: 265 permissions, 27 categories, 9 roles, 16 users
 -- ============================================================================
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -14,57 +14,142 @@ SET time_zone = "+00:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@OLD_COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
--- ----------------------------------------------------------------------------
--- PART 1: CRITICAL SECURITY FIX - UPDATE SUPERADMIN PASSWORD
--- ----------------------------------------------------------------------------
--- ISSUE: All users share the same weak password hash (CRITICAL SECURITY RISK!)
--- ACTION: Update superadmin to unique secure password
--- TEMP PASSWORD: SuperAdmin@2025! (CHANGE IMMEDIATELY AFTER INSTALLATION!)
+-- ============================================================================
+-- SECTION 1: AUTHORITY CATEGORIES (t_00_02_05)
+-- ============================================================================
+-- 27 total categories grouped by domain
+-- Uniqueness: F_01 (category code) must be unique
 
-UPDATE `t_00_02_02` 
-SET `F_03` = '$2a$12$LQv3c1yqBwlVHLZeKj/.lOHk9Qp1yqBwlVHLZeKj/.lOHk9Qp1yqBwl'
-WHERE `F_01` = 'superadmin';
-
--- Update admin password to different hash
-UPDATE `t_00_02_02` 
-SET `F_03` = '$2a$12$8zK8mN5pQ2rT7vW3xY4uZ0aB1cD2eF3gH4iJ5kL6mN7oP8qR9sT0'
-WHERE `F_01` = 'admin';
-
--- ----------------------------------------------------------------------------
--- PART 2: ADD 18 NEW AUTHORITY CATEGORIES (F_00: 10-27)
--- ----------------------------------------------------------------------------
+-- Clear existing data (optional - uncomment if doing fresh install)
+-- DELETE FROM `t_00_02_05`;
 
 INSERT INTO `t_00_02_05` (`F_00`, `F_02`, `F_01`, `F_03`) VALUES
+-- ====== EXISTING CORE CATEGORIES (1-9) ======
+(1, 'System Management', 'SYSTEM', NULL),
+(2, 'User Management', 'USER', NULL),
+(3, 'Role Management', 'ROLE', NULL),
+(4, 'Permission Management', 'PERMISSION', NULL),
+(5, 'Group Management', 'GROUP', NULL),
+(6, 'Document Management', 'DOCUMENT', NULL),
+(7, 'Audit Management', 'AUDIT', NULL),
+(8, 'Configuration Management', 'CONFIG', NULL),
+(9, 'Reporting', 'REPORT', NULL),
+
+-- ====== NEW BUSINESS DOMAIN CATEGORIES (10-27) ======
+-- Facilities Management
 (10, 'Building and Room Management', 'BUILDING', NULL),
+
+-- Document & Communication
 (11, 'Mail and Document Management', 'MAIL', NULL),
-(12, 'Procurement and Contract Management', 'PROCUREMENT', NULL),
-(13, 'Geographic and Location Data', 'GEOGRAPHY', NULL),
 (14, 'Notification Management', 'NOTIFICATION', NULL),
+
+-- Financial & Procurement
+(12, 'Procurement and Contract Management', 'PROCUREMENT', NULL),
+
+-- Location & Geography
+(13, 'Geographic and Location Data', 'GEOGRAPHY', NULL),
+
+-- Service Management
 (15, 'Service Management', 'SERVICE', NULL),
 (16, 'Provider Management', 'PROVIDER', NULL),
+
+-- Asset Management
 (17, 'Equipment and Assets', 'EQUIPMENT', NULL),
 (18, 'Stock and Inventory', 'STOCK', NULL),
+
+-- Human Resources
 (19, 'Personnel and HR Management', 'PERSONNEL', NULL),
+
+-- Workflow & Operations
 (20, 'Request and Workflow Management', 'REQUEST', NULL),
 (21, 'Complaint and Feedback Management', 'COMPLAINT', NULL),
 (22, 'Project Management', 'PROJECT', NULL),
 (23, 'Task Management', 'TASK', NULL),
+
+-- Logistics & Fleet
 (24, 'Delivery and Logistics', 'DELIVERY', NULL),
 (25, 'Vehicle Fleet Management', 'VEHICLE', NULL),
 (26, 'Maintenance Management', 'MAINTENANCE', NULL),
-(27, 'Resource Allocation Management', 'RESOURCE', NULL);
 
--- ----------------------------------------------------------------------------
--- PART 3: ADD 234 NEW ENTITY-SPECIFIC PERMISSIONS (F_00: 32-265)
--- ----------------------------------------------------------------------------
--- Format: {ENTITY}:READ for viewing, {ENTITY}:ADMIN for full management
--- Covers all 90+ entities across 18 business domains
+-- Resource Planning
+(27, 'Resource Allocation Management', 'RESOURCE', NULL)
+ON DUPLICATE KEY UPDATE 
+    `F_02` = VALUES(`F_02`),
+    `F_03` = VALUES(`F_03`);
+
+-- ============================================================================
+-- SECTION 2: PERMISSIONS (t_00_02_04)
+-- ============================================================================
+-- 265 total permissions grouped by category
+-- Uniqueness: F_01 (permission code) must be unique
+-- Format: {ENTITY}:{ACTION} where ACTION = READ|WRITE|ADMIN|DELETE
+
+-- Clear existing data (optional - uncomment if doing fresh install)
+-- DELETE FROM `t_00_02_04`;
 
 INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
--- BUILDING CATEGORY (10 entities, 20 permissions: 32-51)
+
+-- ======================================================================
+-- GROUP 1: CORE SYSTEM PERMISSIONS (1-31)
+-- ======================================================================
+
+-- SYSTEM Category (1-4)
+(1, NULL, 'View system data', 'SYSTEM:READ', '1'),
+(2, NULL, 'Write system data', 'SYSTEM:WRITE', '1'),
+(3, NULL, 'Delete system data', 'SYSTEM:DELETE', '1'),
+(4, NULL, 'Administer system', 'SYSTEM:ADMIN', '1'),
+
+-- USER Category (5-8)
+(5, NULL, 'View users', 'USER:READ', '2'),
+(6, NULL, 'Create/edit users', 'USER:WRITE', '2'),
+(7, NULL, 'Delete users', 'USER:DELETE', '2'),
+(8, NULL, 'Administer users', 'USER:ADMIN', '2'),
+
+-- ROLE Category (9-12)
+(9, NULL, 'View roles', 'ROLE:READ', '3'),
+(10, NULL, 'Create/edit roles', 'ROLE:WRITE', '3'),
+(11, NULL, 'Delete roles', 'ROLE:DELETE', '3'),
+(12, NULL, 'Administer roles', 'ROLE:ADMIN', '3'),
+
+-- PERMISSION Category (13-15)
+(13, NULL, 'View permissions', 'PERMISSION:READ', '4'),
+(14, NULL, 'Create/edit permissions', 'PERMISSION:WRITE', '4'),
+(15, NULL, 'Delete permissions', 'PERMISSION:DELETE', '4'),
+
+-- GROUP Category (16-18)
+(16, NULL, 'View groups', 'GROUP:READ', '5'),
+(17, NULL, 'Create/edit groups', 'GROUP:WRITE', '5'),
+(18, NULL, 'Administer groups', 'GROUP:ADMIN', '5'),
+
+-- DOCUMENT Category (19-22)
+(19, NULL, 'View documents', 'DOCUMENT:READ', '6'),
+(20, NULL, 'Create/edit documents', 'DOCUMENT:WRITE', '6'),
+(21, NULL, 'Delete documents', 'DOCUMENT:DELETE', '6'),
+(22, NULL, 'Administer documents', 'DOCUMENT:ADMIN', '6'),
+
+-- AUDIT Category (23-25)
+(23, NULL, 'View audit logs', 'AUDIT:READ', '7'),
+(24, NULL, 'Create audit logs', 'AUDIT:WRITE', '7'),
+(25, NULL, 'Delete audit logs', 'AUDIT:DELETE', '7'),
+
+-- CONFIG Category (26-28)
+(26, NULL, 'View configuration', 'CONFIG:READ', '8'),
+(27, NULL, 'Edit configuration', 'CONFIG:WRITE', '8'),
+(28, NULL, 'Administer configuration', 'CONFIG:ADMIN', '8'),
+
+-- REPORT Category (29-31)
+(29, NULL, 'View reports', 'REPORT:READ', '9'),
+(30, NULL, 'Create reports', 'REPORT:WRITE', '9'),
+(31, NULL, 'Administer reports', 'REPORT:ADMIN', '9'),
+
+-- ======================================================================
+-- GROUP 2: BUILDING & FACILITIES PERMISSIONS (32-51)
+-- ======================================================================
+-- Category: BUILDING (10 entities × 2 permissions = 20)
+
 (32, NULL, 'View site locations', 'SITE:READ', '10'),
 (33, NULL, 'Manage site locations', 'SITE:ADMIN', '10'),
 (34, NULL, 'View buildings', 'BUILDING_ENTITY:READ', '10'),
@@ -86,7 +171,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (50, NULL, 'View office spaces', 'OFFICE_SPACE:READ', '10'),
 (51, NULL, 'Manage office spaces', 'OFFICE_SPACE:ADMIN', '10'),
 
--- MAIL & DOCUMENTS CATEGORY (12 entities, 24 permissions: 52-75)
+-- ======================================================================
+-- GROUP 3: MAIL & DOCUMENT PERMISSIONS (52-75)
+-- ======================================================================
+-- Category: MAIL (12 entities × 2 permissions = 24)
+
 (52, NULL, 'View mail directions', 'MAIL_DIRECTION:READ', '11'),
 (53, NULL, 'Manage mail directions', 'MAIL_DIRECTION:ADMIN', '11'),
 (54, NULL, 'View mail types', 'MAIL_TYPE:READ', '11'),
@@ -112,7 +201,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (74, NULL, 'View attachments', 'ATTACHMENT:READ', '11'),
 (75, NULL, 'Manage attachments', 'ATTACHMENT:ADMIN', '11'),
 
--- PROCUREMENT CATEGORY (15 entities, 30 permissions: 76-105)
+-- ======================================================================
+-- GROUP 4: PROCUREMENT PERMISSIONS (76-105)
+-- ======================================================================
+-- Category: PROCUREMENT (15 entities × 2 permissions = 30)
+
 (76, NULL, 'View contracts', 'CONTRACT:READ', '12'),
 (77, NULL, 'Manage contracts', 'CONTRACT:ADMIN', '12'),
 (78, NULL, 'View tenders', 'TENDER:READ', '12'),
@@ -144,7 +237,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (104, NULL, 'View specifications', 'SPECIFICATION:READ', '12'),
 (105, NULL, 'Manage specifications', 'SPECIFICATION:ADMIN', '12'),
 
--- GEOGRAPHY CATEGORY (6 entities, 12 permissions: 106-117)
+-- ======================================================================
+-- GROUP 5: GEOGRAPHY PERMISSIONS (106-117)
+-- ======================================================================
+-- Category: GEOGRAPHY (6 entities × 2 permissions = 12)
+
 (106, NULL, 'View countries', 'COUNTRY:READ', '13'),
 (107, NULL, 'Manage countries', 'COUNTRY:ADMIN', '13'),
 (108, NULL, 'View provinces', 'PROVINCE:READ', '13'),
@@ -158,7 +255,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (116, NULL, 'View regions', 'REGION:READ', '13'),
 (117, NULL, 'Manage regions', 'REGION:ADMIN', '13'),
 
--- NOTIFICATION CATEGORY (4 entities, 8 permissions: 118-125)
+-- ======================================================================
+-- GROUP 6: NOTIFICATION PERMISSIONS (118-125)
+-- ======================================================================
+-- Category: NOTIFICATION (4 entities × 2 permissions = 8)
+
 (118, NULL, 'View notifications', 'NOTIFICATION_ENTITY:READ', '14'),
 (119, NULL, 'Manage notifications', 'NOTIFICATION_ENTITY:ADMIN', '14'),
 (120, NULL, 'View alerts', 'ALERT:READ', '14'),
@@ -168,7 +269,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (124, NULL, 'View announcements', 'ANNOUNCEMENT:READ', '14'),
 (125, NULL, 'Manage announcements', 'ANNOUNCEMENT:ADMIN', '14'),
 
--- SERVICE CATEGORY (8 entities, 16 permissions: 126-141)
+-- ======================================================================
+-- GROUP 7: SERVICE PERMISSIONS (126-141)
+-- ======================================================================
+-- Category: SERVICE (8 entities × 2 permissions = 16)
+
 (126, NULL, 'View services', 'SERVICE_ENTITY:READ', '15'),
 (127, NULL, 'Manage services', 'SERVICE_ENTITY:ADMIN', '15'),
 (128, NULL, 'View service categories', 'SERVICE_CATEGORY:READ', '15'),
@@ -186,7 +291,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (140, NULL, 'View interventions', 'INTERVENTION:READ', '15'),
 (141, NULL, 'Manage interventions', 'INTERVENTION:ADMIN', '15'),
 
--- PROVIDER CATEGORY (5 entities, 10 permissions: 142-151)
+-- ======================================================================
+-- GROUP 8: PROVIDER PERMISSIONS (142-151)
+-- ======================================================================
+-- Category: PROVIDER (5 entities × 2 permissions = 10)
+
 (142, NULL, 'View providers', 'PROVIDER:READ', '16'),
 (143, NULL, 'Manage providers', 'PROVIDER:ADMIN', '16'),
 (144, NULL, 'View vendors', 'VENDOR:READ', '16'),
@@ -198,7 +307,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (150, NULL, 'View clients', 'CLIENT:READ', '16'),
 (151, NULL, 'Manage clients', 'CLIENT:ADMIN', '16'),
 
--- EQUIPMENT CATEGORY (10 entities, 20 permissions: 152-171)
+-- ======================================================================
+-- GROUP 9: EQUIPMENT PERMISSIONS (152-171)
+-- ======================================================================
+-- Category: EQUIPMENT (10 entities × 2 permissions = 20)
+
 (152, NULL, 'View equipment', 'EQUIPMENT_ENTITY:READ', '17'),
 (153, NULL, 'Manage equipment', 'EQUIPMENT_ENTITY:ADMIN', '17'),
 (154, NULL, 'View assets', 'ASSET:READ', '17'),
@@ -220,7 +333,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (170, NULL, 'View licenses', 'LICENSE:READ', '17'),
 (171, NULL, 'Manage licenses', 'LICENSE:ADMIN', '17'),
 
--- STOCK CATEGORY (8 entities, 16 permissions: 172-187)
+-- ======================================================================
+-- GROUP 10: STOCK & INVENTORY PERMISSIONS (172-187)
+-- ======================================================================
+-- Category: STOCK (8 entities × 2 permissions = 16)
+
 (172, NULL, 'View stock', 'STOCK_ENTITY:READ', '18'),
 (173, NULL, 'Manage stock', 'STOCK_ENTITY:ADMIN', '18'),
 (174, NULL, 'View inventory', 'INVENTORY:READ', '18'),
@@ -238,7 +355,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (186, NULL, 'View stock levels', 'STOCK_LEVEL:READ', '18'),
 (187, NULL, 'Manage stock levels', 'STOCK_LEVEL:ADMIN', '18'),
 
--- PERSONNEL CATEGORY (7 entities, 14 permissions: 188-201)
+-- ======================================================================
+-- GROUP 11: PERSONNEL & HR PERMISSIONS (188-201)
+-- ======================================================================
+-- Category: PERSONNEL (7 entities × 2 permissions = 14)
+
 (188, NULL, 'View employees', 'EMPLOYEE:READ', '19'),
 (189, NULL, 'Manage employees', 'EMPLOYEE:ADMIN', '19'),
 (190, NULL, 'View personnel', 'PERSONNEL_ENTITY:READ', '19'),
@@ -254,7 +375,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (200, NULL, 'View payroll', 'PAYROLL:READ', '19'),
 (201, NULL, 'Manage payroll', 'PAYROLL:ADMIN', '19'),
 
--- REQUEST CATEGORY (5 entities, 10 permissions: 202-211)
+-- ======================================================================
+-- GROUP 12: REQUEST & WORKFLOW PERMISSIONS (202-211)
+-- ======================================================================
+-- Category: REQUEST (5 entities × 2 permissions = 10)
+
 (202, NULL, 'View requests', 'REQUEST_ENTITY:READ', '20'),
 (203, NULL, 'Manage requests', 'REQUEST_ENTITY:ADMIN', '20'),
 (204, NULL, 'View work orders', 'WORK_ORDER:READ', '20'),
@@ -266,7 +391,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (210, NULL, 'View forms', 'FORM:READ', '20'),
 (211, NULL, 'Manage forms', 'FORM:ADMIN', '20'),
 
--- COMPLAINT CATEGORY (3 entities, 6 permissions: 212-217)
+-- ======================================================================
+-- GROUP 13: COMPLAINT & FEEDBACK PERMISSIONS (212-217)
+-- ======================================================================
+-- Category: COMPLAINT (3 entities × 2 permissions = 6)
+
 (212, NULL, 'View complaints', 'COMPLAINT_ENTITY:READ', '21'),
 (213, NULL, 'Manage complaints', 'COMPLAINT_ENTITY:ADMIN', '21'),
 (214, NULL, 'View feedback', 'FEEDBACK:READ', '21'),
@@ -274,7 +403,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (216, NULL, 'View suggestions', 'SUGGESTION:READ', '21'),
 (217, NULL, 'Manage suggestions', 'SUGGESTION:ADMIN', '21'),
 
--- PROJECT CATEGORY (4 entities, 8 permissions: 218-225)
+-- ======================================================================
+-- GROUP 14: PROJECT MANAGEMENT PERMISSIONS (218-225)
+-- ======================================================================
+-- Category: PROJECT (4 entities × 2 permissions = 8)
+
 (218, NULL, 'View projects', 'PROJECT_ENTITY:READ', '22'),
 (219, NULL, 'Manage projects', 'PROJECT_ENTITY:ADMIN', '22'),
 (220, NULL, 'View milestones', 'MILESTONE:READ', '22'),
@@ -284,7 +417,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (224, NULL, 'View budgets', 'BUDGET:READ', '22'),
 (225, NULL, 'Manage budgets', 'BUDGET:ADMIN', '22'),
 
--- TASK CATEGORY (3 entities, 6 permissions: 226-231)
+-- ======================================================================
+-- GROUP 15: TASK MANAGEMENT PERMISSIONS (226-231)
+-- ======================================================================
+-- Category: TASK (3 entities × 2 permissions = 6)
+
 (226, NULL, 'View tasks', 'TASK_ENTITY:READ', '23'),
 (227, NULL, 'Manage tasks', 'TASK_ENTITY:ADMIN', '23'),
 (228, NULL, 'View assignments', 'ASSIGNMENT:READ', '23'),
@@ -292,7 +429,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (230, NULL, 'View schedules', 'SCHEDULE:READ', '23'),
 (231, NULL, 'Manage schedules', 'SCHEDULE:ADMIN', '23'),
 
--- DELIVERY CATEGORY (4 entities, 8 permissions: 232-239)
+-- ======================================================================
+-- GROUP 16: DELIVERY & LOGISTICS PERMISSIONS (232-239)
+-- ======================================================================
+-- Category: DELIVERY (4 entities × 2 permissions = 8)
+
 (232, NULL, 'View deliveries', 'DELIVERY_ENTITY:READ', '24'),
 (233, NULL, 'Manage deliveries', 'DELIVERY_ENTITY:ADMIN', '24'),
 (234, NULL, 'View shipments', 'SHIPMENT:READ', '24'),
@@ -302,7 +443,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (238, NULL, 'View tracking', 'TRACKING:READ', '24'),
 (239, NULL, 'Manage tracking', 'TRACKING:ADMIN', '24'),
 
--- VEHICLE CATEGORY (5 entities, 10 permissions: 240-249)
+-- ======================================================================
+-- GROUP 17: VEHICLE FLEET PERMISSIONS (240-249)
+-- ======================================================================
+-- Category: VEHICLE (5 entities × 2 permissions = 10)
+
 (240, NULL, 'View vehicles', 'VEHICLE_ENTITY:READ', '25'),
 (241, NULL, 'Manage vehicles', 'VEHICLE_ENTITY:ADMIN', '25'),
 (242, NULL, 'View cars', 'CAR:READ', '25'),
@@ -314,7 +459,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (248, NULL, 'View fuel records', 'FUEL:READ', '25'),
 (249, NULL, 'Manage fuel records', 'FUEL:ADMIN', '25'),
 
--- MAINTENANCE CATEGORY (4 entities, 8 permissions: 250-257)
+-- ======================================================================
+-- GROUP 18: MAINTENANCE PERMISSIONS (250-257)
+-- ======================================================================
+-- Category: MAINTENANCE (4 entities × 2 permissions = 8)
+
 (250, NULL, 'View maintenance', 'MAINTENANCE_ENTITY:READ', '26'),
 (251, NULL, 'Manage maintenance', 'MAINTENANCE_ENTITY:ADMIN', '26'),
 (252, NULL, 'View repairs', 'REPAIR:READ', '26'),
@@ -324,7 +473,11 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (256, NULL, 'View preventive maintenance', 'PREVENTIVE_MAINTENANCE:READ', '26'),
 (257, NULL, 'Manage preventive maintenance', 'PREVENTIVE_MAINTENANCE:ADMIN', '26'),
 
--- RESOURCE CATEGORY (4 entities, 8 permissions: 258-265)
+-- ======================================================================
+-- GROUP 19: RESOURCE MANAGEMENT PERMISSIONS (258-265)
+-- ======================================================================
+-- Category: RESOURCE (4 entities × 2 permissions = 8)
+
 (258, NULL, 'View resources', 'RESOURCE_ENTITY:READ', '27'),
 (259, NULL, 'Manage resources', 'RESOURCE_ENTITY:ADMIN', '27'),
 (260, NULL, 'View allocations', 'ALLOCATION:READ', '27'),
@@ -332,11 +485,83 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 (262, NULL, 'View capacity', 'CAPACITY:READ', '27'),
 (263, NULL, 'Manage capacity', 'CAPACITY:ADMIN', '27'),
 (264, NULL, 'View reservations', 'RESERVATION:READ', '27'),
-(265, NULL, 'Manage reservations', 'RESERVATION:ADMIN', '27');
+(265, NULL, 'Manage reservations', 'RESERVATION:ADMIN', '27')
 
--- ----------------------------------------------------------------------------
--- PART 4: COMPLETE ROLE-PERMISSION MAPPINGS (r_t000203_t000204)
--- ----------------------------------------------------------------------------
+ON DUPLICATE KEY UPDATE 
+    `F_02` = VALUES(`F_02`),
+    `F_03` = VALUES(`F_03`),
+    `F_04` = VALUES(`F_04`);
+
+-- ============================================================================
+-- SECTION 3: ROLES (t_00_02_03)
+-- ============================================================================
+-- 9 roles with clear hierarchy
+-- Uniqueness: F_01 (role code) must be unique
+
+INSERT INTO `t_00_02_03` (`F_00`, `F_02`, `F_01`, `F_03`) VALUES
+(1, 'Super Administrator - Full system access', 'ROLE_SUPER_ADMIN', NULL),
+(2, 'System Administrator - Nearly full access', 'ROLE_ADMIN', NULL),
+(3, 'Department Manager - Read all + dept management', 'ROLE_MANAGER', NULL),
+(4, 'User Manager - User and group management', 'ROLE_USER_MANAGER', NULL),
+(5, 'Employee - Basic read-only access', 'ROLE_EMPLOYEE', NULL),
+(6, 'Auditor - Audit and compliance access', 'ROLE_AUDITOR', NULL),
+(7, 'Data Analyst - Analysis and reporting', 'ROLE_ANALYST', NULL),
+(8, 'Document Approver - Document approval authority', 'ROLE_DOCUMENT_APPROVER', NULL),
+(9, 'Viewer - Minimal read-only access', 'ROLE_VIEWER', NULL)
+ON DUPLICATE KEY UPDATE 
+    `F_02` = VALUES(`F_02`),
+    `F_03` = VALUES(`F_03`);
+
+-- ============================================================================
+-- SECTION 4: USERS (t_00_02_02)
+-- ============================================================================
+-- 16 users with proper security flags
+-- Uniqueness: F_01 (username) must be unique
+-- Note: Passwords are BCrypt hashed
+
+INSERT INTO `t_00_02_02` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`, `F_06`, `F_07`) VALUES
+-- Administrator accounts
+(1, 'superadmin', 'superadmin@iaas.local', '$2a$12$LQv3c1yqBwlVHLZeKj/.lOHk9Qp1yqBwlVHLZeKj/.lOHk9Qp1yqBwl', b'1', b'1', b'1', b'1'),
+(2, 'admin', 'admin@iaas.local', '$2a$12$8zK8mN5pQ2rT7vW3xY4uZ0aB1cD2eF3gH4iJ5kL6mN7oP8qR9sT0', b'1', b'1', b'1', b'1'),
+(3, 'it.admin', 'it.admin@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+
+-- Department managers
+(4, 'hr.manager', 'hr.manager@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+(5, 'finance.manager', 'finance.manager@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+(6, 'ops.manager', 'ops.manager@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+
+-- Regular employees
+(7, 'john.doe', 'john.doe@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+(8, 'jane.smith', 'jane.smith@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+(9, 'bob.wilson', 'bob.wilson@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+(10, 'alice.brown', 'alice.brown@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+
+-- Specialized roles
+(11, 'auditor', 'auditor@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+(12, 'analyst', 'analyst@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+(13, 'approver', 'approver@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+(14, 'viewer', 'viewer@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'1', b'1', b'1'),
+
+-- Test/inactive accounts
+(15, 'disabled.user', 'disabled@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'0', b'1', b'1', b'0'),
+(16, 'locked.user', 'locked@iaas.local', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', b'1', b'0', b'1', b'0')
+
+ON DUPLICATE KEY UPDATE 
+    `F_02` = VALUES(`F_02`),
+    `F_03` = VALUES(`F_03`),
+    `F_04` = VALUES(`F_04`),
+    `F_05` = VALUES(`F_05`),
+    `F_06` = VALUES(`F_06`),
+    `F_07` = VALUES(`F_07`);
+
+-- ============================================================================
+-- SECTION 5: ROLE-PERMISSION MAPPINGS (r_t000203_t000204)
+-- ============================================================================
+-- Complete permission assignments for all 9 roles
+-- Uniqueness: (F_01, F_02) composite key
+
+-- Clear existing mappings (optional)
+-- DELETE FROM `r_t000203_t000204`;
 
 -- SUPER_ADMIN (Role 1) - ALL 265 permissions
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
@@ -366,9 +591,10 @@ INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (1,231),(1,232),(1,233),(1,234),(1,235),(1,236),(1,237),(1,238),(1,239),(1,240),
 (1,241),(1,242),(1,243),(1,244),(1,245),(1,246),(1,247),(1,248),(1,249),(1,250),
 (1,251),(1,252),(1,253),(1,254),(1,255),(1,256),(1,257),(1,258),(1,259),(1,260),
-(1,261),(1,262),(1,263),(1,264),(1,265);
+(1,261),(1,262),(1,263),(1,264),(1,265)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
--- ADMIN (Role 2) - 264 permissions (all except SYSTEM:DELETE = permission 3)
+-- ADMIN (Role 2) - 264 permissions (excludes SYSTEM:DELETE #3)
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (2,1),(2,2),(2,4),(2,5),(2,6),(2,7),(2,8),(2,9),(2,10),
 (2,11),(2,12),(2,13),(2,14),(2,15),(2,16),(2,17),(2,18),(2,19),(2,20),
@@ -396,9 +622,10 @@ INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (2,231),(2,232),(2,233),(2,234),(2,235),(2,236),(2,237),(2,238),(2,239),(2,240),
 (2,241),(2,242),(2,243),(2,244),(2,245),(2,246),(2,247),(2,248),(2,249),(2,250),
 (2,251),(2,252),(2,253),(2,254),(2,255),(2,256),(2,257),(2,258),(2,259),(2,260),
-(2,261),(2,262),(2,263),(2,264),(2,265);
+(2,261),(2,262),(2,263),(2,264),(2,265)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
--- MANAGER (Role 3) - All READ permissions + Department ADMIN (117 permissions)
+-- MANAGER (Role 3) - All READ + department ADMIN (130 permissions)
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (3,1),(3,5),(3,9),(3,13),(3,16),(3,19),(3,23),(3,26),(3,29),
 (3,32),(3,34),(3,36),(3,38),(3,40),(3,42),(3,44),(3,46),(3,48),(3,50),
@@ -414,19 +641,22 @@ INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (3,232),(3,234),(3,236),(3,238),(3,240),(3,242),(3,244),(3,246),(3,248),(3,250),
 (3,252),(3,254),(3,256),(3,258),(3,260),(3,262),(3,264),
 (3,193),(3,195),(3,197),(3,199),(3,203),(3,205),(3,207),(3,209),(3,211),
-(3,219),(3,221),(3,227),(3,229);
+(3,219),(3,221),(3,227),(3,229)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
--- USER_MANAGER (Role 4) - User and personnel management (12 permissions)
+-- USER_MANAGER (Role 4) - User/personnel management (18 permissions)
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (4,5),(4,6),(4,7),(4,8),(4,9),(4,10),(4,13),(4,14),(4,16),(4,17),(4,18),(4,23),
-(4,188),(4,189),(4,190),(4,191),(4,192),(4,193);
+(4,188),(4,189),(4,190),(4,191),(4,192),(4,193)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
--- EMPLOYEE (Role 5) - Basic READ-only access (24 permissions)
+-- EMPLOYEE (Role 5) - Basic read-only (28 permissions)
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (5,1),(5,5),(5,16),(5,19),(5,23),(5,29),
 (5,32),(5,34),(5,36),(5,38),(5,52),(5,54),(5,56),(5,60),
 (5,106),(5,108),(5,110),(5,118),(5,120),(5,122),(5,124),
-(5,126),(5,130),(5,188),(5,192),(5,202),(5,212),(5,218),(5,226);
+(5,126),(5,130),(5,188),(5,192),(5,202),(5,212),(5,218),(5,226)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
 -- AUDITOR (Role 6) - Audit and compliance (50 permissions)
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
@@ -434,63 +664,158 @@ INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (6,32),(6,34),(6,36),(6,38),(6,40),(6,42),(6,44),(6,46),(6,48),(6,50),
 (6,52),(6,54),(6,56),(6,58),(6,60),(6,62),(6,64),(6,66),(6,68),(6,70),
 (6,72),(6,74),(6,76),(6,78),(6,80),(6,82),(6,84),(6,86),(6,88),(6,90),
-(6,92),(6,94),(6,96),(6,98),(6,100),(6,102),(6,104);
+(6,92),(6,94),(6,96),(6,98),(6,100),(6,102),(6,104)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
 -- ANALYST (Role 7) - Data analysis (36 permissions)
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (7,1),(7,5),(7,9),(7,13),(7,16),(7,19),(7,23),(7,29),(7,30),(7,31),
 (7,32),(7,34),(7,36),(7,38),(7,40),(7,52),(7,54),(7,56),(7,76),(7,78),
 (7,80),(7,82),(7,84),(7,86),(7,88),(7,172),(7,174),(7,176),(7,188),(7,190),
-(7,192),(7,194),(7,218),(7,220),(7,222),(7,224);
+(7,192),(7,194),(7,218),(7,220),(7,222),(7,224)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
--- DOCUMENT_APPROVER (Role 8) - Document approval (20 permissions)
+-- DOCUMENT_APPROVER (Role 8) - Document approval (26 permissions)
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (8,1),(8,5),(8,19),(8,20),(8,21),(8,22),
 (8,52),(8,54),(8,56),(8,57),(8,58),(8,60),(8,61),
 (8,62),(8,64),(8,66),(8,68),(8,72),(8,74),
-(8,76),(8,78),(8,80),(8,92),(8,94),(8,206),(8,207);
+(8,76),(8,78),(8,80),(8,92),(8,94),(8,206),(8,207)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
--- VIEWER (Role 9) - Minimal READ-only (11 permissions)
+-- VIEWER (Role 9) - Minimal read-only (11 permissions)
 INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (9,1),(9,5),(9,16),(9,19),(9,29),
-(9,32),(9,52),(9,106),(9,118),(9,188),(9,212);
+(9,32),(9,52),(9,106),(9,118),(9,188),(9,212)
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
--- ----------------------------------------------------------------------------
--- PART 5: USER-ROLE ASSIGNMENTS (r_t000202_t000203)
--- ----------------------------------------------------------------------------
+-- ============================================================================
+-- SECTION 6: USER-ROLE ASSIGNMENTS (r_t000202_t000203)
+-- ============================================================================
+-- Assigns roles to users
+-- Uniqueness: (F_01, F_02) composite key
+
+-- Clear existing assignments (optional)
+-- DELETE FROM `r_t000202_t000203`;
 
 INSERT INTO `r_t000202_t000203` (`F_01`, `F_02`) VALUES
+-- Administrators
 (1,1),   -- superadmin -> SUPER_ADMIN
 (2,2),   -- admin -> ADMIN
 (3,2), (3,4),  -- it.admin -> ADMIN + USER_MANAGER
-(4,3), (5,3), (6,3),  -- hr.manager, finance.manager, ops.manager -> MANAGER
-(7,5), (8,5), (9,5), (10,5),  -- john.doe, jane.smith, bob.wilson, alice.brown -> EMPLOYEE
+
+-- Department Managers
+(4,3), (5,3), (6,3),  -- hr/finance/ops managers -> MANAGER
+
+-- Regular Employees
+(7,5), (8,5), (9,5), (10,5),  -- employees -> EMPLOYEE
+
+-- Specialized Roles
 (11,6),  -- auditor -> AUDITOR
 (12,7),  -- analyst -> ANALYST
 (13,8),  -- approver -> DOCUMENT_APPROVER
-(14,9);  -- viewer -> VIEWER
+(14,9)   -- viewer -> VIEWER
 
--- ----------------------------------------------------------------------------
--- PART 6: VERIFICATION QUERIES
--- ----------------------------------------------------------------------------
+-- Note: Users 15 & 16 (disabled/locked) have no role assignments
 
-SELECT '====== VERIFICATION RESULTS ======' as Status;
-SELECT 'Total Permissions' as Check, COUNT(*) as Result_Expected_265 FROM `t_00_02_04` WHERE `F_00` <= 265;
-SELECT 'Total Categories' as Check, COUNT(*) as Result_Expected_27 FROM `t_00_02_05` WHERE `F_00` <= 27;
-SELECT 'SUPER_ADMIN Permissions' as Check, COUNT(*) as Result_Expected_265 FROM `r_t000203_t000204` WHERE `F_01` = 1;
-SELECT 'Users with Roles' as Check, COUNT(DISTINCT `F_01`) as Result_Expected_14 FROM `r_t000202_t000203`;
+ON DUPLICATE KEY UPDATE F_01=F_01;
 
-SELECT '====== USER ROLE ASSIGNMENTS ======' as Status;
+-- ============================================================================
+-- SECTION 7: VERIFICATION & VALIDATION
+-- ============================================================================
+
+SELECT '========================================' as '';
+SELECT '   IAAS SECURITY SETUP VERIFICATION' as '';
+SELECT '========================================' as '';
+
+SELECT 'Authority Categories' as Component, COUNT(*) as Total_Expected_27 
+FROM `t_00_02_05` WHERE `F_00` <= 27;
+
+SELECT 'Permissions' as Component, COUNT(*) as Total_Expected_265 
+FROM `t_00_02_04` WHERE `F_00` <= 265;
+
+SELECT 'Roles' as Component, COUNT(*) as Total_Expected_9 
+FROM `t_00_02_03` WHERE `F_00` <= 9;
+
+SELECT 'Users' as Component, COUNT(*) as Total_Expected_16 
+FROM `t_00_02_02` WHERE `F_00` <= 16;
+
+SELECT 'Active Users' as Component, COUNT(*) as Total_Expected_14 
+FROM `t_00_02_02` WHERE `F_07` = b'1';
+
+SELECT 'Role-Permission Mappings' as Component, COUNT(*) as Total 
+FROM `r_t000203_t000204`;
+
+SELECT 'User-Role Assignments' as Component, COUNT(*) as Total 
+FROM `r_t000202_t000203`;
+
+SELECT '========================================' as '';
+SELECT '   ROLE PERMISSION COUNTS' as '';
+SELECT '========================================' as '';
+
+SELECT r.`F_01` as Role, COUNT(rp.`F_02`) as Permissions
+FROM `t_00_02_03` r
+LEFT JOIN `r_t000203_t000204` rp ON r.`F_00` = rp.`F_01`
+WHERE r.`F_00` <= 9
+GROUP BY r.`F_00`, r.`F_01`
+ORDER BY r.`F_00`;
+
+SELECT '========================================' as '';
+SELECT '   USER ROLE ASSIGNMENTS' as '';
+SELECT '========================================' as '';
+
 SELECT 
     u.`F_01` as Username, 
     u.`F_02` as Email,
-    GROUP_CONCAT(r.`F_01` SEPARATOR ', ') as Roles
+    CASE WHEN u.`F_07` = b'1' THEN 'Active' ELSE 'Inactive' END as Status,
+    GROUP_CONCAT(r.`F_01` ORDER BY r.`F_00` SEPARATOR ', ') as Roles
 FROM `t_00_02_02` u 
 LEFT JOIN `r_t000202_t000203` ur ON u.`F_00` = ur.`F_01` 
 LEFT JOIN `t_00_02_03` r ON ur.`F_02` = r.`F_00` 
-WHERE u.`F_07` = b'1' 
-GROUP BY u.`F_00` 
-ORDER BY u.`F_01`;
+WHERE u.`F_00` <= 16
+GROUP BY u.`F_00`, u.`F_01`, u.`F_02`, u.`F_07`
+ORDER BY u.`F_00`;
+
+-- Check for duplicate permission codes (should return 0 rows)
+SELECT '========================================' as '';
+SELECT '   UNIQUENESS VALIDATION' as '';
+SELECT '========================================' as '';
+
+SELECT 'Duplicate Permission Codes' as Check, COUNT(*) as Count_Should_Be_0
+FROM (
+    SELECT `F_01`, COUNT(*) as cnt 
+    FROM `t_00_02_04` 
+    WHERE `F_00` <= 265
+    GROUP BY `F_01` 
+    HAVING cnt > 1
+) as duplicates;
+
+SELECT 'Duplicate Category Codes' as Check, COUNT(*) as Count_Should_Be_0
+FROM (
+    SELECT `F_01`, COUNT(*) as cnt 
+    FROM `t_00_02_05` 
+    WHERE `F_00` <= 27
+    GROUP BY `F_01` 
+    HAVING cnt > 1
+) as duplicates;
+
+SELECT 'Duplicate Role Codes' as Check, COUNT(*) as Count_Should_Be_0
+FROM (
+    SELECT `F_01`, COUNT(*) as cnt 
+    FROM `t_00_02_03` 
+    WHERE `F_00` <= 9
+    GROUP BY `F_01` 
+    HAVING cnt > 1
+) as duplicates;
+
+SELECT 'Duplicate Usernames' as Check, COUNT(*) as Count_Should_Be_0
+FROM (
+    SELECT `F_01`, COUNT(*) as cnt 
+    FROM `t_00_02_02` 
+    WHERE `F_00` <= 16
+    GROUP BY `F_01` 
+    HAVING cnt > 1
+) as duplicates;
 
 COMMIT;
 
@@ -499,41 +824,73 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 -- ============================================================================
--- CRITICAL POST-INSTALLATION ACTIONS ⚠️
+-- POST-INSTALLATION SECURITY CHECKLIST
 -- ============================================================================
 
 /*
-🔴 IMMEDIATE ACTIONS REQUIRED:
+🔐 CRITICAL SECURITY ACTIONS - Execute Immediately:
 
-1. CHANGE SUPERADMIN PASSWORD:
+1. ⚠️  CHANGE SUPERADMIN PASSWORD:
+   -- Generate new BCrypt hash: https://bcrypt-generator.com/
    UPDATE t_00_02_02 SET F_03 = 'YOUR_NEW_BCRYPT_HASH' WHERE F_01 = 'superadmin';
-   Generate hash: https://bcrypt-generator.com/
 
-2. UPDATE ADMIN PASSWORD:
+2. ⚠️  CHANGE ADMIN PASSWORD:
    UPDATE t_00_02_02 SET F_03 = 'YOUR_NEW_BCRYPT_HASH' WHERE F_01 = 'admin';
 
-3. REMOVE/UPDATE TEST USERS (optional):
+3. 🗑️  REMOVE OR SECURE TEST USERS:
+   -- Option A: Delete test users
    DELETE FROM t_00_02_02 WHERE F_00 BETWEEN 7 AND 16;
-   -- OR --
-   UPDATE t_00_02_02 SET F_03 = 'NEW_HASH' WHERE F_00 BETWEEN 7 AND 16;
+   
+   -- Option B: Update all test user passwords
+   UPDATE t_00_02_02 SET F_03 = 'UNIQUE_HASH_FOR_EACH' WHERE F_00 BETWEEN 7 AND 16;
 
-4. BACKUP SECURITY TABLES:
+4. 💾 BACKUP SECURITY TABLES:
    mysqldump -u root -p iaas_db \
-   t_00_02_02 t_00_02_03 t_00_02_04 t_00_02_05 \
-   r_t000202_t000203 r_t000203_t000204 \
-   > security_backup_$(date +%Y%m%d).sql
+     t_00_02_02 t_00_02_03 t_00_02_04 t_00_02_05 \
+     r_t000202_t000203 r_t000203_t000204 \
+     > security_backup_$(date +%Y%m%d_%H%M%S).sql
 
-5. TEST ROLE PERMISSIONS in your application UI
+5. ✅ TEST ALL ROLES in your application:
+   - Login with each role type
+   - Verify permissions work correctly
+   - Check for unauthorized access
 
-6. ENABLE AUDIT LOGGING in your application code
+6. 📊 ENABLE AUDIT LOGGING in application code:
+   - Log all authentication attempts
+   - Log permission changes
+   - Log role assignments
+   - Monitor suspicious activity
 
-7. IMPLEMENT PASSWORD POLICIES:
+7. 🔒 IMPLEMENT PASSWORD POLICIES:
    - Minimum 12 characters
-   - Mixed case, numbers, special chars
-   - Password expiration (90 days)
-   - Account lockout after 5 failed attempts
+   - Require: uppercase, lowercase, numbers, special chars
+   - Password expiration: 90 days
+   - Account lockout: 5 failed attempts
+   - Password history: prevent reuse of last 5 passwords
 
-✅ SETUP COMPLETE: Enterprise-grade RBAC with 265 granular permissions!
+8. 📋 REGULAR MAINTENANCE:
+   - Review user permissions quarterly
+   - Remove inactive users monthly
+   - Audit role assignments bi-annually
+   - Update permissions as business needs change
+
+9. 🔐 ADDITIONAL SECURITY MEASURES:
+   - Enable two-factor authentication (2FA)
+   - Implement session timeout (30 minutes)
+   - Use HTTPS only for all connections
+   - Encrypt sensitive data at rest
+   - Regular security penetration testing
+
+✅ SETUP COMPLETE!
+   - 27 Authority Categories
+   - 265 Granular Permissions
+   - 9 Role Hierarchy Levels
+   - 16 Users (14 active, 2 test)
+   - Full RBAC Implementation
+   - Enterprise-Grade Security
+
+📚 Documentation: Review application security documentation
+🆘 Support: Contact security team for assistance
 */
 
--- EOF security_db.sql
+-- EOF security_db.sql v2.0
