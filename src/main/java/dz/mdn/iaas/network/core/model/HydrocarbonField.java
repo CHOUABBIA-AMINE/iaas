@@ -17,6 +17,8 @@ package dz.mdn.iaas.network.core.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import dz.mdn.iaas.network.common.model.Partner;
+import dz.mdn.iaas.network.common.model.Product;
 import dz.mdn.iaas.network.type.model.HydrocarbonFieldType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
