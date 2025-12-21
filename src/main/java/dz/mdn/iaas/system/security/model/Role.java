@@ -45,8 +45,8 @@ public class Role extends GenericModel {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "R_T000203_T000204",
-        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T000203_T000204_FK_01")),
-        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T000203_T000204_FK_02")),
+        joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T000203_T000204_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T000203_T000204_FK_02")),
         uniqueConstraints = @UniqueConstraint(name = "R_T000203_T000204_UK_01", columnNames = {"F_01", "F_02"})
     )
     private Set<Permission> permissions = new HashSet<>();

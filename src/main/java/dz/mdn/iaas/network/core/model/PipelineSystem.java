@@ -63,14 +63,14 @@ public class PipelineSystem extends GenericModel {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_03_03_06_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_06_FK_01"), nullable=false)
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_03_03_06_FK_02"), nullable=false)
+    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_06_FK_02"), nullable=false)
     private OperationalStatus operationalStatus;
 
     @ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_03_03_06_FK_03"), nullable=false)
+    @JoinColumn(name="F_05", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_06_FK_03"), nullable=false)
     private Region region;
 }

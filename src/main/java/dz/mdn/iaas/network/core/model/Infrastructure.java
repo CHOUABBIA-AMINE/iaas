@@ -75,7 +75,7 @@ public class Infrastructure extends GenericModel {
     protected LocalDate decommissioningDate;
     
     @ManyToOne
-    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_03_03_01_FK_01"), nullable=false)
+    @JoinColumn(name="F_06", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_01_FK_01"), nullable=false)
     protected OperationalStatus operationalStatus;
     
 }

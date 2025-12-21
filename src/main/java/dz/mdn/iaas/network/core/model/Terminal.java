@@ -63,18 +63,18 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Terminal")
-@Table(name="T_03_03_04", uniqueConstraints = { @UniqueConstraint(name="T_03_03_04_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_03_04")
 public class Terminal extends Facility {
 
     @ManyToOne
-    @JoinColumn(name="F_13", foreignKey=@ForeignKey(name="T_03_03_04_FK_01"), nullable=false)
+    @JoinColumn(name="F_13", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_04_FK_01"), nullable=false)
     private TerminalType terminalType;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "R_T030304_T030307",
-        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T030304_T030307_FK_01")),
-        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T030304_T030307_FK_02")),
+        joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T030304_T030307_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T030304_T030307_FK_02")),
         uniqueConstraints = @UniqueConstraint(name = "R_T030304_T030307_UK_01", columnNames = {"F_01", "F_02"})
     )
     private Set<Pipeline> pipelines = new HashSet<>();

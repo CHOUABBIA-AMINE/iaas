@@ -46,7 +46,7 @@ public class FinancialOperation extends GenericModel {
 	private String budgetYear;
 	
 	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_02_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_02_03_FK_01"), nullable=false)
     private BudgetType budgetType;
 
 }

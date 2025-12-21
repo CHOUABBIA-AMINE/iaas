@@ -43,11 +43,11 @@ public class ItemDistribution extends GenericModel {
 	private float quantity;
 	
 	@ManyToOne
-    @JoinColumn(name="F_02", foreignKey=@ForeignKey(name="T_02_02_09_FK_01"), nullable=false)
+    @JoinColumn(name="F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_02_09_FK_01"), nullable=false)
     private PlannedItem plannedItem;
 	
 	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_02_02_09_FK_02"), nullable=false)
+    @JoinColumn(name="F_03", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_02_09_FK_02"), nullable=false)
     private Structure structure;
 
 }

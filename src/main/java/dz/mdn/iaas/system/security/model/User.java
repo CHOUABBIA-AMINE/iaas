@@ -73,8 +73,8 @@ public class User extends GenericModel implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "R_T000202_T000203",
-        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T000202_T000203_FK_01")),
-        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T000202_T000203_FK_02")),
+        joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T000202_T000203_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T000202_T000203_FK_02")),
         uniqueConstraints = @UniqueConstraint(name = "R_T000202_T000203_UK_01", columnNames = {"F_01", "F_02"})
     )
     private Set<Role> roles = new HashSet<>();
@@ -83,8 +83,8 @@ public class User extends GenericModel implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "R_T000202_T000201",
-        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T000202_T000201_FK_01")),
-        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T000202_T000201_FK_02")),
+        joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T000202_T000201_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T000202_T000201_FK_02")),
         uniqueConstraints = @UniqueConstraint(name = "R_T000202_T000201_UK_01", columnNames = {"F_01", "F_02"})
     )
     private Set<Group> groups = new HashSet<>();

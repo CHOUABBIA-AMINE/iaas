@@ -66,7 +66,7 @@ public class ProviderRepresentator extends GenericModel {
 	private String mail;
 	
 	@ManyToOne
-    @JoinColumn(name="F_10", foreignKey=@ForeignKey(name="T_02_03_05_FK_01"), nullable=false)
+    @JoinColumn(name="F_10", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_03_05_FK_01"), nullable=false)
     private Provider provider;
 
 }

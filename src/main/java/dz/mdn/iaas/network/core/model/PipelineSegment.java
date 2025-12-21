@@ -68,18 +68,18 @@ public class PipelineSegment extends Infrastructure {
     private Double endPoint;
 
     @ManyToOne
-    @JoinColumn(name="F_13", foreignKey=@ForeignKey(name="T_03_02_09_FK_01"), nullable=true)
+    @JoinColumn(name="F_13", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_09_FK_01"), nullable=true)
     private Alloy constructionMaterial;
 
     @ManyToOne
-    @JoinColumn(name="F_14", foreignKey=@ForeignKey(name="T_03_02_09_FK_02"), nullable=true)
+    @JoinColumn(name="F_14", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_09_FK_02"), nullable=true)
     private Alloy exteriorCoating;
 
     @ManyToOne
-    @JoinColumn(name="F_15", foreignKey=@ForeignKey(name="T_03_02_09_FK_03"), nullable=true)
+    @JoinColumn(name="F_15", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_09_FK_03"), nullable=true)
     private Alloy interiorCoating;
 
     @ManyToOne
-    @JoinColumn(name="F_16", foreignKey=@ForeignKey(name="T_03_02_10_FK_01"), nullable=false)
+    @JoinColumn(name="F_16", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_10_FK_01"), nullable=false)
     private Pipeline pipeline;
 }

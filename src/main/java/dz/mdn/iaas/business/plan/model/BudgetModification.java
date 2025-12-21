@@ -56,18 +56,18 @@ public class BudgetModification extends GenericModel {
 	private Date approvalDate;
 	
 	@ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_02_07_FK_01"), nullable=false)
+    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_02_07_FK_01"), nullable=false)
     private Document demande;
 	
 	@ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_02_02_07_FK_02"), nullable=false)
+    @JoinColumn(name="F_05", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_02_07_FK_02"), nullable=false)
     private Document response;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "R_T020207_T020208", 
-			joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T020207_T020208_FK_01")), 
-			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T020207_T020208_FK_02")),
+			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020207_T020208_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020207_T020208_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020207_T020208_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<PlannedItem> plannedItems;
 }

@@ -35,8 +35,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="DocumentType")
-@Table(name="T_01_03_01", uniqueConstraints = { @UniqueConstraint(name = "T_01_03_01_UK_01", columnNames = { "F_03" }),
-											    @UniqueConstraint(name = "T_01_03_01_UK_02", columnNames = { "F_04" })})
+@Table(name="T_01_03_01", uniqueConstraints = { @UniqueConstraint(name = "T_01_03_01_UK_01", columnNames = { "F_03" })})
 public class DocumentType extends GenericModel {
 	
 	@Column(name="F_01", length=100)

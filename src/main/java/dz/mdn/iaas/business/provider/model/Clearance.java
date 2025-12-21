@@ -50,15 +50,15 @@ public class Clearance extends GenericModel {
 	private String designationFr;
 	
 	@ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_03_06_FK_01"), nullable=false)
+    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_03_06_FK_01"), nullable=false)
     private Provider provider;
 	
 	@ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_02_03_06_FK_02"), nullable=false)
+    @JoinColumn(name="F_05", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_03_06_FK_02"), nullable=false)
     private ProviderRepresentator providerRepresentator;
 
 	@ManyToOne
-    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_02_03_06_FK_03"), nullable=true)
+    @JoinColumn(name="F_06", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_03_06_FK_03"), nullable=true)
     private Mail reference;
 
 }

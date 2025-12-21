@@ -89,30 +89,30 @@ public class Pipeline extends Infrastructure {
     private Double operationalCapacity;
 
     @ManyToOne
-    @JoinColumn(name="F_17", foreignKey=@ForeignKey(name="T_03_03_07_FK_01"), nullable=false)
+    @JoinColumn(name="F_17", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_07_FK_01"), nullable=false)
     private Alloy nominalConstructionMaterial;
 
     @ManyToOne
-    @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_03_03_07_FK_02"), nullable=false)
+    @JoinColumn(name="F_18", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_07_FK_02"), nullable=false)
     private Alloy nominalExteriorCoating;
 
     @ManyToOne
-    @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_03_03_07_FK_03"), nullable=false)
+    @JoinColumn(name="F_19", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_07_FK_03"), nullable=false)
     private Alloy nominalInteriorCoating;
 
 	@ManyToOne
-    @JoinColumn(name="F_20", foreignKey=@ForeignKey(name="T_03_03_07_FK_04"), nullable=false)
+    @JoinColumn(name="F_20", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_07_FK_04"), nullable=false)
     private Vendor vendor;
 	
     @ManyToOne
-    @JoinColumn(name="F_21", foreignKey=@ForeignKey(name="T_03_03_07_FK_05"), nullable=false)
+    @JoinColumn(name="F_21", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_07_FK_05"), nullable=false)
     private PipelineSystem pipelineSystem;
 
     @ManyToOne
-    @JoinColumn(name="F_22", foreignKey=@ForeignKey(name="T_03_03_07_FK_06"), nullable=false)
+    @JoinColumn(name="F_22", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_07_FK_06"), nullable=false)
     private Facility departureFacility;
 
     @ManyToOne
-    @JoinColumn(name="F_23", foreignKey=@ForeignKey(name="T_03_03_07_FK_07"), nullable=false)
+    @JoinColumn(name="F_23", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_07_FK_07"), nullable=false)
     private Facility arrivalFacility;
 }

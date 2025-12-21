@@ -55,7 +55,7 @@ public class ContractItem extends GenericModel {
 	private String observation;
 	
 	@ManyToOne
-	@JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_02_05_05_FK_01"), nullable=false)
+	@JoinColumn(name="F_06", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_05_FK_01"), nullable=false)
 	private Contract contract;
 
 }

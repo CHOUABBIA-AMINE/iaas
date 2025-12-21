@@ -48,7 +48,7 @@ public class Folder extends GenericModel {
 	private String description;
 	
 	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_01_01_07_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_01_07_FK_01"), nullable=false)
     private ArchiveBox archiveBox;
 	
 	@Column(name="F_04")

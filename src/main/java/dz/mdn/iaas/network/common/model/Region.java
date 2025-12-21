@@ -73,6 +73,6 @@ public class Region extends GenericModel {
     private String descriptionFr;
 	
 	@ManyToOne
-    @JoinColumn(name = "F_08", foreignKey=@ForeignKey(name="T_03_02_02_FK_01"), nullable = false)
+    @JoinColumn(name = "F_08", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_02_FK_01"), nullable = false)
     private Zone zone;
 }

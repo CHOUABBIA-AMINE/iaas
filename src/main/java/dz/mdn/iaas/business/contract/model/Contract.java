@@ -100,35 +100,35 @@ public class Contract extends GenericModel {
 	private String observation;
 	
 	@ManyToOne
-    @JoinColumn(name="F_16", foreignKey=@ForeignKey(name="T_02_05_04_FK_01"), nullable=false)
+    @JoinColumn(name="F_16", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_04_FK_01"), nullable=false)
     private ContractType contractType;
 	
 	@ManyToOne
-    @JoinColumn(name="F_17", foreignKey=@ForeignKey(name="T_02_05_04_FK_02"), nullable=false)
+    @JoinColumn(name="F_17", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_04_FK_02"), nullable=false)
     private Provider provider;
 
 	@ManyToOne
-    @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_02_05_04_FK_03"), nullable=false)
+    @JoinColumn(name="F_18", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_04_FK_03"), nullable=false)
     private ProcurementStatus procurementStatus;
 	
 	@ManyToOne
-    @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_02_05_04_FK_04"), nullable=false)
+    @JoinColumn(name="F_19", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_04_FK_04"), nullable=false)
     private ContractStep contractStep;
 	
 	@ManyToOne
-    @JoinColumn(name="F_20", foreignKey=@ForeignKey(name="T_02_05_04_FK_05"), nullable=true)
+    @JoinColumn(name="F_20", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_04_FK_05"), nullable=true)
     private ApprovalStatus approvalStatus;
 	
 	@ManyToOne
-    @JoinColumn(name="F_21", foreignKey=@ForeignKey(name="T_02_05_04_FK_06"), nullable=false)
+    @JoinColumn(name="F_21", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_04_FK_06"), nullable=false)
     private Currency currency;
 
 	@ManyToOne
-    @JoinColumn(name="F_22", foreignKey=@ForeignKey(name="T_02_05_04_FK_07"), nullable=true)
+    @JoinColumn(name="F_22", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_04_FK_07"), nullable=true)
     private Consultation consultation;
 
 	@ManyToOne
-    @JoinColumn(name="F_23", foreignKey=@ForeignKey(name="T_02_05_04_FK_08"), nullable=true)
+    @JoinColumn(name="F_23", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_04_FK_08"), nullable=true)
     private Contract contractUp;
 	
 	@OneToMany(mappedBy="contract")
@@ -137,8 +137,8 @@ public class Contract extends GenericModel {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "R_T020504_T010302", 
-			joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T020504_T010302_FK_01")), 
-			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T020504_T010302_FK_02")),
+			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020504_T010302_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020504_T010302_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020504_T010302_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<Document> documents;
 	
@@ -153,8 +153,8 @@ public class Contract extends GenericModel {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "R_T020504_T020208", 
-			joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T020504_T020208_FK_01")), 
-			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T020504_T020208_FK_02")),
+			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020504_T020208_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020504_T020208_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020504_T020208_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<PlannedItem> plannedItems;
 

@@ -76,16 +76,16 @@ public class Facility extends Infrastructure {
     private Double elevation;
 
 	@ManyToOne
-    @JoinColumn(name="F_11", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable=false)
+    @JoinColumn(name="F_11", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable=false)
     protected Vendor vendor;
     
     //@ManyToOne
-    //@JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable=true)
+    //@JoinColumn(name="F_08", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable=true)
     //protected Location location;
 
 
     @ManyToOne
-    @JoinColumn(name = "F_12", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable = false)
+    @JoinColumn(name = "F_12", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable = false)
     private Locality locality;
     
     @Builder.Default

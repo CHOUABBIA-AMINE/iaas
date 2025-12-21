@@ -48,10 +48,10 @@ public class ArchiveBox extends GenericModel {
 	private String description;
 	
 	@ManyToOne
-    @JoinColumn(name="F_03", foreignKey=@ForeignKey(name="T_01_01_06_FK_01"), nullable=false)
+    @JoinColumn(name="F_03", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_01_06_FK_01"), nullable=false)
     private Shelf shelf;
 	
 	@ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_01_01_06_FK_02"), nullable=false)
+    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_01_06_FK_02"), nullable=false)
     private ShelfFloor shelfFloor;
 }

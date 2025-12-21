@@ -29,7 +29,7 @@ import lombok.ToString;
 /**
  * Product Entity - Extends GenericModel
  * 
- * Database table: T_20_04
+ * Database table: T_03_02_04
  * Primary key: F_00 (id) - inherited from GenericModel
  * 
  * Fields:

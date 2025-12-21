@@ -54,6 +54,6 @@ public class Shelf extends GenericModel {
 	private String designationFr;
 	
 	@ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_01_01_04_FK_01"), nullable=false)
+    @JoinColumn(name="F_05", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_01_04_FK_01"), nullable=false)
     private Room room;
 }

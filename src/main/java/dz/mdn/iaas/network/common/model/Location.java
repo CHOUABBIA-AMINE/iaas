@@ -77,7 +77,7 @@ public class Location extends GenericModel {
     private Double elevation;
 
     @ManyToOne
-    @JoinColumn(name = "F_08", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable = false)
+    @JoinColumn(name = "F_08", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_03_FK_01"), nullable = false)
     private Locality locality;
 
 }

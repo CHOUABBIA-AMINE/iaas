@@ -57,18 +57,18 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="HydrocarbonField")
-@Table(name="T_03_03_05", uniqueConstraints = { @UniqueConstraint(name="T_03_03_05_UK_01", columnNames={"F_02"}) })
+@Table(name="T_03_03_05")
 public class HydrocarbonField extends Facility {
 
     @ManyToOne
-    @JoinColumn(name="F_13", foreignKey=@ForeignKey(name="T_03_03_05_FK_01"), nullable=false)
+    @JoinColumn(name="F_13", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_05_FK_01"), nullable=false)
     private HydrocarbonFieldType hydrocarbonFieldType;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "R_T030305_T030307",
-        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T030305_T030307_FK_01")),
-        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T030305_T030307_FK_02")),
+        joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T030305_T030307_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T030305_T030307_FK_02")),
         uniqueConstraints = @UniqueConstraint(name = "R_T030305_T030307_UK_01", columnNames = {"F_01", "F_02"})
     )
     private Set<Pipeline> pipelines = new HashSet<>();
@@ -76,17 +76,17 @@ public class HydrocarbonField extends Facility {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "R_T030305_T030207",
-        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T030303_T030207_FK_01")),
-        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T030303_T030207_FK_02")),
-        uniqueConstraints = @UniqueConstraint(name = "R_T030303_T030207_UK_01", columnNames = {"F_01", "F_02"})
+        joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T030305_T030207_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T030305_T030207_FK_02")),
+        uniqueConstraints = @UniqueConstraint(name = "R_T030305_T030207_UK_01", columnNames = {"F_01", "F_02"})
     )
     private Set<Partner> partners = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "R_T030305_T030204",
-        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T030305_T030204_FK_01")),
-        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T030305_T030204_FK_02")),
+        joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T030305_T030204_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T030305_T030204_FK_02")),
         uniqueConstraints = @UniqueConstraint(name = "R_T030305_T030204_UK_01", columnNames = {"F_01", "F_02"})
     )
     private Set<Product> products = new HashSet<>();

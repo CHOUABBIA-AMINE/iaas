@@ -15,13 +15,11 @@ package dz.mdn.iaas.system.audit.model;
 
 import java.util.Date;
 
+import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,18 +36,13 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode(callSuper = true)
 @Builder
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Audited")
 @Table(name="T_00_03_01")
-public class Audited {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "F_00")
-    private Long id;
+public class Audited  extends GenericModel {
 
     @Column(name = "F_01", nullable = false, length = 100)
     private String entityName; // e.g., "Submission", "Consultation"

@@ -49,10 +49,10 @@ public class Vendor extends GenericModel {
     private String shortName;
 
 	@ManyToOne
-    @JoinColumn(name = "F_03", foreignKey=@ForeignKey(name="T_03_02_08_FK_01"), nullable = false)
+    @JoinColumn(name = "F_03", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_08_FK_01"), nullable = false)
     private VendorType vendorType;
 	
 	@ManyToOne
-    @JoinColumn(name = "F_04", foreignKey=@ForeignKey(name="T_03_02_08_FK_02"), nullable = false)
+    @JoinColumn(name = "F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_08_FK_02"), nullable = false)
     private Country country;
 }

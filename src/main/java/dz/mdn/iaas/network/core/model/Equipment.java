@@ -94,14 +94,14 @@ public class Equipment extends GenericModel {
     private LocalDate decommissioningDate;
 
     @ManyToOne
-    @JoinColumn(name="F_11", foreignKey=@ForeignKey(name="T_03_03_09_FK_01"), nullable=false)
+    @JoinColumn(name="F_11", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_09_FK_01"), nullable=false)
     private OperationalStatus operationalStatus;
 
     @ManyToOne
-    @JoinColumn(name="F_12", foreignKey=@ForeignKey(name="T_03_03_09_FK_02"), nullable=false)
+    @JoinColumn(name="F_12", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_09_FK_02"), nullable=false)
     private EquipmentType equipmentType;
 
     @ManyToOne
-    @JoinColumn(name="F_13", foreignKey=@ForeignKey(name="T_03_03_09_FK_03"), nullable=false)
+    @JoinColumn(name="F_13", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_09_FK_03"), nullable=false)
     private Facility facility;
 }

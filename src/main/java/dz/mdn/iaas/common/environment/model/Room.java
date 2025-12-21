@@ -54,10 +54,10 @@ public class Room extends GenericModel {
 	private String designationFr;
 	
 	@ManyToOne
-    @JoinColumn(name="F_05", foreignKey=@ForeignKey(name="T_01_01_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_05", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_01_03_FK_01"), nullable=false)
     private Bloc bloc;
 	
 	@ManyToOne
-    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_01_01_03_FK_02"), nullable=false)
+    @JoinColumn(name="F_06", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_01_03_FK_02"), nullable=false)
     private Floor floor;
 }

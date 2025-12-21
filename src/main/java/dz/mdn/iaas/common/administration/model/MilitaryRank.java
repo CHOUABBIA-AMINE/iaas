@@ -60,7 +60,7 @@ public class MilitaryRank extends GenericModel {
 	private String acronymFr;
 	
 	@ManyToOne
-	@JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_01_04_05_FK_01"), nullable=false)
+	@JoinColumn(name="F_07", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_04_05_FK_01"), nullable=false)
 	private MilitaryCategory militaryCategory;
 	
 }

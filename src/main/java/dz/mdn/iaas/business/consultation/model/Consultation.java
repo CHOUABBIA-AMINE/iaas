@@ -97,31 +97,31 @@ public class Consultation extends GenericModel {
 	private String observation;
 	
 	@ManyToOne
-    @JoinColumn(name="F_15", foreignKey=@ForeignKey(name="T_02_04_04_FK_01"), nullable=false)
+    @JoinColumn(name="F_15", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_04_04_FK_01"), nullable=false)
     private AwardMethod awardMethod;
 	
 	@ManyToOne
-    @JoinColumn(name="F_16", foreignKey=@ForeignKey(name="T_02_04_04_FK_02"), nullable=false)
+    @JoinColumn(name="F_16", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_04_04_FK_02"), nullable=false)
     private ProcurementNature procurementNature;
 	
 	@ManyToOne
-    @JoinColumn(name="F_17", foreignKey=@ForeignKey(name="T_02_04_04_FK_03"), nullable=false)
+    @JoinColumn(name="F_17", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_04_04_FK_03"), nullable=false)
     private BudgetType budgetType;
 	
 	@ManyToOne
-    @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_02_04_04_FK_04"), nullable=false)
+    @JoinColumn(name="F_18", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_04_04_FK_04"), nullable=false)
     private ProcurementStatus procurementStatus;
 	
 	@ManyToOne
-    @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_02_04_04_FK_05"), nullable=false)
+    @JoinColumn(name="F_19", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_04_04_FK_05"), nullable=false)
     private ApprovalStatus approvalStatus;
 	
 	@ManyToOne
-    @JoinColumn(name="F_20", foreignKey=@ForeignKey(name="T_02_04_04_FK_06"), nullable=false)
+    @JoinColumn(name="F_20", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_04_04_FK_06"), nullable=false)
     private ProcurementDirector procurementDirector;
 	
 	@ManyToOne
-    @JoinColumn(name="F_21", foreignKey=@ForeignKey(name="T_02_04_04_FK_07"), nullable=false)
+    @JoinColumn(name="F_21", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_04_04_FK_07"), nullable=false)
     private ConsultationStep consultationStep;
 	
 	//@ManyToOne
@@ -139,24 +139,24 @@ public class Consultation extends GenericModel {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "R_T020404_T010302", 
-			joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T020404_T010302_FK_01")), 
-			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T020404_T010302_FK_02")),
+			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020404_T010302_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020404_T010302_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020404_T010302_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<Document> documents;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "R_T020404_T010203", 
-			joinColumns = @JoinColumn(name = "F_01", foreignKey = @ForeignKey(name = "R_T020404_T010203_FK_01")), 
-			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey = @ForeignKey(name = "R_T020404_T010203_FK_02")),
+			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey = @ForeignKey(name = "R_T020404_T010203_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey = @ForeignKey(name = "R_T020404_T010203_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020404_T010203_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<Mail> referencedMails;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "R_T020404_T020208", 
-			joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T020404_T020208_FK_01")), 
-			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T020404_T020208_FK_02")),
+			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020404_T020208_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020404_T020208_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020404_T020208_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<PlannedItem> plannedItems;
 	

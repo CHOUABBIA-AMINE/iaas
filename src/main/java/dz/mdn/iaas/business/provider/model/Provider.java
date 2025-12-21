@@ -102,19 +102,19 @@ public class Provider extends GenericModel {
 	private String website;
 	
 	@ManyToOne
-    @JoinColumn(name="F_18", foreignKey=@ForeignKey(name="T_02_03_04_FK_01"), nullable=true)
+    @JoinColumn(name="F_18", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_03_04_FK_01"), nullable=true)
 	private File logo;	
 	
 	@ManyToOne
-    @JoinColumn(name="F_19", foreignKey=@ForeignKey(name="T_02_03_04_FK_02"), nullable=false)
+    @JoinColumn(name="F_19", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_03_04_FK_02"), nullable=false)
     private EconomicNature economicNature;
 	
 	@ManyToOne
-    @JoinColumn(name="F_20", foreignKey=@ForeignKey(name="T_02_03_04_FK_03"), nullable=false)
+    @JoinColumn(name="F_20", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_03_04_FK_03"), nullable=false)
     private Country country;
 	
 	@ManyToOne
-    @JoinColumn(name="F_21", foreignKey=@ForeignKey(name="T_02_03_04_FK_04"), nullable=true)
+    @JoinColumn(name="F_21", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_03_04_FK_04"), nullable=true)
     private State state;
 	
 	@OneToMany(mappedBy ="provider")
@@ -129,8 +129,8 @@ public class Provider extends GenericModel {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "R_T020304_T020301", 
-			joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T020304_T020301_FK_01")), 
-			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T020304_T020301_FK_02")),
+			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020304_T020301_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T020304_T020301_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020304_T020301_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<EconomicDomain> economicDomains;
 	

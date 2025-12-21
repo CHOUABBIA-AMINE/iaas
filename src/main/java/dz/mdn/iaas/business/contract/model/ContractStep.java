@@ -49,7 +49,7 @@ public class ContractStep extends GenericModel {
 	private String designationFr;
 	
 	@ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_05_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_05_03_FK_01"), nullable=false)
     private ContractPhase contractPhase;
 
 }

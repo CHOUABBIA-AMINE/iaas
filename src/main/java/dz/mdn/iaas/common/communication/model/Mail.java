@@ -65,26 +65,26 @@ public class Mail extends GenericModel {
 	private Date recordDate;
 	
 	@ManyToOne
-    @JoinColumn(name="F_06", foreignKey=@ForeignKey(name="T_01_02_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_06", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_02_03_FK_01"), nullable=false)
     private MailNature mailNature;
 	
 	@ManyToOne
-    @JoinColumn(name="F_07", foreignKey=@ForeignKey(name="T_01_02_03_FK_02"), nullable=false)
+    @JoinColumn(name="F_07", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_02_03_FK_02"), nullable=false)
     private MailType mailType;
 	
 	@ManyToOne
-    @JoinColumn(name="F_08", foreignKey=@ForeignKey(name="T_01_02_03_FK_03"), nullable=false)
+    @JoinColumn(name="F_08", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_02_03_FK_03"), nullable=false)
     private Structure structure;
 	
 	@ManyToOne
-    @JoinColumn(name="F_09", foreignKey=@ForeignKey(name="T_01_02_03_FK_04"), nullable=false)
+    @JoinColumn(name="F_09", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_02_03_FK_04"), nullable=false)
     private File file;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "R_T010203_T010203", 
-			joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T010203_T010203_FK_01")), 
-			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T010203_T010203_FK_02")),
+			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T010203_T010203_FK_01")), 
+			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T010203_T010203_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T010203_T010203_UK_01", columnNames = {"F_01", "F_02"}))
 	private List<Mail> referencedMails;
 }

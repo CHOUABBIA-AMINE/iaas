@@ -53,7 +53,7 @@ public class Item extends GenericModel {
 	private String designationFr;
 	
 	@ManyToOne
-    @JoinColumn(name="F_04", foreignKey=@ForeignKey(name="T_02_02_06_FK_01"), nullable=false)
+    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_02_06_FK_01"), nullable=false)
     private Rubric rubric;
 	
 	@OneToMany(mappedBy="item")
