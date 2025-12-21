@@ -28,6 +28,7 @@ import dz.mdn.iaas.network.common.dto.VendorDTO;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.Terminal;
+import dz.mdn.iaas.network.type.dto.TerminalTypeDTO;
 import dz.mdn.iaas.network.type.model.TerminalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -101,6 +102,7 @@ public class TerminalDTO extends GenericDTO<Terminal> {
     private OperationalStatusDTO operationalStatus;
     private VendorDTO vendor;
     private LocalityDTO locality;
+    private TerminalTypeDTO terminalType;
 
     @Builder.Default
     private Set<Long> pipelineIds = new HashSet<>();
@@ -114,17 +116,16 @@ public class TerminalDTO extends GenericDTO<Terminal> {
         terminal.setInstallationDate(this.installationDate);
         terminal.setCommissioningDate(this.commissioningDate);
         terminal.setDecommissioningDate(this.decommissioningDate);
+        terminal.setPlaceName(this.placeName);
+        terminal.setLatitude(this.latitude);
+        terminal.setLongitude(this.longitude);
+        terminal.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
             terminal.setOperationalStatus(status);
         }
-        
-        terminal.setPlaceName(this.placeName);
-        terminal.setLatitude(this.latitude);
-        terminal.setLongitude(this.longitude);
-        terminal.setElevation(this.elevation);
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
@@ -153,18 +154,17 @@ public class TerminalDTO extends GenericDTO<Terminal> {
         if (this.name != null) terminal.setName(this.name);
         if (this.installationDate != null) terminal.setInstallationDate(this.installationDate);
         if (this.commissioningDate != null) terminal.setCommissioningDate(this.commissioningDate);
-        if (this.decommissioningDate != null) terminal.setDecommissioningDate(this.decommissioningDate);
+        if (this.decommissioningDate != null) terminal.setDecommissioningDate(this.decommissioningDate);        
+        if (this.placeName != null) terminal.setPlaceName(this.placeName);
+        if (this.latitude != null) terminal.setLatitude(this.latitude);
+        if (this.longitude != null) terminal.setLongitude(this.longitude);
+        if (this.elevation != null) terminal.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
             terminal.setOperationalStatus(status);
         }
-        
-        if (this.placeName != null) terminal.setPlaceName(this.placeName);
-        if (this.latitude != null) terminal.setLatitude(this.latitude);
-        if (this.longitude != null) terminal.setLongitude(this.longitude);
-        if (this.elevation != null) terminal.setElevation(this.elevation);
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
@@ -213,6 +213,7 @@ public class TerminalDTO extends GenericDTO<Terminal> {
                 .operationalStatus(terminal.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(terminal.getOperationalStatus()) : null)
                 .vendor(terminal.getVendor() != null ? VendorDTO.fromEntity(terminal.getVendor()) : null)
                 .locality(terminal.getLocality() != null ? LocalityDTO.fromEntity(terminal.getLocality()) : null)
+                .terminalType(terminal.getTerminalType() != null ? TerminalTypeDTO.fromEntity(terminal.getTerminalType()) : null)
                 .build();
     }
 }

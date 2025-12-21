@@ -37,7 +37,7 @@ import lombok.ToString;
 /**
  * Facility Entity - Extends GenericModel
  * 
- * Database table: T_20_08
+ * Database table: T_03_03_03
  * Primary key: F_00 (id) - inherited from GenericModel
  * 
  * Fields:
@@ -61,6 +61,10 @@ public class Station extends Facility {
     @ManyToOne
     @JoinColumn(name="F_13", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_03_FK_01"), nullable=false)
     private StationType stationType;
+
+    @ManyToOne
+    @JoinColumn(name="F_14", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_03_FK_02"), nullable=true)
+    private PipelineSystem pipelineSystem;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

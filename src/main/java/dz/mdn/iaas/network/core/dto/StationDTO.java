@@ -27,7 +27,9 @@ import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
 import dz.mdn.iaas.network.common.dto.VendorDTO;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Vendor;
+import dz.mdn.iaas.network.core.model.PipelineSystem;
 import dz.mdn.iaas.network.core.model.Station;
+import dz.mdn.iaas.network.type.dto.StationTypeDTO;
 import dz.mdn.iaas.network.type.model.StationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -97,10 +99,15 @@ public class StationDTO extends GenericDTO<Station> {
 
     @NotNull(message = "Station type ID is required")
     private Long stationTypeId;
+
+    @NotNull(message = "Pipeline system ID is required")
+    private Long pipelineSystemId;
     
     private OperationalStatusDTO operationalStatus;
     private VendorDTO vendor;
     private LocalityDTO locality;
+    private StationTypeDTO stationType;
+    private PipelineSystemDTO pipelineSystem;
 
     @Builder.Default
     private Set<Long> pipelineIds = new HashSet<>();
@@ -114,17 +121,16 @@ public class StationDTO extends GenericDTO<Station> {
         station.setInstallationDate(this.installationDate);
         station.setCommissioningDate(this.commissioningDate);
         station.setDecommissioningDate(this.decommissioningDate);
+        station.setPlaceName(this.placeName);
+        station.setLatitude(this.latitude);
+        station.setLongitude(this.longitude);
+        station.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
             station.setOperationalStatus(status);
         }
-        
-        station.setPlaceName(this.placeName);
-        station.setLatitude(this.latitude);
-        station.setLongitude(this.longitude);
-        station.setElevation(this.elevation);
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
@@ -142,6 +148,12 @@ public class StationDTO extends GenericDTO<Station> {
             StationType stationType = new StationType();
             stationType.setId(this.stationTypeId);
             station.setStationType(stationType);
+        }
+        
+        if (this.pipelineSystemId != null) {
+        	PipelineSystem pipelineSystem = new PipelineSystem();
+        	pipelineSystem.setId(this.pipelineSystemId);
+            station.setPipelineSystem(pipelineSystem);
         }
         
         return station;
@@ -153,18 +165,17 @@ public class StationDTO extends GenericDTO<Station> {
         if (this.name != null) station.setName(this.name);
         if (this.installationDate != null) station.setInstallationDate(this.installationDate);
         if (this.commissioningDate != null) station.setCommissioningDate(this.commissioningDate);
-        if (this.decommissioningDate != null) station.setDecommissioningDate(this.decommissioningDate);
+        if (this.decommissioningDate != null) station.setDecommissioningDate(this.decommissioningDate);        
+        if (this.placeName != null) station.setPlaceName(this.placeName);
+        if (this.latitude != null) station.setLatitude(this.latitude);
+        if (this.longitude != null) station.setLongitude(this.longitude);
+        if (this.elevation != null) station.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
             station.setOperationalStatus(status);
         }
-        
-        if (this.placeName != null) station.setPlaceName(this.placeName);
-        if (this.latitude != null) station.setLatitude(this.latitude);
-        if (this.longitude != null) station.setLongitude(this.longitude);
-        if (this.elevation != null) station.setElevation(this.elevation);
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
@@ -182,6 +193,12 @@ public class StationDTO extends GenericDTO<Station> {
             StationType stationType = new StationType();
             stationType.setId(this.stationTypeId);
             station.setStationType(stationType);
+        }
+        
+        if (this.pipelineSystemId != null) {
+        	PipelineSystem pipelineSystem = new PipelineSystem();
+        	pipelineSystem.setId(this.pipelineSystemId);
+            station.setPipelineSystem(pipelineSystem);
         }
     }
 
@@ -209,11 +226,14 @@ public class StationDTO extends GenericDTO<Station> {
                 .vendorId(station.getVendor() != null ? station.getVendor().getId() : null)
                 .localityId(station.getLocality() != null ? station.getLocality().getId() : null)
                 .stationTypeId(station.getStationType() != null ? station.getStationType().getId() : null)
+                .pipelineSystemId(station.getPipelineSystem() != null ? station.getPipelineSystem().getId() : null)
                 .pipelineIds(pipelineIds)
                 
                 .operationalStatus(station.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(station.getOperationalStatus()) : null)
                 .vendor(station.getVendor() != null ? VendorDTO.fromEntity(station.getVendor()) : null)
                 .locality(station.getLocality() != null ? LocalityDTO.fromEntity(station.getLocality()) : null)
+                .stationType(station.getStationType() != null ? StationTypeDTO.fromEntity(station.getStationType()) : null)
+                .pipelineSystem(station.getPipelineSystem() != null ? PipelineSystemDTO.fromEntity(station.getPipelineSystem()) : null)
                 .build();
     }
 }
