@@ -104,6 +104,12 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
 
     @Builder.Default
     private Set<Long> pipelineIds = new HashSet<>();
+	
+	@Builder.Default
+    private Set<Long> partnerIds = new HashSet<>();
+	
+	@Builder.Default
+    private Set<Long> productIds = new HashSet<>();
 
     @Override
     public HydrocarbonField toEntity() {
@@ -190,6 +196,16 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
         if (field.getPipelines() != null) {
             field.getPipelines().forEach(p -> pipelineIds.add(p.getId()));
         }
+		
+		Set<Long> partnerIds = new HashSet<>();
+        if (field.getPartners() != null) {
+            field.getPartners().forEach(p -> partnerIds.add(p.getId()));
+        }
+		
+		Set<Long> productIds = new HashSet<>();
+        if (field.getProducts() != null) {
+            field.getProducts().forEach(p -> productIds.add(p.getId()));
+        }
         
         return HydrocarbonFieldDTO.builder()
                 .id(field.getId())
@@ -208,6 +224,8 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
                 .localityId(field.getLocality() != null ? field.getLocality().getId() : null)
                 .hydrocarbonFieldTypeId(field.getHydrocarbonFieldType() != null ? field.getHydrocarbonFieldType().getId() : null)
                 .pipelineIds(pipelineIds)
+                .partnerIds(partnerIds)
+                .productIds(productIds)
                 
                 .operationalStatus(field.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(field.getOperationalStatus()) : null)
                 .vendor(field.getVendor() != null ? VendorDTO.fromEntity(field.getVendor()) : null)

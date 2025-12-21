@@ -78,6 +78,15 @@ public class HydrocarbonField extends Facility {
         inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T030303_T030207_FK_02")),
         uniqueConstraints = @UniqueConstraint(name = "R_T030303_T030207_UK_01", columnNames = {"F_01", "F_02"})
     )
-    private Set<Pipeline> partners = new HashSet<>();
+    private Set<Partner> partners = new HashSet<>();
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "R_T030305_T030204",
+        joinColumns = @JoinColumn(name = "F_01", foreignKey=@ForeignKey(name="R_T030305_T030204_FK_01")),
+        inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey=@ForeignKey(name="R_T030305_T030204_FK_02")),
+        uniqueConstraints = @UniqueConstraint(name = "R_T030305_T030204_UK_01", columnNames = {"F_01", "F_02"})
+    )
+    private Set<Product> products = new HashSet<>();
     
 }
