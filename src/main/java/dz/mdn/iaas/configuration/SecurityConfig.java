@@ -16,6 +16,7 @@ package dz.mdn.iaas.configuration;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,6 +56,9 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    @Value("${cors.allowed.origins:http://localhost:3000,http://localhost:4200}")
+    private String allowedOrigins;
+    
     /**
      * Password encoder bean
      * BCrypt is the recommended password hashing algorithm
