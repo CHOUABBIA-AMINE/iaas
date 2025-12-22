@@ -109,14 +109,14 @@ public class UserController extends GenericController<UserDTO, Long> {
 
     // ========== USER SEARCH OPERATIONS ==========
 
-    @GetMapping("/by-username/{username}")
+    @GetMapping("/username/{username}")
     @PreAuthorize("hasAuthority('USER:ADMIN') or #username == authentication.principal.username")
     public ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
         log.info("REST request to get User by username: {}", username);
         return ResponseEntity.ok(userService.findByUsername(username));
     }
 
-    @GetMapping("/by-email/{email}")
+    @GetMapping("/email/{email}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
         log.info("REST request to get User by email: {}", email);
@@ -170,7 +170,7 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.removeRole(userId, roleId));
     }
 
-    @GetMapping("/by-role/{roleId}")
+    @GetMapping("/role/{roleId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<List<UserDTO>> getUsersByRole(@PathVariable Long roleId) {
         log.info("REST request to get users by role: {}", roleId);
@@ -197,7 +197,7 @@ public class UserController extends GenericController<UserDTO, Long> {
         return ResponseEntity.ok(userService.removeGroup(userId, groupId));
     }
 
-    @GetMapping("/by-group/{groupId}")
+    @GetMapping("/group/{groupId}")
     @PreAuthorize("hasAuthority('USER:ADMIN')")
     public ResponseEntity<List<UserDTO>> getUsersByGroup(@PathVariable Long groupId) {
         log.info("REST request to get users by group: {}", groupId);
