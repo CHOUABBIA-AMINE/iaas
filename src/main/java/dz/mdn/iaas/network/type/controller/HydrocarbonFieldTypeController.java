@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/type/hydrocarbon-field")
+@RequestMapping("/network/type/hydrocarbonField")
 @Slf4j
 public class HydrocarbonFieldTypeController extends GenericController<HydrocarbonFieldTypeDTO, Long> {
 
@@ -40,13 +40,13 @@ public class HydrocarbonFieldTypeController extends GenericController<Hydrocarbo
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:READ')")
     public ResponseEntity<HydrocarbonFieldTypeDTO> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:READ')")
     public ResponseEntity<Page<HydrocarbonFieldTypeDTO>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -56,31 +56,31 @@ public class HydrocarbonFieldTypeController extends GenericController<Hydrocarbo
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:READ')")
     public ResponseEntity<List<HydrocarbonFieldTypeDTO>> getAll() {
         return super.getAll();
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:ADMIN')")
     public ResponseEntity<HydrocarbonFieldTypeDTO> create(@Valid @RequestBody HydrocarbonFieldTypeDTO dto) {
         return super.create(dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:ADMIN')")
     public ResponseEntity<HydrocarbonFieldTypeDTO> update(@PathVariable Long id, @Valid @RequestBody HydrocarbonFieldTypeDTO dto) {
         return super.update(id, dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         return super.delete(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:READ')")
     public ResponseEntity<Page<HydrocarbonFieldTypeDTO>> search(
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
@@ -96,13 +96,13 @@ public class HydrocarbonFieldTypeController extends GenericController<Hydrocarbo
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:READ')")
     public ResponseEntity<Boolean> exists(@PathVariable Long id) {
         return super.exists(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('HYDROCARBON_FIELD_TYPE:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
     }

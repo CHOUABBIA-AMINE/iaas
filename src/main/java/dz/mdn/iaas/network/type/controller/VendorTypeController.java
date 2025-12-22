@@ -40,13 +40,13 @@ public class VendorTypeController extends GenericController<VendorTypeDTO, Long>
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:READ')")
     public ResponseEntity<VendorTypeDTO> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:READ')")
     public ResponseEntity<Page<VendorTypeDTO>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -56,31 +56,31 @@ public class VendorTypeController extends GenericController<VendorTypeDTO, Long>
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:READ')")
     public ResponseEntity<List<VendorTypeDTO>> getAll() {
         return super.getAll();
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:ADMIN')")
     public ResponseEntity<VendorTypeDTO> create(@Valid @RequestBody VendorTypeDTO dto) {
         return super.create(dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:ADMIN')")
     public ResponseEntity<VendorTypeDTO> update(@PathVariable Long id, @Valid @RequestBody VendorTypeDTO dto) {
         return super.update(id, dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         return super.delete(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:READ')")
     public ResponseEntity<Page<VendorTypeDTO>> search(
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
@@ -96,13 +96,13 @@ public class VendorTypeController extends GenericController<VendorTypeDTO, Long>
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:READ')")
     public ResponseEntity<Boolean> exists(@PathVariable Long id) {
         return super.exists(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('VENDOR_TYPE:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
     }

@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/network/equipmentType")
+@RequestMapping("/network/type/equipment")
 @Slf4j
 public class EquipmentTypeController extends GenericController<EquipmentTypeDTO, Long> {
 

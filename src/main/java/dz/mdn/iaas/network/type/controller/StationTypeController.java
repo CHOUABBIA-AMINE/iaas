@@ -40,13 +40,13 @@ public class StationTypeController extends GenericController<StationTypeDTO, Lon
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:READ')")
     public ResponseEntity<StationTypeDTO> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:READ')")
     public ResponseEntity<Page<StationTypeDTO>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -56,31 +56,31 @@ public class StationTypeController extends GenericController<StationTypeDTO, Lon
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:READ')")
     public ResponseEntity<List<StationTypeDTO>> getAll() {
         return super.getAll();
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:ADMIN')")
     public ResponseEntity<StationTypeDTO> create(@Valid @RequestBody StationTypeDTO dto) {
         return super.create(dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:ADMIN')")
     public ResponseEntity<StationTypeDTO> update(@PathVariable Long id, @Valid @RequestBody StationTypeDTO dto) {
         return super.update(id, dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:ADMIN')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         return super.delete(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:READ')")
     public ResponseEntity<Page<StationTypeDTO>> search(
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
@@ -96,13 +96,13 @@ public class StationTypeController extends GenericController<StationTypeDTO, Lon
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:READ')")
     public ResponseEntity<Boolean> exists(@PathVariable Long id) {
         return super.exists(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TYPE:READ')")
+    @PreAuthorize("hasAuthority('STATION_TYPE:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
     }
