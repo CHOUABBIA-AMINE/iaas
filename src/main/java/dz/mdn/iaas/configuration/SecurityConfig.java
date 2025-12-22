@@ -131,37 +131,32 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        // Allowed origins (configure based on your frontend URLs)
-        configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3000",  // React default
-            "http://localhost:4200",  // Angular default
-            "http://localhost:8081"   // Vue default
+        
+        // Read from application.properties
+        configuration.setAllowedOriginPatterns(Arrays.asList(
+            allowedOrigins.split(",")  // Use @Value to inject
         ));
-
-        // Allowed HTTP methods
+        
         configuration.setAllowedMethods(Arrays.asList(
             "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"
         ));
-
-        // Allowed headers
+        
         configuration.setAllowedHeaders(List.of("*"));
-
-        // Allow credentials (cookies, authorization headers)
         configuration.setAllowCredentials(true);
-
-        // Max age for preflight requests (1 hour)
         configuration.setMaxAge(3600L);
-
-        // Expose headers to client
+        
+        // Include all exposed headers
         configuration.setExposedHeaders(Arrays.asList(
             "Authorization",
-            "Content-Type"
+            "Content-Type",
+            "Content-Disposition",
+            "X-Total-Count"
         ));
-
+        
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-
+        
         return source;
     }
+
 }
