@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2025 at 12:19 PM
+-- Generation Time: Dec 22, 2025 at 02:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,28 +28,45 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `r_t000201_t000203` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `r_t000201_t000203`
 --
 
-INSERT INTO `r_t000201_t000203` (`F_01`, `F_02`) VALUES
+INSERT INTO `r_t000201_t000203` (`f_01`, `f_02`) VALUES
 (1, 1),
 (1, 2),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 5),
-(7, 6),
-(8, 7),
-(9, 8),
-(10, 9),
-(11, 9),
-(12, 3);
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6),
+(2, 7),
+(2, 8),
+(3, 9),
+(3, 10),
+(3, 11),
+(3, 12),
+(4, 13),
+(4, 14),
+(4, 15),
+(5, 16),
+(5, 17),
+(6, 18),
+(6, 19),
+(6, 20),
+(6, 21),
+(6, 22),
+(6, 23),
+(7, 24),
+(7, 25),
+(7, 26),
+(7, 27),
+(8, 28),
+(8, 29),
+(8, 30);
 
 -- --------------------------------------------------------
 
@@ -58,33 +75,23 @@ INSERT INTO `r_t000201_t000203` (`F_01`, `F_02`) VALUES
 --
 
 CREATE TABLE `r_t000202_t000201` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `r_t000202_t000201`
 --
 
-INSERT INTO `r_t000202_t000201` (`F_01`, `F_02`) VALUES
+INSERT INTO `r_t000202_t000201` (`f_01`, `f_02`) VALUES
 (1, 1),
-(2, 1),
-(2, 2),
-(3, 1),
-(4, 3),
-(4, 12),
-(5, 4),
-(6, 3),
-(7, 5),
-(8, 5),
-(9, 5),
-(10, 6),
-(11, 7),
-(12, 8),
-(13, 9),
-(14, 10),
-(15, 11),
-(16, 11);
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8);
 
 -- --------------------------------------------------------
 
@@ -93,46 +100,15 @@ INSERT INTO `r_t000202_t000201` (`F_01`, `F_02`) VALUES
 --
 
 CREATE TABLE `r_t000202_t000203` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `r_t000202_t000203`
 --
 
-INSERT INTO `r_t000202_t000203` (`F_01`, `F_02`) VALUES
-(1, 1),
-(2, 2),
-(3, 2),
-(4, 3),
-(5, 4),
-(6, 3),
-(7, 5),
-(8, 5),
-(9, 5),
-(10, 4),
-(11, 6),
-(12, 7),
-(13, 8),
-(14, 9);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `r_t000203_t000204`
---
-
-CREATE TABLE `r_t000203_t000204` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `r_t000203_t000204`
---
-
-INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
+INSERT INTO `r_t000202_t000203` (`f_01`, `f_02`) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
@@ -162,461 +138,200 @@ INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 (1, 27),
 (1, 28),
 (1, 29),
-(1, 30),
-(1, 31),
-(1, 32),
-(1, 33),
-(1, 34),
-(1, 35),
-(1, 36),
-(1, 37),
-(1, 38),
-(1, 39),
-(1, 40),
-(1, 41),
-(1, 42),
-(1, 43),
-(1, 44),
-(1, 45),
-(1, 46),
-(1, 47),
-(1, 48),
-(1, 49),
-(1, 50),
-(1, 51),
-(1, 52),
-(1, 53),
-(1, 54),
-(1, 55),
-(1, 56),
-(1, 57),
-(1, 58),
-(1, 59),
-(1, 60),
-(1, 61),
-(1, 62),
-(1, 63),
-(1, 64),
-(1, 65),
-(1, 66),
-(1, 67),
-(1, 68),
-(1, 69),
-(1, 70),
-(1, 71),
-(1, 72),
-(1, 73),
-(1, 74),
-(1, 75),
-(1, 76),
-(1, 77),
-(1, 78),
-(1, 79),
-(1, 80),
-(1, 81),
-(1, 82),
-(1, 83),
-(1, 84),
-(1, 85),
-(1, 86),
-(1, 87),
-(1, 88),
-(1, 89),
-(1, 90),
-(1, 91),
-(1, 92),
-(1, 93),
-(1, 94),
-(1, 95),
-(1, 96),
-(1, 97),
-(1, 98),
-(1, 99),
-(1, 100),
-(1, 101),
-(1, 102),
-(1, 103),
-(1, 104),
-(1, 105),
-(1, 106),
-(1, 107),
-(1, 108),
-(1, 109),
-(1, 110),
-(1, 111),
-(1, 112),
-(1, 113),
-(1, 114),
-(1, 115),
-(1, 116),
-(1, 117),
-(1, 118),
-(1, 119),
-(1, 120),
-(1, 121),
-(1, 122),
-(1, 123),
-(1, 124),
-(1, 125),
-(1, 126),
-(1, 127),
-(1, 128),
-(1, 129),
-(1, 130),
-(1, 131),
-(1, 132),
-(1, 133),
-(1, 134),
-(1, 135),
-(1, 136),
-(1, 137),
-(1, 138),
-(1, 139),
-(1, 140),
-(1, 141),
-(1, 142),
-(1, 143),
-(1, 144),
-(1, 145),
-(1, 146),
-(1, 147),
-(1, 148),
-(1, 149),
-(1, 150),
-(1, 151),
-(1, 152),
-(1, 153),
-(1, 154),
-(1, 155),
-(1, 156),
-(1, 157),
-(1, 158),
-(1, 159),
-(1, 160),
-(1, 161),
-(1, 162),
-(1, 163),
-(1, 164),
-(1, 165),
-(1, 166),
-(1, 167),
-(1, 168),
-(1, 169),
-(1, 170),
-(1, 171),
-(1, 172),
-(1, 173),
-(1, 174),
-(1, 175),
-(1, 176),
-(1, 177),
-(1, 178),
-(1, 179),
-(1, 180),
-(2, 1),
-(2, 2),
-(2, 4),
-(2, 5),
+(1, 30);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `r_t000203_t000204`
+--
+
+CREATE TABLE `r_t000203_t000204` (
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `r_t000203_t000204`
+--
+
+INSERT INTO `r_t000203_t000204` (`f_01`, `f_02`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
 (2, 6),
 (2, 7),
-(2, 8),
-(2, 9),
-(2, 10),
-(2, 11),
-(2, 12),
-(2, 13),
-(2, 14),
-(2, 15),
-(2, 16),
-(2, 17),
-(2, 18),
-(2, 19),
-(2, 20),
-(2, 21),
-(2, 22),
-(2, 23),
-(2, 24),
-(2, 25),
-(2, 26),
-(2, 27),
-(2, 28),
-(2, 29),
-(2, 30),
-(2, 31),
-(2, 32),
-(2, 33),
-(2, 34),
-(2, 35),
-(2, 36),
-(2, 37),
-(2, 38),
-(2, 39),
-(2, 40),
-(2, 141),
-(2, 142),
-(2, 143),
-(2, 144),
-(2, 145),
-(2, 146),
-(2, 147),
-(2, 148),
-(2, 149),
-(2, 150),
-(2, 151),
-(2, 152),
-(2, 153),
-(2, 154),
-(2, 155),
-(2, 156),
-(2, 157),
-(2, 158),
-(2, 159),
-(2, 160),
-(3, 1),
-(3, 5),
+(3, 8),
 (3, 9),
-(3, 13),
-(3, 17),
-(3, 21),
-(3, 25),
-(3, 29),
-(3, 33),
-(3, 37),
-(3, 41),
-(3, 42),
-(3, 43),
-(3, 44),
-(3, 45),
-(3, 46),
-(3, 47),
-(3, 48),
-(3, 49),
-(3, 50),
-(3, 51),
-(3, 52),
-(3, 53),
-(3, 54),
-(3, 55),
-(3, 56),
-(3, 57),
-(3, 58),
-(3, 59),
-(3, 60),
-(3, 61),
-(3, 62),
-(3, 63),
-(3, 64),
-(3, 65),
-(3, 66),
-(3, 67),
-(3, 68),
-(3, 69),
-(3, 70),
-(3, 71),
-(3, 72),
-(3, 73),
-(3, 74),
-(3, 75),
-(3, 76),
-(3, 77),
-(3, 78),
-(3, 79),
-(3, 80),
-(3, 81),
-(3, 82),
-(3, 83),
-(3, 84),
-(3, 85),
-(3, 86),
-(3, 87),
-(3, 88),
-(3, 89),
-(3, 90),
-(3, 91),
-(3, 92),
-(3, 93),
-(3, 94),
-(3, 95),
-(3, 96),
-(3, 97),
-(3, 105),
-(3, 115),
-(3, 127),
-(3, 161),
-(3, 162),
-(3, 165),
-(3, 167),
-(3, 169),
-(4, 1),
-(4, 5),
-(4, 9),
-(4, 25),
-(4, 29),
-(4, 49),
-(4, 50),
-(4, 52),
-(4, 53),
-(4, 54),
-(4, 59),
-(4, 60),
-(4, 61),
-(4, 62),
-(4, 63),
-(4, 64),
-(4, 65),
-(4, 66),
-(4, 67),
-(4, 68),
-(4, 69),
-(4, 70),
-(4, 71),
-(4, 72),
-(4, 87),
-(4, 91),
-(4, 115),
-(4, 116),
-(4, 117),
-(4, 118),
-(4, 119),
-(4, 120),
-(4, 161),
-(4, 165),
-(5, 1),
-(5, 5),
-(5, 9),
+(3, 10),
+(3, 11),
+(4, 12),
+(4, 13),
+(4, 14),
+(4, 15),
+(4, 16),
+(4, 17),
+(4, 18),
+(4, 19),
+(4, 20),
+(5, 21),
+(5, 22),
+(5, 23),
+(5, 24),
 (5, 25),
-(5, 29),
-(5, 41),
-(5, 42),
-(5, 45),
-(5, 47),
-(5, 49),
-(5, 50),
-(5, 55),
-(5, 59),
-(5, 60),
-(5, 73),
-(5, 74),
-(5, 77),
-(5, 79),
-(5, 80),
-(5, 87),
-(5, 88),
-(5, 105),
-(5, 106),
-(5, 109),
-(5, 111),
-(5, 115),
-(5, 116),
-(5, 124),
-(5, 125),
-(5, 161),
-(6, 1),
-(6, 5),
-(6, 9),
-(6, 13),
-(6, 17),
-(6, 21),
-(6, 25),
-(6, 26),
-(6, 27),
+(5, 26),
+(5, 27),
 (6, 28),
-(6, 41),
-(6, 49),
-(6, 55),
-(6, 59),
-(6, 67),
-(6, 73),
-(6, 79),
-(6, 87),
-(6, 97),
-(6, 105),
-(6, 115),
-(6, 127),
-(6, 161),
-(6, 162),
-(6, 165),
-(6, 167),
-(6, 169),
-(6, 170),
-(7, 1),
-(7, 5),
-(7, 25),
-(7, 41),
-(7, 49),
-(7, 55),
-(7, 59),
-(7, 73),
-(7, 79),
-(7, 87),
-(7, 161),
-(7, 162),
-(7, 163),
-(7, 164),
-(7, 165),
-(7, 166),
-(7, 167),
-(7, 168),
-(7, 169),
-(7, 170),
-(8, 1),
-(8, 5),
-(8, 25),
-(8, 49),
-(8, 50),
-(8, 52),
-(8, 53),
-(8, 54),
-(8, 59),
-(8, 63),
-(8, 64),
-(8, 67),
-(8, 71),
-(8, 79),
-(8, 83),
-(8, 84),
-(8, 87),
-(8, 92),
-(8, 115),
-(8, 119),
-(8, 120),
-(9, 1),
-(9, 5),
-(9, 9),
-(9, 13),
-(9, 17),
-(9, 21),
-(9, 25),
-(9, 29),
-(9, 33),
-(9, 37),
-(9, 41),
+(6, 29),
+(6, 30),
+(6, 31),
+(6, 32),
+(7, 33),
+(7, 34),
+(7, 35),
+(7, 36),
+(7, 37),
+(8, 38),
+(8, 39),
+(8, 40),
+(8, 41),
+(9, 42),
+(9, 43),
+(9, 44),
 (9, 45),
+(9, 46),
 (9, 47),
-(9, 49),
-(9, 53),
-(9, 55),
-(9, 59),
-(9, 67),
-(9, 73),
-(9, 79),
-(9, 87),
-(9, 95),
-(9, 97),
-(9, 105),
-(9, 109),
-(9, 111),
-(9, 115),
-(9, 122),
-(9, 124),
-(9, 127),
-(9, 131),
-(9, 133),
-(9, 135),
-(9, 137),
-(9, 139),
-(9, 161),
-(9, 167);
+(9, 48),
+(10, 49),
+(10, 50),
+(10, 51),
+(11, 52),
+(11, 53),
+(12, 54),
+(12, 55),
+(12, 56),
+(12, 57),
+(12, 58),
+(12, 59),
+(12, 60),
+(12, 61),
+(12, 62),
+(12, 63),
+(13, 64),
+(13, 65),
+(13, 66),
+(13, 67),
+(13, 68),
+(13, 69),
+(13, 70),
+(13, 71),
+(14, 72),
+(14, 73),
+(14, 74),
+(14, 75),
+(14, 76),
+(14, 77),
+(14, 78),
+(14, 79),
+(15, 80),
+(15, 81),
+(15, 82),
+(15, 83),
+(15, 84),
+(15, 85),
+(15, 86),
+(15, 87),
+(15, 88),
+(16, 89),
+(16, 90),
+(16, 91),
+(16, 92),
+(16, 93),
+(17, 94),
+(18, 95),
+(18, 96),
+(18, 97),
+(18, 98),
+(18, 99),
+(19, 100),
+(19, 101),
+(19, 102),
+(19, 103),
+(19, 104),
+(19, 105),
+(19, 106),
+(19, 107),
+(19, 108),
+(20, 109),
+(20, 110),
+(20, 111),
+(20, 112),
+(20, 113),
+(20, 114),
+(20, 115),
+(21, 116),
+(21, 117),
+(21, 118),
+(21, 119),
+(21, 120),
+(22, 121),
+(22, 122),
+(22, 123),
+(22, 124),
+(22, 125),
+(23, 126),
+(23, 127),
+(23, 128),
+(23, 129),
+(24, 130),
+(24, 131),
+(24, 132),
+(24, 133),
+(24, 134),
+(24, 135),
+(24, 136),
+(25, 137),
+(25, 138),
+(25, 139),
+(26, 140),
+(26, 141),
+(27, 142),
+(27, 143),
+(27, 144),
+(27, 145),
+(27, 146),
+(27, 147),
+(27, 148),
+(27, 149),
+(27, 150),
+(27, 151),
+(28, 152),
+(28, 153),
+(28, 154),
+(28, 155),
+(28, 156),
+(28, 157),
+(28, 158),
+(28, 159),
+(29, 160),
+(29, 161),
+(29, 162),
+(29, 163),
+(29, 164),
+(29, 165),
+(29, 166),
+(29, 167),
+(30, 168),
+(30, 169),
+(30, 170),
+(30, 171),
+(30, 172),
+(30, 173),
+(30, 174),
+(30, 175),
+(30, 176);
 
 -- --------------------------------------------------------
 
@@ -625,8 +340,8 @@ INSERT INTO `r_t000203_t000204` (`F_01`, `F_02`) VALUES
 --
 
 CREATE TABLE `r_t010203_t010203` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -636,8 +351,8 @@ CREATE TABLE `r_t010203_t010203` (
 --
 
 CREATE TABLE `r_t020207_t020208` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -647,8 +362,8 @@ CREATE TABLE `r_t020207_t020208` (
 --
 
 CREATE TABLE `r_t020304_t020301` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -658,8 +373,8 @@ CREATE TABLE `r_t020304_t020301` (
 --
 
 CREATE TABLE `r_t020404_t010203` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -669,8 +384,8 @@ CREATE TABLE `r_t020404_t010203` (
 --
 
 CREATE TABLE `r_t020404_t010302` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -680,8 +395,8 @@ CREATE TABLE `r_t020404_t010302` (
 --
 
 CREATE TABLE `r_t020404_t020208` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -691,8 +406,8 @@ CREATE TABLE `r_t020404_t020208` (
 --
 
 CREATE TABLE `r_t020504_t010203` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -702,8 +417,8 @@ CREATE TABLE `r_t020504_t010203` (
 --
 
 CREATE TABLE `r_t020504_t010302` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -713,8 +428,8 @@ CREATE TABLE `r_t020504_t010302` (
 --
 
 CREATE TABLE `r_t020504_t020208` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -724,8 +439,8 @@ CREATE TABLE `r_t020504_t020208` (
 --
 
 CREATE TABLE `r_t020604_t010203` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -735,8 +450,8 @@ CREATE TABLE `r_t020604_t010203` (
 --
 
 CREATE TABLE `r_t020604_t010302` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -746,8 +461,8 @@ CREATE TABLE `r_t020604_t010302` (
 --
 
 CREATE TABLE `r_t030303_t030307` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -757,9 +472,53 @@ CREATE TABLE `r_t030303_t030307` (
 --
 
 CREATE TABLE `r_t030304_t030307` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `r_t030305_t030204`
+--
+
+CREATE TABLE `r_t030305_t030204` (
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `r_t030305_t030204`
+--
+
+INSERT INTO `r_t030305_t030204` (`f_01`, `f_02`) VALUES
+(124, 1),
+(124, 3),
+(125, 1),
+(125, 3),
+(126, 1),
+(126, 3),
+(127, 1),
+(127, 3),
+(128, 1),
+(128, 3),
+(129, 1),
+(129, 3),
+(130, 1),
+(131, 1),
+(132, 1),
+(132, 3),
+(133, 1),
+(133, 2),
+(134, 2),
+(135, 2),
+(136, 1),
+(137, 2),
+(138, 2),
+(139, 2),
+(140, 2),
+(141, 2),
+(142, 1);
 
 -- --------------------------------------------------------
 
@@ -768,9 +527,46 @@ CREATE TABLE `r_t030304_t030307` (
 --
 
 CREATE TABLE `r_t030305_t030207` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `r_t030305_t030207`
+--
+
+INSERT INTO `r_t030305_t030207` (`f_01`, `f_02`) VALUES
+(124, 1),
+(125, 1),
+(126, 1),
+(127, 1),
+(127, 7),
+(127, 10),
+(128, 1),
+(129, 1),
+(129, 6),
+(129, 9),
+(130, 1),
+(130, 6),
+(130, 9),
+(131, 1),
+(132, 1),
+(133, 1),
+(134, 1),
+(135, 1),
+(136, 1),
+(137, 1),
+(137, 8),
+(138, 1),
+(139, 1),
+(139, 6),
+(139, 7),
+(139, 29),
+(140, 1),
+(140, 28),
+(141, 1),
+(141, 6),
+(142, 1);
 
 -- --------------------------------------------------------
 
@@ -779,8 +575,8 @@ CREATE TABLE `r_t030305_t030207` (
 --
 
 CREATE TABLE `r_t030305_t030307` (
-  `F_01` bigint(20) NOT NULL,
-  `F_02` bigint(20) NOT NULL
+  `f_01` bigint(20) NOT NULL,
+  `f_02` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -790,11 +586,11 @@ CREATE TABLE `r_t030305_t030307` (
 --
 
 CREATE TABLE `t_00_01_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_04` varchar(20) DEFAULT NULL,
-  `F_03` varchar(250) NOT NULL,
-  `F_02` bigint(20) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_04` varchar(20) DEFAULT NULL,
+  `f_03` varchar(250) NOT NULL,
+  `f_02` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -804,28 +600,24 @@ CREATE TABLE `t_00_01_01` (
 --
 
 CREATE TABLE `t_00_02_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_01` varchar(50) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_01` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_00_02_01`
 --
 
-INSERT INTO `t_00_02_01` (`F_00`, `F_02`, `F_01`) VALUES
-(1, 'System Admins', 'SYS_ADMIN'),
-(2, 'Security Team', 'SEC_TEAM'),
-(3, 'Procurement Management', 'PROC_MGMT'),
-(4, 'Contract Management', 'CONTRACT_MGMT'),
-(5, 'Procurement Officers', 'PROC_OFFICERS'),
-(6, 'Contract Officers', 'CONTRACT_OFFICERS'),
-(7, 'Audit Team', 'AUDIT_TEAM'),
-(8, 'Analytics Team', 'ANALYTICS_TEAM'),
-(9, 'Approval Team', 'APPROVAL_TEAM'),
-(10, 'Support Team', 'SUPPORT_TEAM'),
-(11, 'Test Users', 'TEST_USERS'),
-(12, 'HR Admin', 'HR_ADMIN');
+INSERT INTO `t_00_02_01` (`f_00`, `f_02`, `f_01`) VALUES
+(1, 'Group Members has all permissions on data belongs to system component', 'System Administrators'),
+(2, 'Group Members has all permissions on data belongs to business component', 'Business Administrators'),
+(3, 'Group Members has all permissions on data belongs to common component', 'Common Administrators'),
+(4, 'Group Members has all permissions on data belongs to network component', 'Network Administrators'),
+(5, 'Group Members has read permission on data belongs to system component', 'System Users'),
+(6, 'Group Members has read permission on data belongs to business component', 'Business Users'),
+(7, 'Group Members has read permission on data belongs to common component', 'Common Users'),
+(8, 'Group Members has read permission on data belongs to network component', 'Network Users');
 
 -- --------------------------------------------------------
 
@@ -834,27 +626,27 @@ INSERT INTO `t_00_02_01` (`F_00`, `F_02`, `F_01`) VALUES
 --
 
 CREATE TABLE `t_00_02_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` bit(1) NOT NULL,
-  `F_05` bit(1) NOT NULL,
-  `F_06` bit(1) NOT NULL,
-  `F_02` varchar(100) NOT NULL,
-  `F_07` bit(1) NOT NULL,
-  `F_03` varchar(120) NOT NULL,
-  `F_01` varchar(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` bit(1) NOT NULL,
+  `f_05` bit(1) NOT NULL,
+  `f_06` bit(1) NOT NULL,
+  `f_02` varchar(100) NOT NULL,
+  `f_07` bit(1) NOT NULL,
+  `f_03` varchar(120) NOT NULL,
+  `f_01` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_00_02_02`
 --
 
-INSERT INTO `t_00_02_02` (`F_00`, `F_04`, `F_05`, `F_06`, `F_02`, `F_07`, `F_03`, `F_01`) VALUES
-(1, b'1', b'1', b'1', 'superadmin@iaas.dz', b'1', '$2a$12$LQv3c1yqBwlVHLZeKj/.lOHk9Qp1yqBwlVHLZeKj/.lOHk9Qp1yqBwl', 'superadmin'),
+INSERT INTO `t_00_02_02` (`f_00`, `f_04`, `f_05`, `f_06`, `f_02`, `f_07`, `f_03`, `f_01`) VALUES
+(1, b'1', b'1', b'1', 'superadmin@iaas.dz', b'1', '$2a$12$Qb3ip1Xu8b1RzshlRkDExO7RzvZ5ZxKD3O3k7zZ0365Li/Qkip6Om', 'superadmin'),
 (2, b'1', b'1', b'1', 'admin@iaas.dz', b'1', '$2a$12$8zK8mN5pQ2rT7vW3xY4uZ0aB1cD2eF3gH4iJ5kL6mN7oP8qR9sT0', 'admin'),
-(3, b'1', b'1', b'1', 'it.admin@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'it.admin'),
-(4, b'1', b'1', b'1', 'procurement.manager@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'procurement.manager'),
-(5, b'1', b'1', b'1', 'contract.manager@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'contract.manager'),
-(6, b'1', b'1', b'1', 'provider.manager@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'provider.manager'),
+(3, b'1', b'1', b'1', 'business.manager@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'business.manager'),
+(4, b'1', b'1', b'1', 'common.manager@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'common.manager'),
+(5, b'1', b'1', b'1', 'network.manager@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'network.manager'),
+(6, b'1', b'1', b'1', 'manager@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'manager'),
 (7, b'1', b'1', b'1', 'officer1@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'procurement.officer1'),
 (8, b'1', b'1', b'1', 'officer2@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'procurement.officer2'),
 (9, b'1', b'1', b'1', 'officer3@iaas.dz', b'1', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'procurement.officer3'),
@@ -873,25 +665,46 @@ INSERT INTO `t_00_02_02` (`F_00`, `F_04`, `F_05`, `F_06`, `F_02`, `F_07`, `F_03`
 --
 
 CREATE TABLE `t_00_02_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_01` varchar(50) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_01` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_00_02_03`
 --
 
-INSERT INTO `t_00_02_03` (`F_00`, `F_02`, `F_01`) VALUES
-(1, 'Super Administrator - Full system access', 'ROLE_SUPER_ADMIN'),
-(2, 'System Administrator - Nearly full access', 'ROLE_ADMIN'),
-(3, 'Department Manager - Read all + dept management', 'ROLE_MANAGER'),
-(4, 'User Manager - User and group management', 'ROLE_USER_MANAGER'),
-(5, 'Employee - Basic read-only access', 'ROLE_EMPLOYEE'),
-(6, 'Auditor - Audit and compliance access', 'ROLE_AUDITOR'),
-(7, 'Data Analyst - Analysis and reporting', 'ROLE_ANALYST'),
-(8, 'Document Approver - Document approval authority', 'ROLE_DOCUMENT_APPROVER'),
-(9, 'Viewer - Minimal read-only access', 'ROLE_VIEWER');
+INSERT INTO `t_00_02_03` (`f_00`, `f_02`, `f_01`) VALUES
+(1, 'Manage system security data', 'SYSTEM-SECURITY_ADMIN_ROLE'),
+(2, 'Manage system audit data', 'SYSTEM-AUDIT_ADMIN_ROLE'),
+(3, 'Manage business core data', 'BUSINESS-CORE_ADMIN_ROLE'),
+(4, 'Manage business plan data', 'BUSINESS-PLAN_ADMIN_ROLE'),
+(5, 'Manage business provider data', 'BUSINESS-PROVIDER_ADMIN_ROLE'),
+(6, 'Manage business consultation data', 'BUSINESS-CONSULTATION_ADMIN_ROLE'),
+(7, 'Manage business contract data', 'BUSINESS-CONTRACT_ADMIN_ROLE'),
+(8, 'Manage business amendment data', 'BUSINESS-AMENDMENT_ADMIN_ROLE'),
+(9, 'Manage common Environment data', 'COMMON-ENVIRONMENT_ADMIN_ROLE'),
+(10, 'Manage common communication data', 'COMMON-COMMUNICATION_ADMIN_ROLE'),
+(11, 'Manage common document data', 'COMMON-DOCUMENT_ADMIN_ROLE'),
+(12, 'Manage common administration data', 'COMMON-ADMINISTRATION_ADMIN_ROLE'),
+(13, 'Manage network type data', 'NETWORK-TYPE_ADMIN_ROLE'),
+(14, 'Manage network common data', 'NETWORK-COMMON_ADMIN_ROLE'),
+(15, 'Manage network core data', 'NETWORK-CORE_ADMIN_ROLE'),
+(16, 'View system security data', 'SYSTEM-SECURITY_READ_ROLE'),
+(17, 'View system audit data', 'SYSTEM-AUDIT_READ_ROLE'),
+(18, 'View business core data', 'BUSINESS-CORE_READ_ROLE'),
+(19, 'View business plan data', 'BUSINESS-PLAN_READ_ROLE'),
+(20, 'View business provider data', 'BUSINESS-PROVIDER_READ_ROLE'),
+(21, 'View business consultation data', 'BUSINESS-CONSULTATION_READ_ROLE'),
+(22, 'View business contract data', 'BUSINESS-CONTRACT_READ_ROLE'),
+(23, 'View business amendment data', 'BUSINESS-AMENDMENT_READ_ROLE'),
+(24, 'View common environment data', 'COMMON-ENVIRONMENT_READ_ROLE'),
+(25, 'View common communication data', 'COMMON-COMMUNICATION_READ_ROLE'),
+(26, 'View common document data', 'COMMON-DOCUMENT_READ_ROLE'),
+(27, 'View common administration data', 'COMMON-ADMINISTRATION_READ_ROLE'),
+(28, 'View network type data', 'NETWORK-TYPE_READ_ROLE'),
+(29, 'View network common data', 'NETWORK-COMMON_READ_ROLE'),
+(30, 'View network core data', 'NETWORK-CORE_READ_ROLE');
 
 -- --------------------------------------------------------
 
@@ -900,198 +713,194 @@ INSERT INTO `t_00_02_03` (`F_00`, `F_02`, `F_01`) VALUES
 --
 
 CREATE TABLE `t_00_02_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` varchar(20) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_01` varchar(100) NOT NULL,
-  `F_03` varchar(50) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` varchar(20) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_01` varchar(100) NOT NULL,
+  `f_03` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_00_02_04`
 --
 
-INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
-(1, NULL, 'View system settings', 'SYSTEM:READ', '1'),
-(2, NULL, 'Modify system settings', 'SYSTEM:WRITE', '1'),
-(3, NULL, 'Delete system data', 'SYSTEM:DELETE', '1'),
-(4, NULL, 'Administer system', 'SYSTEM:ADMIN', '1'),
-(5, NULL, 'View users', 'USER:READ', '2'),
-(6, NULL, 'Create/edit users', 'USER:WRITE', '2'),
-(7, NULL, 'Delete users', 'USER:DELETE', '2'),
-(8, NULL, 'Administer users', 'USER:ADMIN', '2'),
-(9, NULL, 'View roles', 'ROLE:READ', '3'),
-(10, NULL, 'Create/edit roles', 'ROLE:WRITE', '3'),
-(11, NULL, 'Delete roles', 'ROLE:DELETE', '3'),
-(12, NULL, 'Administer roles', 'ROLE:ADMIN', '3'),
-(13, NULL, 'View permissions', 'PERMISSION:READ', '4'),
-(14, NULL, 'Create/edit permissions', 'PERMISSION:WRITE', '4'),
-(15, NULL, 'Delete permissions', 'PERMISSION:DELETE', '4'),
-(16, NULL, 'Administer permissions', 'PERMISSION:ADMIN', '4'),
-(17, NULL, 'View groups', 'GROUP:READ', '5'),
-(18, NULL, 'Create/edit groups', 'GROUP:WRITE', '5'),
-(19, NULL, 'Delete groups', 'GROUP:DELETE', '5'),
-(20, NULL, 'Administer groups', 'GROUP:ADMIN', '5'),
-(21, NULL, 'View authority categories', 'AUTHORITY:READ', '6'),
-(22, NULL, 'Create/edit authorities', 'AUTHORITY:WRITE', '6'),
-(23, NULL, 'Delete authorities', 'AUTHORITY:DELETE', '6'),
-(24, NULL, 'Administer authorities', 'AUTHORITY:ADMIN', '6'),
-(25, NULL, 'View audit logs', 'AUDIT:READ', '7'),
-(26, NULL, 'Create audit entries', 'AUDIT:WRITE', '7'),
-(27, NULL, 'Delete audit logs', 'AUDIT:DELETE', '7'),
-(28, NULL, 'Administer audit system', 'AUDIT:ADMIN', '7'),
-(29, NULL, 'View authentication data', 'AUTH:READ', '8'),
-(30, NULL, 'Manage authentication', 'AUTH:WRITE', '8'),
-(31, NULL, 'Revoke authentication', 'AUTH:DELETE', '8'),
-(32, NULL, 'Administer authentication', 'AUTH:ADMIN', '8'),
-(33, NULL, 'View configuration', 'CONFIG:READ', '9'),
-(34, NULL, 'Edit configuration', 'CONFIG:WRITE', '9'),
-(35, NULL, 'Delete configuration', 'CONFIG:DELETE', '9'),
-(36, NULL, 'Administer configuration', 'CONFIG:ADMIN', '9'),
-(37, NULL, 'View system utilities', 'UTILITY:READ', '10'),
-(38, NULL, 'Execute utilities', 'UTILITY:EXECUTE', '10'),
-(39, NULL, 'Delete utility data', 'UTILITY:DELETE', '10'),
-(40, NULL, 'Administer utilities', 'UTILITY:ADMIN', '10'),
-(41, NULL, 'View procurement data', 'PROCUREMENT:READ', '11'),
-(42, NULL, 'Create/edit procurement', 'PROCUREMENT:WRITE', '11'),
-(43, NULL, 'Delete procurement', 'PROCUREMENT:DELETE', '11'),
-(44, NULL, 'Administer procurement', 'PROCUREMENT:ADMIN', '11'),
-(45, NULL, 'View procurement status', 'PROCUREMENT_STATUS:READ', '11'),
-(46, NULL, 'Manage procurement status', 'PROCUREMENT_STATUS:ADMIN', '11'),
-(47, NULL, 'View procurement nature', 'PROCUREMENT_NATURE:READ', '11'),
-(48, NULL, 'Manage procurement nature', 'PROCUREMENT_NATURE:ADMIN', '11'),
-(49, NULL, 'View approval requests', 'APPROVAL:READ', '12'),
-(50, NULL, 'Process approvals', 'APPROVAL:WRITE', '12'),
-(51, NULL, 'Reject approvals', 'APPROVAL:DELETE', '12'),
-(52, NULL, 'Administer approval system', 'APPROVAL:ADMIN', '12'),
-(53, NULL, 'View approval status', 'APPROVAL_STATUS:READ', '12'),
-(54, NULL, 'Manage approval status', 'APPROVAL_STATUS:ADMIN', '12'),
-(55, NULL, 'View currencies', 'CURRENCY:READ', '13'),
-(56, NULL, 'Manage currencies', 'CURRENCY:WRITE', '13'),
-(57, NULL, 'Delete currencies', 'CURRENCY:DELETE', '13'),
-(58, NULL, 'Administer currency system', 'CURRENCY:ADMIN', '13'),
-(59, NULL, 'View contracts', 'CONTRACT:READ', '14'),
-(60, NULL, 'Create/edit contracts', 'CONTRACT:WRITE', '14'),
-(61, NULL, 'Delete contracts', 'CONTRACT:DELETE', '14'),
-(62, NULL, 'Administer contracts', 'CONTRACT:ADMIN', '14'),
-(63, NULL, 'Approve contracts', 'CONTRACT:APPROVE', '14'),
-(64, NULL, 'Sign contracts', 'CONTRACT:SIGN', '14'),
-(65, NULL, 'Archive contracts', 'CONTRACT:ARCHIVE', '14'),
-(66, NULL, 'Export contract data', 'CONTRACT:EXPORT', '14'),
-(67, NULL, 'View amendments', 'AMENDMENT:READ', '15'),
-(68, NULL, 'Create amendments', 'AMENDMENT:WRITE', '15'),
-(69, NULL, 'Delete amendments', 'AMENDMENT:DELETE', '15'),
-(70, NULL, 'Administer amendments', 'AMENDMENT:ADMIN', '15'),
-(71, NULL, 'Approve amendments', 'AMENDMENT:APPROVE', '15'),
-(72, NULL, 'Execute amendments', 'AMENDMENT:EXECUTE', '15'),
-(73, NULL, 'View consultations', 'CONSULTATION:READ', '16'),
-(74, NULL, 'Create consultations', 'CONSULTATION:WRITE', '16'),
-(75, NULL, 'Delete consultations', 'CONSULTATION:DELETE', '16'),
-(76, NULL, 'Administer consultations', 'CONSULTATION:ADMIN', '16'),
-(77, NULL, 'Participate in consultation', 'CONSULTATION:PARTICIPATE', '16'),
-(78, NULL, 'Evaluate consultation responses', 'CONSULTATION:EVALUATE', '16'),
-(79, NULL, 'View procurement plans', 'PLAN:READ', '17'),
-(80, NULL, 'Create/edit plans', 'PLAN:WRITE', '17'),
-(81, NULL, 'Delete plans', 'PLAN:DELETE', '17'),
-(82, NULL, 'Administer planning', 'PLAN:ADMIN', '17'),
-(83, NULL, 'Approve plans', 'PLAN:APPROVE', '17'),
-(84, NULL, 'Validate plans', 'PLAN:VALIDATE', '17'),
-(85, NULL, 'Execute plans', 'PLAN:EXECUTE', '17'),
-(86, NULL, 'Monitor plan execution', 'PLAN:MONITOR', '17'),
-(87, NULL, 'View providers', 'PROVIDER:READ', '18'),
-(88, NULL, 'Register providers', 'PROVIDER:WRITE', '18'),
-(89, NULL, 'Delete providers', 'PROVIDER:DELETE', '18'),
-(90, NULL, 'Administer providers', 'PROVIDER:ADMIN', '18'),
-(91, NULL, 'Evaluate providers', 'PROVIDER:EVALUATE', '18'),
-(92, NULL, 'Approve providers', 'PROVIDER:APPROVE', '18'),
-(93, NULL, 'Blacklist providers', 'PROVIDER:BLACKLIST', '18'),
-(94, NULL, 'Export provider data', 'PROVIDER:EXPORT', '18'),
-(95, NULL, 'View procurement director info', 'PROCUREMENT_DIRECTOR:READ', '11'),
-(96, NULL, 'Manage procurement directors', 'PROCUREMENT_DIRECTOR:ADMIN', '11'),
-(97, NULL, 'View administration data', 'ADMINISTRATION:READ', '19'),
-(98, NULL, 'Manage administration', 'ADMINISTRATION:WRITE', '19'),
-(99, NULL, 'Delete administration data', 'ADMINISTRATION:DELETE', '19'),
-(100, NULL, 'Administer system', 'ADMINISTRATION:ADMIN', '19'),
-(101, NULL, 'Manage departments', 'DEPARTMENT:ADMIN', '19'),
-(102, NULL, 'Manage positions', 'POSITION:ADMIN', '19'),
-(103, NULL, 'Manage employees', 'EMPLOYEE:ADMIN', '19'),
-(104, NULL, 'View organization chart', 'ORGANIZATION:READ', '19'),
-(105, NULL, 'View messages', 'COMMUNICATION:READ', '20'),
-(106, NULL, 'Send messages', 'COMMUNICATION:WRITE', '20'),
-(107, NULL, 'Delete messages', 'COMMUNICATION:DELETE', '20'),
-(108, NULL, 'Administer communication', 'COMMUNICATION:ADMIN', '20'),
-(109, NULL, 'View notifications', 'NOTIFICATION:READ', '20'),
-(110, NULL, 'Send notifications', 'NOTIFICATION:WRITE', '20'),
-(111, NULL, 'View announcements', 'ANNOUNCEMENT:READ', '20'),
-(112, NULL, 'Create announcements', 'ANNOUNCEMENT:WRITE', '20'),
-(113, NULL, 'View mail correspondence', 'MAIL:READ', '20'),
-(114, NULL, 'Manage mail system', 'MAIL:ADMIN', '20'),
-(115, NULL, 'View documents', 'DOCUMENT:READ', '21'),
-(116, NULL, 'Upload documents', 'DOCUMENT:WRITE', '21'),
-(117, NULL, 'Delete documents', 'DOCUMENT:DELETE', '21'),
-(118, NULL, 'Administer documents', 'DOCUMENT:ADMIN', '21'),
-(119, NULL, 'Approve documents', 'DOCUMENT:APPROVE', '21'),
-(120, NULL, 'Sign documents', 'DOCUMENT:SIGN', '21'),
-(121, NULL, 'Archive documents', 'DOCUMENT:ARCHIVE', '21'),
-(122, NULL, 'View document types', 'DOCUMENT_TYPE:READ', '21'),
-(123, NULL, 'Manage document types', 'DOCUMENT_TYPE:ADMIN', '21'),
-(124, NULL, 'View attachments', 'ATTACHMENT:READ', '21'),
-(125, NULL, 'Upload attachments', 'ATTACHMENT:WRITE', '21'),
-(126, NULL, 'Share documents', 'DOCUMENT:SHARE', '21'),
-(127, NULL, 'View location data', 'ENVIRONMENT:READ', '22'),
-(128, NULL, 'Manage locations', 'ENVIRONMENT:WRITE', '22'),
-(129, NULL, 'Delete location data', 'ENVIRONMENT:DELETE', '22'),
-(130, NULL, 'Administer environment', 'ENVIRONMENT:ADMIN', '22'),
-(131, NULL, 'View countries', 'COUNTRY:READ', '22'),
-(132, NULL, 'Manage countries', 'COUNTRY:ADMIN', '22'),
-(133, NULL, 'View regions', 'REGION:READ', '22'),
-(134, NULL, 'Manage regions', 'REGION:ADMIN', '22'),
-(135, NULL, 'View provinces', 'PROVINCE:READ', '22'),
-(136, NULL, 'Manage provinces', 'PROVINCE:ADMIN', '22'),
-(137, NULL, 'View municipalities', 'MUNICIPALITY:READ', '22'),
-(138, NULL, 'Manage municipalities', 'MUNICIPALITY:ADMIN', '22'),
-(139, NULL, 'View addresses', 'ADDRESS:READ', '22'),
-(140, NULL, 'Manage addresses', 'ADDRESS:ADMIN', '22'),
-(141, NULL, 'View network configuration', 'NETWORK:READ', '23'),
-(142, NULL, 'Configure network', 'NETWORK:WRITE', '23'),
-(143, NULL, 'Delete network config', 'NETWORK:DELETE', '23'),
-(144, NULL, 'Administer network', 'NETWORK:ADMIN', '23'),
-(145, NULL, 'Monitor network status', 'NETWORK:MONITOR', '23'),
-(146, NULL, 'View network devices', 'NETWORK_DEVICE:READ', '23'),
-(147, NULL, 'Manage network devices', 'NETWORK_DEVICE:ADMIN', '23'),
-(148, NULL, 'View network topology', 'NETWORK_TOPOLOGY:READ', '23'),
-(149, NULL, 'View network logs', 'NETWORK_LOG:READ', '23'),
-(150, NULL, 'Troubleshoot network', 'NETWORK:TROUBLESHOOT', '23'),
-(151, NULL, 'View infrastructure', 'INFRASTRUCTURE:READ', '24'),
-(152, NULL, 'Manage infrastructure', 'INFRASTRUCTURE:WRITE', '24'),
-(153, NULL, 'Delete infrastructure', 'INFRASTRUCTURE:DELETE', '24'),
-(154, NULL, 'Administer infrastructure', 'INFRASTRUCTURE:ADMIN', '24'),
-(155, NULL, 'View servers', 'SERVER:READ', '24'),
-(156, NULL, 'Manage servers', 'SERVER:ADMIN', '24'),
-(157, NULL, 'View services', 'SERVICE:READ', '24'),
-(158, NULL, 'Manage services', 'SERVICE:ADMIN', '24'),
-(159, NULL, 'Monitor infrastructure', 'INFRASTRUCTURE:MONITOR', '24'),
-(160, NULL, 'Backup infrastructure', 'INFRASTRUCTURE:BACKUP', '24'),
-(161, NULL, 'View reports', 'REPORT:READ', '25'),
-(162, NULL, 'Create reports', 'REPORT:WRITE', '25'),
-(163, NULL, 'Delete reports', 'REPORT:DELETE', '25'),
-(164, NULL, 'Administer reports', 'REPORT:ADMIN', '25'),
-(165, NULL, 'Export reports', 'REPORT:EXPORT', '25'),
-(166, NULL, 'Schedule reports', 'REPORT:SCHEDULE', '25'),
-(167, NULL, 'View dashboards', 'DASHBOARD:READ', '25'),
-(168, NULL, 'Create dashboards', 'DASHBOARD:WRITE', '25'),
-(169, NULL, 'View analytics', 'ANALYTICS:READ', '25'),
-(170, NULL, 'Generate analytics', 'ANALYTICS:GENERATE', '25'),
-(171, NULL, 'View workflows', 'WORKFLOW:READ', '26'),
-(172, NULL, 'Design workflows', 'WORKFLOW:WRITE', '26'),
-(173, NULL, 'Delete workflows', 'WORKFLOW:DELETE', '26'),
-(174, NULL, 'Administer workflows', 'WORKFLOW:ADMIN', '26'),
-(175, NULL, 'Execute workflows', 'WORKFLOW:EXECUTE', '26'),
-(176, NULL, 'Monitor workflows', 'WORKFLOW:MONITOR', '26'),
-(177, NULL, 'View integrations', 'INTEGRATION:READ', '27'),
-(178, NULL, 'Configure integrations', 'INTEGRATION:WRITE', '27'),
-(179, NULL, 'Delete integrations', 'INTEGRATION:DELETE', '27'),
-(180, NULL, 'Administer integrations', 'INTEGRATION:ADMIN', '27');
+INSERT INTO `t_00_02_04` (`f_00`, `f_04`, `f_02`, `f_01`, `f_03`) VALUES
+(1, 'ADMIN', 'GROUP ADMINISTRATION', 'GROUP:ADMIN', 'GROUP'),
+(2, 'ADMIN', 'USER ADMINISTRATION', 'USER:ADMIN', 'USER'),
+(3, 'ADMIN', 'ROLE ADMINISTRATION', 'ROLE:ADMIN', 'ROLE'),
+(4, 'ADMIN', 'PERMISSION ADMINISTRATION', 'PERMISSION:ADMIN', 'PERMISSION'),
+(5, 'ADMIN', 'AUTHORITY ADMINISTRATION', 'AUTHORITY:ADMIN', 'AUTHORITY'),
+(6, 'ADMIN', 'AUDIT ADMINISTRATION', 'AUDIT:ADMIN', 'AUDIT'),
+(7, 'ADMIN', 'CURRENCY ADMINISTRATION', 'CURRENCY:ADMIN', 'CURRENCY'),
+(8, 'ADMIN', 'APPROVAL_STATUS ADMINISTRATION', 'APPROVAL_STATUS:ADMIN', 'APPROVAL_STATUS'),
+(9, 'ADMIN', 'PROCUREMENT_DIRECTOR ADMINISTRATION', 'PROCUREMENT_DIRECTOR:ADMIN', 'PROCUREMENT_DIRECTOR'),
+(10, 'ADMIN', 'PROCUREMENT_NATURE ADMINISTRATION', 'PROCUREMENT_NATURE:ADMIN', 'PROCUREMENT_NATURE'),
+(11, 'ADMIN', 'PROCUREMENT_STATUS ADMINISTRATION', 'PROCUREMENT_STATUS:ADMIN', 'PROCUREMENT_STATUS'),
+(12, 'ADMIN', 'BUDGET_TYPE ADMINISTRATION', 'BUDGET_TYPE:ADMIN', 'BUDGET_TYPE'),
+(13, 'ADMIN', 'ITEM_STATUS ADMINISTRATION', 'ITEM_STATUS:ADMIN', 'ITEM_STATUS'),
+(14, 'ADMIN', 'FINANCIAL_OPERATION ADMINISTRATION', 'FINANCIAL_OPERATION:ADMIN', 'FINANCIAL_OPERATION'),
+(15, 'ADMIN', 'DOMAIN ADMINISTRATION', 'DOMAIN:ADMIN', 'DOMAIN'),
+(16, 'ADMIN', 'RUBRIC ADMINISTRATION', 'RUBRIC:ADMIN', 'RUBRIC'),
+(17, 'ADMIN', 'ITEM ADMINISTRATION', 'ITEM:ADMIN', 'ITEM'),
+(18, 'ADMIN', 'BUDGET_MODIFICATION ADMINISTRATION', 'BUDGET_MODIFICATION:ADMIN', 'BUDGET_MODIFICATION'),
+(19, 'ADMIN', 'PLANNED_ITEM ADMINISTRATION', 'PLANNED_ITEM:ADMIN', 'PLANNED_ITEM'),
+(20, 'ADMIN', 'ITEM_DISTRIBUTION ADMINISTRATION', 'ITEM_DISTRIBUTION:ADMIN', 'ITEM_DISTRIBUTION'),
+(21, 'ADMIN', 'ECONOMIC_DOMAIN ADMINISTRATION', 'ECONOMIC_DOMAIN:ADMIN', 'ECONOMIC_DOMAIN'),
+(22, 'ADMIN', 'ECONOMIC_NATURE ADMINISTRATION', 'ECONOMIC_NATURE:ADMIN', 'ECONOMIC_NATURE'),
+(23, 'ADMIN', 'EXCLUSION_TYPE ADMINISTRATION', 'EXCLUSION_TYPE:ADMIN', 'EXCLUSION_TYPE'),
+(24, 'ADMIN', 'PROVIDER ADMINISTRATION', 'PROVIDER:ADMIN', 'PROVIDER'),
+(25, 'ADMIN', 'PROVIDER_REPRESENTATOR ADMINISTRATION', 'PROVIDER_REPRESENTATOR:ADMIN', 'PROVIDER_REPRESENTATOR'),
+(26, 'ADMIN', 'CLEARANCE ADMINISTRATION', 'CLEARANCE:ADMIN', 'CLEARANCE'),
+(27, 'ADMIN', 'PROVIDER_EXCLUSION ADMINISTRATION', 'PROVIDER_EXCLUSION:ADMIN', 'PROVIDER_EXCLUSION'),
+(28, 'ADMIN', 'AWARD_METHOD ADMINISTRATION', 'AWARD_METHOD:ADMIN', 'AWARD_METHOD'),
+(29, 'ADMIN', 'CONSULTATION_PHASE ADMINISTRATION', 'CONSULTATION_PHASE:ADMIN', 'CONSULTATION_PHASE'),
+(30, 'ADMIN', 'CONSULTATION_STEP ADMINISTRATION', 'CONSULTATION_STEP:ADMIN', 'CONSULTATION_STEP'),
+(31, 'ADMIN', 'CONSULTATION ADMINISTRATION', 'CONSULTATION:ADMIN', 'CONSULTATION'),
+(32, 'ADMIN', 'SUBMISSION ADMINISTRATION', 'SUBMISSION:ADMIN', 'SUBMISSION'),
+(33, 'ADMIN', 'CONTRACT_TYPE ADMINISTRATION', 'CONTRACT_TYPE:ADMIN', 'CONTRACT_TYPE'),
+(34, 'ADMIN', 'CONTRACT_PHASE ADMINISTRATION', 'CONTRACT_PHASE:ADMIN', 'CONTRACT_PHASE'),
+(35, 'ADMIN', 'CONTRACT_STEP ADMINISTRATION', 'CONTRACT_STEP:ADMIN', 'CONTRACT_STEP'),
+(36, 'ADMIN', 'CONTRACT ADMINISTRATION', 'CONTRACT:ADMIN', 'CONTRACT'),
+(37, 'ADMIN', 'CONTRACT_ITEM ADMINISTRATION', 'CONTRACT_ITEM:ADMIN', 'CONTRACT_ITEM'),
+(38, 'ADMIN', 'AMENDMENT_TYPE ADMINISTRATION', 'AMENDMENT_TYPE:ADMIN', 'AMENDMENT_TYPE'),
+(39, 'ADMIN', 'AMENDMENT_PHASE ADMINISTRATION', 'AMENDMENT_PHASE:ADMIN', 'AMENDMENT_PHASE'),
+(40, 'ADMIN', 'AMENDMENT_STEP ADMINISTRATION', 'AMENDMENT_STEP:ADMIN', 'AMENDMENT_STEP'),
+(41, 'ADMIN', 'AMENDMENT ADMINISTRATION', 'AMENDMENT:ADMIN', 'AMENDMENT'),
+(42, 'ADMIN', 'BLOC ADMINISTRATION', 'BLOC:ADMIN', 'BLOC'),
+(43, 'ADMIN', 'FLOOR ADMINISTRATION', 'FLOOR:ADMIN', 'FLOOR'),
+(44, 'ADMIN', 'ROOM ADMINISTRATION', 'ROOM:ADMIN', 'ROOM'),
+(45, 'ADMIN', 'SHELF_FLOOR ADMINISTRATION', 'SHELF_FLOOR:ADMIN', 'SHELF_FLOOR'),
+(46, 'ADMIN', 'SHELF ADMINISTRATION', 'SHELF:ADMIN', 'SHELF'),
+(47, 'ADMIN', 'ARCHIVE_BOX ADMINISTRATION', 'ARCHIVE_BOX:ADMIN', 'ARCHIVE_BOX'),
+(48, 'ADMIN', 'FOLDER ADMINISTRATION', 'FOLDER:ADMIN', 'FOLDER'),
+(49, 'ADMIN', 'MAIL_NATURE ADMINISTRATION', 'MAIL_NATURE:ADMIN', 'MAIL_NATURE'),
+(50, 'ADMIN', 'MAIL_TYPE ADMINISTRATION', 'MAIL_TYPE:ADMIN', 'MAIL_TYPE'),
+(51, 'ADMIN', 'MAIL ADMINISTRATION', 'MAIL:ADMIN', 'MAIL'),
+(52, 'ADMIN', 'DOCUMENT_TYPE ADMINISTRATION', 'DOCUMENT_TYPE:ADMIN', 'DOCUMENT_TYPE'),
+(53, 'ADMIN', 'DOCUMENT ADMINISTRATION', 'DOCUMENT:ADMIN', 'DOCUMENT'),
+(54, 'ADMIN', 'COUNTRY ADMINISTRATION', 'COUNTRY:ADMIN', 'COUNTRY'),
+(55, 'ADMIN', 'STATE ADMINISTRATION', 'STATE:ADMIN', 'STATE'),
+(56, 'ADMIN', 'LOCALITY ADMINISTRATION', 'LOCALITY:ADMIN', 'LOCALITY'),
+(57, 'ADMIN', 'MILITARY_CATEGORY ADMINISTRATION', 'MILITARY_CATEGORY:ADMIN', 'MILITARY_CATEGORY'),
+(58, 'ADMIN', 'MILITARY_RANK ADMINISTRATION', 'MILITARY_RANK:ADMIN', 'MILITARY_RANK'),
+(59, 'ADMIN', 'STRUCTURE_TYPE ADMINISTRATION', 'STRUCTURE_TYPE:ADMIN', 'STRUCTURE_TYPE'),
+(60, 'ADMIN', 'STRUCTURE ADMINISTRATION', 'STRUCTURE:ADMIN', 'STRUCTURE'),
+(61, 'ADMIN', 'JOB ADMINISTRATION', 'JOB:ADMIN', 'JOB'),
+(62, 'ADMIN', 'PERSON ADMINISTRATION', 'PERSON:ADMIN', 'PERSON'),
+(63, 'ADMIN', 'EMPLOYEE ADMINISTRATION', 'EMPLOYEE:ADMIN', 'EMPLOYEE'),
+(64, 'ADMIN', 'COMPANY_TYPE ADMINISTRATION', 'COMPANY_TYPE:ADMIN', 'COMPANY_TYPE'),
+(65, 'ADMIN', 'PARTNER_TYPE ADMINISTRATION', 'PARTNER_TYPE:ADMIN', 'PARTNER_TYPE'),
+(66, 'ADMIN', 'VENDOR_TYPE ADMINISTRATION', 'VENDOR_TYPE:ADMIN', 'VENDOR_TYPE'),
+(67, 'ADMIN', 'FACILITY_TYPE ADMINISTRATION', 'FACILITY_TYPE:ADMIN', 'FACILITY_TYPE'),
+(68, 'ADMIN', 'STATION_TYPE ADMINISTRATION', 'STATION_TYPE:ADMIN', 'STATION_TYPE'),
+(69, 'ADMIN', 'TERMINAL_TYPE ADMINISTRATION', 'TERMINAL_TYPE:ADMIN', 'TERMINAL_TYPE'),
+(70, 'ADMIN', 'HYDROCARBON_FIELD_TYPE ADMINISTRATION', 'HYDROCARBON_FIELD_TYPE:ADMIN', 'HYDROCARBON_FIELD_TYPE'),
+(71, 'ADMIN', 'EQUIPMENT_TYPE ADMINISTRATION', 'EQUIPMENT_TYPE:ADMIN', 'EQUIPMENT_TYPE'),
+(72, 'ADMIN', 'ZONE ADMINISTRATION', 'ZONE:ADMIN', 'ZONE'),
+(73, 'ADMIN', 'REGION ADMINISTRATION', 'REGION:ADMIN', 'REGION'),
+(74, 'ADMIN', 'LOCATION ADMINISTRATION', 'LOCATION:ADMIN', 'LOCATION'),
+(75, 'ADMIN', 'PRODUCT ADMINISTRATION', 'PRODUCT:ADMIN', 'PRODUCT'),
+(76, 'ADMIN', 'OPERATIONAL_STATUS ADMINISTRATION', 'OPERATIONAL_STATUS:ADMIN', 'OPERATIONAL_STATUS'),
+(77, 'ADMIN', 'ALLOY ADMINISTRATION', 'ALLOY:ADMIN', 'ALLOY'),
+(78, 'ADMIN', 'PARTNER ADMINISTRATION', 'PARTNER:ADMIN', 'PARTNER'),
+(79, 'ADMIN', 'VENDOR ADMINISTRATION', 'VENDOR:ADMIN', 'VENDOR'),
+(80, 'ADMIN', 'INFRASTRUCTURE ADMINISTRATION', 'INFRASTRUCTURE:ADMIN', 'INFRASTRUCTURE'),
+(81, 'ADMIN', 'FACILITY ADMINISTRATION', 'FACILITY:ADMIN', 'FACILITY'),
+(82, 'ADMIN', 'PIPELINE_SYSTEM ADMINISTRATION', 'PIPELINE_SYSTEM:ADMIN', 'PIPELINE_SYSTEM'),
+(83, 'ADMIN', 'PIPELINE ADMINISTRATION', 'PIPELINE:ADMIN', 'PIPELINE'),
+(84, 'ADMIN', 'PIPELINE_SEGMENT ADMINISTRATION', 'PIPELINE_SEGMENT:ADMIN', 'PIPELINE_SEGMENT'),
+(85, 'ADMIN', 'STATION ADMINISTRATION', 'STATION:ADMIN', 'STATION'),
+(86, 'ADMIN', 'TERMINAL ADMINISTRATION', 'TERMINAL:ADMIN', 'TERMINAL'),
+(87, 'ADMIN', 'HYDROCARBON_FIELD ADMINISTRATION', 'HYDROCARBON_FIELD:ADMIN', 'HYDROCARBON_FIELD'),
+(88, 'ADMIN', 'EQUIPMENT ADMINISTRATION', 'EQUIPMENT:ADMIN', 'EQUIPMENT'),
+(89, 'READ', 'GROUP VIEWING', 'GROUP:READ', 'GROUP'),
+(90, 'READ', 'USER VIEWING', 'USER:READ', 'USER'),
+(91, 'READ', 'ROLE VIEWING', 'ROLE:READ', 'ROLE'),
+(92, 'READ', 'PERMISSION VIEWING', 'PERMISSION:READ', 'PERMISSION'),
+(93, 'READ', 'AUTHORITY VIEWING', 'AUTHORITY:READ', 'AUTHORITY'),
+(94, 'READ', 'AUDIT VIEWING', 'AUDIT:READ', 'AUDIT'),
+(95, 'READ', 'CURRENCY VIEWING', 'CURRENCY:READ', 'CURRENCY'),
+(96, 'READ', 'APPROVAL_STATUS VIEWING', 'APPROVAL_STATUS:READ', 'APPROVAL_STATUS'),
+(97, 'READ', 'PROCUREMENT_DIRECTOR VIEWING', 'PROCUREMENT_DIRECTOR:READ', 'PROCUREMENT_DIRECTOR'),
+(98, 'READ', 'PROCUREMENT_NATURE VIEWING', 'PROCUREMENT_NATURE:READ', 'PROCUREMENT_NATURE'),
+(99, 'READ', 'PROCUREMENT_STATUS VIEWING', 'PROCUREMENT_STATUS:READ', 'PROCUREMENT_STATUS'),
+(100, 'READ', 'BUDGET_TYPE VIEWING', 'BUDGET_TYPE:READ', 'BUDGET_TYPE'),
+(101, 'READ', 'ITEM_STATUS VIEWING', 'ITEM_STATUS:READ', 'ITEM_STATUS'),
+(102, 'READ', 'FINANCIAL_OPERATION VIEWING', 'FINANCIAL_OPERATION:READ', 'FINANCIAL_OPERATION'),
+(103, 'READ', 'DOMAIN VIEWING', 'DOMAIN:READ', 'DOMAIN'),
+(104, 'READ', 'RUBRIC VIEWING', 'RUBRIC:READ', 'RUBRIC'),
+(105, 'READ', 'ITEM VIEWING', 'ITEM:READ', 'ITEM'),
+(106, 'READ', 'BUDGET_MODIFICATION VIEWING', 'BUDGET_MODIFICATION:READ', 'BUDGET_MODIFICATION'),
+(107, 'READ', 'PLANNED_ITEM VIEWING', 'PLANNED_ITEM:READ', 'PLANNED_ITEM'),
+(108, 'READ', 'ITEM_DISTRIBUTION VIEWING', 'ITEM_DISTRIBUTION:READ', 'ITEM_DISTRIBUTION'),
+(109, 'READ', 'ECONOMIC_DOMAIN VIEWING', 'ECONOMIC_DOMAIN:READ', 'ECONOMIC_DOMAIN'),
+(110, 'READ', 'ECONOMIC_NATURE VIEWING', 'ECONOMIC_NATURE:READ', 'ECONOMIC_NATURE'),
+(111, 'READ', 'EXCLUSION_TYPE VIEWING', 'EXCLUSION_TYPE:READ', 'EXCLUSION_TYPE'),
+(112, 'READ', 'PROVIDER VIEWING', 'PROVIDER:READ', 'PROVIDER'),
+(113, 'READ', 'PROVIDER_REPRESENTATOR VIEWING', 'PROVIDER_REPRESENTATOR:READ', 'PROVIDER_REPRESENTATOR'),
+(114, 'READ', 'CLEARANCE VIEWING', 'CLEARANCE:READ', 'CLEARANCE'),
+(115, 'READ', 'PROVIDER_EXCLUSION VIEWING', 'PROVIDER_EXCLUSION:READ', 'PROVIDER_EXCLUSION'),
+(116, 'READ', 'AWARD_METHOD VIEWING', 'AWARD_METHOD:READ', 'AWARD_METHOD'),
+(117, 'READ', 'CONSULTATION_PHASE VIEWING', 'CONSULTATION_PHASE:READ', 'CONSULTATION_PHASE'),
+(118, 'READ', 'CONSULTATION_STEP VIEWING', 'CONSULTATION_STEP:READ', 'CONSULTATION_STEP'),
+(119, 'READ', 'CONSULTATION VIEWING', 'CONSULTATION:READ', 'CONSULTATION'),
+(120, 'READ', 'SUBMISSION VIEWING', 'SUBMISSION:READ', 'SUBMISSION'),
+(121, 'READ', 'CONTRACT_TYPE VIEWING', 'CONTRACT_TYPE:READ', 'CONTRACT_TYPE'),
+(122, 'READ', 'CONTRACT_PHASE VIEWING', 'CONTRACT_PHASE:READ', 'CONTRACT_PHASE'),
+(123, 'READ', 'CONTRACT_STEP VIEWING', 'CONTRACT_STEP:READ', 'CONTRACT_STEP'),
+(124, 'READ', 'CONTRACT VIEWING', 'CONTRACT:READ', 'CONTRACT'),
+(125, 'READ', 'CONTRACT_ITEM VIEWING', 'CONTRACT_ITEM:READ', 'CONTRACT_ITEM'),
+(126, 'READ', 'AMENDMENT_TYPE VIEWING', 'AMENDMENT_TYPE:READ', 'AMENDMENT_TYPE'),
+(127, 'READ', 'AMENDMENT_PHASE VIEWING', 'AMENDMENT_PHASE:READ', 'AMENDMENT_PHASE'),
+(128, 'READ', 'AMENDMENT_STEP VIEWING', 'AMENDMENT_STEP:READ', 'AMENDMENT_STEP'),
+(129, 'READ', 'AMENDMENT VIEWING', 'AMENDMENT:READ', 'AMENDMENT'),
+(130, 'READ', 'BLOC VIEWING', 'BLOC:READ', 'BLOC'),
+(131, 'READ', 'FLOOR VIEWING', 'FLOOR:READ', 'FLOOR'),
+(132, 'READ', 'ROOM VIEWING', 'ROOM:READ', 'ROOM'),
+(133, 'READ', 'SHELF_FLOOR VIEWING', 'SHELF_FLOOR:READ', 'SHELF_FLOOR'),
+(134, 'READ', 'SHELF VIEWING', 'SHELF:READ', 'SHELF'),
+(135, 'READ', 'ARCHIVE_BOX VIEWING', 'ARCHIVE_BOX:READ', 'ARCHIVE_BOX'),
+(136, 'READ', 'FOLDER VIEWING', 'FOLDER:READ', 'FOLDER'),
+(137, 'READ', 'MAIL_NATURE VIEWING', 'MAIL_NATURE:READ', 'MAIL_NATURE'),
+(138, 'READ', 'MAIL_TYPE VIEWING', 'MAIL_TYPE:READ', 'MAIL_TYPE'),
+(139, 'READ', 'MAIL VIEWING', 'MAIL:READ', 'MAIL'),
+(140, 'READ', 'DOCUMENT_TYPE VIEWING', 'DOCUMENT_TYPE:READ', 'DOCUMENT_TYPE'),
+(141, 'READ', 'DOCUMENT VIEWING', 'DOCUMENT:READ', 'DOCUMENT'),
+(142, 'READ', 'COUNTRY VIEWING', 'COUNTRY:READ', 'COUNTRY'),
+(143, 'READ', 'STATE VIEWING', 'STATE:READ', 'STATE'),
+(144, 'READ', 'LOCALITY VIEWING', 'LOCALITY:READ', 'LOCALITY'),
+(145, 'READ', 'MILITARY_CATEGORY VIEWING', 'MILITARY_CATEGORY:READ', 'MILITARY_CATEGORY'),
+(146, 'READ', 'MILITARY_RANK VIEWING', 'MILITARY_RANK:READ', 'MILITARY_RANK'),
+(147, 'READ', 'STRUCTURE_TYPE VIEWING', 'STRUCTURE_TYPE:READ', 'STRUCTURE_TYPE'),
+(148, 'READ', 'STRUCTURE VIEWING', 'STRUCTURE:READ', 'STRUCTURE'),
+(149, 'READ', 'JOB VIEWING', 'JOB:READ', 'JOB'),
+(150, 'READ', 'PERSON VIEWING', 'PERSON:READ', 'PERSON'),
+(151, 'READ', 'EMPLOYEE VIEWING', 'EMPLOYEE:READ', 'EMPLOYEE'),
+(152, 'READ', 'COMPANY_TYPE VIEWING', 'COMPANY_TYPE:READ', 'COMPANY_TYPE'),
+(153, 'READ', 'PARTNER_TYPE VIEWING', 'PARTNER_TYPE:READ', 'PARTNER_TYPE'),
+(154, 'READ', 'VENDOR_TYPE VIEWING', 'VENDOR_TYPE:READ', 'VENDOR_TYPE'),
+(155, 'READ', 'FACILITY_TYPE VIEWING', 'FACILITY_TYPE:READ', 'FACILITY_TYPE'),
+(156, 'READ', 'HYDROCARBON_FIELD_TYPE VIEWING', 'HYDROCARBON_FIELD_TYPE:READ', 'HYDROCARBON_FIELD_TYPE'),
+(157, 'READ', 'STATION_TYPE VIEWING', 'STATION_TYPE:READ', 'STATION_TYPE'),
+(158, 'READ', 'TERMINAL_TYPE VIEWING', 'TERMINAL_TYPE:READ', 'TERMINAL_TYPE'),
+(159, 'READ', 'EQUIPMENT_TYPE VIEWING', 'EQUIPMENT_TYPE:READ', 'EQUIPMENT_TYPE'),
+(160, 'READ', 'ZONE VIEWING', 'ZONE:READ', 'ZONE'),
+(161, 'READ', 'REGION VIEWING', 'REGION:READ', 'REGION'),
+(162, 'READ', 'LOCATION VIEWING', 'LOCATION:READ', 'LOCATION'),
+(163, 'READ', 'PRODUCT VIEWING', 'PRODUCT:READ', 'PRODUCT'),
+(164, 'READ', 'OPERATIONAL_STATUS VIEWING', 'OPERATIONAL_STATUS:READ', 'OPERATIONAL_STATUS'),
+(165, 'READ', 'ALLOY VIEWING', 'ALLOY:READ', 'ALLOY'),
+(166, 'READ', 'PARTNER VIEWING', 'PARTNER:READ', 'PARTNER'),
+(167, 'READ', 'VENDOR VIEWING', 'VENDOR:READ', 'VENDOR'),
+(168, 'READ', 'INFRASTRUCTURE VIEWING', 'INFRASTRUCTURE:READ', 'INFRASTRUCTURE'),
+(169, 'READ', 'FACILITY VIEWING', 'FACILITY:READ', 'FACILITY'),
+(170, 'READ', 'STATION VIEWING', 'STATION:READ', 'STATION'),
+(171, 'READ', 'TERMINAL VIEWING', 'TERMINAL:READ', 'TERMINAL'),
+(172, 'READ', 'HYDROCARBON_FIELD VIEWING', 'HYDROCARBON_FIELD:READ', 'HYDROCARBON_FIELD'),
+(173, 'READ', 'PIPELINE_SYSTEM VIEWING', 'PIPELINE_SYSTEM:READ', 'PIPELINE_SYSTEM'),
+(174, 'READ', 'PIPELINE VIEWING', 'PIPELINE:READ', 'PIPELINE'),
+(175, 'READ', 'PIPELINE_SEGMENT VIEWING', 'PIPELINE_SEGMENT:READ', 'PIPELINE_SEGMENT'),
+(176, 'READ', 'EQUIPMENT VIEWING', 'EQUIPMENT:READ', 'EQUIPMENT');
 
 -- --------------------------------------------------------
 
@@ -1100,17 +909,17 @@ INSERT INTO `t_00_02_04` (`F_00`, `F_04`, `F_02`, `F_01`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_00_02_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_01` varchar(50) NOT NULL,
-  `F_03` varchar(50) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_01` varchar(50) NOT NULL,
+  `f_03` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_00_02_05`
 --
 
-INSERT INTO `t_00_02_05` (`F_00`, `F_02`, `F_01`, `F_03`) VALUES
+INSERT INTO `t_00_02_05` (`f_00`, `f_02`, `f_01`, `f_03`) VALUES
 (1, 'System Management', 'SYSTEM', 'Core system operations and configuration'),
 (2, 'User Management', 'USER', 'User account and profile management'),
 (3, 'Role Management', 'ROLE', 'Role definitions and assignments'),
@@ -1146,27 +955,27 @@ INSERT INTO `t_00_02_05` (`F_00`, `F_02`, `F_01`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_00_03_01` (
-  `F_00` bigint(20) NOT NULL,
+  `f_00` bigint(20) NOT NULL,
   `f_03` enum('APPROVE','ARCHIVE','CANCEL','CREATE','DELETE','READ','REJECT','RESTORE','SUBMIT','UPDATE') NOT NULL,
-  `F_18` varchar(50) DEFAULT NULL,
-  `F_12` varchar(1000) DEFAULT NULL,
-  `F_15` bigint(20) DEFAULT NULL,
-  `F_02` bigint(20) NOT NULL,
-  `F_01` varchar(100) NOT NULL,
-  `F_14` text DEFAULT NULL,
-  `F_06` varchar(45) DEFAULT NULL,
-  `F_20` text DEFAULT NULL,
-  `F_08` varchar(200) DEFAULT NULL,
-  `F_17` varchar(50) DEFAULT NULL,
-  `F_10` text DEFAULT NULL,
-  `F_09` text DEFAULT NULL,
-  `F_11` text DEFAULT NULL,
-  `F_19` bigint(20) DEFAULT NULL,
-  `F_16` varchar(100) DEFAULT NULL,
+  `f_18` varchar(50) DEFAULT NULL,
+  `f_12` varchar(1000) DEFAULT NULL,
+  `f_15` bigint(20) DEFAULT NULL,
+  `f_02` bigint(20) NOT NULL,
+  `f_01` varchar(100) NOT NULL,
+  `f_14` text DEFAULT NULL,
+  `f_06` varchar(45) DEFAULT NULL,
+  `f_20` text DEFAULT NULL,
+  `f_08` varchar(200) DEFAULT NULL,
+  `f_17` varchar(50) DEFAULT NULL,
+  `f_10` text DEFAULT NULL,
+  `f_09` text DEFAULT NULL,
+  `f_11` text DEFAULT NULL,
+  `f_19` bigint(20) DEFAULT NULL,
+  `f_16` varchar(100) DEFAULT NULL,
   `f_13` enum('FAILED','PARTIAL','SUCCESS') NOT NULL,
-  `F_05` datetime(6) NOT NULL,
-  `F_07` varchar(500) DEFAULT NULL,
-  `F_04` varchar(100) DEFAULT NULL
+  `f_05` datetime(6) NOT NULL,
+  `f_07` varchar(500) DEFAULT NULL,
+  `f_04` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1176,11 +985,18 @@ CREATE TABLE `t_00_03_01` (
 --
 
 CREATE TABLE `t_00_04_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_02` datetime(6) NOT NULL,
-  `F_01` varchar(255) NOT NULL,
-  `F_03` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_02` datetime(6) NOT NULL,
+  `f_01` varchar(255) NOT NULL,
+  `f_03` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `t_00_04_01`
+--
+
+INSERT INTO `t_00_04_01` (`f_00`, `f_02`, `f_01`, `f_03`) VALUES
+(1, '2025-12-22 22:22:16.000000', 'c6d91deb-ad25-4095-b532-8fe6ebaa0fea', 1);
 
 -- --------------------------------------------------------
 
@@ -1189,17 +1005,17 @@ CREATE TABLE `t_00_04_01` (
 --
 
 CREATE TABLE `t_01_01_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_01_01`
 --
 
-INSERT INTO `t_01_01_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_01_01_01` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'س', 'S', '');
 
 -- --------------------------------------------------------
@@ -1209,18 +1025,18 @@ INSERT INTO `t_01_01_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_01_01_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) DEFAULT NULL,
-  `F_04` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) DEFAULT NULL,
+  `f_04` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_01_02`
 --
 
-INSERT INTO `t_01_01_02` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_01_01_02` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, '-2°', 'الطابق السفلي الثاني', 'Second Floor Underground', 'Deuxième Etage Sous Sol'),
 (2, '-1°', 'الطابق السفلي الأول', 'First Floor Underground', 'Premier Etage Sous Sol'),
 (3, '0', 'الطابق الأرضي', 'Ground Floor', 'Riz de Chaussé'),
@@ -1241,20 +1057,20 @@ INSERT INTO `t_01_01_02` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_01_01_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_05` bigint(20) NOT NULL,
-  `F_06` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_05` bigint(20) NOT NULL,
+  `f_06` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_01_03`
 --
 
-INSERT INTO `t_01_01_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`, `F_06`) VALUES
+INSERT INTO `t_01_01_03` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`, `f_05`, `f_06`) VALUES
 (1, '60', NULL, NULL, '60', 1, 6),
 (2, '61', NULL, NULL, '61', 1, 6),
 (3, '62', NULL, NULL, '62', 1, 6),
@@ -1272,19 +1088,19 @@ INSERT INTO `t_01_01_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`, `F_06`
 --
 
 CREATE TABLE `t_01_01_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_05` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_05` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_01_04`
 --
 
-INSERT INTO `t_01_01_04` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`) VALUES
+INSERT INTO `t_01_01_04` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`, `f_05`) VALUES
 (1, 'SDR-01', NULL, NULL, 'SDR-01', 2),
 (2, 'SDR-02', NULL, NULL, 'SDR-02', 2),
 (3, 'SDR-03', NULL, NULL, 'SDR-03', 2),
@@ -1313,19 +1129,19 @@ INSERT INTO `t_01_01_04` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`) VALUES
 --
 
 CREATE TABLE `t_01_01_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_02` varchar(20) NOT NULL,
-  `F_03` varchar(200) DEFAULT NULL,
-  `F_04` varchar(200) DEFAULT NULL,
-  `F_05` varchar(200) NOT NULL,
-  `F_01` int(11) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_02` varchar(20) NOT NULL,
+  `f_03` varchar(200) DEFAULT NULL,
+  `f_04` varchar(200) DEFAULT NULL,
+  `f_05` varchar(200) NOT NULL,
+  `f_01` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_01_05`
 --
 
-INSERT INTO `t_01_01_05` (`F_00`, `F_02`, `F_03`, `F_04`, `F_05`, `F_01`) VALUES
+INSERT INTO `t_01_01_05` (`f_00`, `f_02`, `f_03`, `f_04`, `f_05`, `f_01`) VALUES
 (1, '1°', 'الطابق الأول', 'First Floor', 'Premier Etage', 1),
 (2, '2°', 'الطابق الأول', 'Second Floor', 'Deuxième Etage', 2),
 (3, '3°', 'الطابق الأول', 'Third Floor', 'Troisième Etage', 3),
@@ -1343,11 +1159,11 @@ INSERT INTO `t_01_01_05` (`F_00`, `F_02`, `F_03`, `F_04`, `F_05`, `F_01`) VALUES
 --
 
 CREATE TABLE `t_01_01_06` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(50) NOT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` bigint(20) NOT NULL,
-  `F_04` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(50) NOT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` bigint(20) NOT NULL,
+  `f_04` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1357,11 +1173,11 @@ CREATE TABLE `t_01_01_06` (
 --
 
 CREATE TABLE `t_01_01_07` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(50) NOT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_04` int(11) DEFAULT NULL,
-  `F_03` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(50) NOT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_04` int(11) DEFAULT NULL,
+  `f_03` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1371,17 +1187,17 @@ CREATE TABLE `t_01_01_07` (
 --
 
 CREATE TABLE `t_01_02_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_02_01`
 --
 
-INSERT INTO `t_01_02_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_01_02_01` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'الصادر', 'Outgoing', 'Départ'),
 (2, 'الوارد', 'Arriving', 'Arrivé');
 
@@ -1392,17 +1208,17 @@ INSERT INTO `t_01_02_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_01_02_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_02_02`
 --
 
-INSERT INTO `t_01_02_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_01_02_02` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'مرسوم', 'Decree', 'Décret'),
 (2, 'قرار', 'Administrative Decree', 'Arrété'),
 (3, 'أمر', 'Order', 'Ordonnance'),
@@ -1423,16 +1239,16 @@ INSERT INTO `t_01_02_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_01_02_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` datetime(6) DEFAULT NULL,
-  `F_05` datetime(6) DEFAULT NULL,
-  `F_02` varchar(50) DEFAULT NULL,
-  `F_01` varchar(50) DEFAULT NULL,
-  `F_03` varchar(500) DEFAULT NULL,
-  `F_09` bigint(20) NOT NULL,
-  `F_06` bigint(20) NOT NULL,
-  `F_07` bigint(20) NOT NULL,
-  `F_08` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` datetime(6) DEFAULT NULL,
+  `f_05` datetime(6) DEFAULT NULL,
+  `f_02` varchar(50) DEFAULT NULL,
+  `f_01` varchar(50) DEFAULT NULL,
+  `f_03` varchar(500) DEFAULT NULL,
+  `f_09` bigint(20) NOT NULL,
+  `f_06` bigint(20) NOT NULL,
+  `f_07` bigint(20) NOT NULL,
+  `f_08` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1442,18 +1258,18 @@ CREATE TABLE `t_01_02_03` (
 --
 
 CREATE TABLE `t_01_03_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` varchar(10) NOT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` varchar(10) NOT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_03_01`
 --
 
-INSERT INTO `t_01_03_01` (`F_00`, `F_04`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_01_03_01` (`f_00`, `f_04`, `f_01`, `f_02`, `f_03`) VALUES
 (1, '100', 'بطاقة اقتراح', 'Proposal Form', 'Fiche de Proposition'),
 (2, '100', 'بطاقة تقنية وصفية', 'Descriptive Technical Sheet', 'Fiche Technique Descriptive'),
 (3, '100', 'بطاقة تقنية', 'Technical Sheet', 'Fiche Technique'),
@@ -1493,12 +1309,12 @@ INSERT INTO `t_01_03_01` (`F_00`, `F_04`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_01_03_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_03` datetime(6) DEFAULT NULL,
-  `F_01` varchar(50) NOT NULL,
-  `F_02` varchar(500) DEFAULT NULL,
-  `F_04` bigint(20) NOT NULL,
-  `F_05` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_03` datetime(6) DEFAULT NULL,
+  `f_01` varchar(50) NOT NULL,
+  `f_02` varchar(500) DEFAULT NULL,
+  `f_04` bigint(20) NOT NULL,
+  `f_05` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1508,18 +1324,18 @@ CREATE TABLE `t_01_03_02` (
 --
 
 CREATE TABLE `t_01_04_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(3) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(3) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_04_01`
 --
 
-INSERT INTO `t_01_04_01` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_01_04_01` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'AF', 'أفغانستان', 'Afghanistan', 'Afghanistan'),
 (2, 'AX', 'جزر آلاند', 'Åland Islands', 'Îles Åland'),
 (3, 'AL', 'ألبانيا', 'Albania', 'Albanie'),
@@ -1777,18 +1593,18 @@ INSERT INTO `t_01_04_01` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_01_04_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(10) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(10) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_04_02`
 --
 
-INSERT INTO `t_01_04_02` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_01_04_02` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, '1', 'أدرار', NULL, 'Adrar'),
 (2, '2', 'الشلف', NULL, 'Chlef'),
 (3, '3', 'الأغواط', NULL, 'Laghouat'),
@@ -1855,19 +1671,19 @@ INSERT INTO `t_01_04_02` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_01_04_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(10) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_05` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(10) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_05` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_04_03`
 --
 
-INSERT INTO `t_01_04_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`) VALUES
+INSERT INTO `t_01_04_03` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`, `f_05`) VALUES
 (1, '0001', 'أدرار', 'Adrar', 'Adrar', 1),
 (2, '0002', 'اقبلي', 'Akabli', 'Akabli', 1),
 (3, '0003', 'أوقروت', 'Aougrout', 'Aougrout', 49),
@@ -2763,7 +2579,7 @@ INSERT INTO `t_01_04_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`) VALUES
 (893, '0893', 'الخروب', 'El Khroub', 'El Khroub', 25),
 (894, '0894', 'حامة بوزيان', 'Hamma Bouziane', 'Hamma Bouziane', 25),
 (895, '0895', 'ابن زياد', 'Ibn Ziad', 'Ibn Ziad', 25);
-INSERT INTO `t_01_04_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`) VALUES
+INSERT INTO `t_01_04_03` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`, `f_05`) VALUES
 (896, '0896', 'بوجريو مسعود', 'Messaoud Boudjeriou', 'Messaoud Boudjeriou', 25),
 (897, '0897', 'أولاد رحمون', 'Ouled Rahmoun', 'Ouled Rahmoun', 25),
 (898, '0898', 'زيغود يوسف', 'Zighoud Youcef', 'Zighoud Youcef', 25),
@@ -3418,17 +3234,17 @@ INSERT INTO `t_01_04_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`, `F_05`) VALUES
 --
 
 CREATE TABLE `t_01_04_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_04_04`
 --
 
-INSERT INTO `t_01_04_04` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_01_04_04` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'الضباط العمداء', 'General Officers', 'Officiers Généraux'),
 (2, 'الضباط السامون', 'Senior Officers', 'Officiers Supérieurs'),
 (3, 'الضباط المرؤوسون', 'Junior Officers', 'Officiers Subalternes'),
@@ -3443,21 +3259,21 @@ INSERT INTO `t_01_04_04` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_01_04_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` varchar(100) DEFAULT NULL,
-  `F_05` varchar(100) DEFAULT NULL,
-  `F_06` varchar(100) DEFAULT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL,
-  `F_07` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` varchar(100) DEFAULT NULL,
+  `f_05` varchar(100) DEFAULT NULL,
+  `f_06` varchar(100) DEFAULT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL,
+  `f_07` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_04_05`
 --
 
-INSERT INTO `t_01_04_05` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`, `F_07`) VALUES
+INSERT INTO `t_01_04_05` (`f_00`, `f_04`, `f_05`, `f_06`, `f_01`, `f_02`, `f_03`, `f_07`) VALUES
 (1, NULL, NULL, '', 'General', 'فريق أول', 'Général d\'Armée', 1),
 (2, NULL, NULL, '', 'Lieutenant General', 'فريق', 'Général de Corps d\'Armée', 1),
 (3, NULL, NULL, '', 'Major General', 'لواء', 'Général Major', 1),
@@ -3487,20 +3303,20 @@ INSERT INTO `t_01_04_05` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_01_04_06` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` varchar(10) DEFAULT NULL,
-  `F_05` varchar(10) DEFAULT NULL,
-  `F_06` varchar(10) DEFAULT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` varchar(10) DEFAULT NULL,
+  `f_05` varchar(10) DEFAULT NULL,
+  `f_06` varchar(10) DEFAULT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_01_04_06`
 --
 
-INSERT INTO `t_01_04_06` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_01_04_06` (`f_00`, `f_04`, `f_05`, `f_06`, `f_01`, `f_02`, `f_03`) VALUES
 (1, NULL, NULL, NULL, 'وزارة', 'Ministry', 'Ministère'),
 (2, NULL, NULL, NULL, ' أركان الجيش', 'Army General Staff', 'Etat Major de l\'Armée'),
 (3, NULL, NULL, NULL, 'مديرية عامة', 'General Directorate', 'Direction Générale'),
@@ -3549,13 +3365,13 @@ INSERT INTO `t_01_04_06` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_01_04_07` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(50) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_06` bigint(20) DEFAULT NULL,
-  `F_05` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(50) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_06` bigint(20) DEFAULT NULL,
+  `f_05` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3565,12 +3381,12 @@ CREATE TABLE `t_01_04_07` (
 --
 
 CREATE TABLE `t_01_04_08` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(10) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_05` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(10) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_05` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3580,14 +3396,14 @@ CREATE TABLE `t_01_04_08` (
 --
 
 CREATE TABLE `t_01_04_09` (
-  `F_00` bigint(20) NOT NULL,
-  `F_05` datetime(6) DEFAULT NULL,
-  `F_06` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) NOT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_01` varchar(100) NOT NULL,
-  `F_03` varchar(100) NOT NULL,
-  `F_07` bigint(20) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_05` datetime(6) DEFAULT NULL,
+  `f_06` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) NOT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_01` varchar(100) NOT NULL,
+  `f_03` varchar(100) NOT NULL,
+  `f_07` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3597,13 +3413,13 @@ CREATE TABLE `t_01_04_09` (
 --
 
 CREATE TABLE `t_01_04_10` (
-  `F_00` bigint(20) NOT NULL,
-  `F_06` bit(1) DEFAULT NULL,
-  `F_05` varchar(50) DEFAULT NULL,
-  `F_02` bigint(20) DEFAULT NULL,
-  `F_01` bigint(20) NOT NULL,
-  `F_04` bigint(20) DEFAULT NULL,
-  `F_03` bigint(20) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_06` bit(1) DEFAULT NULL,
+  `f_05` varchar(50) DEFAULT NULL,
+  `f_02` bigint(20) DEFAULT NULL,
+  `f_01` bigint(20) NOT NULL,
+  `f_04` bigint(20) DEFAULT NULL,
+  `f_03` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3613,21 +3429,21 @@ CREATE TABLE `t_01_04_10` (
 --
 
 CREATE TABLE `t_02_01_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_05` varchar(20) NOT NULL,
-  `F_06` varchar(20) NOT NULL,
-  `F_07` varchar(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_02` varchar(50) NOT NULL,
-  `F_03` varchar(50) NOT NULL,
-  `F_04` varchar(50) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_05` varchar(20) NOT NULL,
+  `f_06` varchar(20) NOT NULL,
+  `f_07` varchar(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_02` varchar(50) NOT NULL,
+  `f_03` varchar(50) NOT NULL,
+  `f_04` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_01_01`
 --
 
-INSERT INTO `t_02_01_01` (`F_00`, `F_05`, `F_06`, `F_07`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_02_01_01` (`f_00`, `f_05`, `f_06`, `f_07`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'US$', 'USD', '$', 'USD', 'دولار أمريكي', 'United States Dollar', 'Dollar des États-Unis'),
 (2, '€', 'EUR', '€', 'EUR', 'يورو', 'Euro', 'Euro'),
 (3, '£', 'GBP', '£', 'GBP', 'جنيه إسترليني', 'British Pound Sterling', 'Livre Sterling'),
@@ -3777,17 +3593,17 @@ INSERT INTO `t_02_01_01` (`F_00`, `F_05`, `F_06`, `F_07`, `F_01`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_02_01_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_01_02`
 --
 
-INSERT INTO `t_02_01_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_01_02` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'غير قابل للتطبيق', 'Not Applicabale', 'Non applicable'),
 (2, 'قيد التحضير', 'Under Preparation', 'En cours de préparation'),
 (3, 'تأشيرة', 'Visa', 'Visa'),
@@ -3805,17 +3621,17 @@ INSERT INTO `t_02_01_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_01_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(300) DEFAULT NULL,
-  `F_02` varchar(300) DEFAULT NULL,
-  `F_03` varchar(300) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(300) DEFAULT NULL,
+  `f_02` varchar(300) DEFAULT NULL,
+  `f_03` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_01_03`
 --
 
-INSERT INTO `t_02_01_03` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_01_03` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'المديرية الفرعية للإنجازات', 'Sub Directorat of Realizations', 'Sous Direction Réalisations'),
 (2, 'دائرة المؤن', 'Approvisionment Department', 'Département des Approvisionnements');
 
@@ -3826,17 +3642,17 @@ INSERT INTO `t_02_01_03` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_01_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_01_04`
 --
 
-INSERT INTO `t_02_01_04` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_01_04` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'الوسائل الكبرى', 'Major Means', 'Moyens Majeurs'),
 (2, 'تسيير', 'Operation', 'Fonctionnement'),
 (3, 'تجهيز', 'Equipment', 'Équipement'),
@@ -3852,17 +3668,17 @@ INSERT INTO `t_02_01_04` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_01_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_01_05`
 --
 
-INSERT INTO `t_02_01_05` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_01_05` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'قيد الانتظار', 'On Hold', 'En Instance'),
 (2, 'قيد التنفيذ', 'Ongoing', 'En cours'),
 (3, 'غيرمجدي', 'Defective', 'Infrectieux'),
@@ -3878,20 +3694,20 @@ INSERT INTO `t_02_01_05` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_02_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` varchar(20) DEFAULT NULL,
-  `F_05` varchar(20) DEFAULT NULL,
-  `F_06` varchar(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` varchar(20) DEFAULT NULL,
+  `f_05` varchar(20) DEFAULT NULL,
+  `f_06` varchar(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_02_01`
 --
 
-INSERT INTO `t_02_02_01` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_02_01` (`f_00`, `f_04`, `f_05`, `f_06`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'تسيير', 'F', 'F', 'ميزانية التسيير', 'Functional Budget', 'Budget de Fonctionnement'),
 (2, 'تجهيز', 'E', 'E', 'ميزانية التجهيز', 'Equipment Budget', 'Budget d\'Equipement');
 
@@ -3902,17 +3718,17 @@ INSERT INTO `t_02_02_01` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_02_02_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_02_02`
 --
 
-INSERT INTO `t_02_02_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_02_02` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'مخطط', 'Planed', 'Plannifié'),
 (2, 'في طور الانجاز', 'Procurement Ongoing', 'En cours de Réalisation'),
 (3, 'منجز', 'Procured', 'Réalisé');
@@ -3924,10 +3740,10 @@ INSERT INTO `t_02_02_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_02_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_02` varchar(4) NOT NULL,
-  `F_01` varchar(200) NOT NULL,
-  `F_03` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_02` varchar(4) NOT NULL,
+  `f_01` varchar(200) NOT NULL,
+  `f_03` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3937,10 +3753,10 @@ CREATE TABLE `t_02_02_03` (
 --
 
 CREATE TABLE `t_02_02_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3950,11 +3766,11 @@ CREATE TABLE `t_02_02_04` (
 --
 
 CREATE TABLE `t_02_02_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL,
-  `F_04` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL,
+  `f_04` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3964,11 +3780,11 @@ CREATE TABLE `t_02_02_05` (
 --
 
 CREATE TABLE `t_02_02_06` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL,
-  `F_04` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL,
+  `f_04` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3978,12 +3794,12 @@ CREATE TABLE `t_02_02_06` (
 --
 
 CREATE TABLE `t_02_02_07` (
-  `F_00` bigint(20) NOT NULL,
-  `F_03` datetime(6) DEFAULT NULL,
-  `F_02` varchar(500) DEFAULT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_04` bigint(20) NOT NULL,
-  `F_05` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_03` datetime(6) DEFAULT NULL,
+  `f_02` varchar(500) DEFAULT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_04` bigint(20) NOT NULL,
+  `f_05` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -3993,14 +3809,14 @@ CREATE TABLE `t_02_02_07` (
 --
 
 CREATE TABLE `t_02_02_08` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` double DEFAULT NULL,
-  `F_01` varchar(200) NOT NULL,
-  `F_03` double DEFAULT NULL,
-  `F_02` double DEFAULT NULL,
-  `F_07` bigint(20) NOT NULL,
-  `F_06` bigint(20) NOT NULL,
-  `F_05` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` double DEFAULT NULL,
+  `f_01` varchar(200) NOT NULL,
+  `f_03` double DEFAULT NULL,
+  `f_02` double DEFAULT NULL,
+  `f_07` bigint(20) NOT NULL,
+  `f_06` bigint(20) NOT NULL,
+  `f_05` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -4010,10 +3826,10 @@ CREATE TABLE `t_02_02_08` (
 --
 
 CREATE TABLE `t_02_02_09` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` float DEFAULT NULL,
-  `F_02` bigint(20) NOT NULL,
-  `F_03` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` float DEFAULT NULL,
+  `f_02` bigint(20) NOT NULL,
+  `f_03` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -4023,18 +3839,18 @@ CREATE TABLE `t_02_02_09` (
 --
 
 CREATE TABLE `t_02_03_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) DEFAULT NULL,
-  `F_04` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) DEFAULT NULL,
+  `f_04` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_03_01`
 --
 
-INSERT INTO `t_02_03_01` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_02_03_01` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, '101101', NULL, NULL, 'ENTREPRISE DE DEFENSE ET DE RESTAURATION DES SOLS'),
 (2, '101102', NULL, NULL, 'ENTREPRISE D\'AMENAGEMENT DE PERIMETRES IRRIGUES ET DE DRAINAGE AGRICOLE'),
 (3, '101103', NULL, NULL, 'ENTREPRISE DE TRAVAUX FORESTIERS ET D\'EXPLOITATION DES FORETS'),
@@ -4610,7 +4426,7 @@ INSERT INTO `t_02_03_01` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 (573, '405105', NULL, NULL, 'IMPORT - EXPORT D\'ARTICLES D\'HABILLEMENT ET ACCESSOIRES POUR VETEMENTS'),
 (574, '405106', NULL, NULL, 'IMPORT - EXPORT DE TAPIS COUVERTURES ET AUTRES ARTICLES SIMILAIRES A BASE DE MATIERES TEXTILE OU SYNTHETIQUE'),
 (575, '405107', NULL, NULL, 'IMPORT - EXPORT D\'AUTRES ARTICLES CONFECTIONNES EN TEXTILES');
-INSERT INTO `t_02_03_01` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_02_03_01` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (576, '405108', NULL, NULL, 'IMPORT - EXPORT DE BIJOUTERIE DE FANTAISIE'),
 (577, '405201', NULL, NULL, 'IMPORT - EXPORT DE MATERIELS ET PRODUITS LIES AU DOMAINE DES CUIRS'),
 (578, '405202', NULL, NULL, 'IMPORT - EXPORT DE PEAUX, DE CUIRS, DE PELLETERIE ET LEURS ACCESSOIRES'),
@@ -5165,7 +4981,7 @@ INSERT INTO `t_02_03_01` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 (1127, '613127', NULL, NULL, 'INSTALLATION ET REPARATION DE FOURS ET REFRACTAIRES DE FOURS'),
 (1128, '613128', NULL, NULL, 'INSTALLATION ET MAINTENANCE INDUSTRIELLE DE TOUS EQUIPEMENTS, MOTEURS ET MATERIELS'),
 (1129, '613129', NULL, NULL, 'INSTALLATION , REPARATION ET MAINTENANCE DE MOTEURS ET MATERIELS MARINS');
-INSERT INTO `t_02_03_01` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_02_03_01` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1130, '613130', NULL, NULL, 'INSTALLATION ET MAINTENANCE DES EQUIPEMENTS ET MATERIELS POUR HOTELS, CAFES, RESTAURANTS, BLANCHISSERIES ET TEINTURERIES'),
 (1131, '613131', NULL, NULL, 'ENTREPRISE DE CONTROLE DE SOUDAGE'),
 (1132, '613132', NULL, NULL, 'INSTALLATION ET MONTAGE D\'ACCESSOIRES AUTOMOBILES'),
@@ -5219,20 +5035,20 @@ INSERT INTO `t_02_03_01` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_02_03_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` varchar(20) DEFAULT NULL,
-  `F_05` varchar(20) DEFAULT NULL,
-  `F_06` varchar(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` varchar(20) DEFAULT NULL,
+  `f_05` varchar(20) DEFAULT NULL,
+  `f_06` varchar(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_03_02`
 --
 
-INSERT INTO `t_02_03_02` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_03_02` (`f_00`, `f_04`, `f_05`, `f_06`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'ش ط', 'NP', 'PP', 'شخص طبيعي', 'Natural Person', 'Personne Physique'),
 (2, 'ش م', 'LP', 'PM', 'شخص معنوي', 'Legal Entity', 'Personne Morale'),
 (3, 'ش ذ م م ش و', 'OPLLC', 'EURL', 'شركة ذات مسؤولية محدودة لشخص واحد', 'One-Person Limited Liability Company', 'Entreprise Unipersonnelle à Responsabilité Limitée﻿'),
@@ -5252,17 +5068,17 @@ INSERT INTO `t_02_03_02` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_02_03_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_03_03`
 --
 
-INSERT INTO `t_02_03_03` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_03_03` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'إقصاء مؤقت', 'Temporary exclusion', 'Exclusion à titre temporale'),
 (2, 'إقصاء نهائي', 'Permanent exclusion', 'Exclusion à titre definitif');
 
@@ -5273,28 +5089,28 @@ INSERT INTO `t_02_03_03` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_03_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` varchar(20) DEFAULT NULL,
-  `F_03` varchar(20) DEFAULT NULL,
-  `F_05` varchar(200) DEFAULT NULL,
-  `F_11` varchar(200) DEFAULT NULL,
-  `F_12` varchar(50) DEFAULT NULL,
-  `F_06` double DEFAULT NULL,
-  `F_08` datetime(6) DEFAULT NULL,
-  `F_07` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_15` varchar(200) DEFAULT NULL,
-  `F_16` varchar(300) DEFAULT NULL,
-  `F_14` varchar(200) DEFAULT NULL,
-  `F_10` varchar(200) DEFAULT NULL,
-  `F_13` varchar(50) DEFAULT NULL,
-  `F_09` varchar(200) DEFAULT NULL,
-  `F_17` varchar(200) DEFAULT NULL,
-  `F_20` bigint(20) NOT NULL,
-  `F_19` bigint(20) NOT NULL,
-  `F_18` bigint(20) DEFAULT NULL,
-  `F_21` bigint(20) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` varchar(20) DEFAULT NULL,
+  `f_03` varchar(20) DEFAULT NULL,
+  `f_05` varchar(200) DEFAULT NULL,
+  `f_11` varchar(200) DEFAULT NULL,
+  `f_12` varchar(50) DEFAULT NULL,
+  `f_06` double DEFAULT NULL,
+  `f_08` datetime(6) DEFAULT NULL,
+  `f_07` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_15` varchar(200) DEFAULT NULL,
+  `f_16` varchar(300) DEFAULT NULL,
+  `f_14` varchar(200) DEFAULT NULL,
+  `f_10` varchar(200) DEFAULT NULL,
+  `f_13` varchar(50) DEFAULT NULL,
+  `f_09` varchar(200) DEFAULT NULL,
+  `f_17` varchar(200) DEFAULT NULL,
+  `f_20` bigint(20) NOT NULL,
+  `f_19` bigint(20) NOT NULL,
+  `f_18` bigint(20) DEFAULT NULL,
+  `f_21` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5304,17 +5120,17 @@ CREATE TABLE `t_02_03_04` (
 --
 
 CREATE TABLE `t_02_03_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_05` varchar(100) DEFAULT NULL,
-  `F_03` varchar(200) DEFAULT NULL,
-  `F_04` varchar(100) DEFAULT NULL,
-  `F_01` varchar(50) NOT NULL,
-  `F_08` varchar(100) DEFAULT NULL,
-  `F_06` varchar(50) DEFAULT NULL,
-  `F_02` varchar(50) NOT NULL,
-  `F_09` varchar(100) DEFAULT NULL,
-  `F_07` varchar(100) DEFAULT NULL,
-  `F_10` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_05` varchar(100) DEFAULT NULL,
+  `f_03` varchar(200) DEFAULT NULL,
+  `f_04` varchar(100) DEFAULT NULL,
+  `f_01` varchar(50) NOT NULL,
+  `f_08` varchar(100) DEFAULT NULL,
+  `f_06` varchar(50) DEFAULT NULL,
+  `f_02` varchar(50) NOT NULL,
+  `f_09` varchar(100) DEFAULT NULL,
+  `f_07` varchar(100) DEFAULT NULL,
+  `f_10` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5324,13 +5140,13 @@ CREATE TABLE `t_02_03_05` (
 --
 
 CREATE TABLE `t_02_03_06` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL,
-  `F_04` bigint(20) NOT NULL,
-  `F_05` bigint(20) NOT NULL,
-  `F_06` bigint(20) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL,
+  `f_04` bigint(20) NOT NULL,
+  `f_05` bigint(20) NOT NULL,
+  `f_06` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5340,13 +5156,13 @@ CREATE TABLE `t_02_03_06` (
 --
 
 CREATE TABLE `t_02_03_07` (
-  `F_00` bigint(20) NOT NULL,
-  `F_03` varchar(255) DEFAULT NULL,
-  `F_02` datetime(6) DEFAULT NULL,
-  `F_01` datetime(6) NOT NULL,
-  `F_04` bigint(20) NOT NULL,
-  `F_05` bigint(20) NOT NULL,
-  `F_06` bigint(20) DEFAULT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_03` varchar(255) DEFAULT NULL,
+  `f_02` datetime(6) DEFAULT NULL,
+  `f_01` datetime(6) NOT NULL,
+  `f_04` bigint(20) NOT NULL,
+  `f_05` bigint(20) NOT NULL,
+  `f_06` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5356,20 +5172,20 @@ CREATE TABLE `t_02_03_07` (
 --
 
 CREATE TABLE `t_02_04_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_04` varchar(20) DEFAULT NULL,
-  `F_05` varchar(20) DEFAULT NULL,
-  `F_06` varchar(20) NOT NULL,
-  `F_01` varchar(150) DEFAULT NULL,
-  `F_02` varchar(150) DEFAULT NULL,
-  `F_03` varchar(150) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_04` varchar(20) DEFAULT NULL,
+  `f_05` varchar(20) DEFAULT NULL,
+  `f_06` varchar(20) NOT NULL,
+  `f_01` varchar(150) DEFAULT NULL,
+  `f_02` varchar(150) DEFAULT NULL,
+  `f_03` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_04_01`
 --
 
-INSERT INTO `t_02_04_01` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_04_01` (`f_00`, `f_04`, `f_05`, `f_06`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'ط ع م  و', 'NOTC', 'AOON', 'طلب عروض مفتوح وطني', 'National Open Tender Call', 'Appel d\'Offres Ouvert National'),
 (2, 'ط ع م و د', 'NIOTC', 'AOONI', 'طلب عروض مفتوح وطني ودولي', 'National and International Open Tender Call', 'Appel d\'Offres Ouvert National et International'),
 (3, 'ت ب', 'SDN', 'GG / S', 'التراضي البسيط', 'Simple Direct Negotiation', 'Gré à Gré Simple'),
@@ -5383,17 +5199,17 @@ INSERT INTO `t_02_04_01` (`F_00`, `F_04`, `F_05`, `F_06`, `F_01`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_02_04_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_04_02`
 --
 
-INSERT INTO `t_02_04_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_04_02` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'مبرمجة', 'Planed', 'Programmée'),
 (2, 'قيد الإعداد', 'In Progress', 'En cours d\'élaboration'),
 (3, 'قيد المراجعة', 'Under Review', 'En cours de contrôle'),
@@ -5407,18 +5223,18 @@ INSERT INTO `t_02_04_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_04_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL,
-  `F_04` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL,
+  `f_04` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_04_03`
 --
 
-INSERT INTO `t_02_04_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_02_04_03` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'مرحلة إعداد المخطط الميزانياتي', 'Budget Plan Maturation Stage', 'Instance de maturation de plan budgétaire', 1),
 (2, 'مرحلة تحديد الإحتياجات', 'Needs Identification Stage', 'Instance du besoin', 1),
 (3, 'مرحلة إعداد البطاقة التقنية', 'Technical Data Sheet Preparation Stage', 'Instance de la fiche technique', 1),
@@ -5440,28 +5256,28 @@ INSERT INTO `t_02_04_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_02_04_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_07` double DEFAULT NULL,
-  `F_11` datetime(6) DEFAULT NULL,
-  `F_10` varchar(255) DEFAULT NULL,
-  `F_02` varchar(4) NOT NULL,
-  `F_13` datetime(6) DEFAULT NULL,
-  `F_04` varchar(300) DEFAULT NULL,
-  `F_05` varchar(300) DEFAULT NULL,
-  `F_06` varchar(300) NOT NULL,
-  `F_08` double DEFAULT NULL,
-  `F_01` varchar(3) NOT NULL,
-  `F_14` varchar(500) DEFAULT NULL,
-  `F_12` datetime(6) DEFAULT NULL,
-  `F_03` varchar(20) DEFAULT NULL,
-  `F_09` datetime(6) DEFAULT NULL,
-  `F_19` bigint(20) NOT NULL,
-  `F_15` bigint(20) NOT NULL,
-  `F_17` bigint(20) NOT NULL,
-  `F_21` bigint(20) NOT NULL,
-  `F_20` bigint(20) NOT NULL,
-  `F_16` bigint(20) NOT NULL,
-  `F_18` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_07` double DEFAULT NULL,
+  `f_11` datetime(6) DEFAULT NULL,
+  `f_10` varchar(255) DEFAULT NULL,
+  `f_02` varchar(4) NOT NULL,
+  `f_13` datetime(6) DEFAULT NULL,
+  `f_04` varchar(300) DEFAULT NULL,
+  `f_05` varchar(300) DEFAULT NULL,
+  `f_06` varchar(300) NOT NULL,
+  `f_08` double DEFAULT NULL,
+  `f_01` varchar(3) NOT NULL,
+  `f_14` varchar(500) DEFAULT NULL,
+  `f_12` datetime(6) DEFAULT NULL,
+  `f_03` varchar(20) DEFAULT NULL,
+  `f_09` datetime(6) DEFAULT NULL,
+  `f_19` bigint(20) NOT NULL,
+  `f_15` bigint(20) NOT NULL,
+  `f_17` bigint(20) NOT NULL,
+  `f_21` bigint(20) NOT NULL,
+  `f_20` bigint(20) NOT NULL,
+  `f_16` bigint(20) NOT NULL,
+  `f_18` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5471,14 +5287,14 @@ CREATE TABLE `t_02_04_04` (
 --
 
 CREATE TABLE `t_02_04_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_02` double DEFAULT NULL,
-  `F_01` datetime(6) DEFAULT NULL,
-  `F_05` bigint(20) DEFAULT NULL,
-  `F_03` bigint(20) NOT NULL,
-  `F_07` bigint(20) DEFAULT NULL,
-  `F_06` bigint(20) DEFAULT NULL,
-  `F_04` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_02` double DEFAULT NULL,
+  `f_01` datetime(6) DEFAULT NULL,
+  `f_05` bigint(20) DEFAULT NULL,
+  `f_03` bigint(20) NOT NULL,
+  `f_07` bigint(20) DEFAULT NULL,
+  `f_06` bigint(20) DEFAULT NULL,
+  `f_04` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5488,17 +5304,17 @@ CREATE TABLE `t_02_04_05` (
 --
 
 CREATE TABLE `t_02_05_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_05_01`
 --
 
-INSERT INTO `t_02_05_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_05_01` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'اتفاقية', 'Convention', 'Convention'),
 (2, 'اتفاقية إطار', 'Framework Convention', 'Convention Cadre'),
 (3, 'صفقة', 'Contract', 'Marché'),
@@ -5516,17 +5332,17 @@ INSERT INTO `t_02_05_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_05_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_05_02`
 --
 
-INSERT INTO `t_02_05_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_05_02` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'مبرمجة', 'Planed', 'Programmée'),
 (2, 'قيد الإعداد', 'In Progress', 'En cours d\'élaboration'),
 (3, 'قيد المراجعة', 'Under Review', 'En cours de contrôle'),
@@ -5539,18 +5355,18 @@ INSERT INTO `t_02_05_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_05_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL,
-  `F_04` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL,
+  `f_04` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_05_03`
 --
 
-INSERT INTO `t_02_05_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_02_05_03` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'مرحلة مداولات لجنة فتح الأظرفة وتقييم العروض', 'COPEO Committee Deliberation Stage', 'Instance PVs COPEO', 1),
 (2, 'إمضاء مشروع العقد/الفقة', 'Signature of the contract project', 'Signature du projet du contrat/marché', 2),
 (3, 'إعداد ملف اللجنة القطاعية للصفقات', 'Preparation of CSM File', 'Préparation du dossier CSM', 2),
@@ -5567,30 +5383,30 @@ INSERT INTO `t_02_05_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_02_05_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_07` double DEFAULT NULL,
-  `F_11` datetime(6) DEFAULT NULL,
-  `F_10` varchar(255) DEFAULT NULL,
-  `F_12` datetime(6) DEFAULT NULL,
-  `F_14` int(11) DEFAULT NULL,
-  `F_02` varchar(255) DEFAULT NULL,
-  `F_04` varchar(300) DEFAULT NULL,
-  `F_05` varchar(300) DEFAULT NULL,
-  `F_06` varchar(300) NOT NULL,
-  `F_01` varchar(255) NOT NULL,
-  `F_13` datetime(6) DEFAULT NULL,
-  `F_15` varchar(500) DEFAULT NULL,
-  `F_03` varchar(255) DEFAULT NULL,
-  `F_09` datetime(6) DEFAULT NULL,
-  `F_08` double DEFAULT NULL,
-  `F_20` bigint(20) DEFAULT NULL,
-  `F_22` bigint(20) DEFAULT NULL,
-  `F_19` bigint(20) NOT NULL,
-  `F_16` bigint(20) NOT NULL,
-  `F_23` bigint(20) DEFAULT NULL,
-  `F_21` bigint(20) NOT NULL,
-  `F_18` bigint(20) NOT NULL,
-  `F_17` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_07` double DEFAULT NULL,
+  `f_11` datetime(6) DEFAULT NULL,
+  `f_10` varchar(255) DEFAULT NULL,
+  `f_12` datetime(6) DEFAULT NULL,
+  `f_14` int(11) DEFAULT NULL,
+  `f_02` varchar(255) DEFAULT NULL,
+  `f_04` varchar(300) DEFAULT NULL,
+  `f_05` varchar(300) DEFAULT NULL,
+  `f_06` varchar(300) NOT NULL,
+  `f_01` varchar(255) NOT NULL,
+  `f_13` datetime(6) DEFAULT NULL,
+  `f_15` varchar(500) DEFAULT NULL,
+  `f_03` varchar(255) DEFAULT NULL,
+  `f_09` datetime(6) DEFAULT NULL,
+  `f_08` double DEFAULT NULL,
+  `f_20` bigint(20) DEFAULT NULL,
+  `f_22` bigint(20) DEFAULT NULL,
+  `f_19` bigint(20) NOT NULL,
+  `f_16` bigint(20) NOT NULL,
+  `f_23` bigint(20) DEFAULT NULL,
+  `f_21` bigint(20) NOT NULL,
+  `f_18` bigint(20) NOT NULL,
+  `f_17` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5600,13 +5416,13 @@ CREATE TABLE `t_02_05_04` (
 --
 
 CREATE TABLE `t_02_05_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(255) NOT NULL,
-  `F_05` varchar(255) DEFAULT NULL,
-  `F_03` double DEFAULT NULL,
-  `F_02` varchar(255) NOT NULL,
-  `F_04` double DEFAULT NULL,
-  `F_06` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(255) NOT NULL,
+  `f_05` varchar(255) DEFAULT NULL,
+  `f_03` double DEFAULT NULL,
+  `f_02` varchar(255) NOT NULL,
+  `f_04` double DEFAULT NULL,
+  `f_06` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5616,17 +5432,17 @@ CREATE TABLE `t_02_05_05` (
 --
 
 CREATE TABLE `t_02_06_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_06_01`
 --
 
-INSERT INTO `t_02_06_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_06_01` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'ملحق عقد', 'Amendment', 'Avenant'),
 (2, 'ملحق تعديل', 'Adjustment Amendment', 'Avenant d\'Ajustement'),
 (3, 'ملحق نقل الحقوق والالتزامات', 'Amendment for Transfer of Rights and Obligations', 'Avenant de transfert des droits et des obligations'),
@@ -5639,17 +5455,17 @@ INSERT INTO `t_02_06_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_06_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_06_02`
 --
 
-INSERT INTO `t_02_06_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_02_06_02` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'مبرمجة﻿', 'Planed', 'Programmée'),
 (2, 'قيد الإعداد', 'In Progress', 'En cours d\'élaboration'),
 (3, 'قيد المراجعة﻿', 'Under Review', 'En cours de contrôle'),
@@ -5662,18 +5478,18 @@ INSERT INTO `t_02_06_02` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_02_06_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(200) DEFAULT NULL,
-  `F_02` varchar(200) DEFAULT NULL,
-  `F_03` varchar(200) NOT NULL,
-  `F_04` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(200) DEFAULT NULL,
+  `f_02` varchar(200) DEFAULT NULL,
+  `f_03` varchar(200) NOT NULL,
+  `f_04` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_02_06_03`
 --
 
-INSERT INTO `t_02_06_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_02_06_03` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'مرحلة مداولات لجنة فتح الأظرفة وتقييم العروض', 'COPEO Amendment fileStage', 'Instance Dossier de l\'avenant', 1),
 (2, 'مرحلة مداولات لجنة فتح الأظرفة وتقييم العروض', 'COPEO Committee Deliberation Stage', 'Instance PVs COPEO', 1),
 (3, 'مرحلة موافقة القيادة العليا', 'High Command Approval Stage', 'Instance Accord du Haut Commandement', 1),
@@ -5692,24 +5508,24 @@ INSERT INTO `t_02_06_03` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_02_06_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_06` double DEFAULT NULL,
-  `F_09` datetime(6) DEFAULT NULL,
-  `F_03` varchar(300) DEFAULT NULL,
-  `F_04` varchar(300) DEFAULT NULL,
-  `F_05` varchar(300) DEFAULT NULL,
-  `F_01` int(11) DEFAULT NULL,
-  `F_10` datetime(6) DEFAULT NULL,
-  `F_11` varchar(500) DEFAULT NULL,
-  `F_02` varchar(255) DEFAULT NULL,
-  `F_08` datetime(6) DEFAULT NULL,
-  `F_07` double DEFAULT NULL,
-  `F_15` bigint(20) NOT NULL,
-  `F_13` bigint(20) NOT NULL,
-  `F_16` bigint(20) DEFAULT NULL,
-  `F_12` bigint(20) NOT NULL,
-  `F_17` bigint(20) NOT NULL,
-  `F_14` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_06` double DEFAULT NULL,
+  `f_09` datetime(6) DEFAULT NULL,
+  `f_03` varchar(300) DEFAULT NULL,
+  `f_04` varchar(300) DEFAULT NULL,
+  `f_05` varchar(300) DEFAULT NULL,
+  `f_01` int(11) DEFAULT NULL,
+  `f_10` datetime(6) DEFAULT NULL,
+  `f_11` varchar(500) DEFAULT NULL,
+  `f_02` varchar(255) DEFAULT NULL,
+  `f_08` datetime(6) DEFAULT NULL,
+  `f_07` double DEFAULT NULL,
+  `f_15` bigint(20) NOT NULL,
+  `f_13` bigint(20) NOT NULL,
+  `f_16` bigint(20) DEFAULT NULL,
+  `f_12` bigint(20) NOT NULL,
+  `f_17` bigint(20) NOT NULL,
+  `f_14` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -5719,17 +5535,17 @@ CREATE TABLE `t_02_06_04` (
 --
 
 CREATE TABLE `t_03_01_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_01_01`
 --
 
-INSERT INTO `t_03_01_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
+INSERT INTO `t_03_01_01` (`f_00`, `f_01`, `f_02`, `f_03`) VALUES
 (1, 'مشغل عام وطني', 'National Public Operator', 'Opérateur Public National'),
 (2, 'مشغل خاص وطني', 'National Private Operator', 'Opérateur Privé National'),
 (3, 'مشغل دولي', 'International Operator', 'Opérateur International'),
@@ -5760,14 +5576,14 @@ INSERT INTO `t_03_01_01` (`F_00`, `F_01`, `F_02`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_03_01_02` (
-  `F_00` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_01_02`
 --
 
-INSERT INTO `t_03_01_02` (`F_00`) VALUES
+INSERT INTO `t_03_01_02` (`f_00`) VALUES
 (1),
 (2),
 (3),
@@ -5785,14 +5601,14 @@ INSERT INTO `t_03_01_02` (`F_00`) VALUES
 --
 
 CREATE TABLE `t_03_01_03` (
-  `F_00` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_01_03`
 --
 
-INSERT INTO `t_03_01_03` (`F_00`) VALUES
+INSERT INTO `t_03_01_03` (`f_00`) VALUES
 (10),
 (11),
 (12),
@@ -5814,18 +5630,18 @@ INSERT INTO `t_03_01_03` (`F_00`) VALUES
 --
 
 CREATE TABLE `t_03_01_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_01_04`
 --
 
-INSERT INTO `t_03_01_04` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_03_01_04` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'PUMP-STN', 'محطة ضخ', 'Pumping Station', 'Station de Pompage'),
 (2, 'COMP-STN', 'محطة ضغط', 'Compression Station', 'Station de Compression'),
 (3, 'PR-STN', 'محطة خفض الضغط', 'Pressure Reduction Station', 'Station de Détente'),
@@ -5853,14 +5669,14 @@ INSERT INTO `t_03_01_04` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_03_01_05` (
-  `F_00` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_01_05`
 --
 
-INSERT INTO `t_03_01_05` (`F_00`) VALUES
+INSERT INTO `t_03_01_05` (`f_00`) VALUES
 (1),
 (2),
 (3),
@@ -5876,14 +5692,14 @@ INSERT INTO `t_03_01_05` (`F_00`) VALUES
 --
 
 CREATE TABLE `t_03_01_06` (
-  `F_00` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_01_06`
 --
 
-INSERT INTO `t_03_01_06` (`F_00`) VALUES
+INSERT INTO `t_03_01_06` (`f_00`) VALUES
 (8),
 (9),
 (10),
@@ -5901,14 +5717,14 @@ INSERT INTO `t_03_01_06` (`F_00`) VALUES
 --
 
 CREATE TABLE `t_03_01_07` (
-  `F_00` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_01_07`
 --
 
-INSERT INTO `t_03_01_07` (`F_00`) VALUES
+INSERT INTO `t_03_01_07` (`f_00`) VALUES
 (17),
 (18),
 (19);
@@ -5920,18 +5736,18 @@ INSERT INTO `t_03_01_07` (`F_00`) VALUES
 --
 
 CREATE TABLE `t_03_01_08` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_01_08`
 --
 
-INSERT INTO `t_03_01_08` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_03_01_08` (`f_00`, `f_01`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'T', 'توربين', 'Turbine', 'Turbine'),
 (2, 'M', 'محرك', 'Motor', 'Moteur'),
 (3, 'EM', 'محرك كهربائي', 'Electric Motor', 'Moteur Électrique'),
@@ -5973,21 +5789,21 @@ INSERT INTO `t_03_01_08` (`F_00`, `F_01`, `F_02`, `F_03`, `F_04`) VALUES
 --
 
 CREATE TABLE `t_03_02_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(10) NOT NULL,
-  `F_05` varchar(200) DEFAULT NULL,
-  `F_06` varchar(200) DEFAULT NULL,
-  `F_07` varchar(200) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(10) NOT NULL,
+  `f_05` varchar(200) DEFAULT NULL,
+  `f_06` varchar(200) DEFAULT NULL,
+  `f_07` varchar(200) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_02_01`
 --
 
-INSERT INTO `t_03_02_01` (`F_00`, `F_01`, `F_05`, `F_06`, `F_07`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_03_02_01` (`f_00`, `f_01`, `f_05`, `f_06`, `f_07`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'SUD', 'المنطقة الجنوبية للشبكة الوطنية للنقل', 'Southern zone of the national transport network', 'Zone sud du réseau national de transport', 'الجنوب', 'South', 'Sud'),
 (2, 'NORD', 'المنطقة الشمالية للشبكة الوطنية للنقل', 'Northern zone of the national transport network', 'Zone nord du réseau national de transport', 'الشمال', 'North', 'Nord');
 
@@ -5998,22 +5814,22 @@ INSERT INTO `t_03_02_01` (`F_00`, `F_01`, `F_05`, `F_06`, `F_07`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_03_02_02` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(10) NOT NULL,
-  `F_05` varchar(200) DEFAULT NULL,
-  `F_06` varchar(200) DEFAULT NULL,
-  `F_07` varchar(200) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_08` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(10) NOT NULL,
+  `f_05` varchar(200) DEFAULT NULL,
+  `f_06` varchar(200) DEFAULT NULL,
+  `f_07` varchar(200) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_08` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_02_02`
 --
 
-INSERT INTO `t_03_02_02` (`F_00`, `F_01`, `F_05`, `F_06`, `F_07`, `F_02`, `F_03`, `F_04`, `F_08`) VALUES
+INSERT INTO `t_03_02_02` (`f_00`, `f_01`, `f_05`, `f_06`, `f_07`, `f_02`, `f_03`, `f_04`, `f_08`) VALUES
 (1, 'SCA', 'المقر الرئيسي المركزي لأنشطة النقل', 'Central headquarters for transport activities', 'Siège central pour les activités de transport', 'المقر المركزي للنشاط', 'Activity Central Headquarters', 'Siège Centrale de l\'Activité', 2),
 (2, 'RTO', 'منطقة النقل الغربية للشبكة الوطنية', 'Western transport region of the national network', 'Région de transport ouest du réseau national', 'منطقة النقل الغربية', 'Western Transport Region', 'Region de Transport Ouest', 2),
 (3, 'RTC', 'منطقة النقل المركزية للشبكة الوطنية', 'Central transport region of the national network', 'Région de transport centre du réseau national', 'منطقة النقل المركزية', 'Central Transport Region', 'Region de Transport Centre', 2),
@@ -6031,15 +5847,15 @@ INSERT INTO `t_03_02_02` (`F_00`, `F_01`, `F_05`, `F_06`, `F_07`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_03_02_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(10) NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_07` double DEFAULT NULL,
-  `F_05` double NOT NULL,
-  `F_06` double NOT NULL,
-  `F_08` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(10) NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_07` double DEFAULT NULL,
+  `f_05` double NOT NULL,
+  `f_06` double NOT NULL,
+  `f_08` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -6049,23 +5865,23 @@ CREATE TABLE `t_03_02_03` (
 --
 
 CREATE TABLE `t_03_02_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_05` double NOT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL,
-  `F_07` double NOT NULL,
-  `F_09` bit(1) NOT NULL,
-  `F_08` double NOT NULL,
-  `F_06` double NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_05` double NOT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL,
+  `f_07` double NOT NULL,
+  `f_09` bit(1) NOT NULL,
+  `f_08` double NOT NULL,
+  `f_06` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_02_04`
 --
 
-INSERT INTO `t_03_02_04` (`F_00`, `F_01`, `F_05`, `F_02`, `F_03`, `F_04`, `F_07`, `F_09`, `F_08`, `F_06`) VALUES
+INSERT INTO `t_03_02_04` (`f_00`, `f_01`, `f_05`, `f_02`, `f_03`, `f_04`, `f_07`, `f_09`, `f_08`, `f_06`) VALUES
 (1, 'GN', 0.7, 'الغاز الطبيعي', 'Natural Gas', 'Gaz naturel', -188, b'1', 0.01, 0.01),
 (2, 'PB', 0.85, 'النفط الخام', 'Crude Oil', 'Pétrole brut', -30, b'1', 1.5, 10.5),
 (3, 'COND', 0.75, 'المكثفات', 'Condensate', 'Condensat', -40, b'1', 0.05, 0.8),
@@ -6078,21 +5894,21 @@ INSERT INTO `t_03_02_04` (`F_00`, `F_01`, `F_05`, `F_02`, `F_03`, `F_04`, `F_07`
 --
 
 CREATE TABLE `t_03_02_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_05` varchar(200) DEFAULT NULL,
-  `F_06` varchar(200) DEFAULT NULL,
-  `F_07` varchar(200) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_05` varchar(200) DEFAULT NULL,
+  `f_06` varchar(200) DEFAULT NULL,
+  `f_07` varchar(200) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_02_05`
 --
 
-INSERT INTO `t_03_02_05` (`F_00`, `F_01`, `F_05`, `F_06`, `F_07`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_03_02_05` (`f_00`, `f_01`, `f_05`, `f_06`, `f_07`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'INSERVICE', 'العمليات العادية', 'Normal operations', 'Opérations normales', 'قيد الخدمة', 'In Service', 'En Service'),
 (2, 'STOPPED', 'ظروف السوق، المرونة التشغيلية', 'Market conditions, operational flexibility', 'Conditions du marché, flexibilité opérationnelle', 'متوقف مؤقتا', 'Stopped', 'À l\'Arrêt'),
 (3, 'SHUTDOWN', 'صيانة مخططة أو حادث غير متوقع', 'Planned maintenance or unexpected incident', 'Maintenance planifiée ou incident imprévu', 'متوقف', 'Shutdown', 'Arrêté'),
@@ -6109,21 +5925,21 @@ INSERT INTO `t_03_02_05` (`F_00`, `F_01`, `F_05`, `F_06`, `F_07`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_03_02_06` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_05` varchar(200) DEFAULT NULL,
-  `F_06` varchar(200) DEFAULT NULL,
-  `F_07` varchar(200) DEFAULT NULL,
-  `F_02` varchar(100) DEFAULT NULL,
-  `F_03` varchar(100) DEFAULT NULL,
-  `F_04` varchar(100) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_05` varchar(200) DEFAULT NULL,
+  `f_06` varchar(200) DEFAULT NULL,
+  `f_07` varchar(200) DEFAULT NULL,
+  `f_02` varchar(100) DEFAULT NULL,
+  `f_03` varchar(100) DEFAULT NULL,
+  `f_04` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_02_06`
 --
 
-INSERT INTO `t_03_02_06` (`F_00`, `F_01`, `F_05`, `F_06`, `F_07`, `F_02`, `F_03`, `F_04`) VALUES
+INSERT INTO `t_03_02_06` (`f_00`, `f_01`, `f_05`, `f_06`, `f_07`, `f_02`, `f_03`, `f_04`) VALUES
 (1, 'API-5L-B', 'فولاذ كربوني منخفض المقاومة للأنابيب العامة، حد أدنى للخضوع 35 كيلو باوند/بوصة²', 'Low-strength carbon steel for general purpose pipelines, minimum yield 35 ksi', 'Acier au carbone de résistance faible pour pipelines usage général, limite élastique min 35 ksi', 'فولاذ API 5L درجة B', 'API 5L Grade B', 'Acier API 5L Grade B'),
 (2, 'API-5L-X42', 'فولاذ متوسط المقاومة للضغوط المعتدلة، حد أدنى للخضوع 42 كيلو باوند/بوصة²', 'Medium-strength steel for moderate pressure applications, minimum yield 42 ksi', 'Acier de résistance moyenne pour applications à pression modérée, limite élastique min 42 ksi', 'فولاذ API 5L X42', 'API 5L Grade X42', 'Acier API 5L Grade X42'),
 (3, 'API-5L-X52', 'فولاذ عالي المقاومة للأنابيب القياسية، حد أدنى للخضوع 52 كيلو باوند/بوصة²', 'High-strength steel for standard pipelines, minimum yield 52 ksi, widely used', 'Acier haute résistance pour pipelines standard, limite élastique min 52 ksi, très utilisé', 'فولاذ API 5L X52', 'API 5L Grade X52', 'Acier API 5L Grade X52'),
@@ -6155,45 +5971,47 @@ INSERT INTO `t_03_02_06` (`F_00`, `F_01`, `F_05`, `F_06`, `F_07`, `F_02`, `F_03`
 --
 
 CREATE TABLE `t_03_02_07` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(20) NOT NULL,
-  `F_04` bigint(20) NOT NULL,
-  `F_03` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(20) NOT NULL,
+  `f_04` bigint(20) NOT NULL,
+  `f_03` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_02_07`
 --
 
-INSERT INTO `t_03_02_07` (`F_00`, `F_01`, `F_02`, `F_04`, `F_03`) VALUES
-(1, 'Société Nationale pour la Recherche, la Production, le Transport, la Transformation et la Commercial', 'SONATRACH', 1, 1),
-(2, 'Société Nationale de l\'Électricité et du Gaz', 'SONELGAZ', 1, 1),
-(3, 'Société Nationale de Transport Maritime des Hydrocarbures', 'SNTM-HYPROC', 1, 1),
-(4, 'Groupement TRC Reghaïa', 'GTP', 1, 2),
-(5, 'Tassili Airlines', 'TASSILI', 1, 2),
-(6, 'Ente Nazionale Idrocarburi', 'ENI', 2, 3),
-(7, 'TotalEnergies SE', 'TOTALENERGIES', 3, 3),
-(8, 'British Petroleum plc', 'BP', 4, 3),
-(9, 'Equinor ASA', 'EQUINOR', 5, 3),
-(10, 'Repsol S.A.', 'REPSOL', 6, 3),
-(11, 'In Salah Gas Joint Venture', 'ISG-JV', 1, 4),
-(12, 'In Amenas Joint Venture', 'IAM-JV', 1, 4),
-(13, 'Tin Fouye Tabankort Condensate Company', 'TFCC', 1, 4),
-(14, 'Société Nationale de Transport Maritime', 'SNTM', 1, 5),
-(15, 'Groupement Transport Par Canalisation', 'GTP-CANAL', 1, 5),
-(16, 'Raffinerie d\'Alger', 'RA1K', 1, 6),
-(17, 'Raffinerie d\'Arzew', 'RA1Z', 1, 6),
-(18, 'Raffinerie de Skikda', 'RA1S', 1, 6),
-(19, 'Raffinerie d\'Hassi Messaoud', 'RHMS', 1, 6),
-(20, 'Entreprise Nationale de Raffinage et de Distribution des Produits Pétroliers', 'NAFTAL', 1, 7),
-(21, 'Algerian Distribution Company', 'ALDIC', 1, 7),
-(22, 'Entreprise Nationale des Grands Travaux Pétroliers', 'ENGTP', 1, 8),
-(23, 'Société Algérienne des Foires et Exportations', 'SAFIR', 1, 8),
-(24, 'Technip Energies N.V.', 'TECHNIP', 3, 8),
-(25, 'Saipem S.p.A.', 'SAIPEM', 2, 8),
-(26, 'Algerian Energy Company', 'ALGERCO', 1, 9),
-(27, 'Algerian National Pipeline Infrastructure', 'ALNAFT', 1, 9);
+INSERT INTO `t_03_02_07` (`f_00`, `f_01`, `f_02`, `f_04`, `f_03`) VALUES
+(1, 'Société Nationale pour la Recherche, la Production, le Transport, la Transformation et la Commercial', 'SONATRACH', 4, 1),
+(2, 'Société Nationale de l\'Électricité et du Gaz', 'SONELGAZ', 4, 1),
+(3, 'Société Nationale de Transport Maritime des Hydrocarbures', 'SNTM-HYPROC', 4, 1),
+(4, 'Groupement TRC Reghaïa', 'GTP', 4, 2),
+(5, 'Tassili Airlines', 'TASSILI', 4, 2),
+(6, 'Ente Nazionale Idrocarburi', 'ENI', 111, 3),
+(7, 'TotalEnergies SE', 'TOTALENERGIES', 77, 3),
+(8, 'British Petroleum plc', 'BP', 235, 3),
+(9, 'Equinor ASA', 'EQUINOR', 167, 3),
+(10, 'Repsol S.A.', 'REPSOL', 210, 3),
+(11, 'In Salah Gas Joint Venture', 'ISG-JV', 4, 4),
+(12, 'In Amenas Joint Venture', 'IAM-JV', 4, 4),
+(13, 'Tin Fouye Tabankort Condensate Company', 'TFCC', 4, 4),
+(14, 'Société Nationale de Transport Maritime', 'SNTM', 4, 5),
+(15, 'Groupement Transport Par Canalisation', 'GTP-CANAL', 4, 5),
+(16, 'Raffinerie d\'Alger', 'RA1K', 4, 6),
+(17, 'Raffinerie d\'Arzew', 'RA1Z', 4, 6),
+(18, 'Raffinerie de Skikda', 'RA1S', 4, 6),
+(19, 'Raffinerie d\'Hassi Messaoud', 'RHMS', 4, 6),
+(20, 'Entreprise Nationale de Raffinage et de Distribution des Produits Pétroliers', 'NAFTAL', 4, 7),
+(21, 'Algerian Distribution Company', 'ALDIC', 4, 7),
+(22, 'Entreprise Nationale des Grands Travaux Pétroliers', 'ENGTP', 4, 8),
+(23, 'Société Algérienne des Foires et Exportations', 'SAFIR', 4, 8),
+(24, 'Technip Energies N.V.', 'TECHNIP', 77, 8),
+(25, 'Saipem S.p.A.', 'SAIPEM', 111, 8),
+(26, 'Algerian Energy Company', 'ALGERCO', 4, 9),
+(27, 'Algerian National Pipeline Infrastructure', 'ALNAFT', 4, 9),
+(28, 'China Petroleum & Chemical Corporation', 'Sinopec', 46, 4),
+(29, 'Occidental Petroleum Corporation', 'Occidental', 237, 4);
 
 -- --------------------------------------------------------
 
@@ -6202,56 +6020,57 @@ INSERT INTO `t_03_02_07` (`F_00`, `F_01`, `F_02`, `F_04`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_03_02_08` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(100) DEFAULT NULL,
-  `F_02` varchar(20) NOT NULL,
-  `F_04` bigint(20) NOT NULL,
-  `F_03` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(100) DEFAULT NULL,
+  `f_02` varchar(20) NOT NULL,
+  `f_04` bigint(20) NOT NULL,
+  `f_03` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_02_08`
 --
 
-INSERT INTO `t_03_02_08` (`F_00`, `F_01`, `F_02`, `F_04`, `F_03`) VALUES
-(1, 'Saipem S.p.A.', 'SAIPEM-EPC', 2, 10),
-(2, 'Technip Energies Algeria', 'TECHNIP-EPC', 3, 10),
-(3, 'China National Petroleum Corporation', 'CNPC-EPC', 7, 10),
-(4, 'Cosider Travaux Publics', 'COSIDER-TP', 1, 11),
-(5, 'Entreprise de Travaux Routiers Hydrauliques et Bâtiments', 'ETRHB', 1, 11),
-(6, 'ENGTP Construction Division', 'ENGTP-CONSTR', 1, 11),
-(7, 'Wood Group Algeria', 'WOOD', 4, 12),
-(8, 'Worley Algeria', 'WORLEY', 8, 12),
-(9, 'Penspen Limited', 'PENSPEN', 4, 12),
-(10, 'Amec Foster Wheeler Algeria', 'AFW-PMC', 4, 13),
-(11, 'KBR Inc.', 'KBR', 9, 13),
-(12, 'GE Oil & Gas Algeria', 'GE-OG', 9, 14),
-(13, 'Siemens Energy Algeria', 'SIEMENS-E', 10, 14),
-(14, 'Sulzer Pumps Services Algeria', 'SULZER', 11, 14),
-(15, 'Nuovo Pignone Algeria', 'NUOVO-PIG', 2, 14),
-(16, 'Alfapipe Spa', 'ALFAPIPE', 1, 15),
-(17, 'Europipe GmbH', 'EUROPIPE', 10, 15),
-(18, 'Vallourec Algérie', 'VALLOUREC', 3, 15),
-(19, 'Schneider Electric Algérie', 'SCHNEIDER', 3, 16),
-(20, 'Siemens Automation Algeria', 'SIEMENS-AUTO', 10, 16),
-(21, 'Honeywell Process Solutions Algeria', 'HONEYWELL', 9, 16),
-(22, 'Emerson Process Management Algeria', 'EMERSON', 9, 17),
-(23, 'Endress+Hauser Algeria', 'E+H', 11, 17),
-(24, 'ABB Measurement & Analytics Algeria', 'ABB-MEAS', 11, 17),
-(25, 'Entreprise Nationale de Forage', 'ENAFOR', 1, 18),
-(26, 'SGS Algeria', 'SGS', 11, 18),
-(27, 'Applus+ Algeria', 'APPLUS', 6, 18),
-(28, 'Bureau Veritas Algeria', 'BV', 3, 19),
-(29, 'TÜV Rheinland Algeria', 'TUV', 10, 19),
-(30, 'DNV Algeria', 'DNV', 5, 19),
-(31, 'Entreprise Nationale des Travaux aux Puits', 'ENTP', 1, 20),
-(32, 'Wood Group PSN Algeria', 'WOOD-PSN', 4, 20),
-(33, 'Société de Transport de Marchandises Express', 'TRANSMEX', 1, 21),
-(34, 'Gulf Agency Company Algeria', 'GAC', 12, 21),
-(35, 'SDV Logistique Internationale Algérie', 'SDV', 3, 21),
-(36, 'Kanaghaz Engineering', 'KANAGHAZ', 1, 22),
-(37, 'General Emballage Algérie', 'GEA', 1, 22),
-(38, 'Groupe Industriel des Ciments d\'Algérie', 'GICA', 1, 22);
+INSERT INTO `t_03_02_08` (`f_00`, `f_01`, `f_02`, `f_04`, `f_03`) VALUES
+(1, 'Saipem S.p.A.', 'SAIPEM-EPC', 111, 10),
+(2, 'Technip Energies Algeria', 'TECHNIP-EPC', 77, 10),
+(3, 'China National Petroleum Corporation', 'CNPC-EPC', 46, 10),
+(4, 'Cosider Travaux Publics', 'COSIDER-TP', 4, 11),
+(5, 'Entreprise de Travaux Routiers Hydrauliques et Bâtiments', 'ETRHB', 4, 11),
+(6, 'ENGTP Construction Division', 'ENGTP-CONSTR', 4, 11),
+(7, 'Wood Group Algeria', 'WOOD', 235, 12),
+(8, 'Worley Algeria', 'WORLEY', 14, 12),
+(9, 'Penspen Limited', 'PENSPEN', 235, 12),
+(10, 'Amec Foster Wheeler Algeria', 'AFW-PMC', 235, 13),
+(11, 'KBR Inc.', 'KBR', 237, 13),
+(12, 'GE Oil & Gas Algeria', 'GE-OG', 237, 14),
+(13, 'Siemens Energy Algeria', 'SIEMENS-E', 84, 14),
+(14, 'Sulzer Pumps Services Algeria', 'SULZER', 216, 14),
+(15, 'Nuovo Pignone Algeria', 'NUOVO-PIG', 111, 14),
+(16, 'Alfapipe Spa', 'ALFAPIPE', 4, 15),
+(17, 'Europipe GmbH', 'EUROPIPE', 84, 15),
+(18, 'Vallourec Algérie', 'VALLOUREC', 77, 15),
+(19, 'Schneider Electric Algérie', 'SCHNEIDER', 77, 16),
+(20, 'Siemens Automation Algeria', 'SIEMENS-AUTO', 84, 16),
+(21, 'Honeywell Process Solutions Algeria', 'HONEYWELL', 237, 16),
+(22, 'Emerson Process Management Algeria', 'EMERSON', 237, 17),
+(23, 'Endress+Hauser Algeria', 'E+H', 216, 17),
+(24, 'ABB Measurement & Analytics Algeria', 'ABB-MEAS', 216, 17),
+(25, 'Entreprise Nationale de Forage', 'ENAFOR', 4, 18),
+(26, 'SGS Algeria', 'SGS', 216, 18),
+(27, 'Applus+ Algeria', 'APPLUS', 210, 18),
+(28, 'Bureau Veritas Algeria', 'BV', 77, 19),
+(29, 'TÜV Rheinland Algeria', 'TUV', 84, 19),
+(30, 'DNV Algeria', 'DNV', 167, 19),
+(31, 'Entreprise Nationale des Travaux aux Puits', 'ENTP', 4, 20),
+(32, 'Wood Group PSN Algeria', 'WOOD-PSN', 235, 20),
+(33, 'Société de Transport de Marchandises Express', 'TRANSMEX', 4, 21),
+(34, 'Gulf Agency Company Algeria', 'GAC', 234, 21),
+(35, 'SDV Logistique Internationale Algérie', 'SDV', 77, 21),
+(36, 'Kanaghaz Engineering', 'KANAGHAZ', 4, 22),
+(37, 'General Emballage Algérie', 'GEA', 4, 22),
+(38, 'Groupe Industriel des Ciments d\'Algérie', 'GICA', 4, 22),
+(39, 'Société Nationale pour la Recherche, la Production, le Transport, la Transformation et la Commercial', 'SONATRACH', 4, 22);
 
 -- --------------------------------------------------------
 
@@ -6260,35 +6079,35 @@ INSERT INTO `t_03_02_08` (`F_00`, `F_01`, `F_02`, `F_04`, `F_03`) VALUES
 --
 
 CREATE TABLE `t_03_03_01` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(20) NOT NULL,
-  `F_04` date DEFAULT NULL,
-  `F_05` date DEFAULT NULL,
-  `F_03` date DEFAULT NULL,
-  `F_02` varchar(100) NOT NULL,
-  `F_06` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(20) NOT NULL,
+  `f_04` date DEFAULT NULL,
+  `f_05` date DEFAULT NULL,
+  `f_03` date DEFAULT NULL,
+  `f_02` varchar(100) NOT NULL,
+  `f_06` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_03_01`
 --
 
-INSERT INTO `t_03_03_01` (`F_00`, `F_01`, `F_04`, `F_05`, `F_03`, `F_02`, `F_06`) VALUES
-(1, 'CNDG', '2008-10-16', '0000-00-00', '2008-10-16', 'Centre National de Dispatching Gaz', 1),
-(2, 'CDHL', '1995-06-01', '0000-00-00', '1995-06-01', 'Centre de Dispatching des Hydrocarbures Liquides', 1),
-(3, 'PEHZ', '1978-02-21', '0000-00-00', '1978-02-21', 'Port d\'Exportation des Hydrocarbures d\'Arzew', 1),
-(4, 'PEHK', '1982-01-01', '0000-00-00', '1982-01-01', 'Port d\'Exportation des Hydrocarbures de Skikda', 1),
-(5, 'PEHB', '1960-01-01', '0000-00-00', '1960-01-01', 'Port d\'Exportation des Hydrocarbures de Bejaia', 1),
+INSERT INTO `t_03_03_01` (`f_00`, `f_01`, `f_04`, `f_05`, `f_03`, `f_02`, `f_06`) VALUES
+(1, 'CNDG', '1985-01-01', '0000-00-00', '1983-01-01', 'Centre National de Dispatching Gaz', 1),
+(2, 'CDHL', '1982-01-01', '0000-00-00', '1980-01-01', 'Centre de Dispatching des Hydrocarbures Liquides', 1),
+(3, 'PEHZ', '1965-01-01', '0000-00-00', '1964-01-01', 'Port d\'Exportation des Hydrocarbures d\'Arzew', 1),
+(4, 'PEHK', '1971-01-01', '0000-00-00', '1970-01-01', 'Port d\'Exportation des Hydrocarbures de Skikda', 1),
+(5, 'PEHB', '1961-01-01', '0000-00-00', '1960-01-01', 'Port d\'Exportation des Hydrocarbures de Bejaia', 1),
 (6, 'ULGNZ', '1964-01-01', '0000-00-00', '1964-01-01', 'Usine de Liquéfaction de Gaz Naturel d\'Arzew', 1),
-(7, 'ULGNK', '1972-01-01', '0000-00-00', '1972-01-01', 'Usine de Liquéfaction de Gaz Naturel de Skikda', 1),
-(8, 'TEO', '1987-06-01', '0000-00-00', '1987-06-01', 'Terminal d\'Exportation d\'Oued Saf Saf', 1),
-(9, 'TED', '1960-01-01', '0000-00-00', '1958-01-01', 'Terminal d\'Exportation du DEB DEB', 1),
-(10, 'RA1G', '1964-01-01', '0000-00-00', '1964-01-01', 'Raffinerie d\'Alger', 1),
-(11, 'RA1Z', '1972-01-01', '0000-00-00', '1972-01-01', 'Raffinerie d\'Arzew', 1),
+(7, 'ULGNK', '1972-01-01', '0000-00-00', '1970-01-01', 'Usine de Liquéfaction de Gaz Naturel de Skikda', 1),
+(8, 'TEO', '1972-01-01', '0000-00-00', '1970-01-01', 'Terminal d\'Exportation d\'Oued Saf Saf', 1),
+(9, 'TED', '1972-01-01', '0000-00-00', '1970-01-01', 'Terminal d\'Exportation du DEB DEB', 1),
+(10, 'RA1G', '1964-01-01', '0000-00-00', '1961-01-01', 'Raffinerie d\'Alger', 1),
+(11, 'RA1Z', '1972-01-01', '0000-00-00', '1970-01-01', 'Raffinerie d\'Arzew', 1),
 (12, 'RA2K', '2009-01-01', '0000-00-00', '2009-01-01', 'Raffinerie de Skikda', 1),
-(13, 'RA1K', '1980-01-01', '0000-00-00', '1980-01-01', 'Raffinerie de Skikda', 1),
-(14, 'RHMD2', '1972-01-01', '0000-00-00', '1972-01-01', 'Raffinerie de Hassi Messaoud', 1),
-(15, 'RA1D', '2007-01-01', '0000-00-00', '2007-01-01', 'Raffinerie d\'Adrar', 1),
+(13, 'RA1K', '1981-01-01', '0000-00-00', '1980-01-01', 'Raffinerie de Skikda', 1),
+(14, 'RHMD2', '2007-01-01', '0000-00-00', '2006-01-01', 'Raffinerie de Hassi Messaoud', 1),
+(15, 'RA1D', '1980-01-01', '0000-00-00', '1978-01-01', 'Raffinerie d\'Adrar', 1),
 (16, 'CP2K', '2004-01-01', '0000-00-00', '2004-01-01', 'Complexe Pétrochimique de Skikda', 1),
 (17, 'SP1-OZ1/OZ2', '2003-01-01', '0000-00-00', '2003-01-01', 'Station de Pompage de Haoud El Hamra', 1),
 (18, 'SP2-OZ1/OZ2', '2004-01-01', '0000-00-00', '2004-01-01', 'Station de Pompage d\'Ouargla', 1),
@@ -6396,7 +6215,26 @@ INSERT INTO `t_03_03_01` (`F_00`, `F_01`, `F_04`, `F_05`, `F_03`, `F_02`, `F_06`
 (120, 'GR4', '2014-01-01', '0000-00-00', '2014-01-01', 'Pipeline GR4', 1),
 (121, 'GR6', '2017-01-01', '0000-00-00', '2017-01-01', 'Pipeline GR6', 1),
 (122, 'GR5', '2017-06-01', '0000-00-00', '2017-06-01', 'Pipeline GR5', 1),
-(123, 'GR7', '2019-12-01', '0000-00-00', '2019-12-01', 'Pipeline GR7', 1);
+(123, 'GR7', '2019-12-01', '0000-00-00', '2019-12-01', 'Pipeline GR7', 1),
+(124, 'HRM', '1962-07-05', '0000-00-00', '1962-07-05', 'Hassi R’Mel Field', 1),
+(125, 'RN', '1962-07-05', '0000-00-00', '1962-07-05', 'Rhourde Nouss Field', 1),
+(126, 'Alrar', '1962-07-05', '0000-00-00', '1962-07-05', 'Alrar Field', 1),
+(127, 'TFT', '1962-07-05', '0000-00-00', '1962-07-05', 'Tin Fouyé Tabankort (TFT) Field', 1),
+(128, 'OHN', '1962-07-05', '0000-00-00', '1962-07-05', 'Ohanet Field', 1),
+(129, 'TGN', '1962-07-05', '0000-00-00', '1962-07-05', 'In Amenas (Tiguentourine) Field', 1),
+(130, 'Krechba', '1962-07-05', '0000-00-00', '1962-07-05', 'In Salah (Krechba group) Field', 1),
+(131, 'TMM', '1962-07-05', '0000-00-00', '1962-07-05', 'Timimoun Field', 1),
+(132, 'AT', '1962-07-05', '0000-00-00', '1962-07-05', 'Aïn T’sila Field', 1),
+(133, 'GT', '1962-07-05', '0000-00-00', '1962-07-05', 'Gassi Touil Field', 1),
+(134, 'HMD', '1962-07-05', '0000-00-00', '1962-07-05', 'Hassi Messaoud Field', 1),
+(135, 'HB', '1962-07-05', '0000-00-00', '1962-07-05', 'Haoud Berkaoui Field', 1),
+(136, 'ON', '1962-07-05', '0000-00-00', '1962-07-05', 'Oued Noumer Field', 1),
+(137, 'REB', '1962-07-05', '0000-00-00', '1962-07-05', 'Rhourde El Baguel Field', 1),
+(138, 'OUR', '1962-07-05', '0000-00-00', '1962-07-05', 'Ourhoud Field', 1),
+(139, 'HBC', '1962-07-05', '0000-00-00', '1962-07-05', 'Hassi Berkine Complex Field', 1),
+(140, 'ZRZ', '1962-07-05', '0000-00-00', '1962-07-05', 'Zarzaitine Field', 1),
+(141, 'HDLE', '1962-07-05', '0000-00-00', '1962-07-05', 'HDLE / HDLS Field', 1),
+(142, 'Tim', '1962-07-05', '0000-00-00', '1962-07-05', 'Timrhert / Tinrhert Field', 1);
 
 -- --------------------------------------------------------
 
@@ -6405,14 +6243,119 @@ INSERT INTO `t_03_03_01` (`F_00`, `F_01`, `F_04`, `F_05`, `F_03`, `F_02`, `F_06`
 --
 
 CREATE TABLE `t_03_03_02` (
-  `F_10` double DEFAULT NULL,
-  `F_08` double NOT NULL,
-  `F_09` double NOT NULL,
-  `F_07` varchar(100) NOT NULL,
-  `F_00` bigint(20) NOT NULL,
-  `F_12` bigint(20) NOT NULL,
-  `F_11` bigint(20) NOT NULL
+  `f_10` double DEFAULT NULL,
+  `f_08` double NOT NULL,
+  `f_09` double NOT NULL,
+  `f_07` varchar(100) NOT NULL,
+  `f_00` bigint(20) NOT NULL,
+  `f_12` bigint(20) NOT NULL,
+  `f_11` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `t_03_03_02`
+--
+
+INSERT INTO `t_03_03_02` (`f_10`, `f_08`, `f_09`, `f_07`, `f_00`, `f_12`, `f_11`) VALUES
+(750, 32.95, 3.17, 'Hassi R\'Mel', 1, 76, 39),
+(130, 31.61, 5.92, 'Haoud El Hamra', 2, 1096, 39),
+(5, 35.82, -0.28, 'Arzew', 3, 1113, 39),
+(6, 36.89, 6.92, 'Skikda', 4, 785, 39),
+(3, 36.75, 5.09, 'Béjaïa', 5, 187, 39),
+(10, 35.81, -0.25, 'Arzew', 6, 1113, 39),
+(8, 36.87, 6.97, 'Skikda', 7, 785, 39),
+(12, 35.3, -1.62, 'Oued Saf Saf', 8, 1469, 39),
+(560, 27.95, 8.12, 'Debdeb', 9, 1160, 39),
+(25, 36.73, 3.1, 'Alger', 10, 581, 39),
+(7, 35.81, -0.26, 'Arzew', 11, 1113, 39),
+(10, 36.87, 6.98, 'Skikda', 12, 785, 39),
+(10, 36.87, 6.98, 'Skikda', 13, 785, 39),
+(130, 31.61, 5.92, 'Hassi Messaoud', 14, 1096, 39),
+(280, 27.87, -0.29, 'Adrar', 15, 1, 39),
+(10, 36.88, 6.98, 'Skikda', 16, 785, 39),
+(0, 0, 0, 'default', 17, 1, 1),
+(0, 0, 0, 'default', 18, 1, 1),
+(0, 0, 0, 'default', 19, 1, 1),
+(0, 0, 0, 'default', 20, 1, 1),
+(0, 0, 0, 'default', 21, 1, 1),
+(0, 0, 0, 'default', 22, 1, 1),
+(0, 0, 0, 'default', 23, 1, 1),
+(0, 0, 0, 'default', 24, 1, 1),
+(0, 0, 0, 'default', 25, 1, 1),
+(0, 0, 0, 'default', 26, 1, 1),
+(0, 0, 0, 'default', 27, 1, 1),
+(0, 0, 0, 'default', 28, 1, 1),
+(0, 0, 0, 'default', 29, 1, 1),
+(0, 0, 0, 'default', 30, 1, 1),
+(0, 0, 0, 'default', 31, 1, 1),
+(0, 0, 0, 'default', 32, 1, 1),
+(0, 0, 0, 'default', 33, 1, 1),
+(0, 0, 0, 'default', 34, 1, 1),
+(0, 0, 0, 'default', 35, 1, 1),
+(0, 0, 0, 'default', 36, 1, 1),
+(0, 0, 0, 'default', 37, 1, 1),
+(0, 0, 0, 'default', 38, 1, 1),
+(0, 0, 0, 'default', 39, 1, 1),
+(0, 0, 0, 'default', 40, 1, 1),
+(0, 0, 0, 'default', 41, 1, 1),
+(0, 0, 0, 'default', 42, 1, 1),
+(0, 0, 0, 'default', 43, 1, 1),
+(0, 0, 0, 'default', 44, 1, 1),
+(0, 0, 0, 'default', 45, 1, 1),
+(0, 0, 0, 'default', 46, 1, 1),
+(0, 0, 0, 'default', 47, 1, 1),
+(0, 0, 0, 'default', 48, 1, 1),
+(0, 0, 0, 'default', 49, 1, 1),
+(0, 0, 0, 'default', 50, 1, 1),
+(0, 0, 0, 'default', 51, 1, 1),
+(0, 0, 0, 'default', 52, 1, 1),
+(0, 0, 0, 'default', 53, 1, 1),
+(0, 0, 0, 'default', 54, 1, 1),
+(0, 0, 0, 'default', 55, 1, 1),
+(0, 0, 0, 'default', 56, 1, 1),
+(0, 0, 0, 'default', 57, 1, 1),
+(0, 0, 0, 'default', 58, 1, 1),
+(0, 0, 0, 'default', 59, 1, 1),
+(0, 0, 0, 'default', 60, 1, 1),
+(0, 0, 0, 'default', 61, 1, 1),
+(0, 0, 0, 'default', 62, 1, 1),
+(0, 0, 0, 'default', 63, 1, 1),
+(0, 0, 0, 'default', 64, 1, 1),
+(0, 0, 0, 'default', 65, 1, 1),
+(0, 0, 0, 'default', 66, 1, 1),
+(0, 0, 0, 'default', 67, 1, 1),
+(0, 0, 0, 'default', 68, 1, 1),
+(0, 0, 0, 'default', 69, 1, 1),
+(0, 0, 0, 'default', 70, 1, 1),
+(0, 0, 0, 'default', 71, 1, 1),
+(0, 0, 0, 'default', 72, 1, 1),
+(0, 0, 0, 'default', 73, 1, 1),
+(0, 0, 0, 'default', 74, 1, 1),
+(0, 0, 0, 'default', 75, 1, 1),
+(0, 0, 0, 'default', 76, 1, 1),
+(980, 35.77, -1.83, 'El Aricha', 77, 414, 39),
+(10, 35.3, -1.63, 'Béni Saf', 78, 1469, 39),
+(50, 36.74, 3.72, 'Bordj Menaïel', 79, 1203, 39),
+(0, 0, 0, 'default', 80, 1, 1),
+(0, 32.95, 3.17, 'Hassi R’Mel', 124, 76, 1),
+(0, 29.65, 6.45, 'Rhourde Nouss', 125, 1162, 1),
+(0, 28.56, 9.65, 'Alrar', 126, 1162, 1),
+(0, 28.55, 7.22, 'TFT area', 127, 1162, 1),
+(0, 28.7, 8.72, 'Ohanet', 128, 1162, 1),
+(0, 27.85, 9.13, 'In Amenas', 129, 1162, 1),
+(0, 28.2, 2.4, 'In Salah', 130, 357, 1),
+(0, 28.24, 1.69, 'Timimoun basin', 131, 24, 1),
+(0, 27.69, 8.01, 'Isarène area', 132, 1162, 1),
+(0, 30.52, 6.47, 'Near Hassi Messaoud', 133, 1096, 1),
+(0, 31.61, 5.92, 'Hassi Messaoud', 134, 1096, 1),
+(0, 31.4, 5.75, 'Haoud Berkaoui', 135, 1101, 1),
+(0, 32.61, 3.7, 'Oued Noumer', 136, 1496, 1),
+(0, 31.5, 6.7, 'R. El Baguel', 137, 1101, 1),
+(0, 31.5, 6.3, 'Ourhoud', 138, 1101, 1),
+(0, 30.8, 8.03, 'Bir Berkine sector', 139, 1101, 1),
+(0, 28.01, 9.67, 'Zarzaitine', 140, 1163, 1),
+(0, 30.8, 8.03, 'Zemlet el Arbi', 141, 1101, 1),
+(0, 28, 9.4, 'Near In Amenas', 142, 1162, 1);
 
 -- --------------------------------------------------------
 
@@ -6421,9 +6364,75 @@ CREATE TABLE `t_03_03_02` (
 --
 
 CREATE TABLE `t_03_03_03` (
-  `F_00` bigint(20) NOT NULL,
-  `F_13` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_13` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `t_03_03_03`
+--
+
+INSERT INTO `t_03_03_03` (`f_00`, `f_13`) VALUES
+(17, 1),
+(18, 1),
+(19, 1),
+(20, 1),
+(21, 1),
+(22, 1),
+(23, 1),
+(24, 1),
+(25, 1),
+(26, 1),
+(27, 1),
+(28, 1),
+(29, 1),
+(30, 1),
+(31, 1),
+(32, 1),
+(33, 1),
+(34, 1),
+(35, 1),
+(36, 1),
+(37, 1),
+(38, 1),
+(39, 1),
+(40, 1),
+(41, 1),
+(42, 1),
+(43, 1),
+(44, 1),
+(45, 1),
+(46, 1),
+(47, 1),
+(48, 1),
+(49, 1),
+(50, 1),
+(51, 1),
+(52, 1),
+(53, 2),
+(54, 2),
+(55, 2),
+(56, 2),
+(57, 2),
+(58, 2),
+(59, 2),
+(60, 2),
+(61, 2),
+(62, 2),
+(63, 2),
+(64, 2),
+(65, 2),
+(66, 2),
+(67, 2),
+(68, 2),
+(69, 2),
+(70, 2),
+(71, 2),
+(72, 2),
+(73, 2),
+(74, 2),
+(75, 2),
+(76, 2);
 
 -- --------------------------------------------------------
 
@@ -6432,9 +6441,34 @@ CREATE TABLE `t_03_03_03` (
 --
 
 CREATE TABLE `t_03_03_04` (
-  `F_00` bigint(20) NOT NULL,
-  `F_13` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_13` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `t_03_03_04`
+--
+
+INSERT INTO `t_03_03_04` (`f_00`, `f_13`) VALUES
+(3, 8),
+(4, 8),
+(5, 8),
+(8, 8),
+(9, 8),
+(77, 8),
+(78, 8),
+(1, 12),
+(2, 12),
+(79, 12),
+(10, 13),
+(11, 13),
+(12, 13),
+(13, 13),
+(14, 13),
+(15, 13),
+(16, 13),
+(6, 14),
+(7, 14);
 
 -- --------------------------------------------------------
 
@@ -6443,9 +6477,34 @@ CREATE TABLE `t_03_03_04` (
 --
 
 CREATE TABLE `t_03_03_05` (
-  `F_00` bigint(20) NOT NULL,
-  `F_13` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_13` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `t_03_03_05`
+--
+
+INSERT INTO `t_03_03_05` (`f_00`, `f_13`) VALUES
+(124, 17),
+(125, 17),
+(126, 17),
+(127, 17),
+(128, 17),
+(129, 17),
+(130, 17),
+(131, 17),
+(132, 17),
+(133, 17),
+(135, 17),
+(136, 17),
+(142, 17),
+(134, 18),
+(137, 18),
+(138, 18),
+(139, 18),
+(140, 18),
+(141, 18);
 
 -- --------------------------------------------------------
 
@@ -6454,19 +6513,19 @@ CREATE TABLE `t_03_03_05` (
 --
 
 CREATE TABLE `t_03_03_06` (
-  `F_00` bigint(20) NOT NULL,
-  `F_01` varchar(50) NOT NULL,
-  `F_02` varchar(100) NOT NULL,
-  `F_04` bigint(20) NOT NULL,
-  `F_03` bigint(20) NOT NULL,
-  `F_05` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_01` varchar(50) NOT NULL,
+  `f_02` varchar(100) NOT NULL,
+  `f_04` bigint(20) NOT NULL,
+  `f_03` bigint(20) NOT NULL,
+  `f_05` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `t_03_03_06`
 --
 
-INSERT INTO `t_03_03_06` (`F_00`, `F_01`, `F_02`, `F_04`, `F_03`, `F_05`) VALUES
+INSERT INTO `t_03_03_06` (`f_00`, `f_01`, `f_02`, `f_04`, `f_03`, `f_05`) VALUES
 (1, 'OZ1/OZ2', 'STC OZ1/OZ2', 1, 2, 2),
 (2, 'OK1', 'STC OK1', 1, 2, 4),
 (3, 'OB1/OG1', 'STC OB1/OG1', 1, 2, 3),
@@ -6497,25 +6556,74 @@ INSERT INTO `t_03_03_06` (`F_00`, `F_01`, `F_02`, `F_04`, `F_03`, `F_05`) VALUES
 --
 
 CREATE TABLE `t_03_03_07` (
-  `F_15` double NOT NULL,
-  `F_11` double NOT NULL,
-  `F_13` double NOT NULL,
-  `F_08` double NOT NULL,
-  `F_07` double NOT NULL,
-  `F_10` double NOT NULL,
-  `F_09` double NOT NULL,
-  `F_16` double NOT NULL,
-  `F_12` double NOT NULL,
-  `F_14` double NOT NULL,
-  `F_00` bigint(20) NOT NULL,
-  `F_23` bigint(20) NOT NULL,
-  `F_22` bigint(20) NOT NULL,
-  `F_17` bigint(20) NOT NULL,
-  `F_18` bigint(20) NOT NULL,
-  `F_19` bigint(20) NOT NULL,
-  `F_21` bigint(20) NOT NULL,
-  `F_20` bigint(20) NOT NULL
+  `f_15` double NOT NULL,
+  `f_11` double NOT NULL,
+  `f_13` double NOT NULL,
+  `f_08` double NOT NULL,
+  `f_07` double NOT NULL,
+  `f_10` double NOT NULL,
+  `f_09` double NOT NULL,
+  `f_16` double NOT NULL,
+  `f_12` double NOT NULL,
+  `f_14` double NOT NULL,
+  `f_00` bigint(20) NOT NULL,
+  `f_23` bigint(20) NOT NULL,
+  `f_22` bigint(20) NOT NULL,
+  `f_17` bigint(20) NOT NULL,
+  `f_18` bigint(20) NOT NULL,
+  `f_19` bigint(20) NOT NULL,
+  `f_21` bigint(20) NOT NULL,
+  `f_20` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `t_03_03_07`
+--
+
+INSERT INTO `t_03_03_07` (`f_15`, `f_11`, `f_13`, `f_08`, `f_07`, `f_10`, `f_09`, `f_16`, `f_12`, `f_14`, `f_00`, `f_23`, `f_22`, `f_17`, `f_18`, `f_19`, `f_21`, `f_20`) VALUES
+(21, 63, 0, 801.478, 20, 0.5, 1, 11, 54, 0, 81, 3, 2, 1, 1, 1, 1, 1),
+(34, 70, 0, 821, 20, 0.5, 1, 34, 70, 0, 82, 3, 2, 1, 1, 1, 1, 1),
+(30, 75, 0, 646, 20, 0.5, 1, 30, 75, 0, 83, 4, 2, 1, 1, 1, 2, 1),
+(14, 83, 0, 672, 20, 0.5, 1, 11.4, 83, 0, 84, 5, 2, 1, 1, 1, 3, 1),
+(4, 72, 0, 144.74, 20, 0.5, 1, 4, 72, 0, 85, 10, 2, 1, 1, 1, 3, 1),
+(13.9, 70, 0, 265, 20, 0.5, 1, 7.8, 70, 0, 86, 9, 2, 1, 1, 1, 4, 1),
+(18, 49, 0, 630, 20, 0.5, 1, 3.3, 15, 0, 87, 2, 2, 1, 1, 1, 5, 1),
+(5, 72, 0, 272.35, 20, 0.5, 1, 2, 12, 0, 88, 39, 2, 1, 1, 1, 6, 1),
+(5, 55, 0, 33, 20, 0.5, 1, 5, 55, 0, 89, 39, 2, 1, 1, 1, 6, 1),
+(12, 40, 0, 108, 20, 0.5, 1, 12, 40, 0, 90, 2, 2, 1, 1, 1, 6, 1),
+(30, 70, 0, 292, 20, 0.5, 1, 30, 70, 0, 91, 2, 2, 1, 1, 1, 7, 1),
+(30, 70, 0, 292, 20, 0.5, 1, 30, 70, 0, 92, 2, 2, 1, 1, 1, 7, 1),
+(21, 66, 0, 507, 20, 0.5, 1, 13.6, 66, 0, 93, 3, 2, 1, 1, 1, 8, 1),
+(11.41, 82.9, 0, 646, 20, 0.5, 1, 11.41, 82.9, 0, 94, 4, 2, 1, 1, 1, 9, 1),
+(7.9, 11, 0, 565, 20, 0.5, 1, 7.9, 11, 0, 95, 2, 2, 1, 1, 1, 10, 1),
+(9, 84, 0, 503.46, 20, 0.5, 1, 9, 84, 0, 96, 3, 2, 1, 1, 1, 11, 1),
+(6, 114.1, 0, 495, 20, 0.5, 1, 6, 114.1, 0, 97, 3, 2, 1, 1, 1, 11, 1),
+(6.5, 91.7, 0, 989, 20, 0.5, 1, 5.7, 91.7, 0, 98, 1, 2, 1, 1, 1, 12, 1),
+(3.26, 89.2, 0, 404, 20, 0.5, 1, 3.26, 89.2, 0, 99, 2, 2, 1, 1, 1, 12, 1),
+(4.5, 77, 0, 336, 20, 0.5, 1, 4.5, 77, 0, 100, 1, 2, 1, 1, 1, 12, 1),
+(3.56, 65, 0, 509, 20, 0.5, 1, 0, 0, 0, 101, 6, 1, 1, 1, 1, 13, 1),
+(13.679, 69.8, 0, 507, 20, 0.5, 1, 13.679, 69.8, 0, 102, 6, 1, 1, 1, 1, 14, 1),
+(0, 70, 0, 3.6, 20, 0.5, 1, 0, 70, 0, 103, 6, 1, 1, 1, 1, 14, 1),
+(12.507, 67, 0, 511, 20, 0.5, 1, 12.507, 67, 0, 104, 6, 1, 1, 1, 1, 14, 1),
+(14.462, 65, 0, 517, 20, 0.5, 1, 14.462, 65, 0, 105, 6, 1, 1, 1, 1, 14, 1),
+(14.462, 65, 0, 221, 20, 0.5, 1, 14.462, 65, 0, 106, 6, 1, 1, 1, 1, 14, 1),
+(11.25, 70, 0, 633, 20, 0.5, 1, 11.25, 45, 0, 107, 6, 1, 1, 1, 1, 15, 1),
+(11.47, 71, 0, 521, 20, 0.5, 1, 11.47, 50, 0, 108, 77, 1, 1, 1, 1, 16, 1),
+(9, 70, 0, 198, 20, 0.5, 1, 9, 70, 0, 109, 78, 1, 1, 1, 1, 16, 1),
+(20.47, 70, 0, 575, 20, 0.5, 1, 20.47, 70, 0, 110, 7, 1, 1, 1, 1, 17, 1),
+(20.47, 70, 0, 576, 20, 0.5, 1, 20.47, 70, 0, 111, 7, 1, 1, 1, 1, 17, 1),
+(9.66, 71.5, 0, 786, 20, 0.5, 1, 9.66, 45, 0, 112, 7, 1, 1, 1, 1, 18, 1),
+(11.96, 70, 0, 548.285, 20, 0.5, 1, 11.96, 0, 0, 113, 8, 1, 1, 1, 1, 18, 1),
+(11.96, 70, 0, 548.285, 20, 0.5, 1, 11.96, 0, 0, 114, 8, 1, 1, 1, 1, 19, 1),
+(8.74, 70, 0, 548.285, 20, 0.5, 1, 8.74, 0, 0, 115, 8, 1, 1, 1, 1, 19, 1),
+(11.3, 70, 0, 437, 20, 0.5, 1, 11.3, 45, 0, 116, 79, 1, 1, 1, 1, 20, 1),
+(11.3, 70, 0, 208, 20, 0.5, 1, 11.3, 45, 0, 117, 79, 1, 1, 1, 1, 20, 1),
+(31.53, 71, 0, 966, 20, 0.5, 1, 31.53, 47, 0, 118, 1, 1, 1, 1, 1, 21, 1),
+(31.53, 71, 0, 966, 20, 0.5, 1, 31.53, 47, 0, 119, 1, 1, 1, 1, 1, 21, 1),
+(11.05, 71, 0, 535, 20, 0.5, 1, 11.05, 47, 0, 120, 1, 1, 1, 1, 1, 21, 1),
+(8.52, 71, 0, 531, 20, 0.5, 1, 8.52, 47, 0, 121, 1, 1, 1, 1, 1, 21, 1),
+(8.8, 70, 0, 770, 20, 0.5, 1, 8.8, 45, 0, 122, 1, 1, 1, 1, 1, 22, 1),
+(5.3, 70, 0, 345, 20, 0.5, 1, 5.3, 45, 0, 123, 1, 1, 1, 1, 1, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -6524,17 +6632,17 @@ CREATE TABLE `t_03_03_07` (
 --
 
 CREATE TABLE `t_03_03_08` (
-  `F_07` double NOT NULL,
-  `F_12` double NOT NULL,
-  `F_08` double NOT NULL,
-  `F_10` double NOT NULL,
-  `F_11` double NOT NULL,
-  `F_09` double NOT NULL,
-  `F_00` bigint(20) NOT NULL,
-  `F_13` bigint(20) DEFAULT NULL,
-  `F_14` bigint(20) DEFAULT NULL,
-  `F_15` bigint(20) DEFAULT NULL,
-  `F_16` bigint(20) NOT NULL
+  `f_07` double NOT NULL,
+  `f_12` double NOT NULL,
+  `f_08` double NOT NULL,
+  `f_10` double NOT NULL,
+  `f_11` double NOT NULL,
+  `f_09` double NOT NULL,
+  `f_00` bigint(20) NOT NULL,
+  `f_13` bigint(20) DEFAULT NULL,
+  `f_14` bigint(20) DEFAULT NULL,
+  `f_15` bigint(20) DEFAULT NULL,
+  `f_16` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -6544,20 +6652,20 @@ CREATE TABLE `t_03_03_08` (
 --
 
 CREATE TABLE `t_03_03_09` (
-  `F_00` bigint(20) NOT NULL,
-  `F_02` varchar(50) NOT NULL,
-  `F_08` date DEFAULT NULL,
-  `F_10` date DEFAULT NULL,
-  `F_07` date DEFAULT NULL,
-  `F_09` date DEFAULT NULL,
-  `F_03` varchar(100) NOT NULL,
-  `F_06` date DEFAULT NULL,
-  `F_04` varchar(50) DEFAULT NULL,
-  `F_01` varchar(100) NOT NULL,
-  `F_05` varchar(100) DEFAULT NULL,
-  `F_12` bigint(20) NOT NULL,
-  `F_13` bigint(20) NOT NULL,
-  `F_11` bigint(20) NOT NULL
+  `f_00` bigint(20) NOT NULL,
+  `f_02` varchar(50) NOT NULL,
+  `f_08` date DEFAULT NULL,
+  `f_10` date DEFAULT NULL,
+  `f_07` date DEFAULT NULL,
+  `f_09` date DEFAULT NULL,
+  `f_03` varchar(100) NOT NULL,
+  `f_06` date DEFAULT NULL,
+  `f_04` varchar(50) DEFAULT NULL,
+  `f_01` varchar(100) NOT NULL,
+  `f_05` varchar(100) DEFAULT NULL,
+  `f_12` bigint(20) NOT NULL,
+  `f_13` bigint(20) NOT NULL,
+  `f_11` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -6568,863 +6676,870 @@ CREATE TABLE `t_03_03_09` (
 -- Indexes for table `r_t000201_t000203`
 --
 ALTER TABLE `r_t000201_t000203`
-  ADD PRIMARY KEY (`F_01`,`F_02`),
-  ADD KEY `R_T000201_T000203_FK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T000201_T000203_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t000202_t000201`
 --
 ALTER TABLE `r_t000202_t000201`
-  ADD PRIMARY KEY (`F_01`,`F_02`),
-  ADD KEY `R_T000202_T000201_FK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T000202_T000201_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t000202_t000203`
 --
 ALTER TABLE `r_t000202_t000203`
-  ADD PRIMARY KEY (`F_01`,`F_02`),
-  ADD KEY `R_T000202_T000203_FK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T000202_T000203_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t000203_t000204`
 --
 ALTER TABLE `r_t000203_t000204`
-  ADD PRIMARY KEY (`F_01`,`F_02`),
-  ADD KEY `R_T000203_T000204_FK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T000203_T000204_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t010203_t010203`
 --
 ALTER TABLE `r_t010203_t010203`
-  ADD UNIQUE KEY `R_T010203_T010203_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T010203_T010203_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T010203_T010203_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T010203_T010203_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020207_t020208`
 --
 ALTER TABLE `r_t020207_t020208`
-  ADD UNIQUE KEY `R_T020207_T020208_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020207_T020208_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020207_T020208_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020207_T020208_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020304_t020301`
 --
 ALTER TABLE `r_t020304_t020301`
-  ADD UNIQUE KEY `R_T020304_T020301_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020304_T020301_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020304_T020301_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020304_T020301_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020404_t010203`
 --
 ALTER TABLE `r_t020404_t010203`
-  ADD UNIQUE KEY `R_T020404_T010203_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020404_T010203_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020404_T010203_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020404_T010203_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020404_t010302`
 --
 ALTER TABLE `r_t020404_t010302`
-  ADD UNIQUE KEY `R_T020404_T010302_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020404_T010302_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020404_T010302_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020404_T010302_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020404_t020208`
 --
 ALTER TABLE `r_t020404_t020208`
-  ADD UNIQUE KEY `R_T020404_T020208_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020404_T020208_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020404_T020208_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020404_T020208_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020504_t010203`
 --
 ALTER TABLE `r_t020504_t010203`
-  ADD UNIQUE KEY `R_T020504_T010203_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020504_T010203_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020504_T010203_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020504_T010203_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020504_t010302`
 --
 ALTER TABLE `r_t020504_t010302`
-  ADD UNIQUE KEY `R_T020504_T010302_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020504_T010302_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020504_T010302_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020504_T010302_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020504_t020208`
 --
 ALTER TABLE `r_t020504_t020208`
-  ADD UNIQUE KEY `R_T020504_T020208_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020504_T020208_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020504_T020208_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020504_T020208_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020604_t010203`
 --
 ALTER TABLE `r_t020604_t010203`
-  ADD UNIQUE KEY `R_T020604_T010203_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020604_T010203_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020604_T010203_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020604_T010203_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t020604_t010302`
 --
 ALTER TABLE `r_t020604_t010302`
-  ADD UNIQUE KEY `R_T020604_T010302_UK_01` (`F_01`,`F_02`),
-  ADD KEY `R_T020604_T010302_FK_02` (`F_02`);
+  ADD UNIQUE KEY `R_T020604_T010302_UK_01` (`f_01`,`f_02`),
+  ADD KEY `R_T020604_T010302_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t030303_t030307`
 --
 ALTER TABLE `r_t030303_t030307`
-  ADD PRIMARY KEY (`F_01`,`F_02`),
-  ADD KEY `R_T030303_T030307_FK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T030303_T030307_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t030304_t030307`
 --
 ALTER TABLE `r_t030304_t030307`
-  ADD PRIMARY KEY (`F_01`,`F_02`),
-  ADD KEY `R_T030304_T030307_FK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T030304_T030307_FK_02` (`f_02`);
+
+--
+-- Indexes for table `r_t030305_t030204`
+--
+ALTER TABLE `r_t030305_t030204`
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T030305_T030204_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t030305_t030207`
 --
 ALTER TABLE `r_t030305_t030207`
-  ADD PRIMARY KEY (`F_01`,`F_02`),
-  ADD KEY `R_T030303_T030207_FK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T030305_T030207_FK_02` (`f_02`);
 
 --
 -- Indexes for table `r_t030305_t030307`
 --
 ALTER TABLE `r_t030305_t030307`
-  ADD PRIMARY KEY (`F_01`,`F_02`),
-  ADD KEY `R_T030305_T030307_FK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_01`,`f_02`),
+  ADD KEY `R_T030305_T030307_FK_02` (`f_02`);
 
 --
 -- Indexes for table `t_00_01_01`
 --
 ALTER TABLE `t_00_01_01`
-  ADD PRIMARY KEY (`F_00`);
+  ADD PRIMARY KEY (`f_00`);
 
 --
 -- Indexes for table `t_00_02_01`
 --
 ALTER TABLE `t_00_02_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_00_02_01_UK_01` (`F_01`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_00_02_01_UK_01` (`f_01`);
 
 --
 -- Indexes for table `t_00_02_02`
 --
 ALTER TABLE `t_00_02_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_00_02_02_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_00_02_02_UK_02` (`F_02`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_00_02_02_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_00_02_02_UK_02` (`f_02`);
 
 --
 -- Indexes for table `t_00_02_03`
 --
 ALTER TABLE `t_00_02_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_00_02_03_UK_01` (`F_01`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_00_02_03_UK_01` (`f_01`);
 
 --
 -- Indexes for table `t_00_02_04`
 --
 ALTER TABLE `t_00_02_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_00_02_04_UK_01` (`F_01`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_00_02_04_UK_01` (`f_01`);
 
 --
 -- Indexes for table `t_00_02_05`
 --
 ALTER TABLE `t_00_02_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_00_02_05_UK_01` (`F_01`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_00_02_05_UK_01` (`f_01`);
 
 --
 -- Indexes for table `t_00_03_01`
 --
 ALTER TABLE `t_00_03_01`
-  ADD PRIMARY KEY (`F_00`);
+  ADD PRIMARY KEY (`f_00`);
 
 --
 -- Indexes for table `t_00_04_01`
 --
 ALTER TABLE `t_00_04_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_00_04_01_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_00_04_01_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_01_01`
 --
 ALTER TABLE `t_01_01_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_01_01_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_01_01_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_01_02`
 --
 ALTER TABLE `t_01_01_02`
-  ADD PRIMARY KEY (`F_00`);
+  ADD PRIMARY KEY (`f_00`);
 
 --
 -- Indexes for table `t_01_01_03`
 --
 ALTER TABLE `t_01_01_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_01_03_UK_01` (`F_05`,`F_04`),
-  ADD KEY `T_01_01_03_FK_02` (`F_06`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_01_03_UK_01` (`f_05`,`f_04`),
+  ADD KEY `T_01_01_03_FK_02` (`f_06`);
 
 --
 -- Indexes for table `t_01_01_04`
 --
 ALTER TABLE `t_01_01_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_01_04_UK_01` (`F_01`),
-  ADD KEY `T_01_01_04_FK_01` (`F_05`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_01_04_UK_01` (`f_01`),
+  ADD KEY `T_01_01_04_FK_01` (`f_05`);
 
 --
 -- Indexes for table `t_01_01_05`
 --
 ALTER TABLE `t_01_01_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_01_05_UK_02` (`F_02`),
-  ADD UNIQUE KEY `T_01_01_05_UK_03` (`F_05`),
-  ADD UNIQUE KEY `T_01_01_05_UK_01` (`F_01`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_01_05_UK_02` (`f_02`),
+  ADD UNIQUE KEY `T_01_01_05_UK_03` (`f_05`),
+  ADD UNIQUE KEY `T_01_01_05_UK_01` (`f_01`);
 
 --
 -- Indexes for table `t_01_01_06`
 --
 ALTER TABLE `t_01_01_06`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_01_06_UK_01` (`F_01`),
-  ADD KEY `T_01_01_06_FK_01` (`F_03`),
-  ADD KEY `T_01_01_06_FK_02` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_01_06_UK_01` (`f_01`),
+  ADD KEY `T_01_01_06_FK_01` (`f_03`),
+  ADD KEY `T_01_01_06_FK_02` (`f_04`);
 
 --
 -- Indexes for table `t_01_01_07`
 --
 ALTER TABLE `t_01_01_07`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_01_07_UK_01` (`F_01`),
-  ADD KEY `T_01_01_07_FK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_01_07_UK_01` (`f_01`),
+  ADD KEY `T_01_01_07_FK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_02_01`
 --
 ALTER TABLE `t_01_02_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_02_01_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_02_01_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_02_02`
 --
 ALTER TABLE `t_01_02_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_02_02_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_02_02_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_02_03`
 --
 ALTER TABLE `t_01_02_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_02_03_UK_01` (`F_01`),
-  ADD KEY `T_01_02_03_FK_04` (`F_09`),
-  ADD KEY `T_01_02_03_FK_01` (`F_06`),
-  ADD KEY `T_01_02_03_FK_02` (`F_07`),
-  ADD KEY `T_01_02_03_FK_03` (`F_08`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_02_03_UK_01` (`f_01`),
+  ADD KEY `T_01_02_03_FK_04` (`f_09`),
+  ADD KEY `T_01_02_03_FK_01` (`f_06`),
+  ADD KEY `T_01_02_03_FK_02` (`f_07`),
+  ADD KEY `T_01_02_03_FK_03` (`f_08`);
 
 --
 -- Indexes for table `t_01_03_01`
 --
 ALTER TABLE `t_01_03_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_03_01_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_03_01_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_03_02`
 --
 ALTER TABLE `t_01_03_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_03_02_UK_01` (`F_01`),
-  ADD KEY `T_01_03_02_FK_01` (`F_04`),
-  ADD KEY `T_01_03_02_FK_02` (`F_05`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_03_02_UK_01` (`f_01`),
+  ADD KEY `T_01_03_02_FK_01` (`f_04`),
+  ADD KEY `T_01_03_02_FK_02` (`f_05`);
 
 --
 -- Indexes for table `t_01_04_01`
 --
 ALTER TABLE `t_01_04_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_04_01_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_04_01_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_04_02`
 --
 ALTER TABLE `t_01_04_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_04_02_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_01_04_02_UK_02` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_04_02_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_01_04_02_UK_02` (`f_04`);
 
 --
 -- Indexes for table `t_01_04_03`
 --
 ALTER TABLE `t_01_04_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_04_03_UK_01` (`F_01`),
-  ADD KEY `T_01_04_03_FK_01` (`F_05`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_04_03_UK_01` (`f_01`),
+  ADD KEY `T_01_04_03_FK_01` (`f_05`);
 
 --
 -- Indexes for table `t_01_04_04`
 --
 ALTER TABLE `t_01_04_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_04_04_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_04_04_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_04_05`
 --
 ALTER TABLE `t_01_04_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_04_05_UK_01` (`F_03`),
-  ADD KEY `T_01_04_05_FK_01` (`F_07`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_04_05_UK_01` (`f_03`),
+  ADD KEY `T_01_04_05_FK_01` (`f_07`);
 
 --
 -- Indexes for table `t_01_04_06`
 --
 ALTER TABLE `t_01_04_06`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_04_06_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_04_06_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_01_04_07`
 --
 ALTER TABLE `t_01_04_07`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_04_07_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_01_04_07_UK_02` (`F_04`),
-  ADD KEY `T_01_04_07_FK_02` (`F_06`),
-  ADD KEY `T_01_04_07_FK_01` (`F_05`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_04_07_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_01_04_07_UK_02` (`f_04`),
+  ADD KEY `T_01_04_07_FK_02` (`f_06`),
+  ADD KEY `T_01_04_07_FK_01` (`f_05`);
 
 --
 -- Indexes for table `t_01_04_08`
 --
 ALTER TABLE `t_01_04_08`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_01_04_08_UK_01` (`F_01`),
-  ADD KEY `T_01_04_08_FK_01` (`F_05`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_01_04_08_UK_01` (`f_01`),
+  ADD KEY `T_01_04_08_FK_01` (`f_05`);
 
 --
 -- Indexes for table `t_01_04_09`
 --
 ALTER TABLE `t_01_04_09`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `FK5d5f2io70jjhnxm49c4nsmtjm` (`F_07`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `FKjyl04s1ujlqtgofawtcar64r2` (`f_07`);
 
 --
 -- Indexes for table `t_01_04_10`
 --
 ALTER TABLE `t_01_04_10`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `FKfploqhev5tkv2uul79eyvwlsp` (`F_02`),
-  ADD KEY `FKjucg9o5kabtxoi0j8qxf4bc0n` (`F_01`),
-  ADD KEY `FKl4ebqb4p2x7bb2n7lg3k9pik9` (`F_04`),
-  ADD KEY `FKre9gryisoebvijo6siwxm4e3s` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `FK9fmh0ejl0cqw71diiahuyi4dc` (`f_02`),
+  ADD KEY `FK9u760o2u68ygbyde9two8dyan` (`f_01`),
+  ADD KEY `FKn59hkobdwqa6ccc8gbxfvlbp5` (`f_04`),
+  ADD KEY `FK4r3mib0ef2cxha38iy0x7jyi9` (`f_03`);
 
 --
 -- Indexes for table `t_02_01_01`
 --
 ALTER TABLE `t_02_01_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_01_01_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_02_01_01_UK_02` (`F_02`),
-  ADD UNIQUE KEY `T_02_01_01_UK_03` (`F_03`),
-  ADD UNIQUE KEY `T_02_01_01_UK_04` (`F_04`),
-  ADD UNIQUE KEY `T_02_01_01_UK_05` (`F_05`,`F_06`,`F_07`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_01_01_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_02_01_01_UK_02` (`f_02`),
+  ADD UNIQUE KEY `T_02_01_01_UK_03` (`f_03`),
+  ADD UNIQUE KEY `T_02_01_01_UK_04` (`f_04`),
+  ADD UNIQUE KEY `T_02_01_01_UK_05` (`f_05`,`f_06`,`f_07`);
 
 --
 -- Indexes for table `t_02_01_02`
 --
 ALTER TABLE `t_02_01_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_01_02_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_01_02_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_01_03`
 --
 ALTER TABLE `t_02_01_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_01_03_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_01_03_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_01_04`
 --
 ALTER TABLE `t_02_01_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_01_04_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_01_04_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_01_05`
 --
 ALTER TABLE `t_02_01_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_01_05_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_01_05_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_02_01`
 --
 ALTER TABLE `t_02_02_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_02_01_UK_01` (`F_03`),
-  ADD UNIQUE KEY `T_02_02_01_UK_02` (`F_06`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_02_01_UK_01` (`f_03`),
+  ADD UNIQUE KEY `T_02_02_01_UK_02` (`f_06`);
 
 --
 -- Indexes for table `t_02_02_02`
 --
 ALTER TABLE `t_02_02_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_02_02_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_02_02_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_02_03`
 --
 ALTER TABLE `t_02_02_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_02_03_UK_01` (`F_01`),
-  ADD KEY `T_02_02_03_FK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_02_03_UK_01` (`f_01`),
+  ADD KEY `T_02_02_03_FK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_02_04`
 --
 ALTER TABLE `t_02_02_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_02_04_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_02_04_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_02_05`
 --
 ALTER TABLE `t_02_02_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_02_05_UK_01` (`F_03`),
-  ADD KEY `T_02_02_05_FK_01` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_02_05_UK_01` (`f_03`),
+  ADD KEY `T_02_02_05_FK_01` (`f_04`);
 
 --
 -- Indexes for table `t_02_02_06`
 --
 ALTER TABLE `t_02_02_06`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_02_06_UK_01` (`F_02`),
-  ADD KEY `T_02_02_06_FK_01` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_02_06_UK_01` (`f_02`),
+  ADD KEY `T_02_02_06_FK_01` (`f_04`);
 
 --
 -- Indexes for table `t_02_02_07`
 --
 ALTER TABLE `t_02_02_07`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_02_07_UK_01` (`F_03`,`F_04`),
-  ADD KEY `T_02_02_07_FK_01` (`F_04`),
-  ADD KEY `T_02_02_07_FK_02` (`F_05`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_02_07_UK_01` (`f_03`,`f_04`),
+  ADD KEY `T_02_02_07_FK_01` (`f_04`),
+  ADD KEY `T_02_02_07_FK_02` (`f_05`);
 
 --
 -- Indexes for table `t_02_02_08`
 --
 ALTER TABLE `t_02_02_08`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_02_02_08_FK_03` (`F_07`),
-  ADD KEY `T_02_02_08_FK_02` (`F_06`),
-  ADD KEY `T_02_02_08_FK_01` (`F_05`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_02_02_08_FK_03` (`f_07`),
+  ADD KEY `T_02_02_08_FK_02` (`f_06`),
+  ADD KEY `T_02_02_08_FK_01` (`f_05`);
 
 --
 -- Indexes for table `t_02_02_09`
 --
 ALTER TABLE `t_02_02_09`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_02_02_09_FK_01` (`F_02`),
-  ADD KEY `T_02_02_09_FK_02` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_02_02_09_FK_01` (`f_02`),
+  ADD KEY `T_02_02_09_FK_02` (`f_03`);
 
 --
 -- Indexes for table `t_02_03_01`
 --
 ALTER TABLE `t_02_03_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_03_01_UK_01` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_03_01_UK_01` (`f_04`);
 
 --
 -- Indexes for table `t_02_03_02`
 --
 ALTER TABLE `t_02_03_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_03_02_UK_01` (`F_03`),
-  ADD UNIQUE KEY `T_02_03_02_UK_02` (`F_06`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_03_02_UK_01` (`f_03`),
+  ADD UNIQUE KEY `T_02_03_02_UK_02` (`f_06`);
 
 --
 -- Indexes for table `t_02_03_03`
 --
 ALTER TABLE `t_02_03_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_03_03_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_03_03_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_03_04`
 --
 ALTER TABLE `t_02_03_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_02_03_04_FK_03` (`F_20`),
-  ADD KEY `T_02_03_04_FK_02` (`F_19`),
-  ADD KEY `T_02_03_04_FK_01` (`F_18`),
-  ADD KEY `T_02_03_04_FK_04` (`F_21`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_02_03_04_FK_03` (`f_20`),
+  ADD KEY `T_02_03_04_FK_02` (`f_19`),
+  ADD KEY `T_02_03_04_FK_01` (`f_18`),
+  ADD KEY `T_02_03_04_FK_04` (`f_21`);
 
 --
 -- Indexes for table `t_02_03_05`
 --
 ALTER TABLE `t_02_03_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_02_03_05_FK_01` (`F_10`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_02_03_05_FK_01` (`f_10`);
 
 --
 -- Indexes for table `t_02_03_06`
 --
 ALTER TABLE `t_02_03_06`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_03_06_UK_01` (`F_03`),
-  ADD KEY `T_02_03_06_FK_01` (`F_04`),
-  ADD KEY `T_02_03_06_FK_02` (`F_05`),
-  ADD KEY `T_02_03_06_FK_03` (`F_06`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_03_06_UK_01` (`f_03`),
+  ADD KEY `T_02_03_06_FK_01` (`f_04`),
+  ADD KEY `T_02_03_06_FK_02` (`f_05`),
+  ADD KEY `T_02_03_06_FK_03` (`f_06`);
 
 --
 -- Indexes for table `t_02_03_07`
 --
 ALTER TABLE `t_02_03_07`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_03_07_UK_01` (`F_01`,`F_05`),
-  ADD KEY `T_02_03_07_FK_01` (`F_04`),
-  ADD KEY `T_02_03_07_FK_02` (`F_05`),
-  ADD KEY `T_02_03_07_FK_03` (`F_06`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_03_07_UK_01` (`f_01`,`f_05`),
+  ADD KEY `T_02_03_07_FK_01` (`f_04`),
+  ADD KEY `T_02_03_07_FK_02` (`f_05`),
+  ADD KEY `T_02_03_07_FK_03` (`f_06`);
 
 --
 -- Indexes for table `t_02_04_01`
 --
 ALTER TABLE `t_02_04_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_04_01_UK_01` (`F_03`),
-  ADD UNIQUE KEY `T_02_04_01_UK_02` (`F_06`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_04_01_UK_01` (`f_03`),
+  ADD UNIQUE KEY `T_02_04_01_UK_02` (`f_06`);
 
 --
 -- Indexes for table `t_02_04_02`
 --
 ALTER TABLE `t_02_04_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_04_02_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_04_02_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_04_03`
 --
 ALTER TABLE `t_02_04_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_04_03_UK_01` (`F_03`),
-  ADD KEY `T_02_04_03_FK_01` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_04_03_UK_01` (`f_03`),
+  ADD KEY `T_02_04_03_FK_01` (`f_04`);
 
 --
 -- Indexes for table `t_02_04_04`
 --
 ALTER TABLE `t_02_04_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_04_04_UK_01` (`F_01`,`F_02`),
-  ADD KEY `T_02_04_04_FK_05` (`F_19`),
-  ADD KEY `T_02_04_04_FK_01` (`F_15`),
-  ADD KEY `T_02_04_04_FK_03` (`F_17`),
-  ADD KEY `T_02_04_04_FK_07` (`F_21`),
-  ADD KEY `T_02_04_04_FK_06` (`F_20`),
-  ADD KEY `T_02_04_04_FK_02` (`F_16`),
-  ADD KEY `T_02_04_04_FK_04` (`F_18`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_04_04_UK_01` (`f_01`,`f_02`),
+  ADD KEY `T_02_04_04_FK_05` (`f_19`),
+  ADD KEY `T_02_04_04_FK_01` (`f_15`),
+  ADD KEY `T_02_04_04_FK_03` (`f_17`),
+  ADD KEY `T_02_04_04_FK_07` (`f_21`),
+  ADD KEY `T_02_04_04_FK_06` (`f_20`),
+  ADD KEY `T_02_04_04_FK_02` (`f_16`),
+  ADD KEY `T_02_04_04_FK_04` (`f_18`);
 
 --
 -- Indexes for table `t_02_04_05`
 --
 ALTER TABLE `t_02_04_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_04_05_UK_01` (`F_03`,`F_04`),
-  ADD KEY `T_02_04_05_FK_03` (`F_05`),
-  ADD KEY `T_02_04_05_FK_05` (`F_07`),
-  ADD KEY `T_02_04_05_FK_04` (`F_06`),
-  ADD KEY `T_02_04_05_FK_02` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_04_05_UK_01` (`f_03`,`f_04`),
+  ADD KEY `T_02_04_05_FK_03` (`f_05`),
+  ADD KEY `T_02_04_05_FK_05` (`f_07`),
+  ADD KEY `T_02_04_05_FK_04` (`f_06`),
+  ADD KEY `T_02_04_05_FK_02` (`f_04`);
 
 --
 -- Indexes for table `t_02_05_01`
 --
 ALTER TABLE `t_02_05_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_05_01_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_05_01_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_05_02`
 --
 ALTER TABLE `t_02_05_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_05_02_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_05_02_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_05_03`
 --
 ALTER TABLE `t_02_05_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_05_03_UK_01` (`F_03`),
-  ADD KEY `T_02_05_03_FK_01` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_05_03_UK_01` (`f_03`),
+  ADD KEY `T_02_05_03_FK_01` (`f_04`);
 
 --
 -- Indexes for table `t_02_05_04`
 --
 ALTER TABLE `t_02_05_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_05_04_UK_01` (`F_01`),
-  ADD KEY `T_02_05_04_FK_05` (`F_20`),
-  ADD KEY `T_02_05_04_FK_07` (`F_22`),
-  ADD KEY `T_02_05_04_FK_04` (`F_19`),
-  ADD KEY `T_02_05_04_FK_01` (`F_16`),
-  ADD KEY `T_02_05_04_FK_08` (`F_23`),
-  ADD KEY `T_02_05_04_FK_06` (`F_21`),
-  ADD KEY `T_02_05_04_FK_03` (`F_18`),
-  ADD KEY `T_02_05_04_FK_02` (`F_17`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_05_04_UK_01` (`f_01`),
+  ADD KEY `T_02_05_04_FK_05` (`f_20`),
+  ADD KEY `T_02_05_04_FK_07` (`f_22`),
+  ADD KEY `T_02_05_04_FK_04` (`f_19`),
+  ADD KEY `T_02_05_04_FK_01` (`f_16`),
+  ADD KEY `T_02_05_04_FK_08` (`f_23`),
+  ADD KEY `T_02_05_04_FK_06` (`f_21`),
+  ADD KEY `T_02_05_04_FK_03` (`f_18`),
+  ADD KEY `T_02_05_04_FK_02` (`f_17`);
 
 --
 -- Indexes for table `t_02_05_05`
 --
 ALTER TABLE `t_02_05_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_05_05_UK_01` (`F_02`,`F_06`),
-  ADD KEY `T_02_05_05_FK_01` (`F_06`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_05_05_UK_01` (`f_02`,`f_06`),
+  ADD KEY `T_02_05_05_FK_01` (`f_06`);
 
 --
 -- Indexes for table `t_02_06_01`
 --
 ALTER TABLE `t_02_06_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_06_01_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_06_01_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_06_02`
 --
 ALTER TABLE `t_02_06_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_06_02_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_06_02_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_02_06_03`
 --
 ALTER TABLE `t_02_06_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_06_03_UK_01` (`F_03`),
-  ADD KEY `T_02_06_03_FK_01` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_06_03_UK_01` (`f_03`),
+  ADD KEY `T_02_06_03_FK_01` (`f_04`);
 
 --
 -- Indexes for table `t_02_06_04`
 --
 ALTER TABLE `t_02_06_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_02_06_04_UK_01` (`F_02`),
-  ADD KEY `T_02_06_04_FK_04` (`F_15`),
-  ADD KEY `T_02_06_04_FK_02` (`F_13`),
-  ADD KEY `T_02_06_04_FK_05` (`F_16`),
-  ADD KEY `T_02_06_04_FK_01` (`F_12`),
-  ADD KEY `T_02_06_04_FK_06` (`F_17`),
-  ADD KEY `T_02_06_04_FK_03` (`F_14`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_02_06_04_UK_01` (`f_02`),
+  ADD KEY `T_02_06_04_FK_04` (`f_15`),
+  ADD KEY `T_02_06_04_FK_02` (`f_13`),
+  ADD KEY `T_02_06_04_FK_05` (`f_16`),
+  ADD KEY `T_02_06_04_FK_01` (`f_12`),
+  ADD KEY `T_02_06_04_FK_06` (`f_17`),
+  ADD KEY `T_02_06_04_FK_03` (`f_14`);
 
 --
 -- Indexes for table `t_03_01_01`
 --
 ALTER TABLE `t_03_01_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_01_01_UK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_01_01_UK_01` (`f_03`);
 
 --
 -- Indexes for table `t_03_01_02`
 --
 ALTER TABLE `t_03_01_02`
-  ADD PRIMARY KEY (`F_00`);
+  ADD PRIMARY KEY (`f_00`);
 
 --
 -- Indexes for table `t_03_01_03`
 --
 ALTER TABLE `t_03_01_03`
-  ADD PRIMARY KEY (`F_00`);
+  ADD PRIMARY KEY (`f_00`);
 
 --
 -- Indexes for table `t_03_01_04`
 --
 ALTER TABLE `t_03_01_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_01_04_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_03_01_04_UK_02` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_01_04_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_03_01_04_UK_02` (`f_04`);
 
 --
 -- Indexes for table `t_03_01_05`
 --
 ALTER TABLE `t_03_01_05`
-  ADD PRIMARY KEY (`F_00`);
+  ADD PRIMARY KEY (`f_00`);
 
 --
 -- Indexes for table `t_03_01_06`
 --
 ALTER TABLE `t_03_01_06`
-  ADD PRIMARY KEY (`F_00`);
+  ADD PRIMARY KEY (`f_00`);
 
 --
 -- Indexes for table `t_03_01_07`
 --
 ALTER TABLE `t_03_01_07`
-  ADD PRIMARY KEY (`F_00`);
+  ADD PRIMARY KEY (`f_00`);
 
 --
 -- Indexes for table `t_03_01_08`
 --
 ALTER TABLE `t_03_01_08`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_01_08_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_03_01_08_UK_02` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_01_08_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_03_01_08_UK_02` (`f_04`);
 
 --
 -- Indexes for table `t_03_02_01`
 --
 ALTER TABLE `t_03_02_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_01_02_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_03_01_02_UK_02` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_01_02_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_03_01_02_UK_02` (`f_04`);
 
 --
 -- Indexes for table `t_03_02_02`
 --
 ALTER TABLE `t_03_02_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_02_02_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_03_02_02_UK_02` (`F_04`),
-  ADD KEY `T_03_02_02_FK_01` (`F_08`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_02_02_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_03_02_02_UK_02` (`f_04`),
+  ADD KEY `T_03_02_02_FK_01` (`f_08`);
 
 --
 -- Indexes for table `t_03_02_03`
 --
 ALTER TABLE `t_03_02_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_02_03_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_03_02_03_UK_02` (`F_01`),
-  ADD KEY `T_03_02_03_FK_01` (`F_08`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_02_03_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_03_02_03_UK_02` (`f_01`),
+  ADD KEY `T_03_02_03_FK_01` (`f_08`);
 
 --
 -- Indexes for table `t_03_02_04`
 --
 ALTER TABLE `t_03_02_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_02_04_UK_01` (`F_01`,`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_02_04_UK_01` (`f_01`,`f_04`);
 
 --
 -- Indexes for table `t_03_02_05`
 --
 ALTER TABLE `t_03_02_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_02_05_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_03_02_05_UK_02` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_02_05_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_03_02_05_UK_02` (`f_04`);
 
 --
 -- Indexes for table `t_03_02_06`
 --
 ALTER TABLE `t_03_02_06`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_02_06_UK_01` (`F_01`),
-  ADD UNIQUE KEY `T_03_02_06_UK_02` (`F_04`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_02_06_UK_01` (`f_01`),
+  ADD UNIQUE KEY `T_03_02_06_UK_02` (`f_04`);
 
 --
 -- Indexes for table `t_03_02_07`
 --
 ALTER TABLE `t_03_02_07`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_02_07_UK_01` (`F_02`),
-  ADD KEY `T_03_02_07_FK_02` (`F_04`),
-  ADD KEY `T_03_02_07_FK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_02_07_UK_01` (`f_02`),
+  ADD KEY `T_03_02_07_FK_02` (`f_04`),
+  ADD KEY `T_03_02_07_FK_01` (`f_03`);
 
 --
 -- Indexes for table `t_03_02_08`
 --
 ALTER TABLE `t_03_02_08`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_02_08_UK_01` (`F_02`),
-  ADD KEY `T_03_02_08_FK_02` (`F_04`),
-  ADD KEY `T_03_02_08_FK_01` (`F_03`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_02_08_UK_01` (`f_02`),
+  ADD KEY `T_03_02_08_FK_02` (`f_04`),
+  ADD KEY `T_03_02_08_FK_01` (`f_03`);
 
 --
 -- Indexes for table `t_03_03_01`
 --
 ALTER TABLE `t_03_03_01`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_03_01_UK_01` (`F_01`),
-  ADD KEY `T_03_03_01_FK_01` (`F_06`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_03_01_UK_01` (`f_01`),
+  ADD KEY `T_03_03_01_FK_01` (`f_06`);
 
 --
 -- Indexes for table `t_03_03_02`
 --
 ALTER TABLE `t_03_03_02`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_03_03_02_FK_02` (`F_12`),
-  ADD KEY `T_03_03_02_FK_01` (`F_11`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_03_03_02_FK_02` (`f_12`),
+  ADD KEY `T_03_03_02_FK_01` (`f_11`);
 
 --
 -- Indexes for table `t_03_03_03`
 --
 ALTER TABLE `t_03_03_03`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_03_03_03_FK_01` (`F_13`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_03_03_03_FK_01` (`f_13`);
 
 --
 -- Indexes for table `t_03_03_04`
 --
 ALTER TABLE `t_03_03_04`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_03_03_04_FK_01` (`F_13`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_03_03_04_FK_01` (`f_13`);
 
 --
 -- Indexes for table `t_03_03_05`
 --
 ALTER TABLE `t_03_03_05`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_03_03_05_FK_01` (`F_13`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_03_03_05_FK_01` (`f_13`);
 
 --
 -- Indexes for table `t_03_03_06`
 --
 ALTER TABLE `t_03_03_06`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_03_06_UK_01` (`F_01`),
-  ADD KEY `T_03_03_06_FK_02` (`F_04`),
-  ADD KEY `T_03_03_06_FK_01` (`F_03`),
-  ADD KEY `T_03_03_06_FK_03` (`F_05`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_03_06_UK_01` (`f_01`),
+  ADD KEY `T_03_03_06_FK_02` (`f_04`),
+  ADD KEY `T_03_03_06_FK_01` (`f_03`),
+  ADD KEY `T_03_03_06_FK_03` (`f_05`);
 
 --
 -- Indexes for table `t_03_03_07`
 --
 ALTER TABLE `t_03_03_07`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_03_03_07_FK_07` (`F_23`),
-  ADD KEY `T_03_03_07_FK_06` (`F_22`),
-  ADD KEY `T_03_03_07_FK_01` (`F_17`),
-  ADD KEY `T_03_03_07_FK_02` (`F_18`),
-  ADD KEY `T_03_03_07_FK_03` (`F_19`),
-  ADD KEY `T_03_03_07_FK_05` (`F_21`),
-  ADD KEY `T_03_03_07_FK_04` (`F_20`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_03_03_07_FK_07` (`f_23`),
+  ADD KEY `T_03_03_07_FK_06` (`f_22`),
+  ADD KEY `T_03_03_07_FK_01` (`f_17`),
+  ADD KEY `T_03_03_07_FK_02` (`f_18`),
+  ADD KEY `T_03_03_07_FK_03` (`f_19`),
+  ADD KEY `T_03_03_07_FK_05` (`f_21`),
+  ADD KEY `T_03_03_07_FK_04` (`f_20`);
 
 --
 -- Indexes for table `t_03_03_08`
 --
 ALTER TABLE `t_03_03_08`
-  ADD PRIMARY KEY (`F_00`),
-  ADD KEY `T_03_02_09_FK_01` (`F_13`),
-  ADD KEY `T_03_02_09_FK_02` (`F_14`),
-  ADD KEY `T_03_02_09_FK_03` (`F_15`),
-  ADD KEY `T_03_02_10_FK_01` (`F_16`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD KEY `T_03_02_09_FK_01` (`f_13`),
+  ADD KEY `T_03_02_09_FK_02` (`f_14`),
+  ADD KEY `T_03_02_09_FK_03` (`f_15`),
+  ADD KEY `T_03_02_10_FK_01` (`f_16`);
 
 --
 -- Indexes for table `t_03_03_09`
 --
 ALTER TABLE `t_03_03_09`
-  ADD PRIMARY KEY (`F_00`),
-  ADD UNIQUE KEY `T_03_03_09_UK_01` (`F_02`),
-  ADD KEY `T_03_03_09_FK_02` (`F_12`),
-  ADD KEY `T_03_03_09_FK_03` (`F_13`),
-  ADD KEY `T_03_03_09_FK_01` (`F_11`);
+  ADD PRIMARY KEY (`f_00`),
+  ADD UNIQUE KEY `T_03_03_09_UK_01` (`f_02`),
+  ADD KEY `T_03_03_09_FK_02` (`f_12`),
+  ADD KEY `T_03_03_09_FK_03` (`f_13`),
+  ADD KEY `T_03_03_09_FK_01` (`f_11`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -7434,475 +7549,475 @@ ALTER TABLE `t_03_03_09`
 -- AUTO_INCREMENT for table `t_00_01_01`
 --
 ALTER TABLE `t_00_01_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_00_02_01`
 --
 ALTER TABLE `t_00_02_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `t_00_02_02`
 --
 ALTER TABLE `t_00_02_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `t_00_02_03`
 --
 ALTER TABLE `t_00_02_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `t_00_02_04`
 --
 ALTER TABLE `t_00_02_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `t_00_02_05`
 --
 ALTER TABLE `t_00_02_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `t_00_03_01`
 --
 ALTER TABLE `t_00_03_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_00_04_01`
 --
 ALTER TABLE `t_00_04_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `t_01_01_01`
 --
 ALTER TABLE `t_01_01_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `t_01_01_02`
 --
 ALTER TABLE `t_01_01_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `t_01_01_03`
 --
 ALTER TABLE `t_01_01_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `t_01_01_04`
 --
 ALTER TABLE `t_01_01_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `t_01_01_05`
 --
 ALTER TABLE `t_01_01_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `t_01_01_06`
 --
 ALTER TABLE `t_01_01_06`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_01_01_07`
 --
 ALTER TABLE `t_01_01_07`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_01_02_01`
 --
 ALTER TABLE `t_01_02_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `t_01_02_02`
 --
 ALTER TABLE `t_01_02_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `t_01_02_03`
 --
 ALTER TABLE `t_01_02_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_01_03_01`
 --
 ALTER TABLE `t_01_03_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `t_01_03_02`
 --
 ALTER TABLE `t_01_03_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_01`
 --
 ALTER TABLE `t_01_04_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_02`
 --
 ALTER TABLE `t_01_04_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_03`
 --
 ALTER TABLE `t_01_04_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1542;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1542;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_04`
 --
 ALTER TABLE `t_01_04_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_05`
 --
 ALTER TABLE `t_01_04_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_06`
 --
 ALTER TABLE `t_01_04_06`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_07`
 --
 ALTER TABLE `t_01_04_07`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_08`
 --
 ALTER TABLE `t_01_04_08`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_09`
 --
 ALTER TABLE `t_01_04_09`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_01_04_10`
 --
 ALTER TABLE `t_01_04_10`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_01_01`
 --
 ALTER TABLE `t_02_01_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT for table `t_02_01_02`
 --
 ALTER TABLE `t_02_01_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `t_02_01_03`
 --
 ALTER TABLE `t_02_01_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `t_02_01_04`
 --
 ALTER TABLE `t_02_01_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `t_02_01_05`
 --
 ALTER TABLE `t_02_01_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_01`
 --
 ALTER TABLE `t_02_02_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_02`
 --
 ALTER TABLE `t_02_02_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_03`
 --
 ALTER TABLE `t_02_02_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_04`
 --
 ALTER TABLE `t_02_02_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_05`
 --
 ALTER TABLE `t_02_02_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_06`
 --
 ALTER TABLE `t_02_02_06`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_07`
 --
 ALTER TABLE `t_02_02_07`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_08`
 --
 ALTER TABLE `t_02_02_08`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_02_09`
 --
 ALTER TABLE `t_02_02_09`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_03_01`
 --
 ALTER TABLE `t_02_03_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1175;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1175;
 
 --
 -- AUTO_INCREMENT for table `t_02_03_02`
 --
 ALTER TABLE `t_02_03_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `t_02_03_03`
 --
 ALTER TABLE `t_02_03_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `t_02_03_04`
 --
 ALTER TABLE `t_02_03_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_03_05`
 --
 ALTER TABLE `t_02_03_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_03_06`
 --
 ALTER TABLE `t_02_03_06`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_03_07`
 --
 ALTER TABLE `t_02_03_07`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_04_01`
 --
 ALTER TABLE `t_02_04_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `t_02_04_02`
 --
 ALTER TABLE `t_02_04_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `t_02_04_03`
 --
 ALTER TABLE `t_02_04_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `t_02_04_04`
 --
 ALTER TABLE `t_02_04_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_04_05`
 --
 ALTER TABLE `t_02_04_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_05_01`
 --
 ALTER TABLE `t_02_05_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `t_02_05_02`
 --
 ALTER TABLE `t_02_05_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `t_02_05_03`
 --
 ALTER TABLE `t_02_05_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `t_02_05_04`
 --
 ALTER TABLE `t_02_05_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_05_05`
 --
 ALTER TABLE `t_02_05_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_02_06_01`
 --
 ALTER TABLE `t_02_06_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `t_02_06_02`
 --
 ALTER TABLE `t_02_06_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `t_02_06_03`
 --
 ALTER TABLE `t_02_06_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `t_02_06_04`
 --
 ALTER TABLE `t_02_06_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_03_01_01`
 --
 ALTER TABLE `t_03_01_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `t_03_01_04`
 --
 ALTER TABLE `t_03_01_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `t_03_01_08`
 --
 ALTER TABLE `t_03_01_08`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `t_03_02_01`
 --
 ALTER TABLE `t_03_02_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `t_03_02_02`
 --
 ALTER TABLE `t_03_02_02`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `t_03_02_03`
 --
 ALTER TABLE `t_03_02_03`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `t_03_02_04`
 --
 ALTER TABLE `t_03_02_04`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `t_03_02_05`
 --
 ALTER TABLE `t_03_02_05`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `t_03_02_06`
 --
 ALTER TABLE `t_03_02_06`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `t_03_02_07`
 --
 ALTER TABLE `t_03_02_07`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `t_03_02_08`
 --
 ALTER TABLE `t_03_02_08`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `t_03_03_01`
 --
 ALTER TABLE `t_03_03_01`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
 
 --
 -- AUTO_INCREMENT for table `t_03_03_06`
 --
 ALTER TABLE `t_03_03_06`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `t_03_03_09`
 --
 ALTER TABLE `t_03_03_09`
-  MODIFY `F_00` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_00` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -7912,493 +8027,500 @@ ALTER TABLE `t_03_03_09`
 -- Constraints for table `r_t000201_t000203`
 --
 ALTER TABLE `r_t000201_t000203`
-  ADD CONSTRAINT `R_T000201_T000203_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_00_02_01` (`F_00`),
-  ADD CONSTRAINT `R_T000201_T000203_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_00_02_03` (`F_00`);
+  ADD CONSTRAINT `R_T000201_T000203_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_00_02_01` (`f_00`),
+  ADD CONSTRAINT `R_T000201_T000203_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_00_02_03` (`f_00`);
 
 --
 -- Constraints for table `r_t000202_t000201`
 --
 ALTER TABLE `r_t000202_t000201`
-  ADD CONSTRAINT `R_T000202_T000201_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_00_02_02` (`F_00`),
-  ADD CONSTRAINT `R_T000202_T000201_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_00_02_01` (`F_00`);
+  ADD CONSTRAINT `R_T000202_T000201_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_00_02_02` (`f_00`),
+  ADD CONSTRAINT `R_T000202_T000201_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_00_02_01` (`f_00`);
 
 --
 -- Constraints for table `r_t000202_t000203`
 --
 ALTER TABLE `r_t000202_t000203`
-  ADD CONSTRAINT `R_T000202_T000203_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_00_02_02` (`F_00`),
-  ADD CONSTRAINT `R_T000202_T000203_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_00_02_03` (`F_00`);
+  ADD CONSTRAINT `R_T000202_T000203_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_00_02_02` (`f_00`),
+  ADD CONSTRAINT `R_T000202_T000203_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_00_02_03` (`f_00`);
 
 --
 -- Constraints for table `r_t000203_t000204`
 --
 ALTER TABLE `r_t000203_t000204`
-  ADD CONSTRAINT `R_T000203_T000204_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_00_02_03` (`F_00`),
-  ADD CONSTRAINT `R_T000203_T000204_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_00_02_04` (`F_00`);
+  ADD CONSTRAINT `R_T000203_T000204_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_00_02_03` (`f_00`),
+  ADD CONSTRAINT `R_T000203_T000204_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_00_02_04` (`f_00`);
 
 --
 -- Constraints for table `r_t010203_t010203`
 --
 ALTER TABLE `r_t010203_t010203`
-  ADD CONSTRAINT `R_T010203_T010203_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_01_02_03` (`F_00`),
-  ADD CONSTRAINT `R_T010203_T010203_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_01_02_03` (`F_00`);
+  ADD CONSTRAINT `R_T010203_T010203_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_01_02_03` (`f_00`),
+  ADD CONSTRAINT `R_T010203_T010203_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_01_02_03` (`f_00`);
 
 --
 -- Constraints for table `r_t020207_t020208`
 --
 ALTER TABLE `r_t020207_t020208`
-  ADD CONSTRAINT `R_T020207_T020208_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_02_07` (`F_00`),
-  ADD CONSTRAINT `R_T020207_T020208_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_02_02_08` (`F_00`);
+  ADD CONSTRAINT `R_T020207_T020208_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_02_07` (`f_00`),
+  ADD CONSTRAINT `R_T020207_T020208_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_02_02_08` (`f_00`);
 
 --
 -- Constraints for table `r_t020304_t020301`
 --
 ALTER TABLE `r_t020304_t020301`
-  ADD CONSTRAINT `R_T020304_T020301_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_03_04` (`F_00`),
-  ADD CONSTRAINT `R_T020304_T020301_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_02_03_01` (`F_00`);
+  ADD CONSTRAINT `R_T020304_T020301_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_03_04` (`f_00`),
+  ADD CONSTRAINT `R_T020304_T020301_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_02_03_01` (`f_00`);
 
 --
 -- Constraints for table `r_t020404_t010203`
 --
 ALTER TABLE `r_t020404_t010203`
-  ADD CONSTRAINT `R_T020404_T010203_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_04_04` (`F_00`),
-  ADD CONSTRAINT `R_T020404_T010203_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_01_02_03` (`F_00`);
+  ADD CONSTRAINT `R_T020404_T010203_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_04_04` (`f_00`),
+  ADD CONSTRAINT `R_T020404_T010203_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_01_02_03` (`f_00`);
 
 --
 -- Constraints for table `r_t020404_t010302`
 --
 ALTER TABLE `r_t020404_t010302`
-  ADD CONSTRAINT `R_T020404_T010302_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_04_04` (`F_00`),
-  ADD CONSTRAINT `R_T020404_T010302_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_01_03_02` (`F_00`);
+  ADD CONSTRAINT `R_T020404_T010302_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_04_04` (`f_00`),
+  ADD CONSTRAINT `R_T020404_T010302_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_01_03_02` (`f_00`);
 
 --
 -- Constraints for table `r_t020404_t020208`
 --
 ALTER TABLE `r_t020404_t020208`
-  ADD CONSTRAINT `R_T020404_T020208_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_04_04` (`F_00`),
-  ADD CONSTRAINT `R_T020404_T020208_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_02_02_08` (`F_00`);
+  ADD CONSTRAINT `R_T020404_T020208_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_04_04` (`f_00`),
+  ADD CONSTRAINT `R_T020404_T020208_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_02_02_08` (`f_00`);
 
 --
 -- Constraints for table `r_t020504_t010203`
 --
 ALTER TABLE `r_t020504_t010203`
-  ADD CONSTRAINT `R_T020504_T010203_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_05_04` (`F_00`),
-  ADD CONSTRAINT `R_T020504_T010203_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_01_02_03` (`F_00`);
+  ADD CONSTRAINT `R_T020504_T010203_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_05_04` (`f_00`),
+  ADD CONSTRAINT `R_T020504_T010203_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_01_02_03` (`f_00`);
 
 --
 -- Constraints for table `r_t020504_t010302`
 --
 ALTER TABLE `r_t020504_t010302`
-  ADD CONSTRAINT `R_T020504_T010302_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_05_04` (`F_00`),
-  ADD CONSTRAINT `R_T020504_T010302_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_01_03_02` (`F_00`);
+  ADD CONSTRAINT `R_T020504_T010302_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_05_04` (`f_00`),
+  ADD CONSTRAINT `R_T020504_T010302_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_01_03_02` (`f_00`);
 
 --
 -- Constraints for table `r_t020504_t020208`
 --
 ALTER TABLE `r_t020504_t020208`
-  ADD CONSTRAINT `R_T020504_T020208_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_05_04` (`F_00`),
-  ADD CONSTRAINT `R_T020504_T020208_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_02_02_08` (`F_00`);
+  ADD CONSTRAINT `R_T020504_T020208_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_05_04` (`f_00`),
+  ADD CONSTRAINT `R_T020504_T020208_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_02_02_08` (`f_00`);
 
 --
 -- Constraints for table `r_t020604_t010203`
 --
 ALTER TABLE `r_t020604_t010203`
-  ADD CONSTRAINT `R_T020604_T010203_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_06_04` (`F_00`),
-  ADD CONSTRAINT `R_T020604_T010203_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_01_02_03` (`F_00`);
+  ADD CONSTRAINT `R_T020604_T010203_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_06_04` (`f_00`),
+  ADD CONSTRAINT `R_T020604_T010203_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_01_02_03` (`f_00`);
 
 --
 -- Constraints for table `r_t020604_t010302`
 --
 ALTER TABLE `r_t020604_t010302`
-  ADD CONSTRAINT `R_T020604_T010302_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_02_06_04` (`F_00`),
-  ADD CONSTRAINT `R_T020604_T010302_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_01_03_02` (`F_00`);
+  ADD CONSTRAINT `R_T020604_T010302_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_02_06_04` (`f_00`),
+  ADD CONSTRAINT `R_T020604_T010302_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_01_03_02` (`f_00`);
 
 --
 -- Constraints for table `r_t030303_t030307`
 --
 ALTER TABLE `r_t030303_t030307`
-  ADD CONSTRAINT `R_T030303_T030307_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_03_03_03` (`F_00`),
-  ADD CONSTRAINT `R_T030303_T030307_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_03_03_07` (`F_00`);
+  ADD CONSTRAINT `R_T030303_T030307_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_03_03_03` (`f_00`),
+  ADD CONSTRAINT `R_T030303_T030307_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_03_03_07` (`f_00`);
 
 --
 -- Constraints for table `r_t030304_t030307`
 --
 ALTER TABLE `r_t030304_t030307`
-  ADD CONSTRAINT `R_T030304_T030307_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_03_03_04` (`F_00`),
-  ADD CONSTRAINT `R_T030304_T030307_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_03_03_07` (`F_00`);
+  ADD CONSTRAINT `R_T030304_T030307_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_03_03_04` (`f_00`),
+  ADD CONSTRAINT `R_T030304_T030307_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_03_03_07` (`f_00`);
+
+--
+-- Constraints for table `r_t030305_t030204`
+--
+ALTER TABLE `r_t030305_t030204`
+  ADD CONSTRAINT `R_T030305_T030204_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_03_03_05` (`f_00`),
+  ADD CONSTRAINT `R_T030305_T030204_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_03_02_04` (`f_00`);
 
 --
 -- Constraints for table `r_t030305_t030207`
 --
 ALTER TABLE `r_t030305_t030207`
-  ADD CONSTRAINT `R_T030303_T030207_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_03_03_05` (`F_00`),
-  ADD CONSTRAINT `R_T030303_T030207_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_03_03_07` (`F_00`);
+  ADD CONSTRAINT `R_T030305_T030207_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_03_03_05` (`f_00`),
+  ADD CONSTRAINT `R_T030305_T030207_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_03_02_07` (`f_00`);
 
 --
 -- Constraints for table `r_t030305_t030307`
 --
 ALTER TABLE `r_t030305_t030307`
-  ADD CONSTRAINT `R_T030305_T030307_FK_01` FOREIGN KEY (`F_01`) REFERENCES `t_03_03_05` (`F_00`),
-  ADD CONSTRAINT `R_T030305_T030307_FK_02` FOREIGN KEY (`F_02`) REFERENCES `t_03_03_07` (`F_00`);
+  ADD CONSTRAINT `R_T030305_T030307_FK_01` FOREIGN KEY (`f_01`) REFERENCES `t_03_03_05` (`f_00`),
+  ADD CONSTRAINT `R_T030305_T030307_FK_02` FOREIGN KEY (`f_02`) REFERENCES `t_03_03_07` (`f_00`);
 
 --
 -- Constraints for table `t_00_04_01`
 --
 ALTER TABLE `t_00_04_01`
-  ADD CONSTRAINT `T_00_04_01_FK_01` FOREIGN KEY (`F_03`) REFERENCES `t_00_02_02` (`F_00`);
+  ADD CONSTRAINT `T_00_04_01_FK_01` FOREIGN KEY (`f_03`) REFERENCES `t_00_02_02` (`f_00`);
 
 --
 -- Constraints for table `t_01_01_03`
 --
 ALTER TABLE `t_01_01_03`
-  ADD CONSTRAINT `T_01_01_03_FK_01` FOREIGN KEY (`F_05`) REFERENCES `t_01_01_01` (`F_00`),
-  ADD CONSTRAINT `T_01_01_03_FK_02` FOREIGN KEY (`F_06`) REFERENCES `t_01_01_02` (`F_00`);
+  ADD CONSTRAINT `T_01_01_03_FK_01` FOREIGN KEY (`f_05`) REFERENCES `t_01_01_01` (`f_00`),
+  ADD CONSTRAINT `T_01_01_03_FK_02` FOREIGN KEY (`f_06`) REFERENCES `t_01_01_02` (`f_00`);
 
 --
 -- Constraints for table `t_01_01_04`
 --
 ALTER TABLE `t_01_01_04`
-  ADD CONSTRAINT `T_01_01_04_FK_01` FOREIGN KEY (`F_05`) REFERENCES `t_01_01_03` (`F_00`);
+  ADD CONSTRAINT `T_01_01_04_FK_01` FOREIGN KEY (`f_05`) REFERENCES `t_01_01_03` (`f_00`);
 
 --
 -- Constraints for table `t_01_01_06`
 --
 ALTER TABLE `t_01_01_06`
-  ADD CONSTRAINT `T_01_01_06_FK_01` FOREIGN KEY (`F_03`) REFERENCES `t_01_01_04` (`F_00`),
-  ADD CONSTRAINT `T_01_01_06_FK_02` FOREIGN KEY (`F_04`) REFERENCES `t_01_01_05` (`F_00`);
+  ADD CONSTRAINT `T_01_01_06_FK_01` FOREIGN KEY (`f_03`) REFERENCES `t_01_01_04` (`f_00`),
+  ADD CONSTRAINT `T_01_01_06_FK_02` FOREIGN KEY (`f_04`) REFERENCES `t_01_01_05` (`f_00`);
 
 --
 -- Constraints for table `t_01_01_07`
 --
 ALTER TABLE `t_01_01_07`
-  ADD CONSTRAINT `T_01_01_07_FK_01` FOREIGN KEY (`F_03`) REFERENCES `t_01_01_06` (`F_00`);
+  ADD CONSTRAINT `T_01_01_07_FK_01` FOREIGN KEY (`f_03`) REFERENCES `t_01_01_06` (`f_00`);
 
 --
 -- Constraints for table `t_01_02_03`
 --
 ALTER TABLE `t_01_02_03`
-  ADD CONSTRAINT `T_01_02_03_FK_01` FOREIGN KEY (`F_06`) REFERENCES `t_01_02_01` (`F_00`),
-  ADD CONSTRAINT `T_01_02_03_FK_02` FOREIGN KEY (`F_07`) REFERENCES `t_01_02_02` (`F_00`),
-  ADD CONSTRAINT `T_01_02_03_FK_03` FOREIGN KEY (`F_08`) REFERENCES `t_01_04_07` (`F_00`),
-  ADD CONSTRAINT `T_01_02_03_FK_04` FOREIGN KEY (`F_09`) REFERENCES `t_00_01_01` (`F_00`);
+  ADD CONSTRAINT `T_01_02_03_FK_01` FOREIGN KEY (`f_06`) REFERENCES `t_01_02_01` (`f_00`),
+  ADD CONSTRAINT `T_01_02_03_FK_02` FOREIGN KEY (`f_07`) REFERENCES `t_01_02_02` (`f_00`),
+  ADD CONSTRAINT `T_01_02_03_FK_03` FOREIGN KEY (`f_08`) REFERENCES `t_01_04_07` (`f_00`),
+  ADD CONSTRAINT `T_01_02_03_FK_04` FOREIGN KEY (`f_09`) REFERENCES `t_00_01_01` (`f_00`);
 
 --
 -- Constraints for table `t_01_03_02`
 --
 ALTER TABLE `t_01_03_02`
-  ADD CONSTRAINT `T_01_03_02_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_01_03_01` (`F_00`),
-  ADD CONSTRAINT `T_01_03_02_FK_02` FOREIGN KEY (`F_05`) REFERENCES `t_00_01_01` (`F_00`);
+  ADD CONSTRAINT `T_01_03_02_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_01_03_01` (`f_00`),
+  ADD CONSTRAINT `T_01_03_02_FK_02` FOREIGN KEY (`f_05`) REFERENCES `t_00_01_01` (`f_00`);
 
 --
 -- Constraints for table `t_01_04_03`
 --
 ALTER TABLE `t_01_04_03`
-  ADD CONSTRAINT `T_01_04_03_FK_01` FOREIGN KEY (`F_05`) REFERENCES `t_01_04_02` (`F_00`);
+  ADD CONSTRAINT `T_01_04_03_FK_01` FOREIGN KEY (`f_05`) REFERENCES `t_01_04_02` (`f_00`);
 
 --
 -- Constraints for table `t_01_04_05`
 --
 ALTER TABLE `t_01_04_05`
-  ADD CONSTRAINT `T_01_04_05_FK_01` FOREIGN KEY (`F_07`) REFERENCES `t_01_04_04` (`F_00`);
+  ADD CONSTRAINT `T_01_04_05_FK_01` FOREIGN KEY (`f_07`) REFERENCES `t_01_04_04` (`f_00`);
 
 --
 -- Constraints for table `t_01_04_07`
 --
 ALTER TABLE `t_01_04_07`
-  ADD CONSTRAINT `T_01_04_07_FK_01` FOREIGN KEY (`F_05`) REFERENCES `t_01_04_06` (`F_00`),
-  ADD CONSTRAINT `T_01_04_07_FK_02` FOREIGN KEY (`F_06`) REFERENCES `t_01_04_07` (`F_00`);
+  ADD CONSTRAINT `T_01_04_07_FK_01` FOREIGN KEY (`f_05`) REFERENCES `t_01_04_06` (`f_00`),
+  ADD CONSTRAINT `T_01_04_07_FK_02` FOREIGN KEY (`f_06`) REFERENCES `t_01_04_07` (`f_00`);
 
 --
 -- Constraints for table `t_01_04_08`
 --
 ALTER TABLE `t_01_04_08`
-  ADD CONSTRAINT `T_01_04_08_FK_01` FOREIGN KEY (`F_05`) REFERENCES `t_01_04_07` (`F_00`);
+  ADD CONSTRAINT `T_01_04_08_FK_01` FOREIGN KEY (`f_05`) REFERENCES `t_01_04_07` (`f_00`);
 
 --
 -- Constraints for table `t_01_04_09`
 --
 ALTER TABLE `t_01_04_09`
-  ADD CONSTRAINT `FK5d5f2io70jjhnxm49c4nsmtjm` FOREIGN KEY (`F_07`) REFERENCES `t_01_04_01` (`F_00`);
+  ADD CONSTRAINT `FKjyl04s1ujlqtgofawtcar64r2` FOREIGN KEY (`f_07`) REFERENCES `t_01_04_01` (`f_00`);
 
 --
 -- Constraints for table `t_01_04_10`
 --
 ALTER TABLE `t_01_04_10`
-  ADD CONSTRAINT `FKfploqhev5tkv2uul79eyvwlsp` FOREIGN KEY (`F_02`) REFERENCES `t_01_04_08` (`F_00`),
-  ADD CONSTRAINT `FKjucg9o5kabtxoi0j8qxf4bc0n` FOREIGN KEY (`F_01`) REFERENCES `t_01_04_09` (`F_00`),
-  ADD CONSTRAINT `FKl4ebqb4p2x7bb2n7lg3k9pik9` FOREIGN KEY (`F_04`) REFERENCES `t_01_04_05` (`F_00`),
-  ADD CONSTRAINT `FKre9gryisoebvijo6siwxm4e3s` FOREIGN KEY (`F_03`) REFERENCES `t_01_04_07` (`F_00`);
+  ADD CONSTRAINT `FK4r3mib0ef2cxha38iy0x7jyi9` FOREIGN KEY (`f_03`) REFERENCES `t_01_04_07` (`f_00`),
+  ADD CONSTRAINT `FK9fmh0ejl0cqw71diiahuyi4dc` FOREIGN KEY (`f_02`) REFERENCES `t_01_04_08` (`f_00`),
+  ADD CONSTRAINT `FK9u760o2u68ygbyde9two8dyan` FOREIGN KEY (`f_01`) REFERENCES `t_01_04_09` (`f_00`),
+  ADD CONSTRAINT `FKn59hkobdwqa6ccc8gbxfvlbp5` FOREIGN KEY (`f_04`) REFERENCES `t_01_04_05` (`f_00`);
 
 --
 -- Constraints for table `t_02_02_03`
 --
 ALTER TABLE `t_02_02_03`
-  ADD CONSTRAINT `T_02_02_03_FK_01` FOREIGN KEY (`F_03`) REFERENCES `t_02_02_01` (`F_00`);
+  ADD CONSTRAINT `T_02_02_03_FK_01` FOREIGN KEY (`f_03`) REFERENCES `t_02_02_01` (`f_00`);
 
 --
 -- Constraints for table `t_02_02_05`
 --
 ALTER TABLE `t_02_02_05`
-  ADD CONSTRAINT `T_02_02_05_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_02_02_04` (`F_00`);
+  ADD CONSTRAINT `T_02_02_05_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_02_02_04` (`f_00`);
 
 --
 -- Constraints for table `t_02_02_06`
 --
 ALTER TABLE `t_02_02_06`
-  ADD CONSTRAINT `T_02_02_06_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_02_02_05` (`F_00`);
+  ADD CONSTRAINT `T_02_02_06_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_02_02_05` (`f_00`);
 
 --
 -- Constraints for table `t_02_02_07`
 --
 ALTER TABLE `t_02_02_07`
-  ADD CONSTRAINT `T_02_02_07_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_01_03_02` (`F_00`),
-  ADD CONSTRAINT `T_02_02_07_FK_02` FOREIGN KEY (`F_05`) REFERENCES `t_01_03_02` (`F_00`);
+  ADD CONSTRAINT `T_02_02_07_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_01_03_02` (`f_00`),
+  ADD CONSTRAINT `T_02_02_07_FK_02` FOREIGN KEY (`f_05`) REFERENCES `t_01_03_02` (`f_00`);
 
 --
 -- Constraints for table `t_02_02_08`
 --
 ALTER TABLE `t_02_02_08`
-  ADD CONSTRAINT `T_02_02_08_FK_01` FOREIGN KEY (`F_05`) REFERENCES `t_02_02_02` (`F_00`),
-  ADD CONSTRAINT `T_02_02_08_FK_02` FOREIGN KEY (`F_06`) REFERENCES `t_02_02_06` (`F_00`),
-  ADD CONSTRAINT `T_02_02_08_FK_03` FOREIGN KEY (`F_07`) REFERENCES `t_02_02_03` (`F_00`);
+  ADD CONSTRAINT `T_02_02_08_FK_01` FOREIGN KEY (`f_05`) REFERENCES `t_02_02_02` (`f_00`),
+  ADD CONSTRAINT `T_02_02_08_FK_02` FOREIGN KEY (`f_06`) REFERENCES `t_02_02_06` (`f_00`),
+  ADD CONSTRAINT `T_02_02_08_FK_03` FOREIGN KEY (`f_07`) REFERENCES `t_02_02_03` (`f_00`);
 
 --
 -- Constraints for table `t_02_02_09`
 --
 ALTER TABLE `t_02_02_09`
-  ADD CONSTRAINT `T_02_02_09_FK_01` FOREIGN KEY (`F_02`) REFERENCES `t_02_02_08` (`F_00`),
-  ADD CONSTRAINT `T_02_02_09_FK_02` FOREIGN KEY (`F_03`) REFERENCES `t_01_04_07` (`F_00`);
+  ADD CONSTRAINT `T_02_02_09_FK_01` FOREIGN KEY (`f_02`) REFERENCES `t_02_02_08` (`f_00`),
+  ADD CONSTRAINT `T_02_02_09_FK_02` FOREIGN KEY (`f_03`) REFERENCES `t_01_04_07` (`f_00`);
 
 --
 -- Constraints for table `t_02_03_04`
 --
 ALTER TABLE `t_02_03_04`
-  ADD CONSTRAINT `T_02_03_04_FK_01` FOREIGN KEY (`F_18`) REFERENCES `t_00_01_01` (`F_00`),
-  ADD CONSTRAINT `T_02_03_04_FK_02` FOREIGN KEY (`F_19`) REFERENCES `t_02_03_02` (`F_00`),
-  ADD CONSTRAINT `T_02_03_04_FK_03` FOREIGN KEY (`F_20`) REFERENCES `t_01_04_01` (`F_00`),
-  ADD CONSTRAINT `T_02_03_04_FK_04` FOREIGN KEY (`F_21`) REFERENCES `t_01_04_02` (`F_00`);
+  ADD CONSTRAINT `T_02_03_04_FK_01` FOREIGN KEY (`f_18`) REFERENCES `t_00_01_01` (`f_00`),
+  ADD CONSTRAINT `T_02_03_04_FK_02` FOREIGN KEY (`f_19`) REFERENCES `t_02_03_02` (`f_00`),
+  ADD CONSTRAINT `T_02_03_04_FK_03` FOREIGN KEY (`f_20`) REFERENCES `t_01_04_01` (`f_00`),
+  ADD CONSTRAINT `T_02_03_04_FK_04` FOREIGN KEY (`f_21`) REFERENCES `t_01_04_02` (`f_00`);
 
 --
 -- Constraints for table `t_02_03_05`
 --
 ALTER TABLE `t_02_03_05`
-  ADD CONSTRAINT `T_02_03_05_FK_01` FOREIGN KEY (`F_10`) REFERENCES `t_02_03_04` (`F_00`);
+  ADD CONSTRAINT `T_02_03_05_FK_01` FOREIGN KEY (`f_10`) REFERENCES `t_02_03_04` (`f_00`);
 
 --
 -- Constraints for table `t_02_03_06`
 --
 ALTER TABLE `t_02_03_06`
-  ADD CONSTRAINT `T_02_03_06_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_02_03_04` (`F_00`),
-  ADD CONSTRAINT `T_02_03_06_FK_02` FOREIGN KEY (`F_05`) REFERENCES `t_02_03_05` (`F_00`),
-  ADD CONSTRAINT `T_02_03_06_FK_03` FOREIGN KEY (`F_06`) REFERENCES `t_01_02_03` (`F_00`);
+  ADD CONSTRAINT `T_02_03_06_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_02_03_04` (`f_00`),
+  ADD CONSTRAINT `T_02_03_06_FK_02` FOREIGN KEY (`f_05`) REFERENCES `t_02_03_05` (`f_00`),
+  ADD CONSTRAINT `T_02_03_06_FK_03` FOREIGN KEY (`f_06`) REFERENCES `t_01_02_03` (`f_00`);
 
 --
 -- Constraints for table `t_02_03_07`
 --
 ALTER TABLE `t_02_03_07`
-  ADD CONSTRAINT `T_02_03_07_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_02_03_03` (`F_00`),
-  ADD CONSTRAINT `T_02_03_07_FK_02` FOREIGN KEY (`F_05`) REFERENCES `t_02_03_04` (`F_00`),
-  ADD CONSTRAINT `T_02_03_07_FK_03` FOREIGN KEY (`F_06`) REFERENCES `t_01_02_03` (`F_00`);
+  ADD CONSTRAINT `T_02_03_07_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_02_03_03` (`f_00`),
+  ADD CONSTRAINT `T_02_03_07_FK_02` FOREIGN KEY (`f_05`) REFERENCES `t_02_03_04` (`f_00`),
+  ADD CONSTRAINT `T_02_03_07_FK_03` FOREIGN KEY (`f_06`) REFERENCES `t_01_02_03` (`f_00`);
 
 --
 -- Constraints for table `t_02_04_03`
 --
 ALTER TABLE `t_02_04_03`
-  ADD CONSTRAINT `T_02_04_03_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_02_04_02` (`F_00`);
+  ADD CONSTRAINT `T_02_04_03_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_02_04_02` (`f_00`);
 
 --
 -- Constraints for table `t_02_04_04`
 --
 ALTER TABLE `t_02_04_04`
-  ADD CONSTRAINT `T_02_04_04_FK_01` FOREIGN KEY (`F_15`) REFERENCES `t_02_04_01` (`F_00`),
-  ADD CONSTRAINT `T_02_04_04_FK_02` FOREIGN KEY (`F_16`) REFERENCES `t_02_01_04` (`F_00`),
-  ADD CONSTRAINT `T_02_04_04_FK_03` FOREIGN KEY (`F_17`) REFERENCES `t_02_02_01` (`F_00`),
-  ADD CONSTRAINT `T_02_04_04_FK_04` FOREIGN KEY (`F_18`) REFERENCES `t_02_01_05` (`F_00`),
-  ADD CONSTRAINT `T_02_04_04_FK_05` FOREIGN KEY (`F_19`) REFERENCES `t_02_01_02` (`F_00`),
-  ADD CONSTRAINT `T_02_04_04_FK_06` FOREIGN KEY (`F_20`) REFERENCES `t_02_01_03` (`F_00`),
-  ADD CONSTRAINT `T_02_04_04_FK_07` FOREIGN KEY (`F_21`) REFERENCES `t_02_04_03` (`F_00`);
+  ADD CONSTRAINT `T_02_04_04_FK_01` FOREIGN KEY (`f_15`) REFERENCES `t_02_04_01` (`f_00`),
+  ADD CONSTRAINT `T_02_04_04_FK_02` FOREIGN KEY (`f_16`) REFERENCES `t_02_01_04` (`f_00`),
+  ADD CONSTRAINT `T_02_04_04_FK_03` FOREIGN KEY (`f_17`) REFERENCES `t_02_02_01` (`f_00`),
+  ADD CONSTRAINT `T_02_04_04_FK_04` FOREIGN KEY (`f_18`) REFERENCES `t_02_01_05` (`f_00`),
+  ADD CONSTRAINT `T_02_04_04_FK_05` FOREIGN KEY (`f_19`) REFERENCES `t_02_01_02` (`f_00`),
+  ADD CONSTRAINT `T_02_04_04_FK_06` FOREIGN KEY (`f_20`) REFERENCES `t_02_01_03` (`f_00`),
+  ADD CONSTRAINT `T_02_04_04_FK_07` FOREIGN KEY (`f_21`) REFERENCES `t_02_04_03` (`f_00`);
 
 --
 -- Constraints for table `t_02_04_05`
 --
 ALTER TABLE `t_02_04_05`
-  ADD CONSTRAINT `T_02_04_05_FK_01` FOREIGN KEY (`F_03`) REFERENCES `t_02_04_04` (`F_00`),
-  ADD CONSTRAINT `T_02_04_05_FK_02` FOREIGN KEY (`F_04`) REFERENCES `t_02_03_04` (`F_00`),
-  ADD CONSTRAINT `T_02_04_05_FK_03` FOREIGN KEY (`F_05`) REFERENCES `t_00_01_01` (`F_00`),
-  ADD CONSTRAINT `T_02_04_05_FK_04` FOREIGN KEY (`F_06`) REFERENCES `t_00_01_01` (`F_00`),
-  ADD CONSTRAINT `T_02_04_05_FK_05` FOREIGN KEY (`F_07`) REFERENCES `t_00_01_01` (`F_00`);
+  ADD CONSTRAINT `T_02_04_05_FK_01` FOREIGN KEY (`f_03`) REFERENCES `t_02_04_04` (`f_00`),
+  ADD CONSTRAINT `T_02_04_05_FK_02` FOREIGN KEY (`f_04`) REFERENCES `t_02_03_04` (`f_00`),
+  ADD CONSTRAINT `T_02_04_05_FK_03` FOREIGN KEY (`f_05`) REFERENCES `t_00_01_01` (`f_00`),
+  ADD CONSTRAINT `T_02_04_05_FK_04` FOREIGN KEY (`f_06`) REFERENCES `t_00_01_01` (`f_00`),
+  ADD CONSTRAINT `T_02_04_05_FK_05` FOREIGN KEY (`f_07`) REFERENCES `t_00_01_01` (`f_00`);
 
 --
 -- Constraints for table `t_02_05_03`
 --
 ALTER TABLE `t_02_05_03`
-  ADD CONSTRAINT `T_02_05_03_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_02_05_02` (`F_00`);
+  ADD CONSTRAINT `T_02_05_03_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_02_05_02` (`f_00`);
 
 --
 -- Constraints for table `t_02_05_04`
 --
 ALTER TABLE `t_02_05_04`
-  ADD CONSTRAINT `T_02_05_04_FK_01` FOREIGN KEY (`F_16`) REFERENCES `t_02_05_01` (`F_00`),
-  ADD CONSTRAINT `T_02_05_04_FK_02` FOREIGN KEY (`F_17`) REFERENCES `t_02_03_04` (`F_00`),
-  ADD CONSTRAINT `T_02_05_04_FK_03` FOREIGN KEY (`F_18`) REFERENCES `t_02_01_05` (`F_00`),
-  ADD CONSTRAINT `T_02_05_04_FK_04` FOREIGN KEY (`F_19`) REFERENCES `t_02_05_03` (`F_00`),
-  ADD CONSTRAINT `T_02_05_04_FK_05` FOREIGN KEY (`F_20`) REFERENCES `t_02_01_02` (`F_00`),
-  ADD CONSTRAINT `T_02_05_04_FK_06` FOREIGN KEY (`F_21`) REFERENCES `t_02_01_01` (`F_00`),
-  ADD CONSTRAINT `T_02_05_04_FK_07` FOREIGN KEY (`F_22`) REFERENCES `t_02_04_04` (`F_00`),
-  ADD CONSTRAINT `T_02_05_04_FK_08` FOREIGN KEY (`F_23`) REFERENCES `t_02_05_04` (`F_00`);
+  ADD CONSTRAINT `T_02_05_04_FK_01` FOREIGN KEY (`f_16`) REFERENCES `t_02_05_01` (`f_00`),
+  ADD CONSTRAINT `T_02_05_04_FK_02` FOREIGN KEY (`f_17`) REFERENCES `t_02_03_04` (`f_00`),
+  ADD CONSTRAINT `T_02_05_04_FK_03` FOREIGN KEY (`f_18`) REFERENCES `t_02_01_05` (`f_00`),
+  ADD CONSTRAINT `T_02_05_04_FK_04` FOREIGN KEY (`f_19`) REFERENCES `t_02_05_03` (`f_00`),
+  ADD CONSTRAINT `T_02_05_04_FK_05` FOREIGN KEY (`f_20`) REFERENCES `t_02_01_02` (`f_00`),
+  ADD CONSTRAINT `T_02_05_04_FK_06` FOREIGN KEY (`f_21`) REFERENCES `t_02_01_01` (`f_00`),
+  ADD CONSTRAINT `T_02_05_04_FK_07` FOREIGN KEY (`f_22`) REFERENCES `t_02_04_04` (`f_00`),
+  ADD CONSTRAINT `T_02_05_04_FK_08` FOREIGN KEY (`f_23`) REFERENCES `t_02_05_04` (`f_00`);
 
 --
 -- Constraints for table `t_02_05_05`
 --
 ALTER TABLE `t_02_05_05`
-  ADD CONSTRAINT `T_02_05_05_FK_01` FOREIGN KEY (`F_06`) REFERENCES `t_02_05_04` (`F_00`);
+  ADD CONSTRAINT `T_02_05_05_FK_01` FOREIGN KEY (`f_06`) REFERENCES `t_02_05_04` (`f_00`);
 
 --
 -- Constraints for table `t_02_06_03`
 --
 ALTER TABLE `t_02_06_03`
-  ADD CONSTRAINT `T_02_06_03_FK_01` FOREIGN KEY (`F_04`) REFERENCES `t_02_06_02` (`F_00`);
+  ADD CONSTRAINT `T_02_06_03_FK_01` FOREIGN KEY (`f_04`) REFERENCES `t_02_06_02` (`f_00`);
 
 --
 -- Constraints for table `t_02_06_04`
 --
 ALTER TABLE `t_02_06_04`
-  ADD CONSTRAINT `T_02_06_04_FK_01` FOREIGN KEY (`F_12`) REFERENCES `t_02_05_04` (`F_00`),
-  ADD CONSTRAINT `T_02_06_04_FK_02` FOREIGN KEY (`F_13`) REFERENCES `t_02_06_01` (`F_00`),
-  ADD CONSTRAINT `T_02_06_04_FK_03` FOREIGN KEY (`F_14`) REFERENCES `t_02_01_05` (`F_00`),
-  ADD CONSTRAINT `T_02_06_04_FK_04` FOREIGN KEY (`F_15`) REFERENCES `t_02_06_02` (`F_00`),
-  ADD CONSTRAINT `T_02_06_04_FK_05` FOREIGN KEY (`F_16`) REFERENCES `t_02_01_02` (`F_00`),
-  ADD CONSTRAINT `T_02_06_04_FK_06` FOREIGN KEY (`F_17`) REFERENCES `t_02_01_01` (`F_00`);
+  ADD CONSTRAINT `T_02_06_04_FK_01` FOREIGN KEY (`f_12`) REFERENCES `t_02_05_04` (`f_00`),
+  ADD CONSTRAINT `T_02_06_04_FK_02` FOREIGN KEY (`f_13`) REFERENCES `t_02_06_01` (`f_00`),
+  ADD CONSTRAINT `T_02_06_04_FK_03` FOREIGN KEY (`f_14`) REFERENCES `t_02_01_05` (`f_00`),
+  ADD CONSTRAINT `T_02_06_04_FK_04` FOREIGN KEY (`f_15`) REFERENCES `t_02_06_02` (`f_00`),
+  ADD CONSTRAINT `T_02_06_04_FK_05` FOREIGN KEY (`f_16`) REFERENCES `t_02_01_02` (`f_00`),
+  ADD CONSTRAINT `T_02_06_04_FK_06` FOREIGN KEY (`f_17`) REFERENCES `t_02_01_01` (`f_00`);
 
 --
 -- Constraints for table `t_03_01_02`
 --
 ALTER TABLE `t_03_01_02`
-  ADD CONSTRAINT `FKstsyiqy29nd3jit5aqxo901bn` FOREIGN KEY (`F_00`) REFERENCES `t_03_01_01` (`F_00`);
+  ADD CONSTRAINT `FKbbeoh1l7mx1hgtnx8ikqer4gw` FOREIGN KEY (`f_00`) REFERENCES `t_03_01_01` (`f_00`);
 
 --
 -- Constraints for table `t_03_01_03`
 --
 ALTER TABLE `t_03_01_03`
-  ADD CONSTRAINT `FK8pwa5h3sfhh159lyodsjr7v7t` FOREIGN KEY (`F_00`) REFERENCES `t_03_01_01` (`F_00`);
+  ADD CONSTRAINT `FKxh6gaqmrr6ni2pe8g79h8gao` FOREIGN KEY (`f_00`) REFERENCES `t_03_01_01` (`f_00`);
 
 --
 -- Constraints for table `t_03_01_05`
 --
 ALTER TABLE `t_03_01_05`
-  ADD CONSTRAINT `FKm6d6tm3wmkopl5utx7anh5suw` FOREIGN KEY (`F_00`) REFERENCES `t_03_01_04` (`F_00`);
+  ADD CONSTRAINT `FKgdqiur1tjea94uwyuo1ig0e6j` FOREIGN KEY (`f_00`) REFERENCES `t_03_01_04` (`f_00`);
 
 --
 -- Constraints for table `t_03_01_06`
 --
 ALTER TABLE `t_03_01_06`
-  ADD CONSTRAINT `FKfwd88fag562777n9e2yojop39` FOREIGN KEY (`F_00`) REFERENCES `t_03_01_04` (`F_00`);
+  ADD CONSTRAINT `FK3938r0j09crvujlyqm9o11iak` FOREIGN KEY (`f_00`) REFERENCES `t_03_01_04` (`f_00`);
 
 --
 -- Constraints for table `t_03_01_07`
 --
 ALTER TABLE `t_03_01_07`
-  ADD CONSTRAINT `FKn5h40fqfwftknoss2tkku4kdy` FOREIGN KEY (`F_00`) REFERENCES `t_03_01_04` (`F_00`);
+  ADD CONSTRAINT `FKg7wx28m9n2f5qt7wdiy3xjymt` FOREIGN KEY (`f_00`) REFERENCES `t_03_01_04` (`f_00`);
 
 --
 -- Constraints for table `t_03_02_02`
 --
 ALTER TABLE `t_03_02_02`
-  ADD CONSTRAINT `T_03_02_02_FK_01` FOREIGN KEY (`F_08`) REFERENCES `t_03_02_01` (`F_00`);
+  ADD CONSTRAINT `T_03_02_02_FK_01` FOREIGN KEY (`f_08`) REFERENCES `t_03_02_01` (`f_00`);
 
 --
 -- Constraints for table `t_03_02_03`
 --
 ALTER TABLE `t_03_02_03`
-  ADD CONSTRAINT `T_03_02_03_FK_01` FOREIGN KEY (`F_08`) REFERENCES `t_01_04_03` (`F_00`);
+  ADD CONSTRAINT `T_03_02_03_FK_01` FOREIGN KEY (`f_08`) REFERENCES `t_01_04_03` (`f_00`);
 
 --
 -- Constraints for table `t_03_02_07`
 --
 ALTER TABLE `t_03_02_07`
-  ADD CONSTRAINT `T_03_02_07_FK_01` FOREIGN KEY (`F_03`) REFERENCES `t_03_01_02` (`F_00`),
-  ADD CONSTRAINT `T_03_02_07_FK_02` FOREIGN KEY (`F_04`) REFERENCES `t_01_04_01` (`F_00`);
+  ADD CONSTRAINT `T_03_02_07_FK_01` FOREIGN KEY (`f_03`) REFERENCES `t_03_01_02` (`f_00`),
+  ADD CONSTRAINT `T_03_02_07_FK_02` FOREIGN KEY (`f_04`) REFERENCES `t_01_04_01` (`f_00`);
 
 --
 -- Constraints for table `t_03_02_08`
 --
 ALTER TABLE `t_03_02_08`
-  ADD CONSTRAINT `T_03_02_08_FK_01` FOREIGN KEY (`F_03`) REFERENCES `t_03_01_03` (`F_00`),
-  ADD CONSTRAINT `T_03_02_08_FK_02` FOREIGN KEY (`F_04`) REFERENCES `t_01_04_01` (`F_00`);
+  ADD CONSTRAINT `T_03_02_08_FK_01` FOREIGN KEY (`f_03`) REFERENCES `t_03_01_03` (`f_00`),
+  ADD CONSTRAINT `T_03_02_08_FK_02` FOREIGN KEY (`f_04`) REFERENCES `t_01_04_01` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_01`
 --
 ALTER TABLE `t_03_03_01`
-  ADD CONSTRAINT `T_03_03_01_FK_01` FOREIGN KEY (`F_06`) REFERENCES `t_03_02_05` (`F_00`);
+  ADD CONSTRAINT `T_03_03_01_FK_01` FOREIGN KEY (`f_06`) REFERENCES `t_03_02_05` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_02`
 --
 ALTER TABLE `t_03_03_02`
-  ADD CONSTRAINT `FKm0u49vcytxoa5vkdyw3c2j7ct` FOREIGN KEY (`F_00`) REFERENCES `t_03_03_01` (`F_00`),
-  ADD CONSTRAINT `T_03_03_02_FK_01` FOREIGN KEY (`F_11`) REFERENCES `t_03_02_08` (`F_00`),
-  ADD CONSTRAINT `T_03_03_02_FK_02` FOREIGN KEY (`F_12`) REFERENCES `t_01_04_03` (`F_00`);
+  ADD CONSTRAINT `FKindnchnl4vq0k8ufmamony3et` FOREIGN KEY (`f_00`) REFERENCES `t_03_03_01` (`f_00`),
+  ADD CONSTRAINT `T_03_03_02_FK_01` FOREIGN KEY (`f_11`) REFERENCES `t_03_02_08` (`f_00`),
+  ADD CONSTRAINT `T_03_03_02_FK_02` FOREIGN KEY (`f_12`) REFERENCES `t_01_04_03` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_03`
 --
 ALTER TABLE `t_03_03_03`
-  ADD CONSTRAINT `FKdlyi8pcitn594pkyqvw7aia4l` FOREIGN KEY (`F_00`) REFERENCES `t_03_03_02` (`F_00`),
-  ADD CONSTRAINT `T_03_03_03_FK_01` FOREIGN KEY (`F_13`) REFERENCES `t_03_01_05` (`F_00`);
+  ADD CONSTRAINT `FK41sbd506j8cvexdy6w35tlh08` FOREIGN KEY (`f_00`) REFERENCES `t_03_03_02` (`f_00`),
+  ADD CONSTRAINT `T_03_03_03_FK_01` FOREIGN KEY (`f_13`) REFERENCES `t_03_01_05` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_04`
 --
 ALTER TABLE `t_03_03_04`
-  ADD CONSTRAINT `FKfbkrrnm1ngghdwl80nbkaob6d` FOREIGN KEY (`F_00`) REFERENCES `t_03_03_02` (`F_00`),
-  ADD CONSTRAINT `T_03_03_04_FK_01` FOREIGN KEY (`F_13`) REFERENCES `t_03_01_06` (`F_00`);
+  ADD CONSTRAINT `FKme78s1xxyhpfyuqgmsk32hkoy` FOREIGN KEY (`f_00`) REFERENCES `t_03_03_02` (`f_00`),
+  ADD CONSTRAINT `T_03_03_04_FK_01` FOREIGN KEY (`f_13`) REFERENCES `t_03_01_06` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_05`
 --
 ALTER TABLE `t_03_03_05`
-  ADD CONSTRAINT `FKaf2mrh81h9kterqpqa9fmb7nq` FOREIGN KEY (`F_00`) REFERENCES `t_03_03_02` (`F_00`),
-  ADD CONSTRAINT `T_03_03_05_FK_01` FOREIGN KEY (`F_13`) REFERENCES `t_03_01_07` (`F_00`);
+  ADD CONSTRAINT `FK8y5unajm2f31kl73iw3d4ppmk` FOREIGN KEY (`f_00`) REFERENCES `t_03_03_02` (`f_00`),
+  ADD CONSTRAINT `T_03_03_05_FK_01` FOREIGN KEY (`f_13`) REFERENCES `t_03_01_07` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_06`
 --
 ALTER TABLE `t_03_03_06`
-  ADD CONSTRAINT `T_03_03_06_FK_01` FOREIGN KEY (`F_03`) REFERENCES `t_03_02_04` (`F_00`),
-  ADD CONSTRAINT `T_03_03_06_FK_02` FOREIGN KEY (`F_04`) REFERENCES `t_03_02_05` (`F_00`),
-  ADD CONSTRAINT `T_03_03_06_FK_03` FOREIGN KEY (`F_05`) REFERENCES `t_03_02_02` (`F_00`);
+  ADD CONSTRAINT `T_03_03_06_FK_01` FOREIGN KEY (`f_03`) REFERENCES `t_03_02_04` (`f_00`),
+  ADD CONSTRAINT `T_03_03_06_FK_02` FOREIGN KEY (`f_04`) REFERENCES `t_03_02_05` (`f_00`),
+  ADD CONSTRAINT `T_03_03_06_FK_03` FOREIGN KEY (`f_05`) REFERENCES `t_03_02_02` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_07`
 --
 ALTER TABLE `t_03_03_07`
-  ADD CONSTRAINT `FKdvhk5c3134g3x8jcbepos8psp` FOREIGN KEY (`F_00`) REFERENCES `t_03_03_01` (`F_00`),
-  ADD CONSTRAINT `T_03_03_07_FK_01` FOREIGN KEY (`F_17`) REFERENCES `t_03_02_06` (`F_00`),
-  ADD CONSTRAINT `T_03_03_07_FK_02` FOREIGN KEY (`F_18`) REFERENCES `t_03_02_06` (`F_00`),
-  ADD CONSTRAINT `T_03_03_07_FK_03` FOREIGN KEY (`F_19`) REFERENCES `t_03_02_06` (`F_00`),
-  ADD CONSTRAINT `T_03_03_07_FK_04` FOREIGN KEY (`F_20`) REFERENCES `t_03_02_08` (`F_00`),
-  ADD CONSTRAINT `T_03_03_07_FK_05` FOREIGN KEY (`F_21`) REFERENCES `t_03_03_06` (`F_00`),
-  ADD CONSTRAINT `T_03_03_07_FK_06` FOREIGN KEY (`F_22`) REFERENCES `t_03_03_02` (`F_00`),
-  ADD CONSTRAINT `T_03_03_07_FK_07` FOREIGN KEY (`F_23`) REFERENCES `t_03_03_02` (`F_00`);
+  ADD CONSTRAINT `FK76reo70hualhh5txhs78mhhem` FOREIGN KEY (`f_00`) REFERENCES `t_03_03_01` (`f_00`),
+  ADD CONSTRAINT `T_03_03_07_FK_01` FOREIGN KEY (`f_17`) REFERENCES `t_03_02_06` (`f_00`),
+  ADD CONSTRAINT `T_03_03_07_FK_02` FOREIGN KEY (`f_18`) REFERENCES `t_03_02_06` (`f_00`),
+  ADD CONSTRAINT `T_03_03_07_FK_03` FOREIGN KEY (`f_19`) REFERENCES `t_03_02_06` (`f_00`),
+  ADD CONSTRAINT `T_03_03_07_FK_04` FOREIGN KEY (`f_20`) REFERENCES `t_03_02_08` (`f_00`),
+  ADD CONSTRAINT `T_03_03_07_FK_05` FOREIGN KEY (`f_21`) REFERENCES `t_03_03_06` (`f_00`),
+  ADD CONSTRAINT `T_03_03_07_FK_06` FOREIGN KEY (`f_22`) REFERENCES `t_03_03_02` (`f_00`),
+  ADD CONSTRAINT `T_03_03_07_FK_07` FOREIGN KEY (`f_23`) REFERENCES `t_03_03_02` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_08`
 --
 ALTER TABLE `t_03_03_08`
-  ADD CONSTRAINT `FKahj34utm6aoq9ftq4960frf9v` FOREIGN KEY (`F_00`) REFERENCES `t_03_03_01` (`F_00`),
-  ADD CONSTRAINT `T_03_02_09_FK_01` FOREIGN KEY (`F_13`) REFERENCES `t_03_02_06` (`F_00`),
-  ADD CONSTRAINT `T_03_02_09_FK_02` FOREIGN KEY (`F_14`) REFERENCES `t_03_02_06` (`F_00`),
-  ADD CONSTRAINT `T_03_02_09_FK_03` FOREIGN KEY (`F_15`) REFERENCES `t_03_02_06` (`F_00`),
-  ADD CONSTRAINT `T_03_02_10_FK_01` FOREIGN KEY (`F_16`) REFERENCES `t_03_03_07` (`F_00`);
+  ADD CONSTRAINT `FKt5otm4c4jhcitdinuk4de5t84` FOREIGN KEY (`f_00`) REFERENCES `t_03_03_01` (`f_00`),
+  ADD CONSTRAINT `T_03_02_09_FK_01` FOREIGN KEY (`f_13`) REFERENCES `t_03_02_06` (`f_00`),
+  ADD CONSTRAINT `T_03_02_09_FK_02` FOREIGN KEY (`f_14`) REFERENCES `t_03_02_06` (`f_00`),
+  ADD CONSTRAINT `T_03_02_09_FK_03` FOREIGN KEY (`f_15`) REFERENCES `t_03_02_06` (`f_00`),
+  ADD CONSTRAINT `T_03_02_10_FK_01` FOREIGN KEY (`f_16`) REFERENCES `t_03_03_07` (`f_00`);
 
 --
 -- Constraints for table `t_03_03_09`
 --
 ALTER TABLE `t_03_03_09`
-  ADD CONSTRAINT `T_03_03_09_FK_01` FOREIGN KEY (`F_11`) REFERENCES `t_03_02_05` (`F_00`),
-  ADD CONSTRAINT `T_03_03_09_FK_02` FOREIGN KEY (`F_12`) REFERENCES `t_03_01_08` (`F_00`),
-  ADD CONSTRAINT `T_03_03_09_FK_03` FOREIGN KEY (`F_13`) REFERENCES `t_03_03_02` (`F_00`);
+  ADD CONSTRAINT `T_03_03_09_FK_01` FOREIGN KEY (`f_11`) REFERENCES `t_03_02_05` (`f_00`),
+  ADD CONSTRAINT `T_03_03_09_FK_02` FOREIGN KEY (`f_12`) REFERENCES `t_03_01_08` (`f_00`),
+  ADD CONSTRAINT `T_03_03_09_FK_03` FOREIGN KEY (`f_13`) REFERENCES `t_03_03_02` (`f_00`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
