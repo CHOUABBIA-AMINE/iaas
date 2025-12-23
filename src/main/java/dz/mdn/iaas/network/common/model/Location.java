@@ -52,7 +52,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity(name="Location")
 @Table(name="T_03_02_03", uniqueConstraints = { @UniqueConstraint(name="T_03_02_03_UK_01", columnNames={"F_01"}),
-												@UniqueConstraint(name="T_03_02_03_UK_02", columnNames={"F_01"})})
+												@UniqueConstraint(name="T_03_02_03_UK_02", columnNames={"F_04"})})
 public class Location extends GenericModel {
 
     @Column(name="F_01", length=10, nullable=false)
