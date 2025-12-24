@@ -91,7 +91,7 @@ public class StationDTO extends GenericDTO<Station> {
     @NotNull(message = "Operational status ID is required")
     private Long operationalStatusId;
 
-    @Size(max = 100, message = "provider must not exceed 100 characters")
+    @NotNull(message = "Vendor is required")
     private Long vendorId;
 
     @NotNull(message = "Locality is required")

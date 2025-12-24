@@ -65,7 +65,7 @@ public class Pipeline extends Infrastructure {
     private Double length;
 
     @Column(name="F_09", nullable=false)
-    private Double nominalThikness;
+    private Double nominalThickness;
 
     @Column(name="F_10", nullable=false)
     private Double nominalRoughness;

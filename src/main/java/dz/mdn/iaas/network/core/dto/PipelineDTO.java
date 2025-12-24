@@ -30,7 +30,7 @@ import dz.mdn.iaas.network.core.model.Pipeline;
 import dz.mdn.iaas.network.core.model.PipelineSystem;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -84,43 +84,43 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
     private LocalDate decommissioningDate;
 
     @NotNull(message = "Nominal diameter is required")
-    @Positive(message = "Nominal diameter must be positive")
+    @PositiveOrZero(message = "Nominal diameter must be positive")
     private Double nominalDiameter;
 
     @NotNull(message = "Length is required")
-    @Positive(message = "Length must be positive")
+    @PositiveOrZero(message = "Length must be positive")
     private Double length;
 
     @NotNull(message = "Nominal thickness is required")
-    @Positive(message = "Nominal thickness must be positive")
-    private Double nominalThikness;
+    @PositiveOrZero(message = "Nominal thickness must be positive")
+    private Double nominalThickness;
 
     @NotNull(message = "Nominal roughness is required")
-    @Positive(message = "Nominal roughness must be positive")
+    @PositiveOrZero(message = "Nominal roughness must be positive")
     private Double nominalRoughness;
 
     @NotNull(message = "Design max service pressure is required")
-    @Positive(message = "Design max service pressure must be positive")
+    @PositiveOrZero(message = "Design max service pressure must be positive")
     private Double designMaxServicePressure;
 
     @NotNull(message = "Real max service pressure is required")
-    @Positive(message = "Real max service pressure must be positive")
+    @PositiveOrZero(message = "Real max service pressure must be positive")
     private Double operationalMaxServicePressure;
 
     @NotNull(message = "Design min service pressure is required")
-    @Positive(message = "Design min service pressure must be positive")
+    @PositiveOrZero(message = "Design min service pressure must be positive")
     private Double designMinServicePressure;
 
     @NotNull(message = "Real min service pressure is required")
-    @Positive(message = "Real min service pressure must be positive")
+    @PositiveOrZero(message = "Real min service pressure must be positive")
     private Double operationalMinServicePressure;
 
     @NotNull(message = "Design capacity is required")
-    @Positive(message = "Design capacity must be positive")
+    @PositiveOrZero(message = "Design capacity must be positive")
     private Double designCapacity;
 
     @NotNull(message = "Real capacity is required")
-    @Positive(message = "Real capacity must be positive")
+    @PositiveOrZero(message = "Real capacity must be positive")
     private Double operationalCapacity;
 
     @NotNull(message = "Operational status ID is required")
@@ -167,7 +167,7 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
         pipeline.setDecommissioningDate(this.decommissioningDate);
         pipeline.setNominalDiameter(this.nominalDiameter);
         pipeline.setLength(this.length);
-        pipeline.setNominalThikness(this.nominalThikness);
+        pipeline.setNominalThickness(this.nominalThickness);
         pipeline.setNominalRoughness(this.nominalRoughness);
         pipeline.setDesignMaxServicePressure(this.designMaxServicePressure);
         pipeline.setOperationalMaxServicePressure(this.operationalMaxServicePressure);
@@ -237,7 +237,7 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
     	if (this.decommissioningDate != null) pipeline.setDecommissioningDate(this.decommissioningDate);
         if (this.nominalDiameter != null) pipeline.setNominalDiameter(this.nominalDiameter);
         if (this.length != null) pipeline.setLength(this.length);
-        if (this.nominalThikness != null) pipeline.setNominalThikness(this.nominalThikness);
+        if (this.nominalThickness != null) pipeline.setNominalThickness(this.nominalThickness);
         if (this.nominalRoughness != null) pipeline.setNominalRoughness(this.nominalRoughness);
         if (this.designMaxServicePressure != null) pipeline.setDesignMaxServicePressure(this.designMaxServicePressure);
         if (this.operationalMaxServicePressure != null) pipeline.setOperationalMaxServicePressure(this.operationalMaxServicePressure);
@@ -307,7 +307,7 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
                 .decommissioningDate(pipeline.getDecommissioningDate())
                 .nominalDiameter(pipeline.getNominalDiameter())
                 .length(pipeline.getLength())
-                .nominalThikness(pipeline.getNominalThikness())
+                .nominalThickness(pipeline.getNominalThickness())
                 .nominalRoughness(pipeline.getNominalRoughness())
                 .designMaxServicePressure(pipeline.getDesignMaxServicePressure())
                 .operationalMaxServicePressure(pipeline.getOperationalMaxServicePressure())
