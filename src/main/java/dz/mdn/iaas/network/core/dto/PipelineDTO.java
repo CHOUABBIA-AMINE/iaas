@@ -19,6 +19,9 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.network.common.dto.AlloyDTO;
+import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
+import dz.mdn.iaas.network.common.dto.VendorDTO;
 import dz.mdn.iaas.network.common.model.Alloy;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Vendor;
@@ -80,9 +83,6 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
 
     private LocalDate decommissioningDate;
 
-    @NotNull(message = "Operational status ID is required")
-    private Long operationalStatusId;
-
     @NotNull(message = "Nominal diameter is required")
     @Positive(message = "Nominal diameter must be positive")
     private Double nominalDiameter;
@@ -123,6 +123,9 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
     @Positive(message = "Real capacity must be positive")
     private Double operationalCapacity;
 
+    @NotNull(message = "Operational status ID is required")
+    private Long operationalStatusId;
+
     @NotNull(message = "Nominal construction material ID is required")
     private Long nominalConstructionMaterialId;
 
@@ -143,6 +146,15 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
 
     @NotNull(message = "Arrival facility ID is required")
     private Long arrivalFacilityId;
+    
+    private OperationalStatusDTO operationalStatus;
+    private AlloyDTO nominalConstructionMaterial;
+    private AlloyDTO nominalExteriorCoating;
+    private AlloyDTO nominalInteriorCoating;
+    private VendorDTO vendor;
+    private PipelineSystemDTO pipelineSystem;
+    private FacilityDTO departureFacility;
+    private FacilityDTO arrivalFacility;
 
     @Override
     public Pipeline toEntity() {
@@ -311,6 +323,15 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
                 .pipelineSystemId(pipeline.getPipelineSystem() != null ? pipeline.getPipelineSystem().getId() : null)
                 .departureFacilityId(pipeline.getDepartureFacility() != null ? pipeline.getDepartureFacility().getId() : null)
                 .arrivalFacilityId(pipeline.getArrivalFacility() != null ? pipeline.getArrivalFacility().getId() : null)
+                
+                .operationalStatus(pipeline.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(pipeline.getOperationalStatus()) : null)
+                .nominalConstructionMaterial(pipeline.getNominalConstructionMaterial() != null ? AlloyDTO.fromEntity(pipeline.getNominalConstructionMaterial()) : null)
+                .nominalExteriorCoating(pipeline.getNominalExteriorCoating() != null ? AlloyDTO.fromEntity(pipeline.getNominalExteriorCoating()) : null)
+                .nominalInteriorCoating(pipeline.getNominalInteriorCoating() != null ? AlloyDTO.fromEntity(pipeline.getNominalInteriorCoating()) : null)
+                .vendor(pipeline.getVendor() != null ? VendorDTO.fromEntity(pipeline.getVendor()) : null)
+                .pipelineSystem(pipeline.getPipelineSystem() != null ? PipelineSystemDTO.fromEntity(pipeline.getPipelineSystem()) : null)
+                .departureFacility(pipeline.getDepartureFacility() != null ? FacilityDTO.fromEntity(pipeline.getDepartureFacility()) : null)
+                .arrivalFacility(pipeline.getArrivalFacility() != null ? FacilityDTO.fromEntity(pipeline.getArrivalFacility()) : null)
                 .build();
     }
 }
