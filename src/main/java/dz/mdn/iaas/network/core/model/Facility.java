@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import dz.mdn.iaas.common.administration.model.Locality;
+import dz.mdn.iaas.network.common.model.Region;
 import dz.mdn.iaas.network.common.model.Vendor;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -78,15 +79,14 @@ public class Facility extends Infrastructure {
 	@ManyToOne
     @JoinColumn(name="F_11", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable=false)
     protected Vendor vendor;
-    
-    //@ManyToOne
-    //@JoinColumn(name="F_08", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable=true)
-    //protected Location location;
-
 
     @ManyToOne
     @JoinColumn(name = "F_12", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_02"), nullable = false)
     private Locality locality;
+    
+    @ManyToOne
+    @JoinColumn(name = "F_12", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_3"), nullable = true)
+    private Region region;
     
     @Builder.Default
     @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL)

@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: FlowVolume
+ *	@Name		: FlowTransported
  *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
@@ -60,22 +60,21 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="FlowVolume")
-@Table(name="T_03_04_02", uniqueConstraints = { @UniqueConstraint(name="T_03_04_02_UK_01", columnNames={"F_02", "F_03", "F_04"})})
-public class FlowVolume extends GenericModel {
+@Entity(name="FlowTransported")
+@Table(name="T_03_04_04", uniqueConstraints = { @UniqueConstraint(name="T_03_04_04_UK_01", columnNames={"F_03", "F_04"})})
+public class FlowTransported extends GenericModel {
 
     @Column(name="F_01", nullable=false)
-    private Double volume;
+    private Double volumeEstimated;
     
-    @Column(name = "F_02", nullable = false)
+    @Column(name="F_02", nullable=false)
+    private Double volumeTransported;
+    
+    @Column(name = "F_03", nullable = false)
     protected LocalDate measurementDate;
 
     @ManyToOne
-    @JoinColumn(name="F_03", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_04_02_FK_01"), nullable=false)
-    private MeasurementHour measurementHour;
-
-    @ManyToOne
-    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_04_02_FK_02"), nullable=false)
+    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_04_03_FK_01"), nullable=false)
     private Pipeline pipeline;
     
 }

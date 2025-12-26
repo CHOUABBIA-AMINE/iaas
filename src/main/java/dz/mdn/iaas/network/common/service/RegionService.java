@@ -125,4 +125,11 @@ public class RegionService extends GenericService<Region, RegionDTO, Long> {
                 .map(RegionDTO::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    public List<RegionDTO> findByActivity(Long activityId) {
+        log.debug("Finding regions by activity id: {}", activityId);
+        return regionRepository.findByActivityId(activityId).stream()
+                .map(RegionDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

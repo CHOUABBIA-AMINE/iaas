@@ -40,6 +40,8 @@ public interface FacilityRepository extends JpaRepository<Facility, Long> {
     
     List<Facility> findByOperationalStatusId(Long operationalStatusId);
     
+    List<Facility> findByRegionId(Long regionId);
+    
     //List<Facility> findByLocationId(Long locationId);
 
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========

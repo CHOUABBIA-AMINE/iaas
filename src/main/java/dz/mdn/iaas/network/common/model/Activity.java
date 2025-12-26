@@ -2,7 +2,7 @@
  *	
  *	@author		: MEDJERAB ABIR
  *
- *	@Name		: Zone
+ *	@Name		: Activity
  *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
@@ -27,14 +27,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Zone Entity - Extends GenericModel
+ * Activity Entity - Extends GenericModel
  * 
  * Database table: T_20_01
  * Primary key: F_00 (id) - inherited from GenericModel
  * 
  * Fields:
  * - F_00: id (inherited) - Primary key
- * - F_01: name - Zone name (required)
+ * - F_01: name - Activity name (required)
  */
 @Setter
 @Getter
@@ -42,11 +42,11 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="Zone")
-@Table(name="T_03_02_01", uniqueConstraints = { @UniqueConstraint(name="T_03_02_01_UK_01", columnNames={"F_01"}),
-												@UniqueConstraint(name="T_03_02_01_UK_02", columnNames={"F_04"})})
+@Entity(name="Activity")
+@Table(name="T_03_02_09", uniqueConstraints = { @UniqueConstraint(name="T_03_02_09_UK_01", columnNames={"F_01"}),
+												@UniqueConstraint(name="T_03_02_09_UK_02", columnNames={"F_04"})})
 
-public class Zone extends GenericModel {
+public class Activity extends GenericModel {
     
     @Column(name="F_01", length=10, nullable=false)
     private String code;

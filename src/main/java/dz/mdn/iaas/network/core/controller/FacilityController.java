@@ -126,7 +126,14 @@ public class FacilityController extends GenericController<FacilityDTO, Long> {
     @GetMapping("/operationalStatus/{operationalStatusId}")
     @PreAuthorize("hasAuthority('FACILITY:READ')")
     public ResponseEntity<List<FacilityDTO>> getByOperationalStatus(@PathVariable Long operationalStatusId) {
-        log.info("GET /network/facility/vendor/{} - Getting facilities by operational status", operationalStatusId);
+        log.info("GET /network/facility/operationalStatus/{} - Getting facilities by operational status", operationalStatusId);
         return ResponseEntity.ok(facilityService.findByOperationalStatus(operationalStatusId));
+    }
+
+    @GetMapping("/region/{regionId}")
+    @PreAuthorize("hasAuthority('FACILITY:READ')")
+    public ResponseEntity<List<FacilityDTO>> getByRegionId(@PathVariable Long regionId) {
+        log.info("GET /network/facility/region/{} - Getting facilities by region", regionId);
+        return ResponseEntity.ok(facilityService.findByRegion(regionId));
     }
 }

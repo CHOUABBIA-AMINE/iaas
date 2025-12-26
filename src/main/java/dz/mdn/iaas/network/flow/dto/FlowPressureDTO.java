@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: FlowVolumeDTO
+ *	@Name		: FlowPressureDTO
  *	@CreatedOn	: 12-19-2025
  *	@Updated	: 12-19-2025
  *
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.core.dto.PipelineDTO;
 import dz.mdn.iaas.network.core.model.Pipeline;
-import dz.mdn.iaas.network.flow.model.FlowVolume;
+import dz.mdn.iaas.network.flow.model.FlowPressure;
 import dz.mdn.iaas.network.flow.model.MeasurementHour;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,8 +35,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * FlowVolume Data Transfer Object - Extends GenericDTO
- * Maps FlowVolume entity which extends Facility which extends Infrastructure
+ * FlowPressure Data Transfer Object - Extends GenericDTO
+ * Maps FlowPressure entity which extends Facility which extends Infrastructure
  * 
  * Inherited from Infrastructure:
  * - code, name, installationDate, commissioningDate, decommissioningDate, operationalStatusId
@@ -44,7 +44,7 @@ import lombok.experimental.SuperBuilder;
  * Inherited from Facility:
  * - vendor, location (vendorId, locationId)
  * 
- * FlowVolume specific:
+ * FlowPressure specific:
  * - stationType, pipelines
  */
 @Data
@@ -53,11 +53,10 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FlowVolumeDTO extends GenericDTO<FlowVolume> {
+public class FlowPressureDTO extends GenericDTO<FlowPressure> {
 
-    // Infrastructure fields
-    @NotBlank(message = "Code is required")
-    private double volume;
+    @NotBlank(message = "Name is required")
+    private double pressure;
 
     private LocalDate measurementDate;
 
@@ -74,10 +73,10 @@ public class FlowVolumeDTO extends GenericDTO<FlowVolume> {
     private Set<Long> pipelineIds = new HashSet<>();
 
     @Override
-    public FlowVolume toEntity() {
-        FlowVolume flow = new FlowVolume();
+    public FlowPressure toEntity() {
+        FlowPressure flow = new FlowPressure();
         flow.setId(getId());
-        flow.setVolume(this.volume);
+        flow.setPressure(this.pressure);
         flow.setMeasurementDate(this.measurementDate);
         
         if (this.measurementHourId != null) {
@@ -96,8 +95,8 @@ public class FlowVolumeDTO extends GenericDTO<FlowVolume> {
     }
 
     @Override
-    public void updateEntity(FlowVolume flow) {
-        if (this.volume != 0) flow.setVolume(this.volume);
+    public void updateEntity(FlowPressure flow) {
+        if (this.pressure != 0) flow.setPressure(this.pressure);
         if (this.measurementDate != null) flow.setMeasurementDate(this.measurementDate);
         
         if (this.measurementHourId != null) {
@@ -113,12 +112,12 @@ public class FlowVolumeDTO extends GenericDTO<FlowVolume> {
         }
     }
 
-    public static FlowVolumeDTO fromEntity(FlowVolume flow) {
+    public static FlowPressureDTO fromEntity(FlowPressure flow) {
         if (flow == null) return null;
         
-        return FlowVolumeDTO.builder()
+        return FlowPressureDTO.builder()
                 .id(flow.getId())
-                .volume(flow.getVolume())
+                .pressure(flow.getPressure())
                 .measurementDate(flow.getMeasurementDate())
                 .measurementHourId(flow.getMeasurementHour() != null ? flow.getMeasurementHour().getId() : null)
                 .pipelineId(flow.getPipeline() != null ? flow.getPipeline().getId() : null)

@@ -2,7 +2,7 @@
  *	
  *	@author		: CHOUABBIA Amine
  *
- *	@Name		: RegionDTO
+ *	@Name		: ActivityDTO
  *	@CreatedOn	: 12-11-2025
  *	@Updated	: 12-11-2025
  *
@@ -18,10 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.common.model.Activity;
-import dz.mdn.iaas.network.common.model.Region;
-import dz.mdn.iaas.network.common.model.Zone;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,12 +27,11 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
- * Region Data Transfer Object - Extends GenericDTO
+ * Activity Data Transfer Object - Extends GenericDTO
  * 
  * Fields:
  * - id (F_00) - inherited from GenericDTO
  * - name (F_01) - required
- * - zoneId (F_02) - Zone relationship ID, required
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -43,8 +39,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class RegionDTO extends GenericDTO<Region> {
-
+public class ActivityDTO extends GenericDTO<Activity> {
+    
     @NotBlank(message = "Code is required")
     @Size(max = 10, message = "Code must not exceed 10 characters")
     private String code;
@@ -69,15 +65,9 @@ public class RegionDTO extends GenericDTO<Region> {
     @Size(max = 100, message = "French designation must not exceed 100 characters")
     private String descriptionFr;
 
-    @NotNull(message = "Zone is required")
-    private Long zoneId;
-
-    @NotNull(message = "Activity is required")
-    private Long activityId;
-
     @Override
-    public Region toEntity() {
-        Region entity = new Region();
+    public Activity toEntity() {
+        Activity entity = new Activity();
         entity.setId(getId());
         entity.setCode(this.code);
         entity.setDesignationAr(this.designationAr);
@@ -86,49 +76,24 @@ public class RegionDTO extends GenericDTO<Region> {
         entity.setDescriptionAr(this.descriptionAr);
         entity.setDescriptionEn(this.descriptionEn);
         entity.setDescriptionFr(this.descriptionFr);
-
-        if (this.zoneId != null) {
-            Zone zone = new Zone();
-            zone.setId(this.zoneId);
-            entity.setZone(zone);
-        }
-
-        if (this.activityId != null) {
-        	Activity activity = new Activity();
-            activity.setId(this.activityId);
-            entity.setActivity(activity);
-        }
-        
         return entity;
     }
 
     @Override
-    public void updateEntity(Region entity) {
-    	if (this.code != null) { entity.setCode(this.code); }
+    public void updateEntity(Activity entity) {
+        if (this.code != null) { entity.setCode(this.code); }
         if (this.designationAr != null) { entity.setDesignationAr(this.designationAr); }
         if (this.designationEn != null) { entity.setDesignationEn(this.designationEn); }
         if (this.designationFr != null) { entity.setDesignationFr(this.designationFr); }
         if (this.descriptionAr != null) { entity.setDescriptionAr(this.descriptionAr); }
         if (this.descriptionEn != null) { entity.setDescriptionEn(this.descriptionEn); }
         if (this.descriptionFr != null) { entity.setDescriptionFr(this.descriptionFr); }
-
-        if (this.zoneId != null) {
-            Zone zone = new Zone();
-            zone.setId(this.zoneId);
-            entity.setZone(zone);
-        }
-
-        if (this.activityId != null) {
-        	Activity activity = new Activity();
-            activity.setId(this.activityId);
-            entity.setActivity(activity);
-        }
     }
 
-    public static RegionDTO fromEntity(Region entity) {
+    public static ActivityDTO fromEntity(Activity entity) {
         if (entity == null) return null;
         
-        return RegionDTO.builder()
+        return ActivityDTO.builder()
                 .id(entity.getId())
                 .code(entity.getCode())
                 .designationAr(entity.getDesignationAr())
@@ -137,8 +102,6 @@ public class RegionDTO extends GenericDTO<Region> {
                 .descriptionAr(entity.getDescriptionAr())
                 .descriptionEn(entity.getDescriptionEn())
                 .descriptionFr(entity.getDescriptionFr())
-                .zoneId(entity.getZone() != null ? entity.getZone().getId() : null)
-                .activityId(entity.getActivity() != null ? entity.getActivity().getId() : null)
                 .build();
     }
 }

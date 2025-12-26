@@ -156,10 +156,10 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
                 .collect(Collectors.toList());
     }
 
-    //public List<FacilityDTO> findByLocation(Long locationId) {
-    //    log.debug("Finding facilities by location id: {}", locationId);
-    //    return facilityRepository.findByLocationId(locationId).stream()
-    //            .map(FacilityDTO::fromEntity)
-    //            .collect(Collectors.toList());
-    //}
+    public List<FacilityDTO> findByRegion(Long regionId) {
+        log.debug("Finding locations by region id: {}", regionId);
+        return facilityRepository.findByRegionId(regionId).stream()
+                .map(FacilityDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

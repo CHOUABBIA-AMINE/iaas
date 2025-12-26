@@ -75,4 +75,8 @@ public class Region extends GenericModel {
 	@ManyToOne
     @JoinColumn(name = "F_08", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_02_FK_01"), nullable = false)
     private Zone zone;
+	
+	@ManyToOne
+    @JoinColumn(name = "F_09", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_02_02_FK_02"), nullable = true)
+    private Activity activity;
 }
