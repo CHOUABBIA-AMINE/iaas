@@ -32,9 +32,6 @@ import dz.mdn.iaas.network.flow.dto.DailyTrendDTO;
 import dz.mdn.iaas.network.flow.dto.DashboardSummaryDTO;
 import dz.mdn.iaas.network.flow.dto.PipelineStatusDTO;
 import dz.mdn.iaas.network.flow.service.DashboardService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * Dashboard Controller
@@ -51,7 +48,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/network/flow/dashboard")
 @CrossOrigin(origins = "*")
-@Tag(name = "Dashboard", description = "Flow Monitoring Dashboard API")
 public class DashboardController {
 
     @Autowired
@@ -70,10 +66,6 @@ public class DashboardController {
      * @return DashboardSummaryDTO with all dashboard metrics
      */
     @GetMapping("/summary")
-    @Operation(
-        summary = "Get dashboard summary",
-        description = "Retrieve comprehensive dashboard metrics for today and month-to-date"
-    )
     public ResponseEntity<DashboardSummaryDTO> getDashboardSummary() {
         try {
             DashboardSummaryDTO summary = dashboardService.getDashboardSummary();
@@ -98,12 +90,7 @@ public class DashboardController {
      * @return List of PipelineStatusDTO
      */
     @GetMapping("/pipelines")
-    @Operation(
-        summary = "Get all pipeline statuses",
-        description = "Retrieve status for all pipelines for a specific date"
-    )
     public ResponseEntity<List<PipelineStatusDTO>> getPipelineStatuses(
-            @Parameter(description = "Date in format yyyy-MM-dd (defaults to today)")
             @RequestParam(required = false) 
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
             LocalDate date) {
@@ -127,14 +114,8 @@ public class DashboardController {
      * @return PipelineStatusDTO for the specified pipeline
      */
     @GetMapping("/pipeline/{id}")
-    @Operation(
-        summary = "Get specific pipeline status",
-        description = "Retrieve detailed status for a specific pipeline"
-    )
     public ResponseEntity<PipelineStatusDTO> getPipelineStatus(
-            @Parameter(description = "Pipeline ID")
             @PathVariable Long id,
-            @Parameter(description = "Date in format yyyy-MM-dd (defaults to today)")
             @RequestParam(required = false) 
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
             LocalDate date) {
@@ -161,16 +142,10 @@ public class DashboardController {
      * @return List of DailyTrendDTO with daily metrics
      */
     @GetMapping("/trends")
-    @Operation(
-        summary = "Get daily trends",
-        description = "Retrieve daily trend data for charts (transported vs estimated, pressure)"
-    )
     public ResponseEntity<List<DailyTrendDTO>> getDailyTrends(
-            @Parameter(description = "Start date in format yyyy-MM-dd (defaults to 7 days ago)")
             @RequestParam(required = false) 
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
             LocalDate startDate,
-            @Parameter(description = "End date in format yyyy-MM-dd (defaults to today)")
             @RequestParam(required = false) 
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) 
             LocalDate endDate) {
