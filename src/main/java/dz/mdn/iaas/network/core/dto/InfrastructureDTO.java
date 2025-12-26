@@ -19,6 +19,9 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
+import dz.mdn.iaas.network.common.dto.RegionDTO;
+import dz.mdn.iaas.network.common.model.Region;
 import dz.mdn.iaas.network.core.model.Infrastructure;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -68,53 +71,75 @@ public class InfrastructureDTO extends GenericDTO<Infrastructure> {
     @NotNull(message = "Operational status ID is required")
     private Long operationalStatusId;
 
+    @NotNull(message = "Region is required")
+    private Long regionId;
+    
+    private OperationalStatusDTO operationalStatus;
+    private RegionDTO region;
+
     @Override
     public Infrastructure toEntity() {
-        Infrastructure infrastructure = new Infrastructure();
-        infrastructure.setId(getId());
-        infrastructure.setCode(this.code);
-        infrastructure.setName(this.name);
-        infrastructure.setInstallationDate(this.installationDate);
-        infrastructure.setCommissioningDate(this.commissioningDate);
-        infrastructure.setDecommissioningDate(this.decommissioningDate);
+        Infrastructure entity = new Infrastructure();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setName(this.name);
+        entity.setInstallationDate(this.installationDate);
+        entity.setCommissioningDate(this.commissioningDate);
+        entity.setDecommissioningDate(this.decommissioningDate);
         
         if (this.operationalStatusId != null) {
             dz.mdn.iaas.network.common.model.OperationalStatus status = 
                 new dz.mdn.iaas.network.common.model.OperationalStatus();
             status.setId(this.operationalStatusId);
-            infrastructure.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
-        return infrastructure;
+        if (this.regionId != null) {
+        	Region region = new Region();
+        	region.setId(this.regionId);
+        	entity.setRegion(region);
+        }
+        
+        return entity;
     }
 
     @Override
-    public void updateEntity(Infrastructure infrastructure) {
-        if (this.code != null) infrastructure.setCode(this.code);
-        if (this.name != null) infrastructure.setName(this.name);
-        if (this.installationDate != null) infrastructure.setInstallationDate(this.installationDate);
-        if (this.commissioningDate != null) infrastructure.setCommissioningDate(this.commissioningDate);
-        if (this.decommissioningDate != null) infrastructure.setDecommissioningDate(this.decommissioningDate);
+    public void updateEntity(Infrastructure entity) {
+        if (this.code != null) entity.setCode(this.code);
+        if (this.name != null) entity.setName(this.name);
+        if (this.installationDate != null) entity.setInstallationDate(this.installationDate);
+        if (this.commissioningDate != null) entity.setCommissioningDate(this.commissioningDate);
+        if (this.decommissioningDate != null) entity.setDecommissioningDate(this.decommissioningDate);
         
         if (this.operationalStatusId != null) {
             dz.mdn.iaas.network.common.model.OperationalStatus status = 
                 new dz.mdn.iaas.network.common.model.OperationalStatus();
             status.setId(this.operationalStatusId);
-            infrastructure.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
+        }
+        
+        if (this.regionId != null) {
+        	Region region = new Region();
+        	region.setId(this.regionId);
+        	entity.setRegion(region);
         }
     }
 
-    public static InfrastructureDTO fromEntity(Infrastructure infrastructure) {
-        if (infrastructure == null) return null;
+    public static InfrastructureDTO fromEntity(Infrastructure entity) {
+        if (entity == null) return null;
         
         return InfrastructureDTO.builder()
-                .id(infrastructure.getId())
-                .code(infrastructure.getCode())
-                .name(infrastructure.getName())
-                .installationDate(infrastructure.getInstallationDate())
-                .commissioningDate(infrastructure.getCommissioningDate())
-                .decommissioningDate(infrastructure.getDecommissioningDate())
-                .operationalStatusId(infrastructure.getOperationalStatus() != null ? infrastructure.getOperationalStatus().getId() : null)
+                .id(entity.getId())
+                .code(entity.getCode())
+                .name(entity.getName())
+                .installationDate(entity.getInstallationDate())
+                .commissioningDate(entity.getCommissioningDate())
+                .decommissioningDate(entity.getDecommissioningDate())
+                .operationalStatusId(entity.getOperationalStatus() != null ? entity.getOperationalStatus().getId() : null)
+                .regionId(entity.getRegion() != null ? entity.getRegion().getId() : null)
+                
+                .operationalStatus(entity.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(entity.getOperationalStatus()) : null)
+                .region(entity.getRegion() != null ? RegionDTO.fromEntity(entity.getRegion()) : null)
                 .build();
     }
 }

@@ -14,6 +14,8 @@
 
 package dz.mdn.iaas.network.core.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,6 +33,10 @@ public interface InfrastructureRepository extends JpaRepository<Infrastructure, 
     boolean existsByCode(String code);
     
     boolean existsByCodeAndIdNot(String code, Long id);
+    
+    List<Infrastructure> findByRegionId(Long regionId);
+    
+    List<Infrastructure> findByRegion_ActivityId(Long activityId);
 
     // ========== CUSTOM QUERIES (Complex multi-field search) ==========
     

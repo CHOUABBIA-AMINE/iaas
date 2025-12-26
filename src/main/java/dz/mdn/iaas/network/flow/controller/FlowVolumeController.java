@@ -38,8 +38,8 @@ public class FlowVolumeController extends GenericController<FlowVolumeDTO, Long>
 
     //private final FlowVolumeService flowService;
 
-    public FlowVolumeController(FlowVolumeService flowService) {
-        super(flowService, "FlowVolume");
+    public FlowVolumeController(FlowVolumeService flowVolumeService) {
+        super(flowVolumeService, "FlowVolume");
         //this.flowService = flowService;
     }
 

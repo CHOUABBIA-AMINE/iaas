@@ -27,26 +27,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/network/common/zone")
+@RequestMapping("/network/common/activity")
 @Slf4j
 public class ActivityController extends GenericController<ActivityDTO, Long> {
 
     @SuppressWarnings("unused")
-	private final ActivityService zoneService;
+	private final ActivityService activityService;
 
-    public ActivityController(ActivityService zoneService) {
-        super(zoneService, "Activity");
-        this.zoneService = zoneService;
+    public ActivityController(ActivityService activityService) {
+        super(activityService, "Activity");
+        this.activityService = activityService;
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:READ')")
+    @PreAuthorize("hasAuthority('ACTIVITY:READ')")
     public ResponseEntity<ActivityDTO> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:READ')")
+    @PreAuthorize("hasAuthority('ACTIVITY:READ')")
     public ResponseEntity<Page<ActivityDTO>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -56,31 +56,31 @@ public class ActivityController extends GenericController<ActivityDTO, Long> {
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:READ')")
+    @PreAuthorize("hasAuthority('ACTIVITY:READ')")
     public ResponseEntity<List<ActivityDTO>> getAll() {
         return super.getAll();
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:ADMIN')")
+    @PreAuthorize("hasAuthority('ACTIVITY:ADMIN')")
     public ResponseEntity<ActivityDTO> create(@Valid @RequestBody ActivityDTO dto) {
         return super.create(dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:ADMIN')")
+    @PreAuthorize("hasAuthority('ACTIVITY:ADMIN')")
     public ResponseEntity<ActivityDTO> update(@PathVariable Long id, @Valid @RequestBody ActivityDTO dto) {
         return super.update(id, dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:ADMIN')")
+    @PreAuthorize("hasAuthority('ACTIVITY:ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         return super.delete(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:READ')")
+    @PreAuthorize("hasAuthority('ACTIVITY:READ')")
     public ResponseEntity<Page<ActivityDTO>> search(
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
@@ -91,13 +91,13 @@ public class ActivityController extends GenericController<ActivityDTO, Long> {
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:READ')")
+    @PreAuthorize("hasAuthority('ACTIVITY:READ')")
     public ResponseEntity<Boolean> exists(@PathVariable Long id) {
         return super.exists(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('ZONE:READ')")
+    @PreAuthorize("hasAuthority('ACTIVITY:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
     }

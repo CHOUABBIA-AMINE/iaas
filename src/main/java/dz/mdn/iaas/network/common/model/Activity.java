@@ -60,12 +60,12 @@ public class Activity extends GenericModel {
 	@Column(name="F_04", length=100, nullable=false)
 	private String designationFr;
     
-    @Column(name="F_05", length=200)
+    @Column(name="F_05", length=500)
     private String descriptionAr;
     
-    @Column(name="F_06", length=200)
+    @Column(name="F_06", length=500)
     private String descriptionEn;
     
-    @Column(name="F_07", length=200)
+    @Column(name="F_07", length=500)
     private String descriptionFr;
 }

@@ -32,27 +32,27 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/network/flow/volume")
+@RequestMapping("/network/flow/pressure")
 @Slf4j
 public class FlowPressureController extends GenericController<FlowPressureDTO, Long> {
 
     //private final FlowPressureService flowService;
 
-    public FlowPressureController(FlowPressureService flowService) {
-        super(flowService, "FlowPressure");
+    public FlowPressureController(FlowPressureService flowPressureService) {
+        super(flowPressureService, "FlowPressure");
         //this.flowService = flowService;
     }
 
     // ========== SECURED CRUD OPERATIONS ==========
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:READ')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:READ')")
     public ResponseEntity<FlowPressureDTO> getById(@PathVariable Long id) {
         return super.getById(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:READ')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:READ')")
     public ResponseEntity<Page<FlowPressureDTO>> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
@@ -62,31 +62,31 @@ public class FlowPressureController extends GenericController<FlowPressureDTO, L
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:READ')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:READ')")
     public ResponseEntity<List<FlowPressureDTO>> getAll() {
         return super.getAll();
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:ADMIN')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:ADMIN')")
     public ResponseEntity<FlowPressureDTO> create(@Valid @RequestBody FlowPressureDTO dto) {
         return super.create(dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:ADMIN')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:ADMIN')")
     public ResponseEntity<FlowPressureDTO> update(@PathVariable Long id, @Valid @RequestBody FlowPressureDTO dto) {
         return super.update(id, dto);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:ADMIN')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         return super.delete(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:READ')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:READ')")
     public ResponseEntity<Page<FlowPressureDTO>> search(
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
@@ -102,13 +102,13 @@ public class FlowPressureController extends GenericController<FlowPressureDTO, L
     }*/
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:READ')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:READ')")
     public ResponseEntity<Boolean> exists(@PathVariable Long id) {
         return super.exists(id);
     }
 
     @Override
-    @PreAuthorize("hasAuthority('TERMINAL:READ')")
+    @PreAuthorize("hasAuthority('FLOW_PRESSURE:READ')")
     public ResponseEntity<Long> count() {
         return super.count();
     }

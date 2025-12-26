@@ -14,6 +14,9 @@
 
 package dz.mdn.iaas.network.core.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -93,5 +96,12 @@ public class InfrastructureService extends GenericService<Infrastructure, Infras
         }
         
         return executeQuery(p -> infrastructureRepository.searchByAnyField(searchTerm.trim(), p), pageable);
+    }
+
+    public List<InfrastructureDTO> findByRegion(Long regionId) {
+        log.debug("Finding infrastructure by region id: {}", regionId);
+        return infrastructureRepository.findByRegionId(regionId).stream()
+                .map(InfrastructureDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 }

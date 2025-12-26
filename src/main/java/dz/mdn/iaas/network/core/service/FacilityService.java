@@ -155,11 +155,4 @@ public class FacilityService extends GenericService<Facility, FacilityDTO, Long>
                 .map(FacilityDTO::fromEntity)
                 .collect(Collectors.toList());
     }
-
-    public List<FacilityDTO> findByRegion(Long regionId) {
-        log.debug("Finding locations by region id: {}", regionId);
-        return facilityRepository.findByRegionId(regionId).stream()
-                .map(FacilityDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
 }

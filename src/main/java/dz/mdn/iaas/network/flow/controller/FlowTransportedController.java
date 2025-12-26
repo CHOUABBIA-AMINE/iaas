@@ -32,14 +32,14 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/network/flow/volume")
+@RequestMapping("/network/flow/transported")
 @Slf4j
 public class FlowTransportedController extends GenericController<FlowTransportedDTO, Long> {
 
     //private final FlowTransportedService flowService;
 
-    public FlowTransportedController(FlowTransportedService flowService) {
-        super(flowService, "FlowTransported");
+    public FlowTransportedController(FlowTransportedService flowTransportedService) {
+        super(flowTransportedService, "FlowTransported");
         //this.flowService = flowService;
     }
 

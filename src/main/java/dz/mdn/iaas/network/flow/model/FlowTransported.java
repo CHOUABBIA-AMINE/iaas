@@ -74,7 +74,7 @@ public class FlowTransported extends GenericModel {
     protected LocalDate measurementDate;
 
     @ManyToOne
-    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_04_03_FK_01"), nullable=false)
+    @JoinColumn(name="F_04", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_04_04_FK_01"), nullable=false)
     private Pipeline pipeline;
     
 }

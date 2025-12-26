@@ -18,6 +18,7 @@ import java.time.LocalDate;
 
 import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
+import dz.mdn.iaas.network.common.model.Region;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -75,7 +76,11 @@ public class Infrastructure extends GenericModel {
     protected LocalDate decommissioningDate;
     
     @ManyToOne
-    @JoinColumn(name="F_06", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_01_FK_01"), nullable=false)
+    @JoinColumn(name = "F_06", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_01_FK_01"), nullable=false)
     protected OperationalStatus operationalStatus;
+    
+    @ManyToOne
+    @JoinColumn(name = "F_07", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_01_FK_02"), nullable = true)
+    private Region region;
     
 }

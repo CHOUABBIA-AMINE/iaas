@@ -22,10 +22,8 @@ import dz.mdn.iaas.common.administration.dto.LocalityDTO;
 import dz.mdn.iaas.common.administration.model.Locality;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
-import dz.mdn.iaas.network.common.dto.RegionDTO;
 import dz.mdn.iaas.network.common.dto.VendorDTO;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
-import dz.mdn.iaas.network.common.model.Region;
 import dz.mdn.iaas.network.common.model.Vendor;
 import dz.mdn.iaas.network.core.model.Facility;
 import jakarta.validation.constraints.NotBlank;
@@ -92,14 +90,10 @@ public class FacilityDTO extends GenericDTO<Facility> {
     @NotNull(message = "Locality is required")
     private Long localityId;
 
-    @NotNull(message = "Region is required")
-    private Long regionId;
-
     // Nested DTOs for read operations
     private OperationalStatusDTO operationalStatus;
     private VendorDTO vendor;
     private LocalityDTO locality;
-    private RegionDTO region;
 
     @Override
     public Facility toEntity() {
@@ -131,12 +125,6 @@ public class FacilityDTO extends GenericDTO<Facility> {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
         	facility.setLocality(locality);
-        }
-        
-        if (this.regionId != null) {
-        	Region region = new Region();
-        	locality.setId(this.regionId);
-        	facility.setRegion(region);
         }
         
         return facility;
@@ -171,12 +159,6 @@ public class FacilityDTO extends GenericDTO<Facility> {
         	locality.setId(this.localityId);
         	facility.setLocality(locality);
         }
-        
-        if (this.regionId != null) {
-        	Region region = new Region();
-        	locality.setId(this.regionId);
-        	facility.setRegion(region);
-        }
     }
 
     public static FacilityDTO fromEntity(Facility facility) {
@@ -197,12 +179,10 @@ public class FacilityDTO extends GenericDTO<Facility> {
                 .operationalStatusId(facility.getOperationalStatus() != null ? facility.getOperationalStatus().getId() : null)
                 .vendorId(facility.getVendor() != null ? facility.getVendor().getId() : null)
                 .localityId(facility.getLocality() != null ? facility.getLocality().getId() : null)
-                .regionId(facility.getRegion() != null ? facility.getRegion().getId() : null)
                 
                 .operationalStatus(facility.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(facility.getOperationalStatus()) : null)
                 .vendor(facility.getVendor() != null ? VendorDTO.fromEntity(facility.getVendor()) : null)
                 .locality(facility.getLocality() != null ? LocalityDTO.fromEntity(facility.getLocality()) : null)
-                .region(facility.getRegion() != null ? RegionDTO.fromEntity(facility.getRegion()) : null)
                 .build();
     }
 }
