@@ -17,7 +17,6 @@ package dz.mdn.iaas.network.flow.service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -204,14 +203,14 @@ public class DashboardService {
             .mapToDouble(FlowVolume::getVolume)
             .sum();
         
-        // Latest volume reading
+        // Latest volume reading - using getCode() which contains the hour (e.g., "20:00")
         FlowVolume latestVolume = volumes.stream()
-            .max(Comparator.comparing(v -> v.getMeasurementHour().getHour()))
+            .max(Comparator.comparing(v -> v.getMeasurementHour().getCode()))
             .orElse(null);
         
-        // Latest pressure reading
+        // Latest pressure reading - using getCode() which contains the hour (e.g., "20:00")
         FlowPressure latestPressure = pressures.stream()
-            .max(Comparator.comparing(p -> p.getMeasurementHour().getHour()))
+            .max(Comparator.comparing(p -> p.getMeasurementHour().getCode()))
             .orElse(null);
         
         // Pressure stats
@@ -236,9 +235,15 @@ public class DashboardService {
         String volumeStatus = determineVolumeStatus(transported, dailyVolumeTransported);
         String pressureStatus = determinePressureStatus(avgPressure);
         
-        // Get last reading time
-        LocalTime lastReadingTime = latestVolume != null ? 
-            LocalTime.parse(latestVolume.getMeasurementHour().getHour() + ":00") : null;
+        // Get last reading time - parse from code (e.g., "20:00")
+        LocalTime lastReadingTime = null;
+        if (latestVolume != null && latestVolume.getMeasurementHour() != null) {
+            try {
+                lastReadingTime = LocalTime.parse(latestVolume.getMeasurementHour().getCode());
+            } catch (Exception e) {
+                // If parsing fails, leave as null
+            }
+        }
         
         return PipelineStatusDTO.builder()
             .pipelineId(pipeline.getId())
