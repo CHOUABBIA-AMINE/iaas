@@ -97,7 +97,6 @@ public class DashboardService {
         // Monthly summary
         YearMonth currentMonth = YearMonth.now();
         LocalDate startOfMonth = currentMonth.atDay(1);
-        LocalDate endOfMonth = currentMonth.atEndOfMonth();
         
         List<FlowTransported> monthlyData = flowTransportedRepository
             .findByMeasurementDateBetween(startOfMonth, today);

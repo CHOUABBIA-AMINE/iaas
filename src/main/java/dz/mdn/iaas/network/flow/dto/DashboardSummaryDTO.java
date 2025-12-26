@@ -15,7 +15,6 @@
 package dz.mdn.iaas.network.flow.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
