@@ -67,7 +67,7 @@ public class FlowTransported extends GenericModel {
     @Column(name="F_01", nullable=false)
     private Double volumeEstimated;
     
-    @Column(name="F_02", nullable=false)
+    @Column(name="F_02", nullable=true)
     private Double volumeTransported;
     
     @Column(name = "F_03", nullable = false)

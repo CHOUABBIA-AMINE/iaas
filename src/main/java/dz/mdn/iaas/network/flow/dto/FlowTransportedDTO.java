@@ -58,7 +58,6 @@ public class FlowTransportedDTO extends GenericDTO<FlowTransported> {
     @NotBlank(message = "Code is required")
     private double volumeEstimated;
 
-    @NotBlank(message = "Name is required")
     private double volumeTransported;
 
     private LocalDate measurementDate;
