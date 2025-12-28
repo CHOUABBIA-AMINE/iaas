@@ -40,7 +40,7 @@ public interface FlowVolumeRepository extends JpaRepository<FlowVolume, Long> {
      */
     @Query("SELECT fv FROM FlowVolume fv " +
            "WHERE fv.pipeline.id = :pipelineId AND fv.measurementDate = :date " +
-           "ORDER BY fv.measurementHour.hour")
+           "ORDER BY fv.measurementHour.code")
     List<FlowVolume> findByPipelineAndDate(
         @Param("pipelineId") Long pipelineId, 
         @Param("date") LocalDate date
@@ -52,7 +52,7 @@ public interface FlowVolumeRepository extends JpaRepository<FlowVolume, Long> {
      */
     @Query("SELECT fv FROM FlowVolume fv " +
            "WHERE fv.measurementDate BETWEEN :startDate AND :endDate " +
-           "ORDER BY fv.measurementDate, fv.measurementHour.hour")
+           "ORDER BY fv.measurementDate, fv.measurementHour.code")
     List<FlowVolume> findByDateRange(
         @Param("startDate") LocalDate startDate, 
         @Param("endDate") LocalDate endDate
