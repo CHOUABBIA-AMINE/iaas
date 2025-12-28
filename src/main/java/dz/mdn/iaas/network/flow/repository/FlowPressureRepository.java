@@ -40,7 +40,7 @@ public interface FlowPressureRepository extends JpaRepository<FlowPressure, Long
      */
     @Query("SELECT fp FROM FlowPressure fp " +
            "WHERE fp.pipeline.id = :pipelineId AND fp.measurementDate = :date " +
-           "ORDER BY fp.measurementHour.hour")
+           "ORDER BY fp.measurementHour.code")
     List<FlowPressure> findByPipelineAndDate(
         @Param("pipelineId") Long pipelineId, 
         @Param("date") LocalDate date
@@ -52,7 +52,7 @@ public interface FlowPressureRepository extends JpaRepository<FlowPressure, Long
      */
     @Query("SELECT fp FROM FlowPressure fp " +
            "WHERE fp.measurementDate BETWEEN :startDate AND :endDate " +
-           "ORDER BY fp.measurementDate, fp.measurementHour.hour")
+           "ORDER BY fp.measurementDate, fp.measurementHour.code")
     List<FlowPressure> findByDateRange(
         @Param("startDate") LocalDate startDate, 
         @Param("endDate") LocalDate endDate
