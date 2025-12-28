@@ -14,13 +14,10 @@ package dz.mdn.iaas.common.administration.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,11 +32,9 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = true)
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Employee")
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="T_01_04_10")
 public class Employee extends Person {
 	

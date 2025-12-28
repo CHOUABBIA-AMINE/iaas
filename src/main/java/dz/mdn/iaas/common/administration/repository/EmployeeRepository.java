@@ -46,10 +46,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findByMilitaryRankId(Long militaryRankId);
     
     @Query("SELECT e FROM Employee e WHERE "
-            + "LOWER(e.registrationNumber) LIKE LOWER(CONCAT('%', :search, '%')) OR"
-            + "LOWER(e.lastNameAr) LIKE LOWER(CONCAT('%', :search, '%')) OR"
-            + "LOWER(e.firstNameAr) LIKE LOWER(CONCAT('%', :search, '%')) OR"
-            + "LOWER(e.lastNameLt) LIKE LOWER(CONCAT('%', :search, '%')) OR"
+            + "LOWER(e.registrationNumber) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(e.lastNameAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(e.firstNameAr) LIKE LOWER(CONCAT('%', :search, '%')) OR "
+            + "LOWER(e.lastNameLt) LIKE LOWER(CONCAT('%', :search, '%')) OR "
             + "LOWER(e.firstNameLt) LIKE LOWER(CONCAT('%', :search, '%'))")
     Page<Employee> searchByAnyField(@Param("search") String search, Pageable pageable);
 }

@@ -17,6 +17,8 @@ import java.util.Date;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -38,6 +40,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Person")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="T_01_04_09")
 public class Person extends GenericModel {
 	
