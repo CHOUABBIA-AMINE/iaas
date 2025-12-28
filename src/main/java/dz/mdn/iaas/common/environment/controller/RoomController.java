@@ -132,6 +132,18 @@ public class RoomController extends GenericController<RoomDTO, Long> {
      * Get rooms by floor ID
      * GET /room/floor/{floorId}
      */
+    @GetMapping("/bloc/{blocId}")
+    @PreAuthorize("hasAuthority('ROOM:READ')")
+    public ResponseEntity<List<RoomDTO>> getByBlocId(@PathVariable Long blocId) {
+        log.debug("GET /room/bloc/{} - Getting rooms by bloc ID", blocId);
+        List<RoomDTO> rooms = roomService.getByBlocId(blocId);
+        return success(rooms);
+    }
+
+    /**
+     * Get rooms by floor ID
+     * GET /room/floor/{floorId}
+     */
     @GetMapping("/floor/{floorId}")
     @PreAuthorize("hasAuthority('ROOM:READ')")
     public ResponseEntity<List<RoomDTO>> getByFloorId(@PathVariable Long floorId) {
