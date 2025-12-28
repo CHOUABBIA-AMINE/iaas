@@ -14,6 +14,15 @@
 
 package dz.mdn.iaas.common.administration.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import dz.mdn.iaas.common.administration.dto.PersonDTO;
 import dz.mdn.iaas.common.administration.model.Country;
 import dz.mdn.iaas.common.administration.model.Person;
@@ -21,14 +30,6 @@ import dz.mdn.iaas.common.administration.repository.PersonRepository;
 import dz.mdn.iaas.configuration.template.GenericService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Person Service - Extends GenericService
@@ -62,9 +63,9 @@ public class PersonService extends GenericService<Person, PersonDTO, Long> {
         Person entity = dto.toEntity();
         
         // Set relationships
-        if (dto.getNationalityId() != null) {
-            Country nationality = countryService.getEntityById(dto.getNationalityId());
-            entity.setNationality(nationality);
+        if (dto.getCountryId() != null) {
+            Country country = countryService.getEntityById(dto.getCountryId());
+            entity.setCountry(country);
         }
         
         return entity;
@@ -75,9 +76,9 @@ public class PersonService extends GenericService<Person, PersonDTO, Long> {
         dto.updateEntity(entity);
         
         // Update relationships
-        if (dto.getNationalityId() != null) {
-            Country nationality = countryService.getEntityById(dto.getNationalityId());
-            entity.setNationality(nationality);
+        if (dto.getCountryId() != null) {
+            Country country = countryService.getEntityById(dto.getCountryId());
+            entity.setCountry(country);
         }
     }
 

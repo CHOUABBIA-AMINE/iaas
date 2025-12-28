@@ -60,7 +60,7 @@ public class PersonDTO extends GenericDTO<Person> {
     @Size(max = 100, message = "Birth place must not exceed 100 characters")
     private String birthPlace;
 
-    private Long nationalityId;
+    private Long countryId;
 
     @Override
     public Person toEntity() {
@@ -95,7 +95,7 @@ public class PersonDTO extends GenericDTO<Person> {
                 .firstNameLt(entity.getFirstNameLt())
                 .birthDate(entity.getBirthDate())
                 .birthPlace(entity.getBirthPlace())
-                .nationalityId(entity.getNationality() != null ? entity.getNationality().getId() : null)
+                .countryId(entity.getCountry() != null ? entity.getCountry().getId() : null)
                 .build();
     }
 }

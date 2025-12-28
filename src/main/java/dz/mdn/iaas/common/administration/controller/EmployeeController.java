@@ -143,16 +143,4 @@ public class EmployeeController extends GenericController<EmployeeDTO, Long> {
         List<EmployeeDTO> employees = employeeService.getByStructureId(structureId);
         return success(employees);
     }
-
-    /**
-     * Get active employees
-     * GET /employee/active
-     */
-    @GetMapping("/active")
-    @PreAuthorize("hasAuthority('EMPLOYEE:READ')")
-    public ResponseEntity<List<EmployeeDTO>> getActiveEmployees() {
-        log.debug("GET /employee/active - Getting active employees");
-        List<EmployeeDTO> employees = employeeService.getActiveEmployees();
-        return success(employees);
-    }
 }

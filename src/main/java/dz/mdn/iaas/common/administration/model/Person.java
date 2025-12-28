@@ -61,5 +61,5 @@ public class Person extends GenericModel {
 	
 	@ManyToOne
 	@JoinColumn(name="F_07")
-	private Country nationality;
+	private Country country;
 }

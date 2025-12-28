@@ -12,13 +12,15 @@
 
 package dz.mdn.iaas.common.administration.model;
 
-import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,31 +35,27 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = true)
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Employee")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="T_01_04_10")
-public class Employee extends GenericModel {
+public class Employee extends Person {
+	
+	@Column(name="F_11", length=50)
+	private String registrationNumber;
 	
 	@ManyToOne
-	@JoinColumn(name="F_01", nullable=false)
-	private Person person;
-	
-	@ManyToOne
-	@JoinColumn(name="F_02")
+	@JoinColumn(name="F_12")
 	private Job job;
 	
 	@ManyToOne
-	@JoinColumn(name="F_03")
+	@JoinColumn(name="F_13")
 	private Structure structure;
 	
 	@ManyToOne
-	@JoinColumn(name="F_04")
-	private MilitaryRank rank;
+	@JoinColumn(name="F_14")
+	private MilitaryRank militaryRank;
 	
-	@Column(name="F_05", length=50)
-	private String registrationNumber;
-	
-	@Column(name="F_06")
-	private Boolean isActive;
 }

@@ -14,24 +14,25 @@
 
 package dz.mdn.iaas.common.administration.service;
 
-import dz.mdn.iaas.common.administration.dto.EmployeeDTO;
-import dz.mdn.iaas.common.administration.model.Employee;
-import dz.mdn.iaas.common.administration.model.Job;
-import dz.mdn.iaas.common.administration.model.MilitaryRank;
-import dz.mdn.iaas.common.administration.model.Person;
-import dz.mdn.iaas.common.administration.model.Structure;
-import dz.mdn.iaas.common.administration.repository.EmployeeRepository;
-import dz.mdn.iaas.configuration.template.GenericService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import dz.mdn.iaas.common.administration.dto.EmployeeDTO;
+import dz.mdn.iaas.common.administration.model.Country;
+import dz.mdn.iaas.common.administration.model.Employee;
+import dz.mdn.iaas.common.administration.model.Job;
+import dz.mdn.iaas.common.administration.model.MilitaryRank;
+import dz.mdn.iaas.common.administration.model.Structure;
+import dz.mdn.iaas.common.administration.repository.EmployeeRepository;
+import dz.mdn.iaas.configuration.template.GenericService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Employee Service - Extends GenericService
@@ -43,7 +44,7 @@ import java.util.stream.Collectors;
 public class EmployeeService extends GenericService<Employee, EmployeeDTO, Long> {
 
     private final EmployeeRepository employeeRepository;
-    private final PersonService personService;
+    private final CountryService countryService;
     private final JobService jobService;
     private final StructureService structureService;
     private final MilitaryRankService militaryRankService;
@@ -68,9 +69,9 @@ public class EmployeeService extends GenericService<Employee, EmployeeDTO, Long>
         Employee entity = dto.toEntity();
         
         // Set relationships
-        if (dto.getPersonId() != null) {
-            Person person = personService.getEntityById(dto.getPersonId());
-            entity.setPerson(person);
+        if (dto.getCountryId() != null) {
+            Country country = countryService.getEntityById(dto.getCountryId());
+            entity.setCountry(country);
         }
         
         if (dto.getJobId() != null) {
@@ -83,9 +84,9 @@ public class EmployeeService extends GenericService<Employee, EmployeeDTO, Long>
             entity.setStructure(structure);
         }
         
-        if (dto.getRankId() != null) {
-            MilitaryRank rank = militaryRankService.getEntityById(dto.getRankId());
-            entity.setRank(rank);
+        if (dto.getMilitaryRankId() != null) {
+            MilitaryRank militaryRank = militaryRankService.getEntityById(dto.getMilitaryRankId());
+            entity.setMilitaryRank(militaryRank);
         }
         
         return entity;
@@ -96,9 +97,9 @@ public class EmployeeService extends GenericService<Employee, EmployeeDTO, Long>
         dto.updateEntity(entity);
         
         // Update relationships
-        if (dto.getPersonId() != null) {
-            Person person = personService.getEntityById(dto.getPersonId());
-            entity.setPerson(person);
+        if (dto.getCountryId() != null) {
+            Country country = countryService.getEntityById(dto.getCountryId());
+            entity.setCountry(country);
         }
         
         if (dto.getJobId() != null) {
@@ -111,17 +112,17 @@ public class EmployeeService extends GenericService<Employee, EmployeeDTO, Long>
             entity.setStructure(structure);
         }
         
-        if (dto.getRankId() != null) {
-            MilitaryRank rank = militaryRankService.getEntityById(dto.getRankId());
-            entity.setRank(rank);
+        if (dto.getMilitaryRankId() != null) {
+            MilitaryRank militaryRank = militaryRankService.getEntityById(dto.getMilitaryRankId());
+            entity.setMilitaryRank(militaryRank);
         }
     }
 
     @Override
     @Transactional
     public EmployeeDTO create(EmployeeDTO dto) {
-        log.info("Creating employee: registrationNumber={}, personId={}", 
-                dto.getRegistrationNumber(), dto.getPersonId());
+        log.info("Creating employee: registrationNumber={}", 
+                dto.getRegistrationNumber());
         return super.create(dto);
     }
 
@@ -152,13 +153,6 @@ public class EmployeeService extends GenericService<Employee, EmployeeDTO, Long>
     public List<EmployeeDTO> getByStructureId(Long structureId) {
         log.debug("Getting employees by structure ID: {}", structureId);
         return employeeRepository.findByStructureId(structureId).stream()
-                .map(EmployeeDTO::fromEntity)
-                .collect(Collectors.toList());
-    }
-
-    public List<EmployeeDTO> getActiveEmployees() {
-        log.debug("Getting active employees");
-        return employeeRepository.findByIsActiveTrue().stream()
                 .map(EmployeeDTO::fromEntity)
                 .collect(Collectors.toList());
     }
