@@ -84,8 +84,8 @@ public class FolderService extends GenericService<Folder, FolderDTO, Long> {
     @Override
     @Transactional
     public FolderDTO create(FolderDTO dto) {
-        log.info("Creating folder: code={}, folderOrder={}, archiveBoxId={}", 
-                dto.getCode(), dto.getFolderOrder(), dto.getArchiveBoxId());
+        log.info("Creating folder: code={}, archiveBoxId={}", 
+                dto.getCode(), dto.getArchiveBoxId());
         return super.create(dto);
     }
 

@@ -48,15 +48,12 @@ public class FolderDTO extends GenericDTO<Folder> {
     @NotNull(message = "Archive box ID is required")
     private Long archiveBoxId;
 
-    private Integer folderOrder;
-
     @Override
     public Folder toEntity() {
         Folder entity = new Folder();
         entity.setId(this.getId());
         entity.setCode(this.code);
         entity.setDescription(this.description);
-        entity.setFolderOrder(this.folderOrder);
         return entity;
     }
 
@@ -64,7 +61,6 @@ public class FolderDTO extends GenericDTO<Folder> {
     public void updateEntity(Folder entity) {
         if (this.code != null) entity.setCode(this.code);
         if (this.description != null) entity.setDescription(this.description);
-        if (this.folderOrder != null) entity.setFolderOrder(this.folderOrder);
     }
 
     public static FolderDTO fromEntity(Folder entity) {
@@ -74,7 +70,6 @@ public class FolderDTO extends GenericDTO<Folder> {
                 .code(entity.getCode())
                 .description(entity.getDescription())
                 .archiveBoxId(entity.getArchiveBox() != null ? entity.getArchiveBox().getId() : null)
-                .folderOrder(entity.getFolderOrder())
                 .build();
     }
 }

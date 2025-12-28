@@ -148,7 +148,7 @@ public class Contract extends GenericModel {
 			joinColumns = @JoinColumn(name = "F_01", foreignKey = @ForeignKey(name = "R_T020504_T010203_FK_01")), 
 			inverseJoinColumns = @JoinColumn(name = "F_02", foreignKey = @ForeignKey(name = "R_T020504_T010203_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020504_T010203_UK_01", columnNames = {"F_01", "F_02"}))
-	private List<Mail> referencedMails;
+	private List<Mail> mails;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(

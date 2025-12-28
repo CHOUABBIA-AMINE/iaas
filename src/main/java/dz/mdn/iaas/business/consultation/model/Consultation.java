@@ -150,7 +150,7 @@ public class Consultation extends GenericModel {
 			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey = @ForeignKey(name = "R_T020404_T010203_FK_01")), 
 			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey = @ForeignKey(name = "R_T020404_T010203_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T020404_T010203_UK_01", columnNames = {"F_01", "F_02"}))
-	private List<Mail> referencedMails;
+	private List<Mail> mails;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(

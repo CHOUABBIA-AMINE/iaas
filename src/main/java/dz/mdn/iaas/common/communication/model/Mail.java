@@ -49,7 +49,7 @@ import lombok.ToString;
 @Table(name="T_01_02_03", uniqueConstraints = {@UniqueConstraint(name = "T_01_02_03_UK_01", columnNames = { "F_01" })})
 public class Mail extends GenericModel {
 	
-	@Column(name="F_01", length=50)
+	@Column(name="F_01", length=100)
 	private String reference;
 	
 	@Column(name="F_02", length=50, nullable=true)
