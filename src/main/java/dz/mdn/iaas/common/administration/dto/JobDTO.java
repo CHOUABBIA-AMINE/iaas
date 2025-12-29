@@ -16,6 +16,7 @@ package dz.mdn.iaas.common.administration.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dz.mdn.iaas.common.administration.model.Job;
+import dz.mdn.iaas.common.administration.model.Structure;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -63,6 +64,13 @@ public class JobDTO extends GenericDTO<Job> {
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
         entity.setCode(this.code);
+        
+        if (this.structureId != null) {
+            Structure structure = new Structure();
+            structure.setId(this.structureId);
+            entity.setStructure(structure);
+        }
+		
         return entity;
     }
 
@@ -72,6 +80,12 @@ public class JobDTO extends GenericDTO<Job> {
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
         if (this.code != null) entity.setCode(this.code);
+        
+        if (this.structureId != null) {
+            Structure structure = new Structure();
+            structure.setId(this.structureId);
+            entity.setStructure(structure);
+        }
     }
 
     public static JobDTO fromEntity(Job entity) {
