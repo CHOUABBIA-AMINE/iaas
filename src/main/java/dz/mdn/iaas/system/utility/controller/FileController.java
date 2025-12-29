@@ -81,7 +81,7 @@ public class FileController extends GenericController<FileDTO, Long> {
      * Download file
      * GET /system/file/{id}/download
      */
-    @GetMapping("/{id}/download")
+    @GetMapping("/download/{id}")
     public ResponseEntity<Resource> downloadFile(@PathVariable Long id) {
         log.info("REST request to download file with id: {}", id);
         
