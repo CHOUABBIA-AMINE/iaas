@@ -14,9 +14,20 @@
 
 package dz.mdn.iaas.common.communication.dto;
 
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import dz.mdn.iaas.common.administration.dto.StructureDTO;
+import dz.mdn.iaas.common.administration.model.Structure;
 import dz.mdn.iaas.common.communication.model.Mail;
+import dz.mdn.iaas.common.communication.model.MailNature;
+import dz.mdn.iaas.common.communication.model.MailType;
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.system.utility.dto.FileDTO;
+import dz.mdn.iaas.system.utility.model.File;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -24,10 +35,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Mail Data Transfer Object
@@ -67,6 +74,11 @@ public class MailDTO extends GenericDTO<Mail> {
     private Long fileId;
 
     private List<Long> referencedMailIds;
+    
+    private MailNatureDTO mailNature;
+    private MailTypeDTO mailType;
+    private StructureDTO structure;
+    private FileDTO file;
 
     @Override
     public Mail toEntity() {
@@ -77,6 +89,31 @@ public class MailDTO extends GenericDTO<Mail> {
         entity.setSubject(this.subject);
         entity.setMailDate(this.mailDate);
         entity.setRecordDate(this.recordDate);
+        
+        if (this.mailNatureId != null) {
+        	MailNature nature = new MailNature();
+        	nature.setId(this.mailNatureId);
+            entity.setMailNature(nature);
+        }
+        
+        if (this.mailTypeId != null) {
+        	MailType type = new MailType();
+        	type.setId(this.mailTypeId);
+            entity.setMailType(type);
+        }
+        
+        if (this.structureId != null) {
+        	Structure structure = new Structure();
+        	structure.setId(this.structureId);
+            entity.setStructure(structure);
+        }
+        
+        if (this.fileId != null) {
+        	File file = new File();
+        	file.setId(this.fileId);
+            entity.setFile(file);
+        }
+        
         return entity;
     }
 
@@ -87,6 +124,30 @@ public class MailDTO extends GenericDTO<Mail> {
         if (this.subject != null) entity.setSubject(this.subject);
         if (this.mailDate != null) entity.setMailDate(this.mailDate);
         if (this.recordDate != null) entity.setRecordDate(this.recordDate);
+        
+        if (this.mailNatureId != null) {
+        	MailNature nature = new MailNature();
+        	nature.setId(this.mailNatureId);
+            entity.setMailNature(nature);
+        }
+        
+        if (this.mailTypeId != null) {
+        	MailType type = new MailType();
+        	type.setId(this.mailTypeId);
+            entity.setMailType(type);
+        }
+        
+        if (this.structureId != null) {
+        	Structure structure = new Structure();
+        	structure.setId(this.structureId);
+            entity.setStructure(structure);
+        }
+        
+        if (this.fileId != null) {
+        	File file = new File();
+        	file.setId(this.fileId);
+            entity.setFile(file);
+        }
     }
 
     public static MailDTO fromEntity(Mail entity) {
@@ -102,8 +163,12 @@ public class MailDTO extends GenericDTO<Mail> {
                 .mailTypeId(entity.getMailType() != null ? entity.getMailType().getId() : null)
                 .structureId(entity.getStructure() != null ? entity.getStructure().getId() : null)
                 .fileId(entity.getFile() != null ? entity.getFile().getId() : null)
-                .referencedMailIds(entity.getReferencedMails() != null ? 
-                        entity.getReferencedMails().stream().map(Mail::getId).collect(Collectors.toList()) : null)
+                .referencedMailIds(entity.getReferencedMails() != null ? entity.getReferencedMails().stream().map(Mail::getId).collect(Collectors.toList()) : null)
+                
+                .mailNature(entity.getMailNature() != null ? MailNatureDTO.fromEntity(entity.getMailNature()) : null)
+                .mailType(entity.getMailType() != null ? MailTypeDTO.fromEntity(entity.getMailType()) : null)
+                .structure(entity.getStructure() != null ? StructureDTO.fromEntity(entity.getStructure()) : null)
+                .file(entity.getFile() != null ? FileDTO.fromEntity(entity.getFile()) : null)
                 .build();
     }
 }
