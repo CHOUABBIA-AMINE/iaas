@@ -161,4 +161,63 @@ public class MailService extends GenericService<Mail, MailDTO, Long> {
         
         return getAll(pageable);
     }
+    
+ // ==================== REFERENCED MAILS METHODS ====================
+
+    /**
+     * Get all mails referenced by a specific mail
+     * 
+     * @param mailId - The ID of the parent mail
+     * @return List of referenced mails (empty set if mail not found)
+     */
+    public List<MailDTO> getReferencedMails(Long mailId) {
+        Mail mail = mailRepository.findById(mailId).orElse(null);
+        if (mail == null) {
+            return new ArrayList<>();
+        }
+        
+        return mail.getReferencedMails().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Update referenced mails based on array of IDs
+     * Replaces all existing references with new ones
+     * Automatically filters out: self-references, null/invalid IDs
+     * 
+     * @param mailId - The ID of the parent mail
+     * @param referencedMailIds - Array of mail IDs to reference
+     */
+    public void updateReferencedMails(Long mailId, List<Long> referencedMailIds) {
+    	System.out.println("References of :" + mailId);
+        Mail mail = mailRepository.findById(mailId)
+                .orElseThrow(() -> new IllegalArgumentException("Mail with ID " + mailId + " not found"));
+
+        // Clear existing references
+        mail.getReferencedMails().clear();
+        List<Mail> referencedMails = new ArrayList<Mail>(); 
+        // Add new references
+        if (referencedMailIds != null) {
+        	
+            for (Long refId : referencedMailIds) {
+                // Skip self-reference and null values
+                if (refId == null || refId.equals(mailId)) {
+                    continue;
+                }
+
+                Mail referencedMail = mailRepository.findById(refId).orElse(null);
+                if (referencedMail != null) {
+                    //mail.getReferencedMails().add(referencedMail);
+                    //mail.setReferencedMails(referencedMail);
+                    referencedMails.add(referencedMail);
+                    System.out.println("References of nested :" + referencedMail.getId());
+                }
+            }
+            
+        }
+        mail.setReferencedMails(referencedMails);
+        mailRepository.save(mail);
+        System.out.println("References from DB :" + mail.getReferencedMails().size());
+    }
 }
