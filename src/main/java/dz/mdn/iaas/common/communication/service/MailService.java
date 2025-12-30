@@ -5,6 +5,7 @@
  *	@Name		: MailService
  *	@CreatedOn	: 10-15-2025
  *	@Updated	: 12-11-2025
+ *	@Updated	: 12-30-2025 - Fixed updateReferencedMails persistence
  *
  *	@Type		: Service
  *	@Layer		: Common / Communication
@@ -162,13 +163,13 @@ public class MailService extends GenericService<Mail, MailDTO, Long> {
         return getAll(pageable);
     }
     
- // ==================== REFERENCED MAILS METHODS ====================
+    // ==================== REFERENCED MAILS METHODS ====================
 
     /**
      * Get all mails referenced by a specific mail
      * 
      * @param mailId - The ID of the parent mail
-     * @return List of referenced mails (empty set if mail not found)
+     * @return List of referenced mails (empty list if mail not found)
      */
     public List<MailDTO> getReferencedMails(Long mailId) {
         Mail mail = mailRepository.findById(mailId).orElse(null);
@@ -189,36 +190,42 @@ public class MailService extends GenericService<Mail, MailDTO, Long> {
      * @param mailId - The ID of the parent mail
      * @param referencedMailIds - Array of mail IDs to reference
      */
+    @Transactional  // CRITICAL: This was missing!
     public void updateReferencedMails(Long mailId, List<Long> referencedMailIds) {
-    	System.out.println("References of :" + mailId);
+        log.info("Updating referenced mails for mail ID: {}", mailId);
+        
+        // Fetch the managed entity
         Mail mail = mailRepository.findById(mailId)
                 .orElseThrow(() -> new IllegalArgumentException("Mail with ID " + mailId + " not found"));
 
-        // Clear existing references
+        // Clear existing references on the managed entity
         mail.getReferencedMails().clear();
-        List<Mail> referencedMails = new ArrayList<Mail>(); 
-        // Add new references
-        if (referencedMailIds != null) {
-        	
+        
+        // Add new references directly to the managed collection
+        if (referencedMailIds != null && !referencedMailIds.isEmpty()) {
             for (Long refId : referencedMailIds) {
                 // Skip self-reference and null values
                 if (refId == null || refId.equals(mailId)) {
+                    log.debug("Skipping self-reference or null ID: {}", refId);
                     continue;
                 }
 
+                // Fetch referenced mail
                 Mail referencedMail = mailRepository.findById(refId).orElse(null);
                 if (referencedMail != null) {
-                    //mail.getReferencedMails().add(referencedMail);
-                    //mail.setReferencedMails(referencedMail);
-                    referencedMails.add(referencedMail);
-                    System.out.println("References of nested :" + referencedMail.getId());
+                    mail.getReferencedMails().add(referencedMail);
+                    log.debug("Added reference to mail ID: {}", refId);
+                } else {
+                    log.warn("Referenced mail with ID {} not found", refId);
                 }
             }
-            
         }
-        mail.setReferencedMails(referencedMails);
-        //mailRepository.save(mail);
-        super.update(mailId, toDTO(mail));
-        System.out.println("References from DB :" + mailRepository.findById(mailId).orElseThrow().getReferencedMails().size());
+        
+        // Save the entity (cascade will handle the join table)
+        mailRepository.save(mail);
+        mailRepository.flush(); // Force immediate database synchronization
+        
+        log.info("Successfully updated referenced mails for mail ID: {}. Total references: {}", 
+                mailId, mail.getReferencedMails().size());
     }
 }
