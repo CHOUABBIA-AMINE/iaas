@@ -4,6 +4,7 @@
  *	@Name		: Mail
  *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
+ *	@Updated	: 12-30-2025 - Added cascade for referencedMails
  *	@Type		: Model
  *	@Layer		: Common / Communication
  *	@Package	: Common / Communication / Model
@@ -12,12 +13,14 @@
 
 package dz.mdn.iaas.common.communication.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import dz.mdn.iaas.common.administration.model.Structure;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import dz.mdn.iaas.system.utility.model.File;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,8 +44,8 @@ import lombok.ToString;
  */
 @Setter
 @Getter
-@ToString
-@EqualsAndHashCode(callSuper = true)
+@ToString(exclude = {"referencedMails"}) // Avoid circular toString issues
+@EqualsAndHashCode(callSuper = true, exclude = {"referencedMails"}) // Avoid circular hashCode issues
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Mail")
@@ -80,11 +83,15 @@ public class Mail extends GenericModel {
     @JoinColumn(name="F_09", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_01_02_03_FK_04"), nullable=false)
     private File file;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	/**
+	 * Many-to-Many relationship for referenced mails
+	 * Added cascade operations to ensure proper persistence
+	 */
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(
 			name = "R_T010203_T010203", 
 			joinColumns = @JoinColumn(name = "F_01", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T010203_T010203_FK_01")), 
 			inverseJoinColumns = @JoinColumn(name = "F_02", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="R_T010203_T010203_FK_02")),
 			uniqueConstraints = @UniqueConstraint(name = "R_T010203_T010203_UK_01", columnNames = {"F_01", "F_02"}))
-	private List<Mail> referencedMails;
+	private List<Mail> referencedMails = new ArrayList<>();
 }
