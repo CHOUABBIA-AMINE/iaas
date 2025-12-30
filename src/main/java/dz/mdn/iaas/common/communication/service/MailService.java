@@ -217,7 +217,8 @@ public class MailService extends GenericService<Mail, MailDTO, Long> {
             
         }
         mail.setReferencedMails(referencedMails);
-        mailRepository.save(mail);
-        System.out.println("References from DB :" + mail.getReferencedMails().size());
+        //mailRepository.save(mail);
+        super.update(mailId, toDTO(mail));
+        System.out.println("References from DB :" + mailRepository.findById(mailId).orElseThrow().getReferencedMails().size());
     }
 }
