@@ -136,7 +136,7 @@ public class MilitaryRankController extends GenericController<MilitaryRankDTO, L
      * Get military ranks by category ID
      * GET /military-rank/category/{categoryId}
      */
-    @GetMapping("/category/{categoryId}")
+    @GetMapping("/category/{militaryCategoryId}")
     @PreAuthorize("hasAuthority('MILITARY_RANK:READ')")
     public ResponseEntity<List<MilitaryRankDTO>> getByMilitaryCategoryId(@PathVariable Long militaryCategoryId) {
         log.debug("GET /military-rank/category/{} - Getting military ranks by military category ID", militaryCategoryId);
