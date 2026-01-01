@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: HydrocarbonFieldDTO
- *	@CreatedOn	: 12-19-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-19-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Core
  *
  **/
 
@@ -115,124 +115,124 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
 
     @Override
     public HydrocarbonField toEntity() {
-        HydrocarbonField field = new HydrocarbonField();
-        field.setId(getId());
-        field.setCode(this.code);
-        field.setName(this.name);
-        field.setInstallationDate(this.installationDate);
-        field.setCommissioningDate(this.commissioningDate);
-        field.setDecommissioningDate(this.decommissioningDate);
-        field.setPlaceName(this.placeName);
-        field.setLatitude(this.latitude);
-        field.setLongitude(this.longitude);
-        field.setElevation(this.elevation);
+        HydrocarbonField entity = new HydrocarbonField();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setName(this.name);
+        entity.setInstallationDate(this.installationDate);
+        entity.setCommissioningDate(this.commissioningDate);
+        entity.setDecommissioningDate(this.decommissioningDate);
+        entity.setPlaceName(this.placeName);
+        entity.setLatitude(this.latitude);
+        entity.setLongitude(this.longitude);
+        entity.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            field.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
         	vendor.setId(this.vendorId);
-        	field.setVendor(vendor);
+        	entity.setVendor(vendor);
         }
         
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-        	field.setLocality(locality);
+        	entity.setLocality(locality);
         }
         
         if (this.hydrocarbonFieldTypeId != null) {
         	HydrocarbonFieldType hydrocarbonFieldType = new HydrocarbonFieldType();
             hydrocarbonFieldType.setId(this.hydrocarbonFieldTypeId);
-            field.setHydrocarbonFieldType(hydrocarbonFieldType);
+            entity.setHydrocarbonFieldType(hydrocarbonFieldType);
         }
         
-        return field;
+        return entity;
     }
 
     @Override
-    public void updateEntity(HydrocarbonField field) {
-        if (this.code != null) field.setCode(this.code);
-        if (this.name != null) field.setName(this.name);
-        if (this.installationDate != null) field.setInstallationDate(this.installationDate);
-        if (this.commissioningDate != null) field.setCommissioningDate(this.commissioningDate);
-        if (this.decommissioningDate != null) field.setDecommissioningDate(this.decommissioningDate);
-        if (this.placeName != null) field.setPlaceName(this.placeName);
-        if (this.latitude != null) field.setLatitude(this.latitude);
-        if (this.longitude != null) field.setLongitude(this.longitude);
-        if (this.elevation != null) field.setElevation(this.elevation);
+    public void updateEntity(HydrocarbonField entity) {
+        if (this.code != null) entity.setCode(this.code);
+        if (this.name != null) entity.setName(this.name);
+        if (this.installationDate != null) entity.setInstallationDate(this.installationDate);
+        if (this.commissioningDate != null) entity.setCommissioningDate(this.commissioningDate);
+        if (this.decommissioningDate != null) entity.setDecommissioningDate(this.decommissioningDate);
+        if (this.placeName != null) entity.setPlaceName(this.placeName);
+        if (this.latitude != null) entity.setLatitude(this.latitude);
+        if (this.longitude != null) entity.setLongitude(this.longitude);
+        if (this.elevation != null) entity.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            field.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
         	vendor.setId(this.vendorId);
-        	field.setVendor(vendor);
+        	entity.setVendor(vendor);
         }     
         
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-        	field.setLocality(locality);
+        	entity.setLocality(locality);
         }
         
         if (this.hydrocarbonFieldTypeId != null) {
         	HydrocarbonFieldType hydrocarbonFieldType = new HydrocarbonFieldType();
             hydrocarbonFieldType.setId(this.hydrocarbonFieldTypeId);
-            field.setHydrocarbonFieldType(hydrocarbonFieldType);
+            entity.setHydrocarbonFieldType(hydrocarbonFieldType);
         }
     }
 
-    public static HydrocarbonFieldDTO fromEntity(HydrocarbonField field) {
-        if (field == null) return null;
+    public static HydrocarbonFieldDTO fromEntity(HydrocarbonField entity) {
+        if (entity == null) return null;
         
         Set<Long> pipelineIds = new HashSet<>();
-        if (field.getPipelines() != null) {
-            field.getPipelines().forEach(p -> pipelineIds.add(p.getId()));
+        if (entity.getPipelines() != null) {
+            entity.getPipelines().forEach(p -> pipelineIds.add(p.getId()));
         }
 		
 		Set<Long> partnerIds = new HashSet<>();
-        if (field.getPartners() != null) {
-            field.getPartners().forEach(p -> partnerIds.add(p.getId()));
+        if (entity.getPartners() != null) {
+            entity.getPartners().forEach(p -> partnerIds.add(p.getId()));
         }
 		
 		Set<Long> productIds = new HashSet<>();
-        if (field.getProducts() != null) {
-            field.getProducts().forEach(p -> productIds.add(p.getId()));
+        if (entity.getProducts() != null) {
+            entity.getProducts().forEach(p -> productIds.add(p.getId()));
         }
         
         return HydrocarbonFieldDTO.builder()
-                .id(field.getId())
-                .code(field.getCode())
-                .name(field.getName())
-                .installationDate(field.getInstallationDate())
-                .commissioningDate(field.getCommissioningDate())
-                .decommissioningDate(field.getDecommissioningDate())
-                .placeName(field.getPlaceName())
-                .latitude(field.getLatitude())
-                .longitude(field.getLongitude())
-                .elevation(field.getElevation())
+                .id(entity.getId())
+                .code(entity.getCode())
+                .name(entity.getName())
+                .installationDate(entity.getInstallationDate())
+                .commissioningDate(entity.getCommissioningDate())
+                .decommissioningDate(entity.getDecommissioningDate())
+                .placeName(entity.getPlaceName())
+                .latitude(entity.getLatitude())
+                .longitude(entity.getLongitude())
+                .elevation(entity.getElevation())
                 
-                .operationalStatusId(field.getOperationalStatus() != null ? field.getOperationalStatus().getId() : null)
-                .vendorId(field.getVendor() != null ? field.getVendor().getId() : null)
-                .localityId(field.getLocality() != null ? field.getLocality().getId() : null)
-                .hydrocarbonFieldTypeId(field.getHydrocarbonFieldType() != null ? field.getHydrocarbonFieldType().getId() : null)
+                .operationalStatusId(entity.getOperationalStatus() != null ? entity.getOperationalStatus().getId() : null)
+                .vendorId(entity.getVendor() != null ? entity.getVendor().getId() : null)
+                .localityId(entity.getLocality() != null ? entity.getLocality().getId() : null)
+                .hydrocarbonFieldTypeId(entity.getHydrocarbonFieldType() != null ? entity.getHydrocarbonFieldType().getId() : null)
                 .pipelineIds(pipelineIds)
                 .partnerIds(partnerIds)
                 .productIds(productIds)
                 
-                .operationalStatus(field.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(field.getOperationalStatus()) : null)
-                .vendor(field.getVendor() != null ? VendorDTO.fromEntity(field.getVendor()) : null)
-                .locality(field.getLocality() != null ? LocalityDTO.fromEntity(field.getLocality()) : null)
-                .hydrocarbonFieldType(field.getHydrocarbonFieldType() != null ? HydrocarbonFieldTypeDTO.fromEntity(field.getHydrocarbonFieldType()) : null)
+                .operationalStatus(entity.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(entity.getOperationalStatus()) : null)
+                .vendor(entity.getVendor() != null ? VendorDTO.fromEntity(entity.getVendor()) : null)
+                .locality(entity.getLocality() != null ? LocalityDTO.fromEntity(entity.getLocality()) : null)
+                .hydrocarbonFieldType(entity.getHydrocarbonFieldType() != null ? HydrocarbonFieldTypeDTO.fromEntity(entity.getHydrocarbonFieldType()) : null)
                 .build();
     }
 }

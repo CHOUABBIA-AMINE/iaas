@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: VendorDTO
- *	@CreatedOn	: 12-19-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-19-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Common
  *
  **/
 
@@ -16,8 +16,10 @@ package dz.mdn.iaas.network.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.common.administration.dto.CountryDTO;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.common.model.Vendor;
+import dz.mdn.iaas.network.type.dto.VendorTypeDTO;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -56,60 +58,67 @@ public class VendorDTO extends GenericDTO<Vendor> {
 
     @NotNull(message = "Country ID is required")
     private Long countryId;
+    
+    private VendorTypeDTO vendorType;
+    
+    private CountryDTO country;
 
     @Override
     public Vendor toEntity() {
-        Vendor vendor = new Vendor();
-        vendor.setId(getId());
-        vendor.setName(this.name);
-        vendor.setShortName(this.shortName);
+        Vendor entity = new Vendor();
+        entity.setId(getId());
+        entity.setName(this.name);
+        entity.setShortName(this.shortName);
         
         if (this.vendorTypeId != null) {
             dz.mdn.iaas.network.type.model.VendorType type = 
                 new dz.mdn.iaas.network.type.model.VendorType();
             type.setId(this.vendorTypeId);
-            vendor.setVendorType(type);
+            entity.setVendorType(type);
         }
         
         if (this.countryId != null) {
             dz.mdn.iaas.common.administration.model.Country country = 
                 new dz.mdn.iaas.common.administration.model.Country();
             country.setId(this.countryId);
-            vendor.setCountry(country);
+            entity.setCountry(country);
         }
         
-        return vendor;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Vendor vendor) {
-        if (this.name != null) vendor.setName(this.name);
-        if (this.shortName != null) vendor.setShortName(this.shortName);
+    public void updateEntity(Vendor entity) {
+        if (this.name != null) entity.setName(this.name);
+        if (this.shortName != null) entity.setShortName(this.shortName);
         
         if (this.vendorTypeId != null) {
             dz.mdn.iaas.network.type.model.VendorType type = 
                 new dz.mdn.iaas.network.type.model.VendorType();
             type.setId(this.vendorTypeId);
-            vendor.setVendorType(type);
+            entity.setVendorType(type);
         }
         
         if (this.countryId != null) {
             dz.mdn.iaas.common.administration.model.Country country = 
                 new dz.mdn.iaas.common.administration.model.Country();
             country.setId(this.countryId);
-            vendor.setCountry(country);
+            entity.setCountry(country);
         }
     }
 
-    public static VendorDTO fromEntity(Vendor vendor) {
-        if (vendor == null) return null;
+    public static VendorDTO fromEntity(Vendor entity) {
+        if (entity == null) return null;
         
         return VendorDTO.builder()
-                .id(vendor.getId())
-                .name(vendor.getName())
-                .shortName(vendor.getShortName())
-                .vendorTypeId(vendor.getVendorType() != null ? vendor.getVendorType().getId() : null)
-                .countryId(vendor.getCountry() != null ? vendor.getCountry().getId() : null)
+                .id(entity.getId())
+                .name(entity.getName())
+                .shortName(entity.getShortName())
+                .vendorTypeId(entity.getVendorType() != null ? entity.getVendorType().getId() : null)
+                .countryId(entity.getCountry() != null ? entity.getCountry().getId() : null)
+                
+                .vendorType(entity.getVendorType() != null ? VendorTypeDTO.fromEntity(entity.getVendorType()) : null)
+                .country(entity.getCountry() != null ? CountryDTO.fromEntity(entity.getCountry()) : null)
                 .build();
     }
 }

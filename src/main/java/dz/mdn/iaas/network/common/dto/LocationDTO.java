@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: LocationDTO
- *	@CreatedOn	: 12-11-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Common
  *
  **/
 
@@ -16,6 +16,7 @@ package dz.mdn.iaas.network.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.common.administration.dto.LocalityDTO;
 import dz.mdn.iaas.common.administration.model.Locality;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.common.model.Location;
@@ -71,6 +72,8 @@ public class LocationDTO extends GenericDTO<Location> {
 
     @NotNull(message = "Locality is required")
     private Long localityId;
+    
+    private LocalityDTO locality;
 
     @Override
     public Location toEntity() {
@@ -83,11 +86,13 @@ public class LocationDTO extends GenericDTO<Location> {
         entity.setLatitude(this.latitude);
         entity.setLongitude(this.longitude);
         entity.setElevation(this.elevation);
+        
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
         	entity.setLocality(locality);
         }
+        
         return entity;
     }
 
@@ -100,6 +105,7 @@ public class LocationDTO extends GenericDTO<Location> {
         if (this.latitude != null) entity.setLatitude(this.latitude);
         if (this.longitude != null) entity.setLongitude(this.longitude);
         if (this.longitude != null) entity.setElevation(this.elevation);        
+        
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
@@ -120,6 +126,8 @@ public class LocationDTO extends GenericDTO<Location> {
                 .longitude(entity.getLongitude())
                 .elevation(entity.getElevation())
                 .localityId(entity.getLocality() != null ? entity.getLocality().getId() : null)
+                
+                .locality(entity.getLocality() != null ? LocalityDTO.fromEntity(entity.getLocality()) : null)
                 .build();
     }
 }

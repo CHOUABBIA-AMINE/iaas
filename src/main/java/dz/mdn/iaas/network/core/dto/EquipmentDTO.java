@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: EquipmentDTO
- *	@CreatedOn	: 12-11-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Core
  *
  **/
 
@@ -104,87 +104,88 @@ public class EquipmentDTO extends GenericDTO<Equipment> {
 
     @Override
     public Equipment toEntity() {
-        Equipment equipment = new Equipment();
-        equipment.setId(getId());
-        equipment.setName(this.name);
-        equipment.setCode(this.code);
-        equipment.setManufacturer(this.manufacturer);
-        equipment.setModelNumber(this.modelNumber);
-        equipment.setSerialNumber(this.serialNumber);
-        equipment.setManufacturingDate(this.manufacturingDate);
-        equipment.setInstallationDate(this.installationDate);
-        equipment.setLastMaintenanceDate(this.lastMaintenanceDate);
+        Equipment entity = new Equipment();
+        entity.setId(getId());
+        entity.setName(this.name);
+        entity.setCode(this.code);
+        entity.setManufacturer(this.manufacturer);
+        entity.setModelNumber(this.modelNumber);
+        entity.setSerialNumber(this.serialNumber);
+        entity.setManufacturingDate(this.manufacturingDate);
+        entity.setInstallationDate(this.installationDate);
+        entity.setLastMaintenanceDate(this.lastMaintenanceDate);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            equipment.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.equipmentTypeId != null) {
             EquipmentType type = new EquipmentType();
             type.setId(this.equipmentTypeId);
-            equipment.setEquipmentType(type);
+            entity.setEquipmentType(type);
         }
         
         if (this.facilityId != null) {
             Facility facility = new Facility();
             facility.setId(this.facilityId);
-            equipment.setFacility(facility);
+            entity.setFacility(facility);
         }
         
-        return equipment;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Equipment equipment) {
-        if (this.name != null) equipment.setName(this.name);
-        if (this.code != null) equipment.setCode(this.code);
-        if (this.manufacturer != null) equipment.setManufacturer(this.manufacturer);
-        if (this.modelNumber != null) equipment.setModelNumber(this.modelNumber);
-        if (this.serialNumber != null) equipment.setSerialNumber(this.serialNumber);
-        if (this.manufacturingDate != null) equipment.setManufacturingDate(this.manufacturingDate);
-        if (this.installationDate != null) equipment.setInstallationDate(this.installationDate);
-        if (this.lastMaintenanceDate != null) equipment.setLastMaintenanceDate(this.lastMaintenanceDate);
+    public void updateEntity(Equipment entity) {
+        if (this.name != null) entity.setName(this.name);
+        if (this.code != null) entity.setCode(this.code);
+        if (this.manufacturer != null) entity.setManufacturer(this.manufacturer);
+        if (this.modelNumber != null) entity.setModelNumber(this.modelNumber);
+        if (this.serialNumber != null) entity.setSerialNumber(this.serialNumber);
+        if (this.manufacturingDate != null) entity.setManufacturingDate(this.manufacturingDate);
+        if (this.installationDate != null) entity.setInstallationDate(this.installationDate);
+        if (this.lastMaintenanceDate != null) entity.setLastMaintenanceDate(this.lastMaintenanceDate);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            equipment.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.equipmentTypeId != null) {
             EquipmentType type = new EquipmentType();
             type.setId(this.equipmentTypeId);
-            equipment.setEquipmentType(type);
+            entity.setEquipmentType(type);
         }
         
         if (this.facilityId != null) {
             Facility facility = new Facility();
             facility.setId(this.facilityId);
-            equipment.setFacility(facility);
+            entity.setFacility(facility);
         }
     }
 
-    public static EquipmentDTO fromEntity(Equipment equipment) {
-        if (equipment == null) return null;
+    public static EquipmentDTO fromEntity(Equipment entity) {
+        if (entity == null) return null;
         
         return EquipmentDTO.builder()
-                .id(equipment.getId())
-                .name(equipment.getName())
-                .code(equipment.getCode())
-                .manufacturer(equipment.getManufacturer())
-                .modelNumber(equipment.getModelNumber())
-                .serialNumber(equipment.getSerialNumber())
-                .manufacturingDate(equipment.getManufacturingDate())
-                .installationDate(equipment.getInstallationDate())
-                .lastMaintenanceDate(equipment.getLastMaintenanceDate())
-                .operationalStatusId(equipment.getOperationalStatus() != null ? equipment.getOperationalStatus().getId() : null)
-                .equipmentTypeId(equipment.getEquipmentType() != null ? equipment.getEquipmentType().getId() : null)
-                .facilityId(equipment.getFacility() != null ? equipment.getFacility().getId() : null)
-                .operationalStatus(equipment.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(equipment.getOperationalStatus()) : null)
-                .equipmentType(equipment.getEquipmentType() != null ? EquipmentTypeDTO.fromEntity(equipment.getEquipmentType()) : null)
-                .facility(equipment.getFacility() != null ? FacilityDTO.fromEntity(equipment.getFacility()) : null)
+                .id(entity.getId())
+                .name(entity.getName())
+                .code(entity.getCode())
+                .manufacturer(entity.getManufacturer())
+                .modelNumber(entity.getModelNumber())
+                .serialNumber(entity.getSerialNumber())
+                .manufacturingDate(entity.getManufacturingDate())
+                .installationDate(entity.getInstallationDate())
+                .lastMaintenanceDate(entity.getLastMaintenanceDate())
+                .operationalStatusId(entity.getOperationalStatus() != null ? entity.getOperationalStatus().getId() : null)
+                .equipmentTypeId(entity.getEquipmentType() != null ? entity.getEquipmentType().getId() : null)
+                .facilityId(entity.getFacility() != null ? entity.getFacility().getId() : null)
+                
+                .operationalStatus(entity.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(entity.getOperationalStatus()) : null)
+                .equipmentType(entity.getEquipmentType() != null ? EquipmentTypeDTO.fromEntity(entity.getEquipmentType()) : null)
+                .facility(entity.getFacility() != null ? FacilityDTO.fromEntity(entity.getFacility()) : null)
                 .build();
     }
 }

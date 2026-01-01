@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: RegionDTO
- *	@CreatedOn	: 12-11-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Common
  *
  **/
 
@@ -74,6 +74,10 @@ public class RegionDTO extends GenericDTO<Region> {
 
     @NotNull(message = "Activity is required")
     private Long activityId;
+    
+    private ZoneDTO zone;
+    
+    private ActivityDTO activity;
 
     @Override
     public Region toEntity() {
@@ -139,6 +143,9 @@ public class RegionDTO extends GenericDTO<Region> {
                 .descriptionFr(entity.getDescriptionFr())
                 .zoneId(entity.getZone() != null ? entity.getZone().getId() : null)
                 .activityId(entity.getActivity() != null ? entity.getActivity().getId() : null)
+                
+                .zone(entity.getZone() != null ? ZoneDTO.fromEntity(entity.getZone()) : null)
+                .activity(entity.getActivity() != null ? ActivityDTO.fromEntity(entity.getActivity()) : null)
                 .build();
     }
 }

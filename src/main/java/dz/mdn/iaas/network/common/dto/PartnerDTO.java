@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: PartnerDTO
- *	@CreatedOn	: 12-19-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-19-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Common
  *
  **/
 
@@ -16,8 +16,10 @@ package dz.mdn.iaas.network.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.common.administration.dto.CountryDTO;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import dz.mdn.iaas.network.common.model.Partner;
+import dz.mdn.iaas.network.type.dto.PartnerTypeDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -58,60 +60,67 @@ public class PartnerDTO extends GenericDTO<Partner> {
 
     @NotNull(message = "Country ID is required")
     private Long countryId;
+    
+    private PartnerTypeDTO partnerType;
+    
+    private CountryDTO country;
 
     @Override
     public Partner toEntity() {
-        Partner partner = new Partner();
-        partner.setId(getId());
-        partner.setName(this.name);
-        partner.setShortName(this.shortName);
+        Partner entity = new Partner();
+        entity.setId(getId());
+        entity.setName(this.name);
+        entity.setShortName(this.shortName);
         
         if (this.partnerTypeId != null) {
             dz.mdn.iaas.network.type.model.PartnerType type = 
                 new dz.mdn.iaas.network.type.model.PartnerType();
             type.setId(this.partnerTypeId);
-            partner.setPartnerType(type);
+            entity.setPartnerType(type);
         }
         
         if (this.countryId != null) {
             dz.mdn.iaas.common.administration.model.Country country = 
                 new dz.mdn.iaas.common.administration.model.Country();
             country.setId(this.countryId);
-            partner.setCountry(country);
+            entity.setCountry(country);
         }
         
-        return partner;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Partner partner) {
-        if (this.name != null) partner.setName(this.name);
-        if (this.shortName != null) partner.setShortName(this.shortName);
+    public void updateEntity(Partner entity) {
+        if (this.name != null) entity.setName(this.name);
+        if (this.shortName != null) entity.setShortName(this.shortName);
         
         if (this.partnerTypeId != null) {
             dz.mdn.iaas.network.type.model.PartnerType type = 
                 new dz.mdn.iaas.network.type.model.PartnerType();
             type.setId(this.partnerTypeId);
-            partner.setPartnerType(type);
+            entity.setPartnerType(type);
         }
         
         if (this.countryId != null) {
             dz.mdn.iaas.common.administration.model.Country country = 
                 new dz.mdn.iaas.common.administration.model.Country();
             country.setId(this.countryId);
-            partner.setCountry(country);
+            entity.setCountry(country);
         }
     }
 
-    public static PartnerDTO fromEntity(Partner partner) {
-        if (partner == null) return null;
+    public static PartnerDTO fromEntity(Partner entity) {
+        if (entity == null) return null;
         
         return PartnerDTO.builder()
-                .id(partner.getId())
-                .name(partner.getName())
-                .shortName(partner.getShortName())
-                .partnerTypeId(partner.getPartnerType() != null ? partner.getPartnerType().getId() : null)
-                .countryId(partner.getCountry() != null ? partner.getCountry().getId() : null)
+                .id(entity.getId())
+                .name(entity.getName())
+                .shortName(entity.getShortName())
+                .partnerTypeId(entity.getPartnerType() != null ? entity.getPartnerType().getId() : null)
+                .countryId(entity.getCountry() != null ? entity.getCountry().getId() : null)
+                
+                .partnerType(entity.getPartnerType() != null ? PartnerTypeDTO.fromEntity(entity.getPartnerType()) : null)
+                .country(entity.getCountry() != null ? CountryDTO.fromEntity(entity.getCountry()) : null)
                 .build();
     }
 }

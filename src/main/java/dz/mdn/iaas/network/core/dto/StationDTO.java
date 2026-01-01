@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: StationDTO
- *	@CreatedOn	: 12-19-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-19-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Core
  *
  **/
 
@@ -114,126 +114,126 @@ public class StationDTO extends GenericDTO<Station> {
 
     @Override
     public Station toEntity() {
-        Station station = new Station();
-        station.setId(getId());
-        station.setCode(this.code);
-        station.setName(this.name);
-        station.setInstallationDate(this.installationDate);
-        station.setCommissioningDate(this.commissioningDate);
-        station.setDecommissioningDate(this.decommissioningDate);
-        station.setPlaceName(this.placeName);
-        station.setLatitude(this.latitude);
-        station.setLongitude(this.longitude);
-        station.setElevation(this.elevation);
+        Station entity = new Station();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setName(this.name);
+        entity.setInstallationDate(this.installationDate);
+        entity.setCommissioningDate(this.commissioningDate);
+        entity.setDecommissioningDate(this.decommissioningDate);
+        entity.setPlaceName(this.placeName);
+        entity.setLatitude(this.latitude);
+        entity.setLongitude(this.longitude);
+        entity.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            station.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
         	vendor.setId(this.vendorId);
-        	station.setVendor(vendor);
+        	entity.setVendor(vendor);
         }
         
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-        	station.setLocality(locality);
+        	entity.setLocality(locality);
         }
         
         if (this.stationTypeId != null) {
             StationType stationType = new StationType();
             stationType.setId(this.stationTypeId);
-            station.setStationType(stationType);
+            entity.setStationType(stationType);
         }
         
         if (this.pipelineSystemId != null) {
         	PipelineSystem pipelineSystem = new PipelineSystem();
         	pipelineSystem.setId(this.pipelineSystemId);
-            station.setPipelineSystem(pipelineSystem);
+            entity.setPipelineSystem(pipelineSystem);
         }
         
-        return station;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Station station) {
-        if (this.code != null) station.setCode(this.code);
-        if (this.name != null) station.setName(this.name);
-        if (this.installationDate != null) station.setInstallationDate(this.installationDate);
-        if (this.commissioningDate != null) station.setCommissioningDate(this.commissioningDate);
-        if (this.decommissioningDate != null) station.setDecommissioningDate(this.decommissioningDate);        
-        if (this.placeName != null) station.setPlaceName(this.placeName);
-        if (this.latitude != null) station.setLatitude(this.latitude);
-        if (this.longitude != null) station.setLongitude(this.longitude);
-        if (this.elevation != null) station.setElevation(this.elevation);
+    public void updateEntity(Station entity) {
+        if (this.code != null) entity.setCode(this.code);
+        if (this.name != null) entity.setName(this.name);
+        if (this.installationDate != null) entity.setInstallationDate(this.installationDate);
+        if (this.commissioningDate != null) entity.setCommissioningDate(this.commissioningDate);
+        if (this.decommissioningDate != null) entity.setDecommissioningDate(this.decommissioningDate);        
+        if (this.placeName != null) entity.setPlaceName(this.placeName);
+        if (this.latitude != null) entity.setLatitude(this.latitude);
+        if (this.longitude != null) entity.setLongitude(this.longitude);
+        if (this.elevation != null) entity.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            station.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
         	vendor.setId(this.vendorId);
-        	station.setVendor(vendor);
+        	entity.setVendor(vendor);
         }
         
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-        	station.setLocality(locality);
+        	entity.setLocality(locality);
         }
         
         if (this.stationTypeId != null) {
             StationType stationType = new StationType();
             stationType.setId(this.stationTypeId);
-            station.setStationType(stationType);
+            entity.setStationType(stationType);
         }
         
         if (this.pipelineSystemId != null) {
         	PipelineSystem pipelineSystem = new PipelineSystem();
         	pipelineSystem.setId(this.pipelineSystemId);
-            station.setPipelineSystem(pipelineSystem);
+            entity.setPipelineSystem(pipelineSystem);
         }
     }
 
-    public static StationDTO fromEntity(Station station) {
-        if (station == null) return null;
+    public static StationDTO fromEntity(Station entity) {
+        if (entity == null) return null;
         
         Set<Long> pipelineIds = new HashSet<>();
-        if (station.getPipelines() != null) {
-            station.getPipelines().forEach(p -> pipelineIds.add(p.getId()));
+        if (entity.getPipelines() != null) {
+            entity.getPipelines().forEach(p -> pipelineIds.add(p.getId()));
         }
         
         return StationDTO.builder()
-                .id(station.getId())
-                .code(station.getCode())
-                .name(station.getName())
-                .installationDate(station.getInstallationDate())
-                .commissioningDate(station.getCommissioningDate())
-                .decommissioningDate(station.getDecommissioningDate())
-                .placeName(station.getPlaceName())
-                .latitude(station.getLatitude())
-                .longitude(station.getLongitude())
-                .elevation(station.getElevation())
+                .id(entity.getId())
+                .code(entity.getCode())
+                .name(entity.getName())
+                .installationDate(entity.getInstallationDate())
+                .commissioningDate(entity.getCommissioningDate())
+                .decommissioningDate(entity.getDecommissioningDate())
+                .placeName(entity.getPlaceName())
+                .latitude(entity.getLatitude())
+                .longitude(entity.getLongitude())
+                .elevation(entity.getElevation())
                 
-                .operationalStatusId(station.getOperationalStatus() != null ? station.getOperationalStatus().getId() : null)
-                .vendorId(station.getVendor() != null ? station.getVendor().getId() : null)
-                .localityId(station.getLocality() != null ? station.getLocality().getId() : null)
-                .stationTypeId(station.getStationType() != null ? station.getStationType().getId() : null)
-                .pipelineSystemId(station.getPipelineSystem() != null ? station.getPipelineSystem().getId() : null)
+                .operationalStatusId(entity.getOperationalStatus() != null ? entity.getOperationalStatus().getId() : null)
+                .vendorId(entity.getVendor() != null ? entity.getVendor().getId() : null)
+                .localityId(entity.getLocality() != null ? entity.getLocality().getId() : null)
+                .stationTypeId(entity.getStationType() != null ? entity.getStationType().getId() : null)
+                .pipelineSystemId(entity.getPipelineSystem() != null ? entity.getPipelineSystem().getId() : null)
                 .pipelineIds(pipelineIds)
                 
-                .operationalStatus(station.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(station.getOperationalStatus()) : null)
-                .vendor(station.getVendor() != null ? VendorDTO.fromEntity(station.getVendor()) : null)
-                .locality(station.getLocality() != null ? LocalityDTO.fromEntity(station.getLocality()) : null)
-                .stationType(station.getStationType() != null ? StationTypeDTO.fromEntity(station.getStationType()) : null)
-                .pipelineSystem(station.getPipelineSystem() != null ? PipelineSystemDTO.fromEntity(station.getPipelineSystem()) : null)
+                .operationalStatus(entity.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(entity.getOperationalStatus()) : null)
+                .vendor(entity.getVendor() != null ? VendorDTO.fromEntity(entity.getVendor()) : null)
+                .locality(entity.getLocality() != null ? LocalityDTO.fromEntity(entity.getLocality()) : null)
+                .stationType(entity.getStationType() != null ? StationTypeDTO.fromEntity(entity.getStationType()) : null)
+                .pipelineSystem(entity.getPipelineSystem() != null ? PipelineSystemDTO.fromEntity(entity.getPipelineSystem()) : null)
                 .build();
     }
 }

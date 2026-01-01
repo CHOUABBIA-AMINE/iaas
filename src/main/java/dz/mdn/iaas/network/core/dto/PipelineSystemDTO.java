@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: PipelineSystemDTO
- *	@CreatedOn	: 12-11-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Core
  *
  **/
 
@@ -17,6 +17,9 @@ package dz.mdn.iaas.network.core.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.network.common.dto.OperationalStatusDTO;
+import dz.mdn.iaas.network.common.dto.ProductDTO;
+import dz.mdn.iaas.network.common.dto.RegionDTO;
 import dz.mdn.iaas.network.common.model.OperationalStatus;
 import dz.mdn.iaas.network.common.model.Product;
 import dz.mdn.iaas.network.common.model.Region;
@@ -65,69 +68,79 @@ public class PipelineSystemDTO extends GenericDTO<PipelineSystem> {
 
     @NotNull(message = "Region is required")
     private Long regionId;
+    
+    private ProductDTO product;
+    
+    private OperationalStatusDTO operationalStatus;
+    
+    private RegionDTO region;
 
     @Override
     public PipelineSystem toEntity() {
-        PipelineSystem system = new PipelineSystem();
-        system.setId(getId());
-        system.setCode(this.code);
-        system.setName(this.name);
+        PipelineSystem entity = new PipelineSystem();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setName(this.name);
         
         if (this.productId != null) {
             Product product = new Product();
             product.setId(this.productId);
-            system.setProduct(product);
+            entity.setProduct(product);
         }
         
         if (this.operationalStatusId != null) {
         	OperationalStatus operationalStatus = new OperationalStatus();
         	operationalStatus.setId(this.operationalStatusId);
-            system.setOperationalStatus(operationalStatus);
+            entity.setOperationalStatus(operationalStatus);
         }
         
         if (this.regionId != null) {
         	Region region = new Region();
         	region.setId(this.regionId);
-            system.setRegion(region);
+            entity.setRegion(region);
         }
         
-        return system;
+        return entity;
     }
 
     @Override
-    public void updateEntity(PipelineSystem system) {
-        if (this.code != null) system.setCode(this.code);
-        if (this.name != null) system.setName(this.name);
+    public void updateEntity(PipelineSystem entity) {
+        if (this.code != null) entity.setCode(this.code);
+        if (this.name != null) entity.setName(this.name);
         
         if (this.productId != null) {
             Product product = new Product();
             product.setId(this.productId);
-            system.setProduct(product);
+            entity.setProduct(product);
         }
         
         if (this.operationalStatusId != null) {
         	OperationalStatus operationalStatus = new OperationalStatus();
         	operationalStatus.setId(this.operationalStatusId);
-            system.setOperationalStatus(operationalStatus);
+            entity.setOperationalStatus(operationalStatus);
         }
         
         if (this.regionId != null) {
         	Region region = new Region();
         	region.setId(this.regionId);
-            system.setRegion(region);
+            entity.setRegion(region);
         }
     }
 
-    public static PipelineSystemDTO fromEntity(PipelineSystem system) {
-        if (system == null) return null;
+    public static PipelineSystemDTO fromEntity(PipelineSystem entity) {
+        if (entity == null) return null;
         
         return PipelineSystemDTO.builder()
-                .id(system.getId())
-                .code(system.getCode())
-                .name(system.getName())
-                .productId(system.getProduct() != null ? system.getProduct().getId() : null)
-                .operationalStatusId(system.getOperationalStatus() != null ? system.getOperationalStatus().getId() : null)
-                .regionId(system.getRegion() != null ? system.getRegion().getId() : null)
+                .id(entity.getId())
+                .code(entity.getCode())
+                .name(entity.getName())
+                .productId(entity.getProduct() != null ? entity.getProduct().getId() : null)
+                .operationalStatusId(entity.getOperationalStatus() != null ? entity.getOperationalStatus().getId() : null)
+                .regionId(entity.getRegion() != null ? entity.getRegion().getId() : null)
+                
+                .product(entity.getProduct() != null ? ProductDTO.fromEntity(entity.getProduct()) : null)
+                .operationalStatus(entity.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(entity.getOperationalStatus()) : null)
+                .region(entity.getRegion() != null ? RegionDTO.fromEntity(entity.getRegion()) : null)
                 .build();
     }
 }

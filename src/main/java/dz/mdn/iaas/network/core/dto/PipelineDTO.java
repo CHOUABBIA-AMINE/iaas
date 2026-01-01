@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: PipelineDTO
- *	@CreatedOn	: 12-11-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-19-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Core
  *
  **/
 
@@ -158,180 +158,180 @@ public class PipelineDTO extends GenericDTO<Pipeline> {
 
     @Override
     public Pipeline toEntity() {
-        Pipeline pipeline = new Pipeline();
-        pipeline.setId(getId());
-        pipeline.setCode(this.code);
-        pipeline.setName(this.name);
-        pipeline.setInstallationDate(this.installationDate);
-        pipeline.setCommissioningDate(this.commissioningDate);
-        pipeline.setDecommissioningDate(this.decommissioningDate);
-        pipeline.setNominalDiameter(this.nominalDiameter);
-        pipeline.setLength(this.length);
-        pipeline.setNominalThickness(this.nominalThickness);
-        pipeline.setNominalRoughness(this.nominalRoughness);
-        pipeline.setDesignMaxServicePressure(this.designMaxServicePressure);
-        pipeline.setOperationalMaxServicePressure(this.operationalMaxServicePressure);
-        pipeline.setDesignMinServicePressure(this.designMinServicePressure);
-        pipeline.setOperationalMinServicePressure(this.operationalMinServicePressure);
-        pipeline.setDesignCapacity(this.designCapacity);
-        pipeline.setOperationalCapacity(this.operationalCapacity);
+        Pipeline entity = new Pipeline();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setName(this.name);
+        entity.setInstallationDate(this.installationDate);
+        entity.setCommissioningDate(this.commissioningDate);
+        entity.setDecommissioningDate(this.decommissioningDate);
+        entity.setNominalDiameter(this.nominalDiameter);
+        entity.setLength(this.length);
+        entity.setNominalThickness(this.nominalThickness);
+        entity.setNominalRoughness(this.nominalRoughness);
+        entity.setDesignMaxServicePressure(this.designMaxServicePressure);
+        entity.setOperationalMaxServicePressure(this.operationalMaxServicePressure);
+        entity.setDesignMinServicePressure(this.designMinServicePressure);
+        entity.setOperationalMinServicePressure(this.operationalMinServicePressure);
+        entity.setDesignCapacity(this.designCapacity);
+        entity.setOperationalCapacity(this.operationalCapacity);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            pipeline.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.nominalConstructionMaterialId != null) {
             Alloy material = new Alloy();
             material.setId(this.nominalConstructionMaterialId);
-            pipeline.setNominalConstructionMaterial(material);
+            entity.setNominalConstructionMaterial(material);
         }
         
         if (this.nominalExteriorCoatingId != null) {
             Alloy coating = new Alloy();
             coating.setId(this.nominalExteriorCoatingId);
-            pipeline.setNominalExteriorCoating(coating);
+            entity.setNominalExteriorCoating(coating);
         }
         
         if (this.nominalInteriorCoatingId != null) {
             Alloy coating = new Alloy();
             coating.setId(this.nominalInteriorCoatingId);
-            pipeline.setNominalInteriorCoating(coating);
+            entity.setNominalInteriorCoating(coating);
         }
         
         if (this.vendorId != null) {
             Vendor vendor = new Vendor();
             vendor.setId(this.vendorId);
-            pipeline.setVendor(vendor);
+            entity.setVendor(vendor);
         }
         
         if (this.pipelineSystemId != null) {
             PipelineSystem system = new PipelineSystem();
             system.setId(this.pipelineSystemId);
-            pipeline.setPipelineSystem(system);
+            entity.setPipelineSystem(system);
         }
         
         if (this.departureFacilityId != null) {
             Facility facility = new Facility();
-            facility.setId(this.departureFacilityId);
-            pipeline.setDepartureFacility(facility);
+            entity.setId(this.departureFacilityId);
+            entity.setDepartureFacility(facility);
         }
         
         if (this.arrivalFacilityId != null) {
             Facility facility = new Facility();
-            facility.setId(this.arrivalFacilityId);
-            pipeline.setArrivalFacility(facility);
+            entity.setId(this.arrivalFacilityId);
+            entity.setArrivalFacility(facility);
         }
         
-        return pipeline;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Pipeline pipeline) {
+    public void updateEntity(Pipeline entity) {
 
-    	if (this.code != null) pipeline.setCode(this.code);
-    	if (this.name != null) pipeline.setName(this.name);
-    	if (this.installationDate != null) pipeline.setInstallationDate(this.installationDate);
-    	if (this.commissioningDate != null) pipeline.setCommissioningDate(this.commissioningDate);
-    	if (this.decommissioningDate != null) pipeline.setDecommissioningDate(this.decommissioningDate);
-        if (this.nominalDiameter != null) pipeline.setNominalDiameter(this.nominalDiameter);
-        if (this.length != null) pipeline.setLength(this.length);
-        if (this.nominalThickness != null) pipeline.setNominalThickness(this.nominalThickness);
-        if (this.nominalRoughness != null) pipeline.setNominalRoughness(this.nominalRoughness);
-        if (this.designMaxServicePressure != null) pipeline.setDesignMaxServicePressure(this.designMaxServicePressure);
-        if (this.operationalMaxServicePressure != null) pipeline.setOperationalMaxServicePressure(this.operationalMaxServicePressure);
-        if (this.designMinServicePressure != null) pipeline.setDesignMinServicePressure(this.designMinServicePressure);
-        if (this.operationalMinServicePressure != null) pipeline.setOperationalMinServicePressure(this.operationalMinServicePressure);
-        if (this.designCapacity != null) pipeline.setDesignCapacity(this.designCapacity);
-        if (this.operationalCapacity != null) pipeline.setOperationalCapacity(this.operationalCapacity);
+    	if (this.code != null) entity.setCode(this.code);
+    	if (this.name != null) entity.setName(this.name);
+    	if (this.installationDate != null) entity.setInstallationDate(this.installationDate);
+    	if (this.commissioningDate != null) entity.setCommissioningDate(this.commissioningDate);
+    	if (this.decommissioningDate != null) entity.setDecommissioningDate(this.decommissioningDate);
+        if (this.nominalDiameter != null) entity.setNominalDiameter(this.nominalDiameter);
+        if (this.length != null) entity.setLength(this.length);
+        if (this.nominalThickness != null) entity.setNominalThickness(this.nominalThickness);
+        if (this.nominalRoughness != null) entity.setNominalRoughness(this.nominalRoughness);
+        if (this.designMaxServicePressure != null) entity.setDesignMaxServicePressure(this.designMaxServicePressure);
+        if (this.operationalMaxServicePressure != null) entity.setOperationalMaxServicePressure(this.operationalMaxServicePressure);
+        if (this.designMinServicePressure != null) entity.setDesignMinServicePressure(this.designMinServicePressure);
+        if (this.operationalMinServicePressure != null) entity.setOperationalMinServicePressure(this.operationalMinServicePressure);
+        if (this.designCapacity != null) entity.setDesignCapacity(this.designCapacity);
+        if (this.operationalCapacity != null) entity.setOperationalCapacity(this.operationalCapacity);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            pipeline.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.nominalConstructionMaterialId != null) {
             Alloy material = new Alloy();
             material.setId(this.nominalConstructionMaterialId);
-            pipeline.setNominalConstructionMaterial(material);
+            entity.setNominalConstructionMaterial(material);
         }
         
         if (this.nominalExteriorCoatingId != null) {
             Alloy coating = new Alloy();
             coating.setId(this.nominalExteriorCoatingId);
-            pipeline.setNominalExteriorCoating(coating);
+            entity.setNominalExteriorCoating(coating);
         }
         
         if (this.nominalInteriorCoatingId != null) {
             Alloy coating = new Alloy();
             coating.setId(this.nominalInteriorCoatingId);
-            pipeline.setNominalInteriorCoating(coating);
+            entity.setNominalInteriorCoating(coating);
         }
         
         if (this.vendorId != null) {
             Vendor vendor = new Vendor();
             vendor.setId(this.vendorId);
-            pipeline.setVendor(vendor);
+            entity.setVendor(vendor);
         }
         
         if (this.pipelineSystemId != null) {
             PipelineSystem system = new PipelineSystem();
             system.setId(this.pipelineSystemId);
-            pipeline.setPipelineSystem(system);
+            entity.setPipelineSystem(system);
         }
         
         if (this.departureFacilityId != null) {
             Facility facility = new Facility();
-            facility.setId(this.departureFacilityId);
-            pipeline.setDepartureFacility(facility);
+            entity.setId(this.departureFacilityId);
+            entity.setDepartureFacility(facility);
         }
         
         if (this.arrivalFacilityId != null) {
             Facility facility = new Facility();
-            facility.setId(this.arrivalFacilityId);
-            pipeline.setArrivalFacility(facility);
+            entity.setId(this.arrivalFacilityId);
+            entity.setArrivalFacility(facility);
         }
     }
 
-    public static PipelineDTO fromEntity(Pipeline pipeline) {
-        if (pipeline == null) return null;
+    public static PipelineDTO fromEntity(Pipeline entity) {
+        if (entity == null) return null;
         
         return PipelineDTO.builder()
-                .id(pipeline.getId())
-                .code(pipeline.getCode())
-                .name(pipeline.getName())
-                .installationDate(pipeline.getInstallationDate())
-                .commissioningDate(pipeline.getCommissioningDate())
-                .decommissioningDate(pipeline.getDecommissioningDate())
-                .nominalDiameter(pipeline.getNominalDiameter())
-                .length(pipeline.getLength())
-                .nominalThickness(pipeline.getNominalThickness())
-                .nominalRoughness(pipeline.getNominalRoughness())
-                .designMaxServicePressure(pipeline.getDesignMaxServicePressure())
-                .operationalMaxServicePressure(pipeline.getOperationalMaxServicePressure())
-                .designMinServicePressure(pipeline.getDesignMinServicePressure())
-                .operationalMinServicePressure(pipeline.getOperationalMinServicePressure())
-                .designCapacity(pipeline.getDesignCapacity())
-                .operationalCapacity(pipeline.getOperationalCapacity())
-                .operationalStatusId(pipeline.getOperationalStatus() != null ? pipeline.getOperationalStatus().getId() : null)
-                .nominalConstructionMaterialId(pipeline.getNominalConstructionMaterial() != null ? pipeline.getNominalConstructionMaterial().getId() : null)
-                .nominalExteriorCoatingId(pipeline.getNominalExteriorCoating() != null ? pipeline.getNominalExteriorCoating().getId() : null)
-                .nominalInteriorCoatingId(pipeline.getNominalInteriorCoating() != null ? pipeline.getNominalInteriorCoating().getId() : null)
-                .vendorId(pipeline.getVendor() != null ? pipeline.getVendor().getId() : null)
-                .pipelineSystemId(pipeline.getPipelineSystem() != null ? pipeline.getPipelineSystem().getId() : null)
-                .departureFacilityId(pipeline.getDepartureFacility() != null ? pipeline.getDepartureFacility().getId() : null)
-                .arrivalFacilityId(pipeline.getArrivalFacility() != null ? pipeline.getArrivalFacility().getId() : null)
+                .id(entity.getId())
+                .code(entity.getCode())
+                .name(entity.getName())
+                .installationDate(entity.getInstallationDate())
+                .commissioningDate(entity.getCommissioningDate())
+                .decommissioningDate(entity.getDecommissioningDate())
+                .nominalDiameter(entity.getNominalDiameter())
+                .length(entity.getLength())
+                .nominalThickness(entity.getNominalThickness())
+                .nominalRoughness(entity.getNominalRoughness())
+                .designMaxServicePressure(entity.getDesignMaxServicePressure())
+                .operationalMaxServicePressure(entity.getOperationalMaxServicePressure())
+                .designMinServicePressure(entity.getDesignMinServicePressure())
+                .operationalMinServicePressure(entity.getOperationalMinServicePressure())
+                .designCapacity(entity.getDesignCapacity())
+                .operationalCapacity(entity.getOperationalCapacity())
+                .operationalStatusId(entity.getOperationalStatus() != null ? entity.getOperationalStatus().getId() : null)
+                .nominalConstructionMaterialId(entity.getNominalConstructionMaterial() != null ? entity.getNominalConstructionMaterial().getId() : null)
+                .nominalExteriorCoatingId(entity.getNominalExteriorCoating() != null ? entity.getNominalExteriorCoating().getId() : null)
+                .nominalInteriorCoatingId(entity.getNominalInteriorCoating() != null ? entity.getNominalInteriorCoating().getId() : null)
+                .vendorId(entity.getVendor() != null ? entity.getVendor().getId() : null)
+                .pipelineSystemId(entity.getPipelineSystem() != null ? entity.getPipelineSystem().getId() : null)
+                .departureFacilityId(entity.getDepartureFacility() != null ? entity.getDepartureFacility().getId() : null)
+                .arrivalFacilityId(entity.getArrivalFacility() != null ? entity.getArrivalFacility().getId() : null)
                 
-                .operationalStatus(pipeline.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(pipeline.getOperationalStatus()) : null)
-                .nominalConstructionMaterial(pipeline.getNominalConstructionMaterial() != null ? AlloyDTO.fromEntity(pipeline.getNominalConstructionMaterial()) : null)
-                .nominalExteriorCoating(pipeline.getNominalExteriorCoating() != null ? AlloyDTO.fromEntity(pipeline.getNominalExteriorCoating()) : null)
-                .nominalInteriorCoating(pipeline.getNominalInteriorCoating() != null ? AlloyDTO.fromEntity(pipeline.getNominalInteriorCoating()) : null)
-                .vendor(pipeline.getVendor() != null ? VendorDTO.fromEntity(pipeline.getVendor()) : null)
-                .pipelineSystem(pipeline.getPipelineSystem() != null ? PipelineSystemDTO.fromEntity(pipeline.getPipelineSystem()) : null)
-                .departureFacility(pipeline.getDepartureFacility() != null ? FacilityDTO.fromEntity(pipeline.getDepartureFacility()) : null)
-                .arrivalFacility(pipeline.getArrivalFacility() != null ? FacilityDTO.fromEntity(pipeline.getArrivalFacility()) : null)
+                .operationalStatus(entity.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(entity.getOperationalStatus()) : null)
+                .nominalConstructionMaterial(entity.getNominalConstructionMaterial() != null ? AlloyDTO.fromEntity(entity.getNominalConstructionMaterial()) : null)
+                .nominalExteriorCoating(entity.getNominalExteriorCoating() != null ? AlloyDTO.fromEntity(entity.getNominalExteriorCoating()) : null)
+                .nominalInteriorCoating(entity.getNominalInteriorCoating() != null ? AlloyDTO.fromEntity(entity.getNominalInteriorCoating()) : null)
+                .vendor(entity.getVendor() != null ? VendorDTO.fromEntity(entity.getVendor()) : null)
+                .pipelineSystem(entity.getPipelineSystem() != null ? PipelineSystemDTO.fromEntity(entity.getPipelineSystem()) : null)
+                .departureFacility(entity.getDepartureFacility() != null ? FacilityDTO.fromEntity(entity.getDepartureFacility()) : null)
+                .arrivalFacility(entity.getArrivalFacility() != null ? FacilityDTO.fromEntity(entity.getArrivalFacility()) : null)
                 .build();
     }
 }

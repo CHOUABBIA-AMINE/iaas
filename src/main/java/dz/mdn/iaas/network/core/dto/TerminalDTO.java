@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: TerminalDTO
- *	@CreatedOn	: 12-19-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-19-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Core
  *
  **/
 
@@ -109,111 +109,111 @@ public class TerminalDTO extends GenericDTO<Terminal> {
 
     @Override
     public Terminal toEntity() {
-        Terminal terminal = new Terminal();
-        terminal.setId(getId());
-        terminal.setCode(this.code);
-        terminal.setName(this.name);
-        terminal.setInstallationDate(this.installationDate);
-        terminal.setCommissioningDate(this.commissioningDate);
-        terminal.setDecommissioningDate(this.decommissioningDate);
-        terminal.setPlaceName(this.placeName);
-        terminal.setLatitude(this.latitude);
-        terminal.setLongitude(this.longitude);
-        terminal.setElevation(this.elevation);
+        Terminal entity = new Terminal();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setName(this.name);
+        entity.setInstallationDate(this.installationDate);
+        entity.setCommissioningDate(this.commissioningDate);
+        entity.setDecommissioningDate(this.decommissioningDate);
+        entity.setPlaceName(this.placeName);
+        entity.setLatitude(this.latitude);
+        entity.setLongitude(this.longitude);
+        entity.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            terminal.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
         	vendor.setId(this.vendorId);
-        	terminal.setVendor(vendor);
+        	entity.setVendor(vendor);
         }
         
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-        	terminal.setLocality(locality);
+        	entity.setLocality(locality);
         }
         
         if (this.terminalTypeId != null) {
         	TerminalType terminalType = new TerminalType();
             terminalType.setId(this.terminalTypeId);
-            terminal.setTerminalType(terminalType);
+            entity.setTerminalType(terminalType);
         }
         
-        return terminal;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Terminal terminal) {
-        if (this.code != null) terminal.setCode(this.code);
-        if (this.name != null) terminal.setName(this.name);
-        if (this.installationDate != null) terminal.setInstallationDate(this.installationDate);
-        if (this.commissioningDate != null) terminal.setCommissioningDate(this.commissioningDate);
-        if (this.decommissioningDate != null) terminal.setDecommissioningDate(this.decommissioningDate);        
-        if (this.placeName != null) terminal.setPlaceName(this.placeName);
-        if (this.latitude != null) terminal.setLatitude(this.latitude);
-        if (this.longitude != null) terminal.setLongitude(this.longitude);
-        if (this.elevation != null) terminal.setElevation(this.elevation);
+    public void updateEntity(Terminal entity) {
+        if (this.code != null) entity.setCode(this.code);
+        if (this.name != null) entity.setName(this.name);
+        if (this.installationDate != null) entity.setInstallationDate(this.installationDate);
+        if (this.commissioningDate != null) entity.setCommissioningDate(this.commissioningDate);
+        if (this.decommissioningDate != null) entity.setDecommissioningDate(this.decommissioningDate);        
+        if (this.placeName != null) entity.setPlaceName(this.placeName);
+        if (this.latitude != null) entity.setLatitude(this.latitude);
+        if (this.longitude != null) entity.setLongitude(this.longitude);
+        if (this.elevation != null) entity.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            terminal.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
         	vendor.setId(this.vendorId);
-        	terminal.setVendor(vendor);
+        	entity.setVendor(vendor);
         }
         
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-        	terminal.setLocality(locality);
+        	entity.setLocality(locality);
         }
         
         if (this.terminalTypeId != null) {
         	TerminalType terminalType = new TerminalType();
             terminalType.setId(this.terminalTypeId);
-            terminal.setTerminalType(terminalType);
+            entity.setTerminalType(terminalType);
         }
     }
 
-    public static TerminalDTO fromEntity(Terminal terminal) {
-        if (terminal == null) return null;
+    public static TerminalDTO fromEntity(Terminal entity) {
+        if (entity == null) return null;
         
         Set<Long> pipelineIds = new HashSet<>();
-        if (terminal.getPipelines() != null) {
-            terminal.getPipelines().forEach(p -> pipelineIds.add(p.getId()));
+        if (entity.getPipelines() != null) {
+            entity.getPipelines().forEach(p -> pipelineIds.add(p.getId()));
         }
         
         return TerminalDTO.builder()
-                .id(terminal.getId())
-                .code(terminal.getCode())
-                .name(terminal.getName())
-                .installationDate(terminal.getInstallationDate())
-                .commissioningDate(terminal.getCommissioningDate())
-                .decommissioningDate(terminal.getDecommissioningDate())
-                .placeName(terminal.getPlaceName())
-                .latitude(terminal.getLatitude())
-                .longitude(terminal.getLongitude())
-                .elevation(terminal.getElevation())
-                .operationalStatusId(terminal.getOperationalStatus() != null ? terminal.getOperationalStatus().getId() : null)
-                .vendorId(terminal.getVendor() != null ? terminal.getVendor().getId() : null)
-                .localityId(terminal.getLocality() != null ? terminal.getLocality().getId() : null)
-                .terminalTypeId(terminal.getTerminalType() != null ? terminal.getTerminalType().getId() : null)
+                .id(entity.getId())
+                .code(entity.getCode())
+                .name(entity.getName())
+                .installationDate(entity.getInstallationDate())
+                .commissioningDate(entity.getCommissioningDate())
+                .decommissioningDate(entity.getDecommissioningDate())
+                .placeName(entity.getPlaceName())
+                .latitude(entity.getLatitude())
+                .longitude(entity.getLongitude())
+                .elevation(entity.getElevation())
+                .operationalStatusId(entity.getOperationalStatus() != null ? entity.getOperationalStatus().getId() : null)
+                .vendorId(entity.getVendor() != null ? entity.getVendor().getId() : null)
+                .localityId(entity.getLocality() != null ? entity.getLocality().getId() : null)
+                .terminalTypeId(entity.getTerminalType() != null ? entity.getTerminalType().getId() : null)
                 .pipelineIds(pipelineIds)
                 
-                .operationalStatus(terminal.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(terminal.getOperationalStatus()) : null)
-                .vendor(terminal.getVendor() != null ? VendorDTO.fromEntity(terminal.getVendor()) : null)
-                .locality(terminal.getLocality() != null ? LocalityDTO.fromEntity(terminal.getLocality()) : null)
-                .terminalType(terminal.getTerminalType() != null ? TerminalTypeDTO.fromEntity(terminal.getTerminalType()) : null)
+                .operationalStatus(entity.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(entity.getOperationalStatus()) : null)
+                .vendor(entity.getVendor() != null ? VendorDTO.fromEntity(entity.getVendor()) : null)
+                .locality(entity.getLocality() != null ? LocalityDTO.fromEntity(entity.getLocality()) : null)
+                .terminalType(entity.getTerminalType() != null ? TerminalTypeDTO.fromEntity(entity.getTerminalType()) : null)
                 .build();
     }
 }

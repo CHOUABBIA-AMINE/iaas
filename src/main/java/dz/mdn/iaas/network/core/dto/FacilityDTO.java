@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: FacilityDTO
- *	@CreatedOn	: 12-11-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Core
  *
  **/
 
@@ -97,92 +97,92 @@ public class FacilityDTO extends GenericDTO<Facility> {
 
     @Override
     public Facility toEntity() {
-        Facility facility = new Facility();
-        facility.setId(getId());
-        facility.setCode(this.code);
-        facility.setName(this.name);
-        facility.setInstallationDate(this.installationDate);
-        facility.setCommissioningDate(this.commissioningDate);
-        facility.setDecommissioningDate(this.decommissioningDate);
-        facility.setPlaceName(this.placeName);
-        facility.setLatitude(this.latitude);
-        facility.setLongitude(this.longitude);
-        facility.setElevation(this.elevation);
+        Facility entity = new Facility();
+        entity.setId(getId());
+        entity.setCode(this.code);
+        entity.setName(this.name);
+        entity.setInstallationDate(this.installationDate);
+        entity.setCommissioningDate(this.commissioningDate);
+        entity.setDecommissioningDate(this.decommissioningDate);
+        entity.setPlaceName(this.placeName);
+        entity.setLatitude(this.latitude);
+        entity.setLongitude(this.longitude);
+        entity.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            facility.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
         	vendor.setId(this.vendorId);
-            facility.setVendor(vendor);
+            entity.setVendor(vendor);
         }
         
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-        	facility.setLocality(locality);
+        	entity.setLocality(locality);
         }
         
-        return facility;
+        return entity;
     }
 
     @Override
-    public void updateEntity(Facility facility) {
-        if (this.code != null) facility.setCode(this.code);
-        if (this.name != null) facility.setName(this.name);
-        if (this.installationDate != null) facility.setInstallationDate(this.installationDate);
-        if (this.commissioningDate != null) facility.setCommissioningDate(this.commissioningDate);
-        if (this.decommissioningDate != null) facility.setDecommissioningDate(this.decommissioningDate);
-        if (this.placeName != null) facility.setPlaceName(this.placeName);
-        if (this.latitude != null) facility.setLatitude(this.latitude);
-        if (this.longitude != null) facility.setLongitude(this.longitude);
-        if (this.elevation != null) facility.setElevation(this.elevation);
+    public void updateEntity(Facility entity) {
+        if (this.code != null) entity.setCode(this.code);
+        if (this.name != null) entity.setName(this.name);
+        if (this.installationDate != null) entity.setInstallationDate(this.installationDate);
+        if (this.commissioningDate != null) entity.setCommissioningDate(this.commissioningDate);
+        if (this.decommissioningDate != null) entity.setDecommissioningDate(this.decommissioningDate);
+        if (this.placeName != null) entity.setPlaceName(this.placeName);
+        if (this.latitude != null) entity.setLatitude(this.latitude);
+        if (this.longitude != null) entity.setLongitude(this.longitude);
+        if (this.elevation != null) entity.setElevation(this.elevation);
         
         if (this.operationalStatusId != null) {
             OperationalStatus status = new OperationalStatus();
             status.setId(this.operationalStatusId);
-            facility.setOperationalStatus(status);
+            entity.setOperationalStatus(status);
         }
         
         if (this.vendorId != null) {
         	Vendor vendor = new Vendor();
         	vendor.setId(this.vendorId);
-            facility.setVendor(vendor);
+            entity.setVendor(vendor);
         }     
         
         if (this.localityId != null) {
         	Locality locality = new Locality();
         	locality.setId(this.localityId);
-        	facility.setLocality(locality);
+        	entity.setLocality(locality);
         }
     }
 
-    public static FacilityDTO fromEntity(Facility facility) {
-        if (facility == null) return null;
+    public static FacilityDTO fromEntity(Facility entity) {
+        if (entity == null) return null;
         
         return FacilityDTO.builder()
-                .id(facility.getId())
-                .code(facility.getCode())
-                .name(facility.getName())
-                .installationDate(facility.getInstallationDate())
-                .commissioningDate(facility.getCommissioningDate())
-                .decommissioningDate(facility.getDecommissioningDate())
-                .placeName(facility.getPlaceName())
-                .latitude(facility.getLatitude())
-                .longitude(facility.getLongitude())
-                .elevation(facility.getElevation())
+                .id(entity.getId())
+                .code(entity.getCode())
+                .name(entity.getName())
+                .installationDate(entity.getInstallationDate())
+                .commissioningDate(entity.getCommissioningDate())
+                .decommissioningDate(entity.getDecommissioningDate())
+                .placeName(entity.getPlaceName())
+                .latitude(entity.getLatitude())
+                .longitude(entity.getLongitude())
+                .elevation(entity.getElevation())
                 
-                .operationalStatusId(facility.getOperationalStatus() != null ? facility.getOperationalStatus().getId() : null)
-                .vendorId(facility.getVendor() != null ? facility.getVendor().getId() : null)
-                .localityId(facility.getLocality() != null ? facility.getLocality().getId() : null)
+                .operationalStatusId(entity.getOperationalStatus() != null ? entity.getOperationalStatus().getId() : null)
+                .vendorId(entity.getVendor() != null ? entity.getVendor().getId() : null)
+                .localityId(entity.getLocality() != null ? entity.getLocality().getId() : null)
                 
-                .operationalStatus(facility.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(facility.getOperationalStatus()) : null)
-                .vendor(facility.getVendor() != null ? VendorDTO.fromEntity(facility.getVendor()) : null)
-                .locality(facility.getLocality() != null ? LocalityDTO.fromEntity(facility.getLocality()) : null)
+                .operationalStatus(entity.getOperationalStatus() != null ? OperationalStatusDTO.fromEntity(entity.getOperationalStatus()) : null)
+                .vendor(entity.getVendor() != null ? VendorDTO.fromEntity(entity.getVendor()) : null)
+                .locality(entity.getLocality() != null ? LocalityDTO.fromEntity(entity.getLocality()) : null)
                 .build();
     }
 }

@@ -3,12 +3,12 @@
  *	@author		: CHOUABBIA Amine
  *
  *	@Name		: PipelineSegmentDTO
- *	@CreatedOn	: 12-11-2025
+ *	@CreatedOn	: 06-26-2025
  *	@Updated	: 12-11-2025
  *
- *	@Type		: Data Transfer Object
- *	@Layer		: Network / DTO
- *	@Package	: Network / DTO
+ *	@Type		: Class
+ *	@Layer		: DTO
+ *	@Package	: Network / Core
  *
  **/
 
@@ -55,38 +55,39 @@ public class PipelineSegmentDTO extends GenericDTO<PipelineSegment> {
 
     @Override
     public PipelineSegment toEntity() {
-        PipelineSegment segment = new PipelineSegment();
-        segment.setId(getId());
-        segment.setCode(this.code);
+        PipelineSegment entity = new PipelineSegment();
+        entity.setId(getId());
+        entity.setCode(this.code);
         
         if (this.pipelineId != null) {
             Pipeline pipeline = new Pipeline();
             pipeline.setId(this.pipelineId);
-            segment.setPipeline(pipeline);
+            entity.setPipeline(pipeline);
         }
         
-        return segment;
+        return entity;
     }
 
     @Override
-    public void updateEntity(PipelineSegment segment) {
-        if (this.code != null) segment.setCode(this.code);
+    public void updateEntity(PipelineSegment entity) {
+        if (this.code != null) entity.setCode(this.code);
         
         if (this.pipelineId != null) {
             Pipeline pipeline = new Pipeline();
             pipeline.setId(this.pipelineId);
-            segment.setPipeline(pipeline);
+            entity.setPipeline(pipeline);
         }
     }
 
-    public static PipelineSegmentDTO fromEntity(PipelineSegment segment) {
-        if (segment == null) return null;
+    public static PipelineSegmentDTO fromEntity(PipelineSegment entity) {
+        if (entity == null) return null;
         
         return PipelineSegmentDTO.builder()
-                .id(segment.getId())
-                .code(segment.getCode())
-                .pipelineId(segment.getPipeline() != null ? segment.getPipeline().getId() : null)
-                .pipeline(segment.getPipeline() != null ? PipelineDTO.fromEntity(segment.getPipeline()) : null)
+                .id(entity.getId())
+                .code(entity.getCode())
+                .pipelineId(entity.getPipeline() != null ? entity.getPipeline().getId() : null)
+                
+                .pipeline(entity.getPipeline() != null ? PipelineDTO.fromEntity(entity.getPipeline()) : null)
                 .build();
     }
 }
