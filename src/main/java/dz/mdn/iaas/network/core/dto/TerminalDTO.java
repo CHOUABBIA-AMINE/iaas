@@ -90,7 +90,7 @@ public class TerminalDTO extends GenericDTO<Terminal> {
     @NotNull(message = "Operational status ID is required")
     private Long operationalStatusId;
 
-    @Size(max = 100, message = "provider must not exceed 100 characters")
+    @NotNull(message = "provider is required")
     private Long vendorId;
 
     @NotNull(message = "Locality is required")

@@ -14,9 +14,9 @@ package dz.mdn.iaas.common.administration.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -156,7 +156,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Employee")
-@PrimaryKeyJoinColumn(name="F_00", referencedColumnName="F_00")
 @Table(name="T_01_04_10")
 public class Employee extends Person {
 	
@@ -193,7 +192,7 @@ public class Employee extends Person {
 	 * @see Job
 	 */
 	@ManyToOne
-	@JoinColumn(name="F_12", referencedColumnName="F_00")
+	@JoinColumn(name="F_12", referencedColumnName="F_00", foreignKey=@ForeignKey(name="T_01_04_10_FK_01"), nullable=false)
 	private Job job;
 	
 	/**
@@ -214,7 +213,7 @@ public class Employee extends Person {
 	 * @see Structure
 	 */
 	@ManyToOne
-	@JoinColumn(name="F_13", referencedColumnName="F_00")
+	@JoinColumn(name="F_13", referencedColumnName="F_00", foreignKey=@ForeignKey(name="T_01_04_10_FK_02"), nullable=false)
 	private Structure structure;
 	
 	/**
@@ -237,7 +236,7 @@ public class Employee extends Person {
 	 * @see MilitaryRank
 	 */
 	@ManyToOne
-	@JoinColumn(name="F_14", referencedColumnName="F_00")
+	@JoinColumn(name="F_14", referencedColumnName="F_00", foreignKey=@ForeignKey(name="T_01_04_10_FK_03"), nullable=false)
 	private MilitaryRank militaryRank;
 	
 }

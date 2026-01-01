@@ -17,12 +17,14 @@ import java.util.Date;
 import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -80,11 +82,12 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = true)
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Person")
-@Table(name="T_01_04_09")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="T_01_04_09")
 public class Person extends GenericModel {
 	
 	/**
@@ -139,7 +142,7 @@ public class Person extends GenericModel {
 	 * 
 	 * Example: "1990-05-15"
 	 */
-	@Column(name="F_05")
+	@Column(name="F_05", nullable = true)
 	private Date birthDate;
 	
 	/**
@@ -166,7 +169,7 @@ public class Person extends GenericModel {
 	 * @see Country
 	 */
 	@ManyToOne
-	@JoinColumn(name="F_07", referencedColumnName="F_00")
+	@JoinColumn(name="F_07", referencedColumnName="F_00", foreignKey=@ForeignKey(name="T_01_04_09_FK_01"), nullable = false)
 	private Country country;
 
 }
