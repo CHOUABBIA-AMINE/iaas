@@ -12,7 +12,6 @@
 
 package dz.mdn.iaas.common.administration.model;
 
-import dz.mdn.iaas.configuration.template.GenericModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -157,9 +156,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name="Employee")
-@PrimaryKeyJoinColumn(name="F_00")
-@Table(name="T_01_04_10")
 @PrimaryKeyJoinColumn(name="F_00", referencedColumnName="F_00")
+@Table(name="T_01_04_10")
 public class Employee extends Person {
 	
 	/**
