@@ -18,7 +18,11 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import dz.mdn.iaas.common.administration.model.Country;
 import dz.mdn.iaas.common.administration.model.Employee;
+import dz.mdn.iaas.common.administration.model.Job;
+import dz.mdn.iaas.common.administration.model.MilitaryRank;
+import dz.mdn.iaas.common.administration.model.Structure;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -83,6 +87,31 @@ public class EmployeeDTO extends GenericDTO<Employee> {
         entity.setBirthDate(this.birthDate);
         entity.setBirthPlace(this.birthPlace);
         entity.setRegistrationNumber(this.registrationNumber);
+                
+        if (this.countryId != null) {
+        	Country country = new Country();
+        	country.setId(this.countryId);
+            entity.setCountry(country);
+        }
+        
+        if (this.jobId != null) {
+        	Job job = new Job();
+        	job.setId(this.jobId);
+            entity.setJob(job);
+        }
+        
+        if (this.structureId != null) {
+            Structure structure = new Structure();
+            structure.setId(this.structureId);
+            entity.setStructure(structure);
+        }
+        
+        if (this.militaryRankId != null) {
+        	MilitaryRank rank = new MilitaryRank();
+        	rank.setId(this.militaryRankId);
+            entity.setMilitaryRank(rank);
+        }
+        
         return entity;
     }
 
@@ -95,6 +124,30 @@ public class EmployeeDTO extends GenericDTO<Employee> {
         if (this.birthDate != null) entity.setBirthDate(this.birthDate);
         if (this.birthPlace != null) entity.setBirthPlace(this.birthPlace);
         if (this.registrationNumber != null) entity.setRegistrationNumber(this.registrationNumber);
+        
+		if (this.countryId != null) {
+			Country country = new Country();
+			country.setId(this.countryId);
+		    entity.setCountry(country);
+		}
+		
+		if (this.jobId != null) {
+			Job job = new Job();
+			job.setId(this.jobId);
+		    entity.setJob(job);
+		}
+		
+		if (this.structureId != null) {
+		    Structure structure = new Structure();
+		    structure.setId(this.structureId);
+		    entity.setStructure(structure);
+		}
+		
+		if (this.militaryRankId != null) {
+			MilitaryRank rank = new MilitaryRank();
+			rank.setId(this.militaryRankId);
+		    entity.setMilitaryRank(rank);
+		}
     }
 
     public static EmployeeDTO fromEntity(Employee entity) {
