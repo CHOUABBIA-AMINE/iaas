@@ -28,7 +28,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import dz.mdn.iaas.network.core.model.Pipeline;
+import dz.mdn.iaas.network.core.repository.HydrocarbonFieldRepository;
 import dz.mdn.iaas.network.core.repository.PipelineRepository;
+import dz.mdn.iaas.network.core.repository.StationRepository;
+import dz.mdn.iaas.network.core.repository.TerminalRepository;
 import dz.mdn.iaas.network.flow.dto.DailyTrendDTO;
 import dz.mdn.iaas.network.flow.dto.DashboardSummaryDTO;
 import dz.mdn.iaas.network.flow.dto.PipelineStatusDTO;
@@ -55,6 +58,15 @@ public class DashboardService {
     @Autowired
     private PipelineRepository pipelineRepository;
     
+    @Autowired
+    private StationRepository stationRepository;
+    
+    @Autowired
+    private TerminalRepository terminalRepository;
+    
+    @Autowired
+    private HydrocarbonFieldRepository hydrocarbonFieldRepository;
+    
     private static final int EXPECTED_READINGS_PER_DAY = 6; // 00:00, 04:00, 08:00, 12:00, 16:00, 20:00
     private static final double ON_TARGET_THRESHOLD = 5.0; // ±5%
     
@@ -65,9 +77,9 @@ public class DashboardService {
         LocalDate today = LocalDate.now();
         
         // Infrastructure counts - placeholder for now, to be replaced with actual counts
-        Long totalStations = 0L; // TODO: Get from StationRepository when available
-        Long totalTerminals = 0L; // TODO: Get from TerminalRepository when available
-        Long totalFields = 0L; // TODO: Get from FieldRepository when available
+        Long totalStations = stationRepository.count();
+        Long totalTerminals = terminalRepository.count();
+        Long totalFields = hydrocarbonFieldRepository.count();
         Long totalPipelines = pipelineRepository.count();
         
         // Today's metrics
