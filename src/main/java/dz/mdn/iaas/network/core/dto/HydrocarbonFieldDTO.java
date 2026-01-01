@@ -90,7 +90,7 @@ public class HydrocarbonFieldDTO extends GenericDTO<HydrocarbonField> {
     @NotNull(message = "Operational status ID is required")
     private Long operationalStatusId;
 
-    @Size(message = "provider is required")
+    @NotNull(message = "provider is required")
     private Long vendorId;
 
     @NotNull(message = "Locality is required")

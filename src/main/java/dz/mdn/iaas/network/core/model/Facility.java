@@ -76,7 +76,7 @@ public class Facility extends Infrastructure {
     private Double elevation;
 
 	@ManyToOne
-    @JoinColumn(name="F_11", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable=false)
+    @JoinColumn(name = "F_11", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_03_03_02_FK_01"), nullable = false)
     protected Vendor vendor;
 
     @ManyToOne

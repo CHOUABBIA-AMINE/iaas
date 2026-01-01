@@ -84,7 +84,7 @@ public class FacilityDTO extends GenericDTO<Facility> {
     @NotNull(message = "Operational status is required")
     private Long operationalStatusId;
 
-    @Size(max = 100, message = "provider must not exceed 100 characters")
+    @NotNull(message = "provider is required")
     private Long vendorId;
 
     @NotNull(message = "Locality is required")
