@@ -26,8 +26,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Employee Entity - Extends GenericModel
+ * Employee Entity - Extends Person
  * Represents employees with their job, structure, and military information
+ * 
+ * Uses JOINED inheritance strategy:
+ * - Person data is stored in T_01_04_09
+ * - Employee-specific data is stored in T_01_04_10
+ * - Both tables share the same primary key (F_00)
  */
 @Setter
 @Getter
@@ -38,6 +43,7 @@ import lombok.ToString;
 @Entity(name="Employee")
 @PrimaryKeyJoinColumn(name="F_00")
 @Table(name="T_01_04_10")
+@PrimaryKeyJoinColumn(name="F_00")
 public class Employee extends Person {
 	
 	@Column(name="F_11", length=50)
