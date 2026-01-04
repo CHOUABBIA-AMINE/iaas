@@ -98,7 +98,7 @@ public class Amendment extends GenericModel {
 	
 	@ManyToOne
     @JoinColumn(name="F_15", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_06_04_FK_04"), nullable=false)
-    private AmendmentPhase amendmentStep;
+    private AmendmentStep amendmentStep;
 	
 	@ManyToOne
     @JoinColumn(name="F_16", referencedColumnName = "F_00", foreignKey=@ForeignKey(name="T_02_06_04_FK_05"), nullable=true)

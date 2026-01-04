@@ -15,8 +15,10 @@
 package dz.mdn.iaas.business.contract.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.contract.model.Contract;
 import dz.mdn.iaas.business.contract.model.ContractItem;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -53,6 +55,8 @@ public class ContractItemDTO extends GenericDTO<ContractItem> {
     
     @NotNull(message = "Contract is required")
     private Long contractId;
+    
+    private ContractDTO contract;
 
     @Override
     public ContractItem toEntity() {
@@ -63,6 +67,13 @@ public class ContractItemDTO extends GenericDTO<ContractItem> {
         entity.setQuantity(this.quantity);
         entity.setUnitPrice(this.unitPrice);
         entity.setObservation(this.observation);
+        
+		if (this.contractId != null) {
+			Contract contract = new Contract();
+			contract.setId(this.contractId);
+		    entity.setContract(contract);
+		}
+		
         return entity;
     }
 
@@ -73,6 +84,12 @@ public class ContractItemDTO extends GenericDTO<ContractItem> {
         entity.setQuantity(this.quantity);
         entity.setUnitPrice(this.unitPrice);
         if (this.observation != null) entity.setObservation(this.observation);
+        
+		if (this.contractId != null) {
+			Contract contract = new Contract();
+			contract.setId(this.contractId);
+		    entity.setContract(contract);
+		}
     }
 
     public static ContractItemDTO fromEntity(ContractItem entity) {
@@ -85,6 +102,8 @@ public class ContractItemDTO extends GenericDTO<ContractItem> {
                 .unitPrice(entity.getUnitPrice())
                 .observation(entity.getObservation())
                 .contractId(entity.getContract() != null ? entity.getContract().getId() : null)
+                
+                .contract(entity.getContract() != null ? ContractDTO.fromEntity(entity.getContract()) : null)
                 .build();
     }
 }

@@ -15,8 +15,10 @@
 package dz.mdn.iaas.business.amendment.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.amendment.model.AmendmentPhase;
 import dz.mdn.iaas.business.amendment.model.AmendmentStep;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -46,6 +48,8 @@ public class AmendmentStepDTO extends GenericDTO<AmendmentStep> {
     
     @NotNull(message = "Amendment phase is required")
     private Long amendmentPhaseId;
+    
+    private AmendmentPhaseDTO amendmentPhase;
 
     @Override
     public AmendmentStep toEntity() {
@@ -54,6 +58,13 @@ public class AmendmentStepDTO extends GenericDTO<AmendmentStep> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
+        
+		if (this.amendmentPhaseId != null) {
+			AmendmentPhase amendmentPhase = new AmendmentPhase();
+			amendmentPhase.setId(this.amendmentPhaseId);
+		    entity.setAmendmentPhase(amendmentPhase);
+		}
+		
         return entity;
     }
 
@@ -62,6 +73,12 @@ public class AmendmentStepDTO extends GenericDTO<AmendmentStep> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        
+		if (this.amendmentPhaseId != null) {
+			AmendmentPhase amendmentPhase = new AmendmentPhase();
+			amendmentPhase.setId(this.amendmentPhaseId);
+		    entity.setAmendmentPhase(amendmentPhase);
+		}
     }
 
     public static AmendmentStepDTO fromEntity(AmendmentStep entity) {
@@ -72,6 +89,8 @@ public class AmendmentStepDTO extends GenericDTO<AmendmentStep> {
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
                 .amendmentPhaseId(entity.getAmendmentPhase() != null ? entity.getAmendmentPhase().getId() : null)
+                
+                .amendmentPhase(entity.getAmendmentPhase() != null ? AmendmentPhaseDTO.fromEntity(entity.getAmendmentPhase()) : null)
                 .build();
     }
 }

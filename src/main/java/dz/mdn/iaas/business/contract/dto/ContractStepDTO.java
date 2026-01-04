@@ -15,8 +15,10 @@
 package dz.mdn.iaas.business.contract.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.contract.model.ContractPhase;
 import dz.mdn.iaas.business.contract.model.ContractStep;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -50,6 +52,8 @@ public class ContractStepDTO extends GenericDTO<ContractStep> {
     
     @NotNull(message = "Contract phase is required")
     private Long contractPhaseId;
+    
+    private ContractPhaseDTO contractPhase;
 
     @Override
     public ContractStep toEntity() {
@@ -58,6 +62,13 @@ public class ContractStepDTO extends GenericDTO<ContractStep> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
+        
+		if (this.contractPhaseId != null) {
+			ContractPhase contractPhase = new ContractPhase();
+			contractPhase.setId(this.contractPhaseId);
+		    entity.setContractPhase(contractPhase);
+		}
+		
         return entity;
     }
 
@@ -66,6 +77,12 @@ public class ContractStepDTO extends GenericDTO<ContractStep> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        
+		if (this.contractPhaseId != null) {
+			ContractPhase contractPhase = new ContractPhase();
+			contractPhase.setId(this.contractPhaseId);
+		    entity.setContractPhase(contractPhase);
+		}
     }
 
     public static ContractStepDTO fromEntity(ContractStep entity) {
@@ -76,6 +93,8 @@ public class ContractStepDTO extends GenericDTO<ContractStep> {
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
                 .contractPhaseId(entity.getContractPhase() != null ? entity.getContractPhase().getId() : null)
+                
+                .contractPhase(entity.getContractPhase() != null ? ContractPhaseDTO.fromEntity(entity.getContractPhase()) : null)
                 .build();
     }
 }

@@ -15,8 +15,10 @@
 package dz.mdn.iaas.business.consultation.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.consultation.model.ConsultationPhase;
 import dz.mdn.iaas.business.consultation.model.ConsultationStep;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -46,6 +48,8 @@ public class ConsultationStepDTO extends GenericDTO<ConsultationStep> {
     
     @NotNull(message = "Consultation phase is required")
     private Long consultationPhaseId;
+    
+    private ConsultationPhaseDTO consultationPhase;
 
     @Override
     public ConsultationStep toEntity() {
@@ -54,6 +58,13 @@ public class ConsultationStepDTO extends GenericDTO<ConsultationStep> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
+        
+		if (this.consultationPhaseId != null) {
+			ConsultationPhase consultationPhase = new ConsultationPhase();
+			consultationPhase.setId(this.consultationPhaseId);
+		    entity.setConsultationPhase(consultationPhase);
+		}
+
         return entity;
     }
 
@@ -62,6 +73,12 @@ public class ConsultationStepDTO extends GenericDTO<ConsultationStep> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        
+		if (this.consultationPhaseId != null) {
+			ConsultationPhase consultationPhase = new ConsultationPhase();
+			consultationPhase.setId(this.consultationPhaseId);
+		    entity.setConsultationPhase(consultationPhase);
+		}
     }
 
     public static ConsultationStepDTO fromEntity(ConsultationStep entity) {
@@ -72,6 +89,8 @@ public class ConsultationStepDTO extends GenericDTO<ConsultationStep> {
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
                 .consultationPhaseId(entity.getConsultationPhase() != null ? entity.getConsultationPhase().getId() : null)
+                
+                .consultationPhase(entity.getConsultationPhase() != null ? ConsultationPhaseDTO.fromEntity(entity.getConsultationPhase()) : null)
                 .build();
     }
 }

@@ -15,9 +15,23 @@
 package dz.mdn.iaas.business.consultation.dto;
 
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.consultation.model.AwardMethod;
 import dz.mdn.iaas.business.consultation.model.Consultation;
+import dz.mdn.iaas.business.consultation.model.ConsultationStep;
+import dz.mdn.iaas.business.core.dto.ApprovalStatusDTO;
+import dz.mdn.iaas.business.core.dto.ProcurementDirectorDTO;
+import dz.mdn.iaas.business.core.dto.ProcurementNatureDTO;
+import dz.mdn.iaas.business.core.dto.ProcurementStatusDTO;
+import dz.mdn.iaas.business.core.model.ApprovalStatus;
+import dz.mdn.iaas.business.core.model.ProcurementDirector;
+import dz.mdn.iaas.business.core.model.ProcurementNature;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
+import dz.mdn.iaas.business.plan.dto.BudgetTypeDTO;
+import dz.mdn.iaas.business.plan.model.BudgetType;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -93,6 +107,20 @@ public class ConsultationDTO extends GenericDTO<Consultation> {
     
     @NotNull(message = "Consultation step is required")
     private Long consultationStepId;
+    
+    private AwardMethodDTO awardMethod;
+    
+    private ProcurementNatureDTO procurementNature;
+    
+    private BudgetTypeDTO budgetType;
+    
+    private ProcurementStatusDTO procurementStatus;
+    
+    private ApprovalStatusDTO approvalStatus;
+    
+    private ProcurementDirectorDTO procurementDirector;
+    
+    private ConsultationStepDTO consultationStep;
 
     @Override
     public Consultation toEntity() {
@@ -112,6 +140,49 @@ public class ConsultationDTO extends GenericDTO<Consultation> {
         entity.setPublishDate(this.publishDate);
         entity.setDeadline(this.deadline);
         entity.setObservation(this.observation);
+        
+		if (this.awardMethodId != null) {
+			AwardMethod awardMethod = new AwardMethod();
+			awardMethod.setId(this.awardMethodId);
+		    entity.setAwardMethod(awardMethod);
+		}
+        
+		if (this.procurementNatureId != null) {
+			ProcurementNature procurementNature = new ProcurementNature();
+			procurementNature.setId(this.procurementNatureId);
+		    entity.setProcurementNature(procurementNature);
+		}
+        
+		if (this.budgetTypeId != null) {
+			BudgetType budgetType = new BudgetType();
+			budgetType.setId(this.budgetTypeId);
+		    entity.setBudgetType(budgetType);
+		}
+        
+		if (this.procurementStatusId != null) {
+			ProcurementStatus procurementStatus = new ProcurementStatus();
+			procurementStatus.setId(this.procurementStatusId);
+		    entity.setProcurementStatus(procurementStatus);
+		}
+        
+		if (this.approvalStatusId != null) {
+			ApprovalStatus approvalStatus = new ApprovalStatus();
+			approvalStatus.setId(this.approvalStatusId);
+		    entity.setApprovalStatus(approvalStatus);
+		}
+        
+		if (this.procurementDirectorId != null) {
+			ProcurementDirector procurementDirector = new ProcurementDirector();
+			procurementDirector.setId(this.procurementDirectorId);
+		    entity.setProcurementDirector(procurementDirector);
+		}
+        
+		if (this.consultationStepId != null) {
+			ConsultationStep consultationStep = new ConsultationStep();
+			consultationStep.setId(this.consultationStepId);
+		    entity.setConsultationStep(consultationStep);
+		}
+		
         return entity;
     }
 
@@ -131,6 +202,48 @@ public class ConsultationDTO extends GenericDTO<Consultation> {
         if (this.publishDate != null) entity.setPublishDate(this.publishDate);
         if (this.deadline != null) entity.setDeadline(this.deadline);
         if (this.observation != null) entity.setObservation(this.observation);
+        
+		if (this.awardMethodId != null) {
+			AwardMethod awardMethod = new AwardMethod();
+			awardMethod.setId(this.awardMethodId);
+		    entity.setAwardMethod(awardMethod);
+		}
+        
+		if (this.procurementNatureId != null) {
+			ProcurementNature procurementNature = new ProcurementNature();
+			procurementNature.setId(this.procurementNatureId);
+		    entity.setProcurementNature(procurementNature);
+		}
+        
+		if (this.budgetTypeId != null) {
+			BudgetType budgetType = new BudgetType();
+			budgetType.setId(this.budgetTypeId);
+		    entity.setBudgetType(budgetType);
+		}
+        
+		if (this.procurementStatusId != null) {
+			ProcurementStatus procurementStatus = new ProcurementStatus();
+			procurementStatus.setId(this.procurementStatusId);
+		    entity.setProcurementStatus(procurementStatus);
+		}
+        
+		if (this.approvalStatusId != null) {
+			ApprovalStatus approvalStatus = new ApprovalStatus();
+			approvalStatus.setId(this.approvalStatusId);
+		    entity.setApprovalStatus(approvalStatus);
+		}
+        
+		if (this.procurementDirectorId != null) {
+			ProcurementDirector procurementDirector = new ProcurementDirector();
+			procurementDirector.setId(this.procurementDirectorId);
+		    entity.setProcurementDirector(procurementDirector);
+		}
+        
+		if (this.consultationStepId != null) {
+			ConsultationStep consultationStep = new ConsultationStep();
+			consultationStep.setId(this.consultationStepId);
+		    entity.setConsultationStep(consultationStep);
+		}
     }
 
     public static ConsultationDTO fromEntity(Consultation entity) {
@@ -158,6 +271,14 @@ public class ConsultationDTO extends GenericDTO<Consultation> {
                 .approvalStatusId(entity.getApprovalStatus() != null ? entity.getApprovalStatus().getId() : null)
                 .procurementDirectorId(entity.getProcurementDirector() != null ? entity.getProcurementDirector().getId() : null)
                 .consultationStepId(entity.getConsultationStep() != null ? entity.getConsultationStep().getId() : null)
+                
+                .awardMethod(entity.getAwardMethod() != null ? AwardMethodDTO.fromEntity(entity.getAwardMethod()) : null)
+                .procurementNature(entity.getProcurementNature() != null ? ProcurementNatureDTO.fromEntity(entity.getProcurementNature()) : null)
+                .budgetType(entity.getBudgetType() != null ? BudgetTypeDTO.fromEntity(entity.getBudgetType()) : null)
+                .procurementStatus(entity.getProcurementStatus() != null ? ProcurementStatusDTO.fromEntity(entity.getProcurementStatus()) : null)
+                .approvalStatus(entity.getApprovalStatus() != null ? ApprovalStatusDTO.fromEntity(entity.getApprovalStatus()) : null)
+                .procurementDirector(entity.getProcurementDirector() != null ? ProcurementDirectorDTO.fromEntity(entity.getProcurementDirector()) : null)
+                .consultationStep(entity.getConsultationStep() != null ? ConsultationStepDTO.fromEntity(entity.getConsultationStep()) : null)
                 .build();
     }
 }

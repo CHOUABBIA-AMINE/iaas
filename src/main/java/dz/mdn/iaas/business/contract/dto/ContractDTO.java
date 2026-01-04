@@ -15,11 +15,25 @@
 package dz.mdn.iaas.business.contract.dto;
 
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.consultation.dto.ConsultationDTO;
+import dz.mdn.iaas.business.consultation.model.Consultation;
 import dz.mdn.iaas.business.contract.model.Contract;
-import jakarta.validation.constraints.NotNull;
+import dz.mdn.iaas.business.contract.model.ContractStep;
+import dz.mdn.iaas.business.contract.model.ContractType;
+import dz.mdn.iaas.business.core.dto.ApprovalStatusDTO;
+import dz.mdn.iaas.business.core.dto.CurrencyDTO;
+import dz.mdn.iaas.business.core.dto.ProcurementStatusDTO;
+import dz.mdn.iaas.business.core.model.ApprovalStatus;
+import dz.mdn.iaas.business.core.model.Currency;
+import dz.mdn.iaas.business.core.model.ProcurementStatus;
+import dz.mdn.iaas.business.provider.dto.ProviderDTO;
+import dz.mdn.iaas.business.provider.model.Provider;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -79,6 +93,22 @@ public class ContractDTO extends GenericDTO<Contract> {
     private Long consultationId;
     
     private Long contractUpId;
+    
+    private ProviderDTO provider;
+    
+    private ContractTypeDTO contractType;
+    
+    private ContractStepDTO contractStep;
+    
+    private ProcurementStatusDTO procurementStatus;
+    
+    private ApprovalStatusDTO approvalStatus;
+    
+    private CurrencyDTO currency;
+    
+    private ConsultationDTO consultation;
+    
+    private ContractDTO contractUp;
 
     @Override
     public Contract toEntity() {
@@ -99,56 +129,123 @@ public class ContractDTO extends GenericDTO<Contract> {
         entity.setNotifyDate(this.notifyDate);
         entity.setContractDuration(this.contractDuration);
         entity.setObservation(this.observation);
+        
+		if (this.providerId != null) {
+			Provider provider = new Provider();
+			provider.setId(this.providerId);
+		    entity.setProvider(provider);
+		}
+        
+		if (this.contractTypeId != null) {
+			ContractType contractType = new ContractType();
+			contractType.setId(this.contractTypeId);
+		    entity.setContractType(contractType);
+		}
+        
+		if (this.contractStepId != null) {
+			ContractStep contractStep = new ContractStep();
+			contractStep.setId(this.contractStepId);
+		    entity.setContractStep(contractStep);
+		}
+        
+		if (this.procurementStatusId != null) {
+			ProcurementStatus procurementStatus = new ProcurementStatus();
+			procurementStatus.setId(this.procurementStatusId);
+		    entity.setProcurementStatus(procurementStatus);
+		}
+        
+		if (this.approvalStatusId != null) {
+			ApprovalStatus approvalStatus = new ApprovalStatus();
+			approvalStatus.setId(this.approvalStatusId);
+		    entity.setApprovalStatus(approvalStatus);
+		}
+        
+		if (this.currencyId != null) {
+			Currency currency = new Currency();
+			currency.setId(this.currencyId);
+		    entity.setCurrency(currency);
+		}
+        
+		if (this.consultationId != null) {
+			Consultation consultation = new Consultation();
+			consultation.setId(this.consultationId);
+		    entity.setConsultation(consultation);
+		}
+        
+		if (this.contractUpId != null) {
+			Contract contractUp = new Contract();
+			contractUp.setId(this.contractUpId);
+		    entity.setContractUp(contractUp);
+		}
+		
         return entity;
     }
 
     @Override
     public void updateEntity(Contract entity) {
-        if (this.internalId != null) {
-            entity.setInternalId(this.internalId);
-        }
-        if (this.contractYear != null) {
-            entity.setContractYear(this.contractYear);
-        }
-        if (this.reference != null) {
-            entity.setReference(this.reference);
-        }
-        if (this.designationAr != null) {
-            entity.setDesignationAr(this.designationAr);
-        }
-        if (this.designationEn != null) {
-            entity.setDesignationEn(this.designationEn);
-        }
-        if (this.designationFr != null) {
-            entity.setDesignationFr(this.designationFr);
-        }
-        if (this.amount > 0) {
-            entity.setAmount(this.amount);
-        }
-        if (this.transferableAmount >= 0) {
-            entity.setTransferableAmount(this.transferableAmount);
-        }
-        if (this.startDate != null) {
-            entity.setStartDate(this.startDate);
-        }
-        if (this.approvalReference != null) {
-            entity.setApprovalReference(this.approvalReference);
-        }
-        if (this.approvalDate != null) {
-            entity.setApprovalDate(this.approvalDate);
-        }
-        if (this.contractDate != null) {
-            entity.setContractDate(this.contractDate);
-        }
-        if (this.notifyDate != null) {
-            entity.setNotifyDate(this.notifyDate);
-        }
-        if (this.contractDuration > 0) {
-            entity.setContractDuration(this.contractDuration);
-        }
-        if (this.observation != null) {
-            entity.setObservation(this.observation);
-        }
+        if (this.internalId != null) {entity.setInternalId(this.internalId);}
+        if (this.contractYear != null) {entity.setContractYear(this.contractYear);}
+        if (this.reference != null) {entity.setReference(this.reference);}
+        if (this.designationAr != null) {entity.setDesignationAr(this.designationAr);}
+        if (this.designationEn != null) {entity.setDesignationEn(this.designationEn);}
+        if (this.designationFr != null) {entity.setDesignationFr(this.designationFr);}
+        if (this.amount > 0) {entity.setAmount(this.amount);}
+        if (this.transferableAmount >= 0) {entity.setTransferableAmount(this.transferableAmount);}
+        if (this.startDate != null) {entity.setStartDate(this.startDate);}
+        if (this.approvalReference != null) {entity.setApprovalReference(this.approvalReference);}
+        if (this.approvalDate != null) {entity.setApprovalDate(this.approvalDate);}
+        if (this.contractDate != null) {entity.setContractDate(this.contractDate);}
+        if (this.notifyDate != null) {entity.setNotifyDate(this.notifyDate);}
+        if (this.contractDuration > 0) {entity.setContractDuration(this.contractDuration);}
+        if (this.observation != null) {entity.setObservation(this.observation);}
+        
+		if (this.providerId != null) {
+			Provider provider = new Provider();
+			provider.setId(this.providerId);
+		    entity.setProvider(provider);
+		}
+        
+		if (this.contractTypeId != null) {
+			ContractType contractType = new ContractType();
+			contractType.setId(this.contractTypeId);
+		    entity.setContractType(contractType);
+		}
+        
+		if (this.contractStepId != null) {
+			ContractStep contractStep = new ContractStep();
+			contractStep.setId(this.contractStepId);
+		    entity.setContractStep(contractStep);
+		}
+        
+		if (this.procurementStatusId != null) {
+			ProcurementStatus procurementStatus = new ProcurementStatus();
+			procurementStatus.setId(this.procurementStatusId);
+		    entity.setProcurementStatus(procurementStatus);
+		}
+        
+		if (this.approvalStatusId != null) {
+			ApprovalStatus approvalStatus = new ApprovalStatus();
+			approvalStatus.setId(this.approvalStatusId);
+		    entity.setApprovalStatus(approvalStatus);
+		}
+        
+		if (this.currencyId != null) {
+			Currency currency = new Currency();
+			currency.setId(this.currencyId);
+		    entity.setCurrency(currency);
+		}
+        
+		if (this.consultationId != null) {
+			Consultation consultation = new Consultation();
+			consultation.setId(this.consultationId);
+		    entity.setConsultation(consultation);
+		}
+        
+		if (this.contractUpId != null) {
+			Contract contractUp = new Contract();
+			contractUp.setId(this.contractUpId);
+		    entity.setContractUp(contractUp);
+		}
     }
 
     public static ContractDTO fromEntity(Contract entity) {
@@ -178,6 +275,15 @@ public class ContractDTO extends GenericDTO<Contract> {
                 .currencyId(entity.getCurrency() != null ? entity.getCurrency().getId() : null)
                 .consultationId(entity.getConsultation() != null ? entity.getConsultation().getId() : null)
                 .contractUpId(entity.getContractUp() != null ? entity.getContractUp().getId() : null)
+                
+                .provider(entity.getProvider() != null ? ProviderDTO.fromEntity(entity.getProvider()) : null)
+                .contractType(entity.getContractType() != null ? ContractTypeDTO.fromEntity(entity.getContractType()) : null)
+                .contractStep(entity.getContractStep() != null ? ContractStepDTO.fromEntity(entity.getContractStep()) : null)
+                .procurementStatus(entity.getProcurementStatus() != null ? ProcurementStatusDTO.fromEntity(entity.getProcurementStatus()) : null)
+                .approvalStatus(entity.getApprovalStatus() != null ? ApprovalStatusDTO.fromEntity(entity.getApprovalStatus()) : null)
+                .currency(entity.getCurrency() != null ? CurrencyDTO.fromEntity(entity.getCurrency()) : null)
+                .consultation(entity.getConsultation() != null ? ConsultationDTO.fromEntity(entity.getConsultation()) : null)
+                .contractUp(entity.getContractUp() != null ? ContractDTO.fromEntity(entity.getContractUp()) : null)
                 .build();
     }
 }
