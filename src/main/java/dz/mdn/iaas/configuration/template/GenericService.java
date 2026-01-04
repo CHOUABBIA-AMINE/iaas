@@ -4,7 +4,7 @@
  *
  *	@Name		: GenericService
  *	@CreatedOn	: 12-09-2025
- *	@Updated	: 12-10-2025
+ *	@Updated	: 01-04-2026
  *
  *	@Type		: Abstract Class
  *	@Layer		: Service Base
@@ -14,7 +14,9 @@
 
 package dz.mdn.iaas.configuration.template;
 
+import dz.mdn.iaas.configuration.annotation.Auditable;
 import dz.mdn.iaas.exception.ResourceNotFoundException;
+import dz.mdn.iaas.system.audit.model.Audited.AuditAction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,49 +29,90 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Generic Service Base Class
- * Provides common CRUD operations to reduce code duplication across services
+ * Generic Service Base Class with Built-in Audit Logging
+ * 
+ * Provides common CRUD operations with automatic audit trail.
+ * All create, update, and delete operations are automatically logged using @Auditable annotation.
+ * 
+ * Audit Features:
+ * ===============
+ * - Automatic logging of all CRUD operations
+ * - Captures: entity name, action, user, IP address, timestamp, duration
+ * - Records success/failure status with error messages
+ * - Tracks before/after values for updates
+ * - Logs method parameters and results
  * 
  * Usage Example:
  * <pre>
  * {@code
  * @Service
- * public class CurrencyService extends GenericService<Currency, CurrencyDTO, Long> {
+ * public class EmployeeService extends GenericService<Employee, EmployeeDTO, Long> {
  *     
- *     private final CurrencyRepository repository;
- *     private final UniqueFieldValidator validator;
+ *     private final EmployeeRepository repository;
  *     
  *     @Override
- *     protected JpaRepository<Currency, Long> getRepository() {
+ *     protected JpaRepository<Employee, Long> getRepository() {
  *         return repository;
  *     }
  *     
  *     @Override
- *     protected String getEntityName() {
- *         return "Currency";
+ *     public String getEntityName() {
+ *         return "Employee";
  *     }
  *     
  *     @Override
- *     protected CurrencyDTO toDTO(Currency entity) {
- *         return CurrencyDTO.fromEntity(entity);
+ *     protected EmployeeDTO toDTO(Employee entity) {
+ *         return EmployeeDTO.fromEntity(entity);
  *     }
  *     
  *     @Override
- *     protected Currency toEntity(CurrencyDTO dto) {
+ *     protected Employee toEntity(EmployeeDTO dto) {
  *         return dto.toEntity();
  *     }
  *     
  *     @Override
- *     protected void updateEntityFromDTO(Currency entity, CurrencyDTO dto) {
+ *     protected void updateEntityFromDTO(Employee entity, EmployeeDTO dto) {
  *         dto.updateEntity(entity);
+ *     }
+ *     
+ *     // Optional: Override to customize audit behavior
+ *     @Override
+ *     @Auditable(
+ *         entityName = "Employee",
+ *         action = AuditAction.CREATE,
+ *         module = "ADMINISTRATION",
+ *         businessProcess = "EMPLOYEE_ONBOARDING"
+ *     )
+ *     public EmployeeDTO create(EmployeeDTO dto) {
+ *         // Add custom validation
+ *         validateUniqueEmail(dto.getEmail());
+ *         return super.create(dto);
  *     }
  * }
  * }
  * </pre>
  * 
+ * Audit Log Example:
+ * ==================
+ * When employeeService.create(dto) is called, the system automatically logs:
+ * - Action: CREATE
+ * - Entity: Employee
+ * - Entity ID: 5 (auto-generated)
+ * - Username: john.doe
+ * - IP Address: 192.168.1.100
+ * - Timestamp: 2026-01-04 14:30:45
+ * - Duration: 125ms
+ * - Status: SUCCESS
+ * - Description: "Created new employee with ID 5"
+ * - Parameters: [EmployeeDTO{...}]
+ * - Result: EmployeeDTO{id=5, ...}
+ * 
  * @param <E> Entity type
  * @param <D> DTO type
  * @param <ID> ID type (usually Long)
+ * 
+ * @see Auditable
+ * @see AuditAction
  */
 @Slf4j
 @Transactional(readOnly = true)
@@ -86,11 +129,13 @@ public abstract class GenericService<E, D, ID> {
     protected abstract JpaRepository<E, ID> getRepository();
 
     /**
-     * Get the entity name for logging and error messages
+     * Get the entity name for logging, error messages, and audit trails
      * 
-     * @return Human-readable entity name (e.g., "Currency", "User")
+     * Note: Made public to support audit annotation processing
+     * 
+     * @return Human-readable entity name (e.g., "Employee", "Currency")
      */
-    protected abstract String getEntityName();
+    public abstract String getEntityName();
 
     /**
      * Convert entity to DTO
@@ -121,12 +166,40 @@ public abstract class GenericService<E, D, ID> {
 
     /**
      * Create new entity
-     * Override this method in subclass to add validation
+     * 
+     * This method is automatically audited with:
+     * - Action: CREATE
+     * - Entity ID: Auto-extracted from result
+     * - Parameters: Input DTO
+     * - Result: Created DTO with ID
+     * 
+     * Override in subclass to:
+     * - Add validation
+     * - Customize audit module/businessProcess
+     * - Add business logic
+     * 
+     * Example Override:
+     * <pre>
+     * {@code
+     * @Override
+     * @Auditable(
+     *     entityName = "Employee",
+     *     action = AuditAction.CREATE,
+     *     module = "ADMINISTRATION",
+     *     businessProcess = "EMPLOYEE_REGISTRATION"
+     * )
+     * public EmployeeDTO create(EmployeeDTO dto) {
+     *     validateUniqueEmail(dto.getEmail());
+     *     return super.create(dto);
+     * }
+     * }
+     * </pre>
      * 
      * @param dto DTO with entity data
-     * @return Created entity as DTO
+     * @return Created entity as DTO (with generated ID)
      */
     @Transactional
+    @Auditable(entityName = "#{target.getEntityName()}", action = AuditAction.CREATE)
     public D create(D dto) {
         log.info("Creating new {}", getEntityName());
         
@@ -142,6 +215,9 @@ public abstract class GenericService<E, D, ID> {
     /**
      * Get entity by ID
      * Throws ResourceNotFoundException if not found
+     * 
+     * Note: Read operations are not audited by default to avoid log spam.
+     * Add @Auditable in subclass if audit trail is needed for specific reads.
      * 
      * @param id Entity ID
      * @return Entity as DTO
@@ -211,7 +287,35 @@ public abstract class GenericService<E, D, ID> {
 
     /**
      * Update entity
-     * Override this method in subclass to add validation
+     * 
+     * This method is automatically audited with:
+     * - Action: UPDATE
+     * - Entity ID: From method parameter
+     * - Old Values: Fetched entity
+     * - New Values: Updated DTO
+     * - Parameters: [ID, DTO]
+     * 
+     * Override in subclass to:
+     * - Add validation
+     * - Customize audit module/businessProcess
+     * - Add business logic
+     * 
+     * Example Override:
+     * <pre>
+     * {@code
+     * @Override
+     * @Auditable(
+     *     entityName = "Employee",
+     *     action = AuditAction.UPDATE,
+     *     module = "ADMINISTRATION",
+     *     businessProcess = "EMPLOYEE_MODIFICATION"
+     * )
+     * public EmployeeDTO update(Long id, EmployeeDTO dto) {
+     *     validateEmailChange(id, dto.getEmail());
+     *     return super.update(id, dto);
+     * }
+     * }
+     * </pre>
      * 
      * @param id Entity ID
      * @param dto DTO with updated values
@@ -219,6 +323,7 @@ public abstract class GenericService<E, D, ID> {
      * @throws ResourceNotFoundException if entity not found
      */
     @Transactional
+    @Auditable(entityName = "#{target.getEntityName()}", action = AuditAction.UPDATE)
     public D update(ID id, D dto) {
         log.info("Updating {} with ID: {}", getEntityName(), id);
         
@@ -236,10 +341,38 @@ public abstract class GenericService<E, D, ID> {
     /**
      * Delete entity by ID
      * 
+     * This method is automatically audited with:
+     * - Action: DELETE
+     * - Entity ID: From method parameter
+     * - Old Values: Entity before deletion
+     * 
+     * Override in subclass to:
+     * - Add validation (e.g., check for dependencies)
+     * - Customize audit module/businessProcess
+     * - Implement soft delete
+     * 
+     * Example Override:
+     * <pre>
+     * {@code
+     * @Override
+     * @Auditable(
+     *     entityName = "Employee",
+     *     action = AuditAction.DELETE,
+     *     module = "ADMINISTRATION",
+     *     businessProcess = "EMPLOYEE_TERMINATION"
+     * )
+     * public void delete(Long id) {
+     *     validateNoActiveContracts(id);
+     *     super.delete(id);
+     * }
+     * }
+     * </pre>
+     * 
      * @param id Entity ID
      * @throws ResourceNotFoundException if entity not found
      */
     @Transactional
+    @Auditable(entityName = "#{target.getEntityName()}", action = AuditAction.DELETE)
     public void delete(ID id) {
         log.info("Deleting {} with ID: {}", getEntityName(), id);
         
@@ -253,10 +386,16 @@ public abstract class GenericService<E, D, ID> {
      * Delete entity by ID (direct)
      * Slightly more efficient as it doesn't fetch the entity first
      * 
+     * This method is automatically audited with:
+     * - Action: DELETE
+     * - Entity ID: From method parameter
+     * - Note: Old values not captured (entity not fetched)
+     * 
      * @param id Entity ID
      * @throws ResourceNotFoundException if entity not found
      */
     @Transactional
+    @Auditable(entityName = "#{target.getEntityName()}", action = AuditAction.DELETE)
     public void deleteById(ID id) {
         log.info("Deleting {} by ID: {}", getEntityName(), id);
         
@@ -314,8 +453,8 @@ public abstract class GenericService<E, D, ID> {
      * Example:
      * <pre>
      * {@code
-     * public Page<CurrencyDTO> searchByCode(String code, Pageable pageable) {
-     *     return executeQuery(p -> repository.searchByCode(code, p), pageable);
+     * public Page<EmployeeDTO> searchByName(String name, Pageable pageable) {
+     *     return executeQuery(p -> repository.searchByName(name, p), pageable);
      * }
      * }
      * </pre>
@@ -335,8 +474,8 @@ public abstract class GenericService<E, D, ID> {
      * Example:
      * <pre>
      * {@code
-     * public Optional<CurrencyDTO> findByCode(String code) {
-     *     return executeSingleQuery(repository::findByCode, code);
+     * public Optional<EmployeeDTO> findByEmail(String email) {
+     *     return executeSingleQuery(repository::findByEmail, email);
      * }
      * }
      * </pre>
@@ -356,8 +495,8 @@ public abstract class GenericService<E, D, ID> {
      * Example:
      * <pre>
      * {@code
-     * public List<CurrencyDTO> findByType(String type) {
-     *     return executeListQuery(repository::findByType, type);
+     * public List<EmployeeDTO> findByDepartment(Long deptId) {
+     *     return executeListQuery(repository::findByDepartmentId, deptId);
      * }
      * }
      * </pre>
