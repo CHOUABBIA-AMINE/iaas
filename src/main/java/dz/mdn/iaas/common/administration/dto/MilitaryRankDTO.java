@@ -15,6 +15,8 @@
 package dz.mdn.iaas.common.administration.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import dz.mdn.iaas.common.administration.model.MilitaryCategory;
 import dz.mdn.iaas.common.administration.model.MilitaryRank;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
@@ -60,6 +62,8 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
 
     @NotNull(message = "Military Category ID is required")
     private Long militaryCategoryId;
+    
+    private MilitaryCategoryDTO militaryCategory;
 
     @Override
     public MilitaryRank toEntity() {
@@ -71,6 +75,13 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
         entity.setAcronymAr(this.acronymAr);
         entity.setAcronymEn(this.acronymEn);
         entity.setAcronymFr(this.acronymFr);
+        
+        if (this.militaryCategoryId != null) {
+        	MilitaryCategory militaryCategory = new MilitaryCategory();
+        	militaryCategory.setId(this.militaryCategoryId);
+            entity.setMilitaryCategory(militaryCategory);
+        }
+        
         return entity;
     }
 
@@ -82,6 +93,12 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
         if (this.acronymAr != null) entity.setAcronymAr(this.acronymAr);
         if (this.acronymEn != null) entity.setAcronymEn(this.acronymEn);
         if (this.acronymFr != null) entity.setAcronymFr(this.acronymFr);
+        
+        if (this.militaryCategoryId != null) {
+        	MilitaryCategory militaryCategory = new MilitaryCategory();
+        	militaryCategory.setId(this.militaryCategoryId);
+            entity.setMilitaryCategory(militaryCategory);
+        }
     }
 
     public static MilitaryRankDTO fromEntity(MilitaryRank entity) {
@@ -95,6 +112,8 @@ public class MilitaryRankDTO extends GenericDTO<MilitaryRank> {
                 .acronymEn(entity.getAcronymEn())
                 .acronymFr(entity.getAcronymFr())
                 .militaryCategoryId(entity.getMilitaryCategory() != null ? entity.getMilitaryCategory().getId() : null)
+                
+                .militaryCategory(entity.getMilitaryCategory() != null ? MilitaryCategoryDTO.fromEntity(entity.getMilitaryCategory()) : null)
                 .build();
     }
 }

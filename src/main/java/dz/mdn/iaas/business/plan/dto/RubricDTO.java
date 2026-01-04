@@ -15,8 +15,10 @@
 package dz.mdn.iaas.business.plan.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.plan.model.Domain;
 import dz.mdn.iaas.business.plan.model.Rubric;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -50,6 +52,9 @@ public class RubricDTO extends GenericDTO<Rubric> {
     
     @NotNull(message = "Domain is required")
     private Long domainId;
+    
+    private DomainDTO domain;
+
 
     @Override
     public Rubric toEntity() {
@@ -58,6 +63,13 @@ public class RubricDTO extends GenericDTO<Rubric> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
+        
+		if (this.domainId != null) {
+			Domain domain = new Domain();
+			domain.setId(this.domainId);
+		    entity.setDomain(domain);
+		}
+
         return entity;
     }
 
@@ -66,6 +78,12 @@ public class RubricDTO extends GenericDTO<Rubric> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        
+		if (this.domainId != null) {
+			Domain domain = new Domain();
+			domain.setId(this.domainId);
+		    entity.setDomain(domain);
+		}
     }
 
     public static RubricDTO fromEntity(Rubric entity) {
@@ -76,6 +94,8 @@ public class RubricDTO extends GenericDTO<Rubric> {
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
                 .domainId(entity.getDomain() != null ? entity.getDomain().getId() : null)
+                
+                .domain(entity.getDomain() != null ? DomainDTO.fromEntity(entity.getDomain()) : null)
                 .build();
     }
 }

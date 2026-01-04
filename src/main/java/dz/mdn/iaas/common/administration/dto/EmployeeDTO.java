@@ -65,16 +65,25 @@ public class EmployeeDTO extends GenericDTO<Employee> {
     @Size(max = 100, message = "Birth place must not exceed 100 characters")
     private String birthPlace;
 
-    private Long countryId;
-
     @Size(max = 50, message = "Registration number must not exceed 50 characters")
     private String registrationNumber;
+
+    private Long countryId;
 
     private Long jobId;
 
     private Long structureId;
 
     private Long militaryRankId;
+    
+    private CountryDTO country;
+    
+    private JobDTO job;
+    
+    private StructureDTO structure;
+    
+    private MilitaryRankDTO militaryRank;
+
 
     @Override
     public Employee toEntity() {
@@ -165,6 +174,11 @@ public class EmployeeDTO extends GenericDTO<Employee> {
                 .jobId(entity.getJob() != null ? entity.getJob().getId() : null)
                 .structureId(entity.getStructure() != null ? entity.getStructure().getId() : null)
                 .militaryRankId(entity.getMilitaryRank() != null ? entity.getMilitaryRank().getId() : null)
+                
+                .country(entity.getCountry() != null ? CountryDTO.fromEntity(entity.getCountry()) : null)
+                .job(entity.getJob() != null ? JobDTO.fromEntity(entity.getJob()) : null)
+                .structure(entity.getStructure() != null ? StructureDTO.fromEntity(entity.getStructure()) : null)
+                .militaryRank(entity.getMilitaryRank() != null ? MilitaryRankDTO.fromEntity(entity.getMilitaryRank()) : null)
                 .build();
     }
 }

@@ -15,8 +15,10 @@
 package dz.mdn.iaas.business.plan.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.plan.model.BudgetType;
 import dz.mdn.iaas.business.plan.model.FinancialOperation;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -48,6 +50,9 @@ public class FinancialOperationDTO extends GenericDTO<FinancialOperation> {
     
     @NotNull(message = "Budget type is required")
     private Long budgetTypeId;
+    
+    private BudgetTypeDTO budgetType;
+
 
     @Override
     public FinancialOperation toEntity() {
@@ -55,6 +60,13 @@ public class FinancialOperationDTO extends GenericDTO<FinancialOperation> {
         entity.setId(this.getId());
         entity.setOperation(this.operation);
         entity.setBudgetYear(this.budgetYear);
+        
+		if (this.budgetTypeId != null) {
+			BudgetType budgetType = new BudgetType();
+			budgetType.setId(this.budgetTypeId);
+		    entity.setBudgetType(budgetType);
+		}
+		
         return entity;
     }
 
@@ -62,6 +74,12 @@ public class FinancialOperationDTO extends GenericDTO<FinancialOperation> {
     public void updateEntity(FinancialOperation entity) {
         if (this.operation != null) entity.setOperation(this.operation);
         if (this.budgetYear != null) entity.setBudgetYear(this.budgetYear);
+        
+		if (this.budgetTypeId != null) {
+			BudgetType budgetType = new BudgetType();
+			budgetType.setId(this.budgetTypeId);
+		    entity.setBudgetType(budgetType);
+		}
     }
 
     public static FinancialOperationDTO fromEntity(FinancialOperation entity) {
@@ -71,6 +89,8 @@ public class FinancialOperationDTO extends GenericDTO<FinancialOperation> {
                 .operation(entity.getOperation())
                 .budgetYear(entity.getBudgetYear())
                 .budgetTypeId(entity.getBudgetType() != null ? entity.getBudgetType().getId() : null)
+                
+                .budgetType(entity.getBudgetType() != null ? BudgetTypeDTO.fromEntity(entity.getBudgetType()) : null)
                 .build();
     }
 }

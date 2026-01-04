@@ -15,7 +15,10 @@
 package dz.mdn.iaas.common.environment.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.common.environment.model.ArchiveBox;
+import dz.mdn.iaas.common.environment.model.Shelf;
+import dz.mdn.iaas.common.environment.model.ShelfFloor;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -45,8 +48,15 @@ public class ArchiveBoxDTO extends GenericDTO<ArchiveBox> {
     @Size(max = 200, message = "Description must not exceed 200 characters")
     private String description;
 
+    @NotNull(message = "Shelf ID is required")
+    private Long shelfId;
+
     @NotNull(message = "Shelf floor ID is required")
     private Long shelfFloorId;
+    
+    private ShelfDTO shelf;
+
+    private ShelfFloorDTO shelfFloor;
 
     @Override
     public ArchiveBox toEntity() {
@@ -54,6 +64,19 @@ public class ArchiveBoxDTO extends GenericDTO<ArchiveBox> {
         entity.setId(this.getId());
         entity.setCode(this.code);
         entity.setDescription(this.description);
+        
+        if (this.shelfId != null) {
+        	Shelf shelf = new Shelf();
+        	shelf.setId(this.shelfId);
+            entity.setShelf(shelf);
+        }
+        
+        if (this.shelfFloorId != null) {
+        	ShelfFloor shelfFloor = new ShelfFloor();
+        	shelfFloor.setId(this.shelfFloorId);
+            entity.setShelfFloor(shelfFloor);
+        }
+        
         return entity;
     }
 
@@ -61,6 +84,18 @@ public class ArchiveBoxDTO extends GenericDTO<ArchiveBox> {
     public void updateEntity(ArchiveBox entity) {
         if (this.code != null) entity.setCode(this.code);
         if (this.description != null) entity.setDescription(this.description);
+        
+        if (this.shelfId != null) {
+        	Shelf shelf = new Shelf();
+        	shelf.setId(this.shelfId);
+            entity.setShelf(shelf);
+        }
+        
+        if (this.shelfFloorId != null) {
+        	ShelfFloor shelfFloor = new ShelfFloor();
+        	shelfFloor.setId(this.shelfFloorId);
+            entity.setShelfFloor(shelfFloor);
+        }
     }
 
     public static ArchiveBoxDTO fromEntity(ArchiveBox entity) {
@@ -70,6 +105,9 @@ public class ArchiveBoxDTO extends GenericDTO<ArchiveBox> {
                 .code(entity.getCode())
                 .description(entity.getDescription())
                 .shelfFloorId(entity.getShelfFloor() != null ? entity.getShelfFloor().getId() : null)
+                
+                .shelf(entity.getShelf() != null ? ShelfDTO.fromEntity(entity.getShelf()) : null)
+                .shelfFloor(entity.getShelfFloor() != null ? ShelfFloorDTO.fromEntity(entity.getShelfFloor()) : null)
                 .build();
     }
 }

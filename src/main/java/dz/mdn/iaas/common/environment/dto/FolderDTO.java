@@ -15,6 +15,8 @@
 package dz.mdn.iaas.common.environment.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import dz.mdn.iaas.common.environment.model.ArchiveBox;
 import dz.mdn.iaas.common.environment.model.Folder;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
@@ -47,6 +49,8 @@ public class FolderDTO extends GenericDTO<Folder> {
 
     @NotNull(message = "Archive box ID is required")
     private Long archiveBoxId;
+    
+    private ArchiveBoxDTO archiveBox;
 
     @Override
     public Folder toEntity() {
@@ -54,6 +58,13 @@ public class FolderDTO extends GenericDTO<Folder> {
         entity.setId(this.getId());
         entity.setCode(this.code);
         entity.setDescription(this.description);
+        
+        if (this.archiveBoxId != null) {
+        	ArchiveBox archiveBox = new ArchiveBox();
+        	archiveBox.setId(this.archiveBoxId);
+            entity.setArchiveBox(archiveBox);
+        }
+        
         return entity;
     }
 
@@ -61,6 +72,12 @@ public class FolderDTO extends GenericDTO<Folder> {
     public void updateEntity(Folder entity) {
         if (this.code != null) entity.setCode(this.code);
         if (this.description != null) entity.setDescription(this.description);
+        
+        if (this.archiveBoxId != null) {
+        	ArchiveBox archiveBox = new ArchiveBox();
+        	archiveBox.setId(this.archiveBoxId);
+            entity.setArchiveBox(archiveBox);
+        }
     }
 
     public static FolderDTO fromEntity(Folder entity) {
@@ -70,6 +87,8 @@ public class FolderDTO extends GenericDTO<Folder> {
                 .code(entity.getCode())
                 .description(entity.getDescription())
                 .archiveBoxId(entity.getArchiveBox() != null ? entity.getArchiveBox().getId() : null)
+                
+                .archiveBox(entity.getArchiveBox() != null ? ArchiveBoxDTO.fromEntity(entity.getArchiveBox()) : null)
                 .build();
     }
 }

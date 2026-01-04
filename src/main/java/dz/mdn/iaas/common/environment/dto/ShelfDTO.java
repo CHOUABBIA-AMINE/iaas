@@ -15,6 +15,8 @@
 package dz.mdn.iaas.common.environment.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import dz.mdn.iaas.common.environment.model.Room;
 import dz.mdn.iaas.common.environment.model.Shelf;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
@@ -54,6 +56,8 @@ public class ShelfDTO extends GenericDTO<Shelf> {
 
     @NotNull(message = "Room ID is required")
     private Long roomId;
+    
+    private RoomDTO room;
 
     @Override
     public Shelf toEntity() {
@@ -63,6 +67,13 @@ public class ShelfDTO extends GenericDTO<Shelf> {
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
         entity.setCode(this.code);
+        
+        if (this.roomId != null) {
+        	Room room = new Room();
+        	room.setId(this.roomId);
+            entity.setRoom(room);
+        }
+        
         return entity;
     }
 
@@ -72,6 +83,13 @@ public class ShelfDTO extends GenericDTO<Shelf> {
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
         if (this.code != null) entity.setCode(this.code);
+        
+        if (this.roomId != null) {
+        	Room room = new Room();
+        	room.setId(this.roomId);
+            entity.setRoom(room);
+        }
+        
     }
 
     public static ShelfDTO fromEntity(Shelf entity) {
@@ -83,6 +101,8 @@ public class ShelfDTO extends GenericDTO<Shelf> {
                 .designationFr(entity.getDesignationFr())
                 .code(entity.getCode())
                 .roomId(entity.getRoom() != null ? entity.getRoom().getId() : null)
+                
+                .room(entity.getRoom() != null ? RoomDTO.fromEntity(entity.getRoom()) : null)
                 .build();
     }
 }

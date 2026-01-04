@@ -76,8 +76,11 @@ public class MailDTO extends GenericDTO<Mail> {
     private List<Long> referencedMailIds;
     
     private MailNatureDTO mailNature;
+    
     private MailTypeDTO mailType;
+    
     private StructureDTO structure;
+    
     private FileDTO file;
 
     @Override

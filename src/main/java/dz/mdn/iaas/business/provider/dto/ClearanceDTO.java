@@ -15,8 +15,13 @@
 package dz.mdn.iaas.business.provider.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
 import dz.mdn.iaas.business.provider.model.Clearance;
+import dz.mdn.iaas.business.provider.model.Provider;
+import dz.mdn.iaas.business.provider.model.ProviderRepresentator;
+import dz.mdn.iaas.common.communication.dto.MailDTO;
+import dz.mdn.iaas.common.communication.model.Mail;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -55,6 +60,13 @@ public class ClearanceDTO extends GenericDTO<Clearance> {
     private Long providerRepresentatorId;
     
     private Long referenceId;
+    
+    private ProviderDTO provider;
+    
+    private ProviderRepresentatorDTO providerRepresentator;
+    
+    private MailDTO reference;
+
 
     @Override
     public Clearance toEntity() {
@@ -63,6 +75,25 @@ public class ClearanceDTO extends GenericDTO<Clearance> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
+        
+		if (this.providerId != null) {
+			Provider provider = new Provider();
+			provider.setId(this.providerId);
+		    entity.setProvider(provider);
+		}
+        
+		if (this.providerRepresentatorId != null) {
+			ProviderRepresentator providerRepresentator = new ProviderRepresentator();
+			providerRepresentator.setId(this.providerRepresentatorId);
+		    entity.setProviderRepresentator(providerRepresentator);
+		}
+        
+		if (this.referenceId != null) {
+			Mail reference = new Mail();
+			reference.setId(this.referenceId);
+		    entity.setReference(reference);
+		}
+		
         return entity;
     }
 
@@ -71,6 +102,24 @@ public class ClearanceDTO extends GenericDTO<Clearance> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        
+		if (this.providerId != null) {
+			Provider provider = new Provider();
+			provider.setId(this.providerId);
+		    entity.setProvider(provider);
+		}
+        
+		if (this.providerRepresentatorId != null) {
+			ProviderRepresentator providerRepresentator = new ProviderRepresentator();
+			providerRepresentator.setId(this.providerRepresentatorId);
+		    entity.setProviderRepresentator(providerRepresentator);
+		}
+        
+		if (this.referenceId != null) {
+			Mail reference = new Mail();
+			reference.setId(this.referenceId);
+		    entity.setReference(reference);
+		}
     }
 
     public static ClearanceDTO fromEntity(Clearance entity) {
@@ -84,6 +133,10 @@ public class ClearanceDTO extends GenericDTO<Clearance> {
                 .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
                 .providerRepresentatorId(entity.getProviderRepresentator() != null ? entity.getProviderRepresentator().getId() : null)
                 .referenceId(entity.getReference() != null ? entity.getReference().getId() : null)
+                
+                .provider(entity.getProvider() != null ? ProviderDTO.fromEntity(entity.getProvider()) : null)
+                .providerRepresentator(entity.getProviderRepresentator() != null ? ProviderRepresentatorDTO.fromEntity(entity.getProviderRepresentator()) : null)
+                .reference(entity.getReference() != null ? MailDTO.fromEntity(entity.getReference()) : null)
                 .build();
     }
 }

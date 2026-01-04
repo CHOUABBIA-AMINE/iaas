@@ -13,8 +13,12 @@
 package dz.mdn.iaas.business.plan.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.plan.model.FinancialOperation;
+import dz.mdn.iaas.business.plan.model.Item;
+import dz.mdn.iaas.business.plan.model.ItemStatus;
 import dz.mdn.iaas.business.plan.model.PlannedItem;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -54,6 +58,12 @@ public class PlannedItemDTO extends GenericDTO<PlannedItem> {
     
     @NotNull(message = "Financial Operation Id is required")
     private Long financialOperationId;
+    
+    private ItemStatusDTO itemStatus;
+
+    private ItemDTO item;
+    
+    private FinancialOperationDTO financialOperation;
 
     @Override
     public PlannedItem toEntity() {
@@ -63,6 +73,25 @@ public class PlannedItemDTO extends GenericDTO<PlannedItem> {
         entity.setUnitairCost(this.unitairCost);
         entity.setPlanedQuantity(this.planedQuantity);
         entity.setAllocatedAmount(this.allocatedAmount);
+        
+		if (this.itemStatusId != null) {
+			ItemStatus itemStatus = new ItemStatus();
+			itemStatus.setId(this.itemStatusId);
+		    entity.setItemStatus(itemStatus);
+		}
+        
+		if (this.itemId != null) {
+			Item item = new Item();
+			item.setId(this.itemId);
+		    entity.setItem(item);
+		}
+        
+		if (this.financialOperationId != null) {
+			FinancialOperation financialOperation = new FinancialOperation();
+			financialOperation.setId(this.financialOperationId);
+		    entity.setFinancialOperation(financialOperation);
+		}
+		
         return entity;
     }
 
@@ -72,6 +101,24 @@ public class PlannedItemDTO extends GenericDTO<PlannedItem> {
         entity.setUnitairCost(this.unitairCost);
         entity.setPlanedQuantity(this.planedQuantity);
         entity.setAllocatedAmount(this.allocatedAmount);
+        
+		if (this.itemStatusId != null) {
+			ItemStatus itemStatus = new ItemStatus();
+			itemStatus.setId(this.itemStatusId);
+		    entity.setItemStatus(itemStatus);
+		}
+        
+		if (this.itemId != null) {
+			Item item = new Item();
+			item.setId(this.itemId);
+		    entity.setItem(item);
+		}
+        
+		if (this.financialOperationId != null) {
+			FinancialOperation financialOperation = new FinancialOperation();
+			financialOperation.setId(this.financialOperationId);
+		    entity.setFinancialOperation(financialOperation);
+		}
     }
 
     public static PlannedItemDTO fromEntity(PlannedItem entity) {
@@ -85,6 +132,10 @@ public class PlannedItemDTO extends GenericDTO<PlannedItem> {
                 .itemStatusId(entity.getItemStatus() != null ? entity.getItemStatus().getId() : null)
                 .itemId(entity.getItem() != null ? entity.getItem().getId() : null)
                 .financialOperationId(entity.getFinancialOperation() != null ? entity.getFinancialOperation().getId() : null)
+                
+                .itemStatus(entity.getItemStatus() != null ? ItemStatusDTO.fromEntity(entity.getItemStatus()) : null)
+                .item(entity.getItem() != null ? ItemDTO.fromEntity(entity.getItem()) : null)
+                .financialOperation(entity.getFinancialOperation() != null ? FinancialOperationDTO.fromEntity(entity.getFinancialOperation()) : null)
                 .build();
     }
 }

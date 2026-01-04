@@ -15,9 +15,18 @@
 package dz.mdn.iaas.business.provider.dto;
 
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.provider.model.EconomicNature;
 import dz.mdn.iaas.business.provider.model.Provider;
+import dz.mdn.iaas.common.administration.dto.CountryDTO;
+import dz.mdn.iaas.common.administration.dto.StateDTO;
+import dz.mdn.iaas.common.administration.model.Country;
+import dz.mdn.iaas.common.administration.model.State;
+import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.system.utility.dto.FileDTO;
+import dz.mdn.iaas.system.utility.model.File;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -83,6 +92,15 @@ public class ProviderDTO extends GenericDTO<Provider> {
     private Long countryId;
     
     private Long stateId;
+    
+    private FileDTO logo;
+    
+    private EconomicNatureDTO economicNature;
+    
+    private CountryDTO country;
+    
+    private StateDTO state;
+
 
     @Override
     public Provider toEntity() {
@@ -105,6 +123,31 @@ public class ProviderDTO extends GenericDTO<Provider> {
         entity.setFaxNumbers(this.faxNumbers);
         entity.setMail(this.mail);
         entity.setWebsite(this.website);
+        
+		if (this.logoId != null) {
+			File logo = new File();
+			logo.setId(this.logoId);
+		    entity.setLogo(logo);
+		}
+        
+		if (this.economicNatureId != null) {
+			EconomicNature economicNature = new EconomicNature();
+			economicNature.setId(this.economicNatureId);
+		    entity.setEconomicNature(economicNature);
+		}
+        
+		if (this.countryId != null) {
+			Country country = new Country();
+			country.setId(this.countryId);
+		    entity.setCountry(country);
+		}
+        
+		if (this.stateId != null) {
+			State state = new State();
+			state.setId(this.stateId);
+		    entity.setState(state);
+		}
+		
         return entity;
     }
 
@@ -127,6 +170,30 @@ public class ProviderDTO extends GenericDTO<Provider> {
         if (this.faxNumbers != null) entity.setFaxNumbers(this.faxNumbers);
         if (this.mail != null) entity.setMail(this.mail);
         if (this.website != null) entity.setWebsite(this.website);
+        
+		if (this.logoId != null) {
+			File logo = new File();
+			logo.setId(this.logoId);
+		    entity.setLogo(logo);
+		}
+        
+		if (this.economicNatureId != null) {
+			EconomicNature economicNature = new EconomicNature();
+			economicNature.setId(this.economicNatureId);
+		    entity.setEconomicNature(economicNature);
+		}
+        
+		if (this.countryId != null) {
+			Country country = new Country();
+			country.setId(this.countryId);
+		    entity.setCountry(country);
+		}
+        
+		if (this.stateId != null) {
+			State state = new State();
+			state.setId(this.stateId);
+		    entity.setState(state);
+		}
     }
 
     public static ProviderDTO fromEntity(Provider entity) {
@@ -151,10 +218,16 @@ public class ProviderDTO extends GenericDTO<Provider> {
                 .faxNumbers(entity.getFaxNumbers())
                 .mail(entity.getMail())
                 .website(entity.getWebsite())
-                //.logoId(entity.getLogo() != null ? entity.getLogo().getId() : null)
+                .logoId(entity.getLogo() != null ? entity.getLogo().getId() : null)
                 .economicNatureId(entity.getEconomicNature() != null ? entity.getEconomicNature().getId() : null)
                 .countryId(entity.getCountry() != null ? entity.getCountry().getId() : null)
                 .stateId(entity.getState() != null ? entity.getState().getId() : null)
+                
+                .logo(entity.getLogo() != null ? FileDTO.fromEntity(entity.getLogo()) : null)
+                .economicNature(entity.getEconomicNature() != null ? EconomicNatureDTO.fromEntity(entity.getEconomicNature()) : null)
+                .country(entity.getCountry() != null ? CountryDTO.fromEntity(entity.getCountry()) : null)
+                .state(entity.getState() != null ? StateDTO.fromEntity(entity.getState()) : null)
+
                 .build();
     }
 }

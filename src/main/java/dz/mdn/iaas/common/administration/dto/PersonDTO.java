@@ -15,6 +15,8 @@
 package dz.mdn.iaas.common.administration.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import dz.mdn.iaas.common.administration.model.Country;
 import dz.mdn.iaas.common.administration.model.Person;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
@@ -61,6 +63,8 @@ public class PersonDTO extends GenericDTO<Person> {
     private String birthPlace;
 
     private Long countryId;
+    
+    private CountryDTO country;
 
     @Override
     public Person toEntity() {
@@ -72,6 +76,13 @@ public class PersonDTO extends GenericDTO<Person> {
         entity.setFirstNameLt(this.firstNameLt);
         entity.setBirthDate(this.birthDate);
         entity.setBirthPlace(this.birthPlace);
+        
+		if (this.countryId != null) {
+			Country country = new Country();
+			country.setId(this.countryId);
+		    entity.setCountry(country);
+		}
+
         return entity;
     }
 
@@ -83,6 +94,12 @@ public class PersonDTO extends GenericDTO<Person> {
         if (this.firstNameLt != null) entity.setFirstNameLt(this.firstNameLt);
         if (this.birthDate != null) entity.setBirthDate(this.birthDate);
         if (this.birthPlace != null) entity.setBirthPlace(this.birthPlace);
+        
+		if (this.countryId != null) {
+			Country country = new Country();
+			country.setId(this.countryId);
+		    entity.setCountry(country);
+		}
     }
 
     public static PersonDTO fromEntity(Person entity) {
@@ -96,6 +113,8 @@ public class PersonDTO extends GenericDTO<Person> {
                 .birthDate(entity.getBirthDate())
                 .birthPlace(entity.getBirthPlace())
                 .countryId(entity.getCountry() != null ? entity.getCountry().getId() : null)
+                
+                .country(entity.getCountry() != null ? CountryDTO.fromEntity(entity.getCountry()) : null)
                 .build();
     }
 }

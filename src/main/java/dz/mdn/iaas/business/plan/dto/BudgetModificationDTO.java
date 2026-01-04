@@ -15,9 +15,13 @@
 package dz.mdn.iaas.business.plan.dto;
 
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
 import dz.mdn.iaas.business.plan.model.BudgetModification;
+import dz.mdn.iaas.common.document.dto.DocumentDTO;
+import dz.mdn.iaas.common.document.model.Document;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -51,6 +55,10 @@ public class BudgetModificationDTO extends GenericDTO<BudgetModification> {
     
     @NotNull(message = "Response document is required")
     private Long responseId;
+    
+    private DocumentDTO demande;
+    
+    private DocumentDTO response;
 
     @Override
     public BudgetModification toEntity() {
@@ -59,6 +67,19 @@ public class BudgetModificationDTO extends GenericDTO<BudgetModification> {
         entity.setObject(this.object);
         entity.setDescription(this.description);
         entity.setApprovalDate(this.approvalDate);
+        
+		if (this.demandeId != null) {
+			Document demande = new Document();
+			demande.setId(this.demandeId);
+		    entity.setDemande(demande);
+		}
+        
+		if (this.responseId != null) {
+			Document response = new Document();
+			response.setId(this.responseId);
+		    entity.setResponse(response);
+		}
+		
         return entity;
     }
 
@@ -67,6 +88,18 @@ public class BudgetModificationDTO extends GenericDTO<BudgetModification> {
         if (this.object != null) entity.setObject(this.object);
         if (this.description != null) entity.setDescription(this.description);
         if (this.approvalDate != null) entity.setApprovalDate(this.approvalDate);
+        
+		if (this.demandeId != null) {
+			Document demande = new Document();
+			demande.setId(this.demandeId);
+		    entity.setDemande(demande);
+		}
+        
+		if (this.responseId != null) {
+			Document response = new Document();
+			response.setId(this.responseId);
+		    entity.setResponse(response);
+		}
     }
 
     public static BudgetModificationDTO fromEntity(BudgetModification entity) {
@@ -78,6 +111,9 @@ public class BudgetModificationDTO extends GenericDTO<BudgetModification> {
                 .approvalDate(entity.getApprovalDate())
                 .demandeId(entity.getDemande() != null ? entity.getDemande().getId() : null)
                 .responseId(entity.getResponse() != null ? entity.getResponse().getId() : null)
+                
+                .demande(entity.getDemande() != null ? DocumentDTO.fromEntity(entity.getDemande()) : null)
+                .response(entity.getResponse() != null ? DocumentDTO.fromEntity(entity.getResponse()) : null)
                 .build();
     }
 }

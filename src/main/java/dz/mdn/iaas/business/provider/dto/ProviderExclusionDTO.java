@@ -15,9 +15,15 @@
 package dz.mdn.iaas.business.provider.dto;
 
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.provider.model.ExclusionType;
+import dz.mdn.iaas.business.provider.model.Provider;
 import dz.mdn.iaas.business.provider.model.ProviderExclusion;
+import dz.mdn.iaas.common.communication.dto.MailDTO;
+import dz.mdn.iaas.common.communication.model.Mail;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,6 +57,12 @@ public class ProviderExclusionDTO extends GenericDTO<ProviderExclusion> {
     private Long providerId;
     
     private Long referenceId;
+    
+    private ExclusionTypeDTO exclusionType;
+    
+    private ProviderDTO provider;
+    
+    private MailDTO reference;
 
     @Override
     public ProviderExclusion toEntity() {
@@ -59,6 +71,25 @@ public class ProviderExclusionDTO extends GenericDTO<ProviderExclusion> {
         entity.setStartDate(this.startDate);
         entity.setEndDate(this.endDate);
         entity.setCause(this.cause);
+        
+		if (this.exclusionTypeId != null) {
+			ExclusionType exclusionType = new ExclusionType();
+			exclusionType.setId(this.exclusionTypeId);
+		    entity.setExclusionType(exclusionType);
+		}
+        
+		if (this.providerId != null) {
+			Provider provider = new Provider();
+			provider.setId(this.providerId);
+		    entity.setProvider(provider);
+		}
+        
+		if (this.referenceId != null) {
+			Mail reference = new Mail();
+			reference.setId(this.referenceId);
+		    entity.setReference(reference);
+		}
+		
         return entity;
     }
 
@@ -67,6 +98,24 @@ public class ProviderExclusionDTO extends GenericDTO<ProviderExclusion> {
         if (this.startDate != null) entity.setStartDate(this.startDate);
         if (this.endDate != null) entity.setEndDate(this.endDate);
         if (this.cause != null) entity.setCause(this.cause);
+        
+		if (this.exclusionTypeId != null) {
+			ExclusionType exclusionType = new ExclusionType();
+			exclusionType.setId(this.exclusionTypeId);
+		    entity.setExclusionType(exclusionType);
+		}
+        
+		if (this.providerId != null) {
+			Provider provider = new Provider();
+			provider.setId(this.providerId);
+		    entity.setProvider(provider);
+		}
+        
+		if (this.referenceId != null) {
+			Mail reference = new Mail();
+			reference.setId(this.referenceId);
+		    entity.setReference(reference);
+		}
     }
 
     public static ProviderExclusionDTO fromEntity(ProviderExclusion entity) {
@@ -80,6 +129,10 @@ public class ProviderExclusionDTO extends GenericDTO<ProviderExclusion> {
                 .exclusionTypeId(entity.getExclusionType() != null ? entity.getExclusionType().getId() : null)
                 .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
                 .referenceId(entity.getReference() != null ? entity.getReference().getId() : null)
+                
+                .exclusionType(entity.getExclusionType() != null ? ExclusionTypeDTO.fromEntity(entity.getExclusionType()) : null)
+                .provider(entity.getProvider() != null ? ProviderDTO.fromEntity(entity.getProvider()) : null)
+                .reference(entity.getReference() != null ? MailDTO.fromEntity(entity.getReference()) : null)
                 .build();
     }
 }

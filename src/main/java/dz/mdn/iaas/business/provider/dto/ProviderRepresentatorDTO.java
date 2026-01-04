@@ -15,8 +15,10 @@
 package dz.mdn.iaas.business.provider.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
+import dz.mdn.iaas.business.provider.model.Provider;
 import dz.mdn.iaas.business.provider.model.ProviderRepresentator;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -69,6 +71,8 @@ public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> 
     
     @NotNull(message = "Provider is required")
     private Long providerId;
+    
+    private ProviderDTO provider;
 
     @Override
     public ProviderRepresentator toEntity() {
@@ -83,6 +87,13 @@ public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> 
         entity.setMobilePhoneNumber(this.mobilePhoneNumber);
         entity.setFixPhoneNumber(this.fixPhoneNumber);
         entity.setMail(this.mail);
+        
+		if (this.providerId != null) {
+			Provider provider = new Provider();
+			provider.setId(this.providerId);
+		    entity.setProvider(provider);
+		}
+		
         return entity;
     }
 
@@ -97,6 +108,12 @@ public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> 
         if (this.mobilePhoneNumber != null) entity.setMobilePhoneNumber(this.mobilePhoneNumber);
         if (this.fixPhoneNumber != null) entity.setFixPhoneNumber(this.fixPhoneNumber);
         if (this.mail != null) entity.setMail(this.mail);
+        
+		if (this.providerId != null) {
+			Provider provider = new Provider();
+			provider.setId(this.providerId);
+		    entity.setProvider(provider);
+		}
     }
 
     public static ProviderRepresentatorDTO fromEntity(ProviderRepresentator entity) {
@@ -114,6 +131,8 @@ public class ProviderRepresentatorDTO extends GenericDTO<ProviderRepresentator> 
                 .fixPhoneNumber(entity.getFixPhoneNumber())
                 .mail(entity.getMail())
                 .providerId(entity.getProvider() != null ? entity.getProvider().getId() : null)
+                
+                .provider(entity.getProvider() != null ? ProviderDTO.fromEntity(entity.getProvider()) : null)
                 .build();
     }
 }

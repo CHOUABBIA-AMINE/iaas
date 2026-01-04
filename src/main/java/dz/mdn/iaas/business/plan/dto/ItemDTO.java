@@ -15,8 +15,10 @@
 package dz.mdn.iaas.business.plan.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import dz.mdn.iaas.configuration.template.GenericDTO;
+
 import dz.mdn.iaas.business.plan.model.Item;
+import dz.mdn.iaas.business.plan.model.Rubric;
+import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -50,6 +52,8 @@ public class ItemDTO extends GenericDTO<Item> {
     
     @NotNull(message = "Rubric is required")
     private Long rubricId;
+    
+    private RubricDTO rubric;
 
     @Override
     public Item toEntity() {
@@ -58,6 +62,13 @@ public class ItemDTO extends GenericDTO<Item> {
         entity.setDesignationAr(this.designationAr);
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
+        
+		if (this.rubricId != null) {
+			Rubric rubric = new Rubric();
+			rubric.setId(this.rubricId);
+		    entity.setRubric(rubric);
+		}
+		
         return entity;
     }
 
@@ -66,6 +77,12 @@ public class ItemDTO extends GenericDTO<Item> {
         if (this.designationAr != null) entity.setDesignationAr(this.designationAr);
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
+        
+		if (this.rubricId != null) {
+			Rubric rubric = new Rubric();
+			rubric.setId(this.rubricId);
+		    entity.setRubric(rubric);
+		}
     }
 
     public static ItemDTO fromEntity(Item entity) {
@@ -76,6 +93,8 @@ public class ItemDTO extends GenericDTO<Item> {
                 .designationEn(entity.getDesignationEn())
                 .designationFr(entity.getDesignationFr())
                 .rubricId(entity.getRubric() != null ? entity.getRubric().getId() : null)
+                
+                .rubric(entity.getRubric() != null ? RubricDTO.fromEntity(entity.getRubric()) : null)
                 .build();
     }
 }

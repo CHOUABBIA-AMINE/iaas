@@ -14,9 +14,15 @@
 
 package dz.mdn.iaas.common.document.dto;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.common.document.model.Document;
+import dz.mdn.iaas.common.document.model.DocumentType;
 import dz.mdn.iaas.configuration.template.GenericDTO;
+import dz.mdn.iaas.system.utility.dto.FileDTO;
+import dz.mdn.iaas.system.utility.model.File;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,8 +31,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.util.Date;
 
 /**
  * Document Data Transfer Object
@@ -54,6 +58,10 @@ public class DocumentDTO extends GenericDTO<Document> {
 
     @NotNull(message = "File ID is required")
     private Long fileId;
+    
+    private DocumentTypeDTO documentType;
+    
+    private FileDTO file;
 
     @Override
     public Document toEntity() {
@@ -62,6 +70,19 @@ public class DocumentDTO extends GenericDTO<Document> {
         entity.setReference(this.reference);
         entity.setSubject(this.subject);
         entity.setDocumentDate(this.documentDate);
+        
+        if (this.documentTypeId != null) {
+        	DocumentType documentType = new DocumentType();
+        	documentType.setId(this.documentTypeId);
+            entity.setDocumentType(documentType);
+        }
+        
+        if (this.fileId != null) {
+        	File file = new File();
+        	file.setId(this.fileId);
+            entity.setFile(file);
+        }
+        
         return entity;
     }
 
@@ -70,6 +91,18 @@ public class DocumentDTO extends GenericDTO<Document> {
         if (this.reference != null) entity.setReference(this.reference);
         if (this.subject != null) entity.setSubject(this.subject);
         if (this.documentDate != null) entity.setDocumentDate(this.documentDate);
+        
+        if (this.documentTypeId != null) {
+        	DocumentType documentType = new DocumentType();
+        	documentType.setId(this.documentTypeId);
+            entity.setDocumentType(documentType);
+        }
+        
+        if (this.fileId != null) {
+        	File file = new File();
+        	file.setId(this.fileId);
+            entity.setFile(file);
+        }
     }
 
     public static DocumentDTO fromEntity(Document entity) {
@@ -81,6 +114,9 @@ public class DocumentDTO extends GenericDTO<Document> {
                 .documentDate(entity.getDocumentDate())
                 .documentTypeId(entity.getDocumentType() != null ? entity.getDocumentType().getId() : null)
                 .fileId(entity.getFile() != null ? entity.getFile().getId() : null)
+                
+                .documentType(entity.getDocumentType() != null ? DocumentTypeDTO.fromEntity(entity.getDocumentType()) : null)
+                .file(entity.getFile() != null ? FileDTO.fromEntity(entity.getFile()) : null)
                 .build();
     }
 }

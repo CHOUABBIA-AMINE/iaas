@@ -15,6 +15,7 @@
 package dz.mdn.iaas.common.administration.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import dz.mdn.iaas.common.administration.model.Job;
 import dz.mdn.iaas.common.administration.model.Structure;
 import dz.mdn.iaas.configuration.template.GenericDTO;
@@ -55,6 +56,8 @@ public class JobDTO extends GenericDTO<Job> {
     
     @NotNull(message = "Structure ID is required")
     private Long structureId;
+    
+    private StructureDTO structure;
 
     @Override
     public Job toEntity() {
@@ -97,6 +100,8 @@ public class JobDTO extends GenericDTO<Job> {
                 .designationFr(entity.getDesignationFr())
                 .code(entity.getCode())
                 .structureId(entity.getStructure() != null ? entity.getStructure().getId() : null)
+                
+                .structure(entity.getStructure() != null ? StructureDTO.fromEntity(entity.getStructure()) : null)
                 .build();
     }
 }

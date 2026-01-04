@@ -15,6 +15,9 @@
 package dz.mdn.iaas.common.environment.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
+import dz.mdn.iaas.common.environment.model.Bloc;
+import dz.mdn.iaas.common.environment.model.Floor;
 import dz.mdn.iaas.common.environment.model.Room;
 import dz.mdn.iaas.configuration.template.GenericDTO;
 import jakarta.validation.constraints.NotBlank;
@@ -57,6 +60,10 @@ public class RoomDTO extends GenericDTO<Room> {
 
     @NotNull(message = "Floor ID is required")
     private Long floorId;
+    
+    private BlocDTO bloc;
+
+    private FloorDTO floor;
 
     @Override
     public Room toEntity() {
@@ -66,6 +73,19 @@ public class RoomDTO extends GenericDTO<Room> {
         entity.setDesignationEn(this.designationEn);
         entity.setDesignationFr(this.designationFr);
         entity.setCode(this.code);
+        
+        if (this.blocId != null) {
+        	Bloc bloc = new Bloc();
+        	bloc.setId(this.blocId);
+            entity.setBloc(bloc);
+        }
+        
+        if (this.floorId != null) {
+        	Floor floor = new Floor();
+        	floor.setId(this.floorId);
+            entity.setFloor(floor);
+        }
+        
         return entity;
     }
 
@@ -75,6 +95,19 @@ public class RoomDTO extends GenericDTO<Room> {
         if (this.designationEn != null) entity.setDesignationEn(this.designationEn);
         if (this.designationFr != null) entity.setDesignationFr(this.designationFr);
         if (this.code != null) entity.setCode(this.code);
+        
+        if (this.blocId != null) {
+        	Bloc bloc = new Bloc();
+        	bloc.setId(this.blocId);
+            entity.setBloc(bloc);
+        }
+        
+        if (this.floorId != null) {
+        	Floor floor = new Floor();
+        	floor.setId(this.floorId);
+            entity.setFloor(floor);
+        }
+        
     }
 
     public static RoomDTO fromEntity(Room entity) {
@@ -87,6 +120,9 @@ public class RoomDTO extends GenericDTO<Room> {
                 .code(entity.getCode())
                 .blocId(entity.getBloc() != null ? entity.getBloc().getId() : null)
                 .floorId(entity.getFloor() != null ? entity.getFloor().getId() : null)
+                
+                .bloc(entity.getBloc() != null ? BlocDTO.fromEntity(entity.getBloc()) : null)
+                .floor(entity.getFloor() != null ? FloorDTO.fromEntity(entity.getFloor()) : null)
                 .build();
     }
 }
